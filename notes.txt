@@ -1,0 +1,22 @@
+UI:
+	Have frequently used actions on a bottom action bar.
+	Search bar in every view
+	Top Action Bar:
+		Search
+		Sort Menu
+			By Date
+			By Vote
+			By Picture
+	Bottom Action Bar:
+		Favorites
+		Ask
+		Profile
+		Overflow:
+			Settings
+			Login / Profile
+			Sort by rating
+			Sort by date submitted
+			
+
+Things to do (FOR MONDAY)
+	Get a UML done (or half done)

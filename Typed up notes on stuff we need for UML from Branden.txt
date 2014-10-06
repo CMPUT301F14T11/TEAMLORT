@@ -1,0 +1,29 @@
+User Needs
+-Browse Questions
+-View Questions + Answers
+-View Replies to Q+A
+-Sort Questions by
+	Pictures
+	Date
+	Score
+-Upvote Questions
+-How many replies a question has
+-Have a local cache of
+	Recently read Q+A
+	Saved Q+A
+->By default, see most fresh comments.
+
+Author Needs
+-Make questions
+-Make Answers
+-Make Replies to Q+A
+-Attach pictures to my Q+A
+-Have local cache of
+	Questions I've asked
+	Questions I've answered
+-Author Questions + Answers offline
+-Push Q+A and replies when reconnecting to the net.
+-Set my username
+
+Admin Needs
+-Pictures < 64kb

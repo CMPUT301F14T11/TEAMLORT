@@ -85,4 +85,13 @@ public class QuestionsTest extends TestCase {
 		assertTrue("getAnswer() did not return list with answer", list1.get(0) == answer);
 	}
 	
+	public void testQUEPIC() 
+54 	{ 
+55 		Question question = new Question(); 
+56 		private Bitmap image = new Bitmap();//this is not how bitmap is set up,more work needs to be done to make a proper bitmap 
+57 		question.addpic(i); 
+58 		assertTrue("picture file size too large",question.getpic().getAllocationByteCount () <= 64); 
+59 	} 
+
+	
 }

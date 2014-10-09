@@ -93,5 +93,15 @@ public class QuestionsTest extends TestCase {
 58 		assertTrue("picture file size too large",question.getpic().getAllocationByteCount () <= 64); 
 59 	} 
 
-	
+	public void testSort()
+	{
+		ArrayList<Questions> questionlist;
+		for (int i =0; x<=9; x++)
+		{
+			Question singlequestion = new Question()
+			singlequestion.setvote(i);
+			questionlist.add(singlequestion);
+		}
+		//not done yet
+	}
 }

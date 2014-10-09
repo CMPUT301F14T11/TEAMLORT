@@ -4,4 +4,9 @@
     <color name="default_bg">#FFEEEEEE</color>
     <color name="default_fg">#FFFFFFFF</color>
     
+    <color name="default_text">#FF000000</color>
+    <color name="light_text"  >#FFC0C0C0</color>
+    
+    <color name="default_divider">#FFC0C0C0</color>
+    
 </resources>

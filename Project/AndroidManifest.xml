@@ -28,6 +28,22 @@
             android:name=".AppBaseActivity"
             android:label="@string/title_activity_app_base" >
         </activity>
+        <activity
+            android:name=".ComposeQuestionActivity"
+            android:label="@string/title_activity_compose_question"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.cmput301f14t11.teamlort.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".QuestionViewActivity"
+            android:label="@string/title_activity_question_view"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.cmput301f14t11.teamlort.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

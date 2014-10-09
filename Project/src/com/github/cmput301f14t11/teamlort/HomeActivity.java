@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 
-public class HomeActivity extends AppBaseActivity {
+public class HomeActivity
+extends AppBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

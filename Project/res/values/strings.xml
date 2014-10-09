@@ -4,5 +4,15 @@
     <string name="app_name">LortAnswers</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_app_base">AppBaseActivity</string>
-
+    <string name="title_activity_compose_question">Compose Question</string>
+    <string name="compose_title">TITLE</string>
+    <string name="compose_title_hint">Enter a title (required)</string>
+    <string name="compose_desc">DETAILS</string>
+    <string name="compose_camera">PICTURE</string>
+    <string name="compose_desc_hint">Enter some details</string>
+    <string name="compose_tags">TAGS</string>
+    <string name="compose_answer">SUBMIT AN ANSWER</string>
+    <string name="compose_tags_hint">eg: Android, 301, Programming</string>
+    <string name="title_activity_question_view">QuestionViewActivity</string>
+    
 </resources>

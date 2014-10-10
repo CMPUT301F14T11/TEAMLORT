@@ -2,6 +2,8 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.ArrayList;
 
+import android.graphics.Bitmap;
+
 import junit.framework.TestCase;
 
 public class QuestionsTest extends TestCase {
@@ -17,11 +19,44 @@ public class QuestionsTest extends TestCase {
 		assertTrue("title doesn't match title", question.getTitle() == title);
 	}
 	
+	public void testGetTitle(){
+		String title = "How do I fly?";
+		Question question = new Question(title);
+		assertTrue("title doesn't match title", question.getTitle() == title);
+	}
+	
 	public void testSetDescription(){
 		String desc = "I have some feathers halp";
 		Question question = new Question();
+		assertTrue("Desc not empty by default", question.getDescription() == "");
 		question.setDescription(desc);
 		assertTrue("Description doesn't match desc", question.getDescription() == desc);
+	}
+	
+	public void testGetDescription(){
+		String title = "How do I fly?";
+		String desc = "I have some feathers halp";
+		Question question = new Question(title, desc);
+		assertTrue("Description doesn't match desc", question.getDescription() == desc);
+	}
+	
+	public void testAddReplies(){
+		String rep = "this is incredibly stupid";
+		Question question = new Question(title);
+		Reply reply = new Reply(rep);
+		question.addReply(rep);
+		assertTrue("Reply doesn't match rep", question.getReply(0) == rep);
+	}
+	
+	public void testGetReplies(){
+		String rep = "this is incredibly stupid";
+		String rep2 = "this is incredibly silly";
+		Question question = new Question(title);
+		Reply reply = new Reply(rep);
+		question.addReply(rep);
+		question.addReply(rep2);
+		assertTrue("Reply doesn't match rep", question.getReply(0) == rep);
+		assertTrue("Reply2 doesn't match rep2", question.getReply(1) == rep2);
 	}
 	
 	public void testSetAuthor(){
@@ -29,6 +64,14 @@ public class QuestionsTest extends TestCase {
 		Question question = new Question();
 		question.setAuthor(username);
 		assertTrue("Author doesn't match username", question.getAuthor() == username);
+	}
+	
+	public void testAddImage(){
+		//Right now this also tests getImage
+		Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888 );
+		Question question = new Question(title);
+		question.addImage(bitmap);
+		assertTrue("Bitmap does not match bitmap or getImage failed", question.getImage() == bitmap);
 	}
 	
 	public void testUpvote(){
@@ -76,7 +119,7 @@ public class QuestionsTest extends TestCase {
 		assertTrue("Question remove failed", list1.size() == 0);
 	}
 	
-	public void testTetAnswers(){
+	public void testGetAnswers(){
 		Question question = new Question();
 		Answer answer = new Answer();
 		ArrayList<Answer> list1 = question.getAnswers();

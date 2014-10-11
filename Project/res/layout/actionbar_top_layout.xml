@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="fill_horizontal" >
+
+    <ImageView
+        android:id="@+id/actionbar_app_icon"
+        android:contentDescription="@string/accessibility_app_ico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/activity_less_margin"
+        android:src="@drawable/ic_launcher" />
+    
+    <ImageButton
+        android:id="@+id/action_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/activity_less_margin"
+        android:layout_toLeftOf="@+id/action_sort"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/accessibility_sort_ico"
+        android:src="@drawable/ic_action_search" />
+
+    <ImageButton
+        android:id="@+id/action_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/activity_less_margin"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/accessibility_sort_ico"
+        android:src="@drawable/ic_action_sort_by_size" />
+
+</RelativeLayout>

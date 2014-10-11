@@ -12,15 +12,37 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:uiOptions="splitActionBarWhenNarrow" >
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name=".HomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".AppBaseActivity"
+            android:label="@string/title_activity_app_base" >
+        </activity>
+        <activity
+            android:name=".ComposeQuestionActivity"
+            android:label="@string/title_activity_compose_question"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.cmput301f14t11.teamlort.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".QuestionViewActivity"
+            android:label="@string/title_activity_question_view"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.cmput301f14t11.teamlort.HomeActivity" />
         </activity>
     </application>
 

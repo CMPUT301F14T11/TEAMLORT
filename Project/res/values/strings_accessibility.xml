@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="accessibility_app_ico">LORTAnswers</string>
+
+    <string name="accessibility_search_ico">Search</string>
+    <string name="accessibility_accept_ico">Accept</string>
+    <string name="accessibility_cancel_ico">Cancel</string>
+    <string name="accessibility_camera_ico">Camera</string>
+    <string name="accessibility_sort_ico">Sort</string>
+    <string name="accessibility_reply_ico">Reply</string>
+    <string name="accessibility_overflow_ico">Overflow</string>
+    <string name="accessibility_save_ico">Save</string>
+    <string name="accessibility_favorite_ico">Favorite</string>
+    <string name="accessibility_thumbnail">Thumbnail</string>
+
+</resources>

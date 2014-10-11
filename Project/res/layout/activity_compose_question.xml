@@ -1,0 +1,145 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_bg"
+    tools:context="com.github.cmput301f14t11.teamlort.ComposeQuestionActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/activity_less_margin"
+        android:background="@color/default_fg"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/compose_title_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_less_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_less_vertical_margin"
+            android:labelFor="@+id/compose_title_entry"
+            android:text="@string/compose_title" />
+
+        <EditText
+            android:id="@+id/compose_title_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_less_horizontal_margin"
+            android:ems="10"
+            android:hint="@string/compose_title_hint"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/compose_desc_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_less_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_less_vertical_margin"
+            android:labelFor="@+id/compose_desc_entry"
+            android:text="@string/compose_desc" />
+
+        <EditText
+            android:id="@+id/compose_desc_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_less_horizontal_margin"
+            android:ems="10"
+            android:hint="@string/compose_desc_hint"
+            android:inputType="textCapSentences" />
+
+        <TextView
+            android:id="@+id/compose_camera_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_less_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_less_vertical_margin"
+            android:text="@string/compose_camera" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_margin="@dimen/activity_margin"
+                android:layout_weight="0"
+                android:contentDescription="@string/accessibility_thumbnail"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder" />
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/activity_margin"
+                android:layout_weight="0"
+                android:contentDescription="@string/accessibility_camera_ico"
+                android:src="@drawable/ic_action_camera_dark" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/compose_tags_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_less_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_less_vertical_margin"
+            android:labelFor="@+id/compose_tags_entry"
+            android:text="@string/compose_tags" />
+
+        <EditText
+            android:id="@+id/compose_tags_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_less_horizontal_margin"
+            android:ems="10"
+            android:hint="@string/compose_tags_hint"
+            android:inputType="textCapSentences" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_less_vertical_margin"
+            android:layout_marginTop="@dimen/activity_less_vertical_margin" >
+
+            <ImageButton
+                android:id="@+id/accept_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/accessibility_accept_ico"
+                android:src="@drawable/ic_action_accept_dark" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/default_divider" />
+
+            <ImageButton
+                android:id="@+id/cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/accessibility_cancel_ico"
+                android:src="@drawable/ic_action_cancel_dark" />
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+
+</RelativeLayout>

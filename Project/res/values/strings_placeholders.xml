@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="listitem_question_title">I have a question about something related to things.</string>
+    <string name="listitem_question_desc">This is the question description. The listview item will display up to 2 items of this and then ellipsize the rest.</string>
+    <string name="listitem_question_stats">Posted 2h ago, 1 reply.</string>
+    
+</resources>

@@ -5,8 +5,7 @@ Already Added:
 - Reply
 - ElasticSearchManager
 - UserManager
-- ToCommitManager (for local stuff that should be 
-		   pushed online once wi-fi available)
+
 
 To Add:
 - QuestionList (Where did that go?)
@@ -15,7 +14,6 @@ To Add:
 	- SearchResultActivity (Separate from above or same?)
 - ViewQuestionActivity
 - ComposeQuestionActivity
-- LoginActivity
 - ProfileActivity
 - SettingsActivity
 
@@ -23,7 +21,10 @@ To Add:
 	 - SortController (maybe should be combined with above)
 - ElasticSearchController
 - UserSettingsController
+
+- ToCommitManager (for local stuff that should be 
+		   pushed online once wi-fi available)
 - ToCommitController (To use commit manager)
 
-
+- LoginDialogue
 

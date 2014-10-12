@@ -1,5 +1,6 @@
 package com.github.cmput301f14t11.teamlort.test;
 
+import android.graphics.Bitmap;
 import junit.framework.TestCase;
 
 public class AnswersTest extends TestCase {

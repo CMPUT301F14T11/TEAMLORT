@@ -54,8 +54,8 @@ public class AnswersTest extends TestCase {
 	public void testANSPIC()
 	{
 		Answer answer = new Answer();
-		private Bitmap image = new Bitmap();//this is not how bitmap is set up,more work needs to be done to make a proper bitmap
-		answer.addpic(i);
+		private Bitmap image = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888 ); 
+135 		answer.addImage(bitmap); 
 		assertTrue("picture file size too large",answer.getpic().getAllocationByteCount () <= 64);
 	}
 

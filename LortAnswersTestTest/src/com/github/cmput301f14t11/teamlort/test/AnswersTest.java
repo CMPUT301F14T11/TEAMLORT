@@ -33,19 +33,6 @@ public class AnswersTest extends TestCase {
 		assertTrue("Same user managed to upvote same question twice", answer.getScore() == 1);
 	}
 	
-	public void testDownvote(){
-		String username = "SIVLEOL";
-		Answer answer = new Answer();
-		answer.downvote(username);
-		assertTrue("Downvote did not change score", answer.getScore() == -1);
-		answer.downvote(username);
-		assertTrue("Same user managed to downvote same question twice", answer.getScore() == -1);
-		answer.upvote(username);
-		assertTrue("User was unable to re-upvote after downvoting", answer.getScore() == 0);
-		answer.upvote(username);
-		assertTrue("Upvote did not change score after canceling downvote", answer.getScore() == 1);
-	}
-	
 	public void testDate(){
 		Answer answer = new Answer();
 		assertTrue("question date is null", answer.getDate() != null);

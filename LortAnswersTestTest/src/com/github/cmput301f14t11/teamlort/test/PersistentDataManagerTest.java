@@ -62,24 +62,4 @@ public class PersistentDataManagerTest extends TestCase {
 		assertTrue("Partial list 2 does not contain question 3 where it should be", partialList.get(1) == question3);
 	}
 	
-	public void testGetQuestionTitles(){
-		PersistentDataManager dataManager = new PersistentDataManager();
-		String txt1 = "Why are there two amulets?";
-		String txt2 = "Didn't Archer already return amulet?";
-		String txt3 = "How does Shirou have amulet?";
-		Question question = new Question(txt1);
-		Question question2 = new Question(txt2);
-		Question question3 = new Question(txt3);
-		dataManager.addQuestion(question);
-		dataManager.addQuestion(question2);
-		dataManager.addQuestion(question3);
-		ArrayList<String> partialList = dataManager.getQuestions(0, 2);
-		assertTrue("Partial list does not contain question 1 where it should be", partialList.get(0) == question);
-		assertTrue("Partial list does not contain question 2 where it should be", partialList.get(1) == question2);
-		assertTrue("Partial list does not contain question 3 where it should be", partialList.get(2) == question3);
-		ArrayList<String> partialList2 = dataManager.getQuestions(1, 2);
-		assertTrue("Partial list 2 does not contain question 2 where it should be", partialList.get(0) == question2);
-		assertTrue("Partial list 2 does not contain question 3 where it should be", partialList.get(1) == question3);
-	}
-	
 }

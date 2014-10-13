@@ -5,4 +5,6 @@
     <string name="listitem_question_desc">This is the question description. The listview item will display up to 2 items of this and then ellipsize the rest.</string>
     <string name="listitem_question_stats">Posted 2h ago, 1 reply.</string>
     
+    <string name="profile_stats">User since January 1st, 1970 with 9001 points.</string>
+    
 </resources>

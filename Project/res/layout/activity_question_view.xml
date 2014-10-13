@@ -148,8 +148,9 @@
                 android:id="@+id/answer1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/listitem_question_button_bar"
+                android:layout_above="@+id/answer_stats_1"
                 android:layout_margin="@dimen/activity_margin"
+                android:layout_toLeftOf="@+id/listitem_question_button_bar"
                 android:text="@string/listitem_question_desc" />
 
             <LinearLayout
@@ -198,6 +199,7 @@
                 android:textStyle="italic" />
 
         </RelativeLayout>
+        
     </LinearLayout>
 
 </ScrollView>

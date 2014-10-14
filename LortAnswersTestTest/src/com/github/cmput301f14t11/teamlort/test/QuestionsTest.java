@@ -189,5 +189,14 @@ public class QuestionsTest extends TestCase {
     		}); 
 		//Sort by up votes, dates, images, and?(I'll just get these 3 done for now)
 		// we will need a "cheating method" to superficially add upvote count inorder to test sort,this method should be deleted in the release version
+	
 	}
+	
+	public void testAddFavorite() {
+    		Question question = new Question(title);
+    		Author author = new Author();
+    		author.addFavorite(question);
+    		assertTrue(author.favorites.contains(question));
+    	}
+	
 }

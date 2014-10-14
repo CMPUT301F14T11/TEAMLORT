@@ -197,6 +197,7 @@ public class QuestionsTest extends TestCase {
     		Author author = new Author();
     		author.addFavorite(question);
     		assertTrue(author.favorites.contains(question));
+    		assertTrue(author.hasUsername());
     	}
 	
 }

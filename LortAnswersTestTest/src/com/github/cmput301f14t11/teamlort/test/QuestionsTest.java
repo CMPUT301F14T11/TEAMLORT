@@ -41,22 +41,25 @@ public class QuestionsTest extends TestCase {
 	}
 	
 	public void testAddReplies(){
+		String title = "How do I fly?";
 		String rep = "this is incredibly stupid";
 		Question question = new Question(title);
 		Reply reply = new Reply(rep);
-		question.addReply(rep);
-		assertTrue("Reply doesn't match rep", question.getReply(0) == rep);
+		question.addReply(reply);
+		assertTrue("Reply doesn't match rep", question.getReply(0) == reply);
 	}
 	
 	public void testGetReplies(){
+		String title = "How do I fly?";
 		String rep = "this is incredibly stupid";
 		String rep2 = "this is incredibly silly";
 		Question question = new Question(title);
 		Reply reply = new Reply(rep);
-		question.addReply(rep);
-		question.addReply(rep2);
-		assertTrue("Reply doesn't match rep", question.getReply(0) == rep);
-		assertTrue("Reply2 doesn't match rep2", question.getReply(1) == rep2);
+		Reply reply2 = new Reply(rep2);
+		question.addReply(reply);
+		question.addReply(reply2);
+		assertTrue("Reply doesn't match rep", question.getReply(0) == reply);
+		assertTrue("Reply2 doesn't match rep2", question.getReply(1) == reply2);
 	}
 	
 	public void testSetAuthor(){

@@ -15,5 +15,7 @@
     <string name="compose_tags_hint">eg: Android, 301, Programming</string>
     <string name="title_activity_question_view">QuestionViewActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_reply">ReplyActivity</string>
+    <string name="compose_reply">Write Reply:</string>
 
 </resources>

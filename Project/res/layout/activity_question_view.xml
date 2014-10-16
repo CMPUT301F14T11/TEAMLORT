@@ -99,7 +99,7 @@
             android:padding="@dimen/activity_less_horizontal_margin" >
 
             <TextView
-                android:id="@+id/answer_title_label"
+                android:id="@+id/reply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignRight="@+id/answer_title_enrty"
@@ -111,7 +111,7 @@
                 android:id="@+id/answer_title_enrty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/answer_title_label"
+                android:layout_below="@+id/reply"
                 android:layout_toLeftOf="@+id/imageButton1"
                 android:ems="10"
                 android:inputType="textMultiLine" />

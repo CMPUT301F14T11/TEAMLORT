@@ -5,19 +5,32 @@
     android:background="@color/default_bg"
     tools:context="com.github.cmput301f14t11.teamlort.ProfileActivity" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/default_fg"
-        android:orientation="vertical" >
+        android:background="@color/default_fg" >
+        
+		<ImageButton
+		    android:id="@+id/imageButton1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="24dp"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentTop="true"
+		    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+		    android:layout_marginTop="@dimen/activity_vertical_margin"
+		    android:background="?android:attr/selectableItemBackground"
+		    android:src="@drawable/ic_action_edit_dark" />
 
         <TextView
             android:id="@+id/textView1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_toRightOf="@+id/imageButton1"
             android:text="Username"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -25,15 +38,58 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView1"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:text="@string/profile_stats"
             android:textColor="@color/light_text"
             android:textStyle="italic" />
         
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/activity_less_vertical_margin"
+            android:labelFor="@+id/profileButtonBar"
+            android:text="SHOW" />
         
+        <LinearLayout 
+            android:id="@+id/profileButtonBar"
+            android:layout_below="@+id/textView3"
+            android:orientation="horizontal"
+            android:layout_width="match_parent" 
+            android:layout_height="wrap_content" >
+            
+			<ImageButton
+			    android:id="@+id/favorite_button"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:background="?android:attr/selectableItemBackground"
+			    android:contentDescription="@string/accessibility_favorite_ico"
+			    android:src="@drawable/ic_action_favorite_dark" />
+			
+			<View
+			    android:layout_width="1dp"
+			    android:layout_height="match_parent"
+			    android:background="@color/default_divider" />
+			
+			<ImageButton
+			    android:id="@+id/save_button"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:background="?android:attr/selectableItemBackground"
+			    android:contentDescription="@string/accessibility_save_ico"
+			    android:src="@drawable/ic_action_save_dark" />
+            
+        </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
     
     <android.support.v4.view.ViewPager
         android:id="@+id/profile_pager"
@@ -44,5 +100,14 @@
         
         
     </android.support.v4.view.ViewPager>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/profile_pager"
+        android:layout_centerHorizontal="true"
+        android:text="SOMEDAY THERE WILL BE A LISTVIEW HERE, IT'LL BE GREAT"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

@@ -10,9 +10,10 @@ public class UseCase1Through4Test extends TestCase {
 
 	public void testCaseOne(){
 		//Test case for Use Case #1: User browses questions
-		PersistentDataManager dataManager = new PersistentDataManager();
+		PersistentDataManager dataManager = PersistentDataManager.getInstance();
+		DataController dataController = new DataController();
 		//If there are no questions, return no questions.
-		ArrayList<Question> emptyList = dataManager.getAllQuestions();
+		ArrayList<Question> emptyList = dataController.getAllQuestions();
 		assertTrue("Data manager returned questions when there should be none", emptyList.size() == 0);
 		
 		Question question = new Question("Why are there two amulets?");
@@ -20,33 +21,34 @@ public class UseCase1Through4Test extends TestCase {
 		Question question3 = new Question("How does Shirou have amulet?");
 		Question question4 = new Question("Are these spoilers for F/SN?");
 		Question question5 = new Question("Which route is this?");
-		dataManager.addQuestion(question);
-		dataManager.addQuestion(question2);
-		dataManager.addQuestion(question3);
-		dataManager.addQuestion(question4);
-		dataManager.addQuestion(question5);
+		dataController.addQuestion(question);
+		dataController.addQuestion(question2);
+		dataController.addQuestion(question3);
+		dataController.addQuestion(question4);
+		dataController.addQuestion(question5);
 		//App can retrieve a list of questions from PersistentDataManager
-		ArrayList<Question> partialList = dataManager.getQuestions(0, 2);
+		ArrayList<Question> partialList = dataController.getQuestions(0, 2);
 		assertTrue("Partial list does not contain question 1 where it should be", partialList.get(0) == question);
 		assertTrue("Partial list does not contain question 2 where it should be", partialList.get(1) == question2);
 		assertTrue("Partial list does not contain question 3 where it should be", partialList.get(2) == question3);
 		//App can add additional questions to current question list.
-		partialList.append(dataManager.getQuestions(2, 4));
+		partialList.append(dataController.getQuestions(2, 4));
 		assertTrue("Partial list does not contain question 4 where it should be", partialList.get(3) == question2);
 		assertTrue("Partial list does not contain question 5 where it should be", partialList.get(4) == question3);
 	}
 	
 	public void testCaseTwo(){
 		//Test case for Use Case #2: User views a question and its answers
-		PersistentDataManager dataManager = new PersistentDataManager();
+		PersistentDataManager dataManager = PersistentDataManager.getInstance();
+		DataController dataController = new DataController();
 		String title = "What was Lancer's noble phantasm?";
 		String desc = "His spear did weird stuff, I'm confused";
 		Question question = new Question(title);
 		question.setDescription(desc);
-		dataManager.addQuestion(question);
+		dataController.addQuestion(question);
 		
 		//Title and description must be retrievable for display.
-		Question testQuestion = dataManager.getQuestion(0);
+		Question testQuestion = dataController.getQuestion(0);
 		assertTrue("Title doesn't match title", question.getTitle() == title);
 		assertTrue("Description doesn't match desc", question.getDescription() == desc);
 		

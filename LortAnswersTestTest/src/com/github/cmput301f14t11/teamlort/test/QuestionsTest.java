@@ -195,12 +195,6 @@ public class QuestionsTest extends TestCase {
 	
 	}
 	
-	public void testAddFavorite() {
-    		Question question = new Question(title);
-    		Author author = new Author();
-    		author.addFavorite(question);
-    		assertTrue(author.favorites.contains(question));
-    		assertTrue(author.hasUsername());
-    	}
+	
 	
 }

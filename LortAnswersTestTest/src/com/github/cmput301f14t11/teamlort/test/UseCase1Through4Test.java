@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 
 import junit.framework.TestCase;
 
-public class UseCaseOneThroughFourTest extends TestCase {
+public class UseCase1Through4Test extends TestCase {
 
 	public void testCaseOne(){
 		//Test case for Use Case #1: User browses questions

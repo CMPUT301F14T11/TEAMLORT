@@ -18,7 +18,7 @@ public class UseCase9Test extends TestCase
  				Question question = new Question(title); 
  				question.addImage(bitmap); 
 			}
-			questionlist.add(singlequestion);
+			pdm.add(singlequestion);//persistent data manager
 		}
 
   	questionlist.sort(CONSTANT_IMAGE);

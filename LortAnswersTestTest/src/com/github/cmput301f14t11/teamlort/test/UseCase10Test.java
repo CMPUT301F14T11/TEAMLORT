@@ -18,7 +18,7 @@ public class UseCase10Test extends TestCase
 			Question singlequestion = new Question()
 			singlequestion.setvote(i);
 			singlequestion.date.setDate(date.getDate()+i);
-			questionlist.add(singlequestion);
+			pdm.add(singlequestion);
 		}
 
 		questionlist.sort(CONSTANT_UPVOTE);//it makes no sense to me why user would want to see question with the least amount of upvotes(0) first, so we are sorting this one way

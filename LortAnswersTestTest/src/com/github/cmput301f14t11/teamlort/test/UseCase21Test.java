@@ -4,15 +4,15 @@ import junit.framework.TestCase;
 
 public class UseCase21Test extends TestCase {
 	public void TestSaveQuestion() {
-		LocalManager lm = new LocalManager();
+		LocalManager lm = LocalManager.getInstance;
 		Question question = new Question();
-		lm.save(question);
-		assertEquals(question, lm.loadSavedQuestions(question));
+		lm.saveFile(question);
+		assertEquals(question, lm.loadFile(question));
 	}
 	public void TestPushSavedQuestion() {
-		LocalManager lm = new LocalManager();
+		LocalManager lm = LocalManager.getInstance();
 		Question question = new Question();
-		ElasticManager em = new ElasticManager();
+		ElasticManager em = ElasticManager.getInstance();
 		lm.save(question);
 		em.sendQuestion(lm.loadSavedQuestions(question));
 		assertTrue(em.serverQuery(question) == question);

@@ -11,6 +11,7 @@ public class UseCase13Through16Test extends TestCase {
 		
 		//Create existed database
 		PersistentDataManager dataManager = new PersistentDataManager();
+		DataController inputManager = new DataController();
 		ScoreController sc = new ScoreController();
 		ArrayList<Question> highestScoreQuestionList = new ArrayList<Question>();
 		ArrayList<Answer> highestScoreAnswerList = new ArrayList<Answer>();
@@ -25,9 +26,9 @@ public class UseCase13Through16Test extends TestCase {
 		question1.addAnswer(answer1);
 		question2.addAnswer(answer2);
 		question3.addAnswer(answer3);
-		dataManager.addQuestion(question1);
-		dataManager.addQuestion(question2);
-		dataManager.addQuestion(question3);
+		inputManager.addQuestion(question1);
+		inputManager.addQuestion(question2);
+		inputManager.addQuestion(question3);
 		
 		// After user press upvoted button for question1 and answer2
 		sc.increaseScore(question1);
@@ -54,6 +55,7 @@ public class UseCase13Through16Test extends TestCase {
 	public void testCase14(){
 		//Create the existed database
 		PersistentDataManager dataManager = new PersistentDataManager();
+		DataController inputManager = new DataController();
 		
 		Question question1 = new Question("Q1");
 		Question question2 = new Question("Q2");
@@ -67,9 +69,9 @@ public class UseCase13Through16Test extends TestCase {
 		question2.addAnswer(answer2);
 		question1.addAnswer(answer3);
 		question1.addAnswer(answer4);
-		dataManager.addQuestion(question1);
-		dataManager.addQuestion(question2);
-		dataManager.addQuestion(question3);
+		inputManager.addQuestion(question1);
+		inputManager.addQuestion(question2);
+		inputManager.addQuestion(question3);
 		// And now users should see the number of answers for each question in
 		// the question detail screen.
 		assertFalse("wrong number of answers for question1",
@@ -83,6 +85,7 @@ public class UseCase13Through16Test extends TestCase {
 	public void testCase15(){
 		//Create existed database
 		PersistentDataManager dataManager = new PersistentDataManager();
+		DataController inputManager = new DataController();
 		ArrayList<Question> result = new ArrayList<Question>();
 
 		Question question1 = new Question("Cat");
@@ -97,9 +100,9 @@ public class UseCase13Through16Test extends TestCase {
 		question2.addAnswer(answer2);
 		question3.addAnswer(answer3);
 		question2.addAnswer(answer4);
-		dataManager.addQuestion(question1);
-		dataManager.addQuestion(question2);
-		dataManager.addQuestion(question3);
+		inputManager.addQuestion(question1);
+		inputManager.addQuestion(question2);
+		inputManager.addQuestion(question3);
 		
 		//Search "cat" and question1 should append to the result list
 		result = dataManager.searchQuestion("cat");
@@ -114,6 +117,7 @@ public class UseCase13Through16Test extends TestCase {
 	//Recording Authors’ Questions
 	public void testCase16(){
 		PersistentDataManager dataManager = new PersistentDataManager();
+		DataController inputManager = new DataController();
 		UserController uc = new UserController(dataManager);
 		ArrayList<Question> authorQuestionList = new ArrayList<Question>();
 		
@@ -125,13 +129,13 @@ public class UseCase13Through16Test extends TestCase {
 		Question question1 = new Question("Q1");
 		Answer answer1 = new Answer("A1");
 		question1.addAnswer(answer1);
-		dataManager.addQuestion(question1);
+		inputManager.addQuestion(question1);
 		uc.saveCacheData();
 		//when user exit the program or logout and login later, the question should
 		//still traceable.
 		uc.logout();
 		Question question2 = new Question("Q1");
-		dataManager.addQuestion(question2);
+		inputManager.addQuestion(question2);
 		uc.login("author");
 		authorQuestionList = uc.loadCacheData();
 		

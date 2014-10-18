@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.github.cmput301f14t11.teamlort.ReplyActivity" >
+    tools:context=".ReplyActivity" >
 
     <EditText
         android:id="@+id/editText1"
@@ -34,5 +34,14 @@
         android:layout_alignParentTop="true"
         android:labelFor="@+id/answer_title_enrty"
         android:text="@string/compose_reply" />
+
+    <ImageButton
+        android:id="@+id/ImageButton01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText1"
+        android:layout_toRightOf="@+id/editText1"
+        android:contentDescription="@string/accessibility_accept_ico"
+        android:src="@drawable/ic_action_cancel_dark" />
 
 </RelativeLayout>

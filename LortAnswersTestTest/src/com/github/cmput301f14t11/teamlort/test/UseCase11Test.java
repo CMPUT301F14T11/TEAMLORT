@@ -14,7 +14,7 @@ public class UseCase11Test extends TestCase
 			sc.getPersistentDataManager();
 			assertTrue("question initialized with more than 0 upvotes", sc.getScore() == 0);
 			sc.upvote();
-			assertTrue("Upvote did not change score", answer.getScore() == 1);
+			fail("Upvote did not change score", answer.getScore() == 0);
 			assertTrue("Same user managed to upvote same question twice", sc.checkillegal() == true);
 		}
 }

@@ -6,14 +6,16 @@ import junit.framework.TestCase;
 public class UseCase12Test extends TestCase 
 {  
 	//yo elvis thanks buddy!
+	//Oct.18 added controller to tests
 	public void testUpvote()
 	{
-		String username = "SIVLEOL";
-		Answer answer = new Answer();
-		assertTrue("question initialized with more than 0 upvotes", answer.getScore() == 0);
-		answer.upvote(username);
-		assertTrue("Upvote did not change score", answer.getScore() == 1);
-		answer.upvote(username);
-		assertTrue("Same user managed to upvote same question twice", answer.getScore() == 1);
+		
+		PersistentDataManager pdm = PersistentDataManager.getInstance();
+		ScoreController sc = new ScoreController();
+		sc.getPersistentDataManager();
+		assertTrue("question initialized with more than 0 upvotes", sc.getScore() == 0);
+		sc.upvote();
+		assertTrue("Upvote did not change score", answer.getScore() == 0);
+		assertTrue("Same user managed to upvote same question twice", sc.checkIllegal() == 1);
 	}
 }

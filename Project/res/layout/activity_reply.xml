@@ -18,7 +18,7 @@
         android:maxLines="4" />
 
     <ImageButton
-        android:id="@+id/imageButton1"
+        android:id="@+id/replyok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/editText1"
@@ -36,7 +36,7 @@
         android:text="@string/compose_reply" />
 
     <ImageButton
-        android:id="@+id/ImageButton01"
+        android:id="@+id/replycancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText1"

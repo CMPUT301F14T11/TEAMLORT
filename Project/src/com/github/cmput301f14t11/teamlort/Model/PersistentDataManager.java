@@ -7,15 +7,41 @@ import java.util.concurrent.Callable;
 
 import com.github.cmput301f14t11.teamlort.Question;
 
+/**
+ * @author  eunderhi
+ */
 public class PersistentDataManager
 {
+	/**
+	 * @uml.property  name="managerInstance"
+	 * @uml.associationEnd  
+	 */
 	static private PersistentDataManager managerInstance = new PersistentDataManager();
 	
+	/**
+	 * @author   eunderhi
+	 */
 	static public enum SORT_METHOD
 	{
+		/**
+		 * @uml.property  name="bY_DATE"
+		 * @uml.associationEnd  
+		 */
 		BY_DATE,
+		/**
+		 * @uml.property  name="bY_SCORE"
+		 * @uml.associationEnd  
+		 */
 		BY_SCORE,
+		/**
+		 * @uml.property  name="bY_PICTURE"
+		 * @uml.associationEnd  
+		 */
 		BY_PICTURE,
+		/**
+		 * @uml.property  name="bY_REPLIES"
+		 * @uml.associationEnd  
+		 */
 		BY_REPLIES
 	}
 	

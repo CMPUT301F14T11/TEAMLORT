@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 public class QuestionTest extends TestCase {
 	public void testCreate() {
 		Question question = new Question();
-		assertTrue("Question is not initialized", question == null);
+		assertTrue("Question is not initialized", question != null);
 	}
 	public void testAnswerList() {
 		Question question = new Question();

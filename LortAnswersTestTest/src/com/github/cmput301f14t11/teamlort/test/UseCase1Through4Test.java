@@ -2,6 +2,9 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.DataController;
+import com.github.cmput301f14t11.teamlort.Question;
+
 import android.graphics.Bitmap;
 
 import junit.framework.TestCase;
@@ -13,7 +16,7 @@ public class UseCase1Through4Test extends TestCase {
 		PersistentDataManager dataManager = PersistentDataManager.getInstance();
 		DataController dataController = new DataController();
 		//If there are no questions, return no questions.
-		ArrayList<Question> emptyList = dataController.getAllQuestions();
+		ArrayList<Question> emptyList = dataManager.getAllQuestions();
 		assertTrue("Data manager returned questions when there should be none", emptyList.size() == 0);
 		
 		Question question = new Question("Why are there two amulets?");
@@ -27,12 +30,12 @@ public class UseCase1Through4Test extends TestCase {
 		dataController.addQuestion(question4);
 		dataController.addQuestion(question5);
 		//App can retrieve a list of questions from PersistentDataManager
-		ArrayList<Question> partialList = dataController.getQuestions(0, 2);
+		ArrayList<Question> partialList = dataManager.getQuestions(0, 2);
 		assertTrue("Partial list does not contain question 1 where it should be", partialList.get(0) == question);
 		assertTrue("Partial list does not contain question 2 where it should be", partialList.get(1) == question2);
 		assertTrue("Partial list does not contain question 3 where it should be", partialList.get(2) == question3);
 		//App can add additional questions to current question list.
-		partialList.append(dataController.getQuestions(2, 4));
+		partialList.append(dataManager.getQuestions(2, 4));
 		assertTrue("Partial list does not contain question 4 where it should be", partialList.get(3) == question2);
 		assertTrue("Partial list does not contain question 5 where it should be", partialList.get(4) == question3);
 	}
@@ -48,7 +51,7 @@ public class UseCase1Through4Test extends TestCase {
 		dataController.addQuestion(question);
 		
 		//Title and description must be retrievable for display.
-		Question testQuestion = dataController.getQuestion(0);
+		Question testQuestion = dataManager.getQuestion(0);
 		assertTrue("Title doesn't match title", question.getTitle() == title);
 		assertTrue("Description doesn't match desc", question.getDescription() == desc);
 		

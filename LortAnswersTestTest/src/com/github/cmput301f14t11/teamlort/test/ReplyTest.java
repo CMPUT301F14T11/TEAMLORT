@@ -7,8 +7,8 @@ import junit.framework.TestCase;
 public class ReplyTest extends TestCase {
 	public void testReply() {
 		Reply reply = new Reply();
-		assertTrue(reply != null);
+		assertTrue("Reply not initialized", reply != null);
 		//Checking to make the date is good to go
-		assertTrue(reply.getTime() != null);
+		assertTrue("Reply date not initialized",reply.getTime() != null);
 	}
 }

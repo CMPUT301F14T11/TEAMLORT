@@ -7,20 +7,20 @@ import junit.framework.TestCase;
 public class TextPrimitiveTest extends TestCase {
 	public void testCreateTextPrimitive() {
 		TextPrimitive tp = new TextPrimitive();
-		assertTrue(tp != null);
+		assertTrue("Text primitive not initialized",tp != null);
 	}
 	public void testAddBody() {
 		TextPrimitive tp = new TextPrimitive();
 		String body = "Why is the sky blue?";
 		tp.setBody(body);
-		assertTrue(body == tp.getBody());
+		assertTrue("Body not set",body == tp.getBody());
 	}
 	public void testAddAuthor() {
 		TextPrimitive tp = new TextPrimitive();
 		String author = "Some guy or girl";
 		
 		tp.setAuthor(author);
-		assertTrue(author == tp.getAuthor());
+		assertTrue("Author not set",author == tp.getAuthor());
 	}
 	public void testTime() {
 		TextPrimitive tp = new TextPrimitive();

@@ -17,11 +17,8 @@ public class TextPrimitive {
 	/**
 	 * @uml.property  name="time"
 	 */
-	private Date time;
-
-	public TextPrimitive() {
-		time = new Date();
-	}
+	private Date time = new Date();
+	private int ID = this.hashCode();
 	
 	/**
 	 * @return
@@ -57,5 +54,8 @@ public class TextPrimitive {
 	 */
 	public void setAuthor(String newAuthor) {
 		author = newAuthor;
+	}
+	public int getID() {
+		return ID;
 	}
 }

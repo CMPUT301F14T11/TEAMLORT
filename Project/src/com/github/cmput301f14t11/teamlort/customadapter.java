@@ -52,7 +52,7 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 			holder = (Single_Home_Question) row.getTag();
 		}
 		Question temp = da_list.get(position);
-		holder.selecteditem.setText(da_list.get(position).getTitle());
+		holder.title.setText(da_list.get(position).getTitle());
 		return row;
 	}
 	public void updatelist(ArrayList<Question> provided)//refreshes the gridview

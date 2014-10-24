@@ -18,6 +18,9 @@ public class UseCase10Test extends TestCase
 			Question singlequestion = new Question()
 			singlequestion.setvote(i);
 			singlequestion.date.setDate(date.getDate()+i);
+			//addressing feedback - checking for keyword
+			singlequestion.body = "testing";
+			singlequestion.title = "testingtitle";
 			pdm.add(singlequestion);
 		}
 
@@ -27,7 +30,6 @@ public class UseCase10Test extends TestCase
 			if(questionlist.get(i-1).upvote<=questionlist.get(i).upvote)
 			{
 				fail("list not properly sorted by upvote");
-				
 			}
 			
 		}); 
@@ -37,6 +39,14 @@ public class UseCase10Test extends TestCase
 			if(questionlist.get(i-1).date<=questionlist.get(i).date)//needs to work on date, sorting it by oldest/newest
 			{
 				fail("list not properly sorted by date");
+			}
+			
+		}); 
+		for(int i=1;i<questionlist.size();i++)
+		{
+			if(questionlist.get(i).body != "testing" && questionlist.get(i).title != "testingtitle";)//checks keyword
+			{
+				fail("keyword does not match");
 			}
 			
 		}); 

@@ -2,13 +2,16 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 import com.github.cmput301f14t11.teamlort.test.Question;
 
 public class DataController {
 
-	PersistentDataManager dataManager = PersistentDataManager.getInstance();
+	PersistentDataManager dataManager;
 	
 	public DataController(){
+		
+		dataManager = PersistentDataManager.getInstance();
 		
 	}
 	

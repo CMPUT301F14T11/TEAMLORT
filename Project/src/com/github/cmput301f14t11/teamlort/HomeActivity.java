@@ -41,7 +41,7 @@ extends AppBaseActivity {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				//JUMP TO QUESTION VIEW,FILLING DATA ACCORDING TO QUESTION ID - NEED MORE DISCUSSION
-				
+				//QUESTIONS: HOW TO ACCESS SAVE/FAVORITE BUTTON ON EACH SINGLE QUESTION?
 			}
 			
 		});

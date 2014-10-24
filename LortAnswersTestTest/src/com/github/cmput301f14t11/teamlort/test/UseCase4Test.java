@@ -20,7 +20,8 @@ public class UseCase4Test extends ActivityInstrumentationTestCase2<ComposeQuesti
 		
 		//Test that user can enter title into question
 		String title = "How do I fly?";
-		Question question = new Question(title);
+		Question question = new Question();
+		question.setTitle(title);
 		assertTrue("title doesn't match title", question.getTitle() == title);
 		
 		//Test that user can enter description into question

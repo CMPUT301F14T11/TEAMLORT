@@ -22,11 +22,16 @@ public class UseCase1Test extends ActivityInstrumentationTestCase2<BrowseQuestio
 		ArrayList<Question> emptyList = dataManager.getAllQuestions();
 		assertTrue("Data manager returned questions when there should be none", emptyList.size() == 0);
 		
-		Question question = new Question("Why are there two amulets?");
-		Question question2 = new Question("Didn't Archer already return amulet?");
-		Question question3 = new Question("How does Shirou have amulet?");
-		Question question4 = new Question("Are these spoilers for F/SN?");
-		Question question5 = new Question("Which route is this?");
+		Question question = new Question();
+		question.setTitle("Why are there two amulets?");
+		Question question2 = new Question();
+		question2.setTitle("Didn't Archer already return amulet?");
+		Question question3 = new Question();
+		question3.setTitle("How does Shirou have amulet?");
+		Question question4 = new Question();
+		question4.setTitle("Are these spoilers for F/SN?");
+		Question question5 = new Question();
+		question5.setTitle("Which route is this?");
 		dataController.addQuestion(question);
 		dataController.addQuestion(question2);
 		dataController.addQuestion(question3);

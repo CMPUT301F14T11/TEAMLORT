@@ -27,7 +27,8 @@ public class UseCase2And3Test extends ActivityInstrumentationTestCase2<QuestionV
 		DataController dataController = new DataController();
 		String title = "What was Lancer's noble phantasm?";
 		String desc = "His spear did weird stuff, I'm confused";
-		Question question = new Question(title);
+		Question question = new Question();
+		question.setTitle(title);
 		question.setBody(desc);
 		dataController.addQuestion(question);
 		
@@ -36,8 +37,10 @@ public class UseCase2And3Test extends ActivityInstrumentationTestCase2<QuestionV
 		assertTrue("Title doesn't match title", question.getTitle() == title);
 		assertTrue("Description doesn't match desc", question.getBody() == desc);
 		
-		Answer answer = new Answer("It reverses cause and effect");
-		Answer answer2 = new Answer("Ufotable too flashy");
+		Answer answer = new Answer();
+		answer.setBody("It reverses cause and effect");
+		Answer answer2 = new Answer();
+		answer2.setBody("Ufotable too flashy");
 		question.addAnswer(answer);
 		question.addAnswer(answer2);
 		
@@ -52,9 +55,12 @@ public class UseCase2And3Test extends ActivityInstrumentationTestCase2<QuestionV
 		String title = "How do I fly?";
 		String rep = "this is incredibly stupid";
 		String rep2 = "this is incredibly silly";
-		Question question = new Question(title);
-		Reply reply = new Reply(rep);
-		Reply reply2 = new Reply(rep2);
+		Question question = new Question();
+		question.setTitle(title);
+		Reply reply = new Reply();
+		reply.setBody(rep);
+		Reply reply2 = new Reply();
+		reply.setBody(rep2);
 		question.addReply(reply);
 		question.addReply(reply2);
 		//Test getting replies from a question
@@ -64,9 +70,12 @@ public class UseCase2And3Test extends ActivityInstrumentationTestCase2<QuestionV
 		
 		String rep3 = "He's going to fly for the portal again!";
 		String rep4 = "John what the heck are you doing.";
-		Reply reply3 = new Reply(rep3);
-		Reply reply4 = new Reply(rep4);
-		Answer answer = new Answer("Use the jetpack");
+		Reply reply3 = new Reply();
+		reply3.setBody(rep3);
+		Reply reply4 = new Reply();
+		reply4.setBody(rep4);
+		Answer answer = new Answer();
+		answer.setBody("Use the jetpack");
 		answer.addReply(reply3);
 		answer.addReply(reply4);
 		question.addAnswer(answer);

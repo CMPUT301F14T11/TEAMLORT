@@ -5,22 +5,53 @@ import java.util.HashSet;
 
 import android.graphics.drawable.Drawable;
 
+/**
+ * @author  eunderhi
+ */
 public class RepliableText extends TextPrimitive{
+	/**
+	 * @uml.property  name="score"
+	 */
 	private int score = 0;
+	/**
+	 * @uml.property  name="picture"
+	 */
 	private Drawable picture = null;
+	/**
+	 * @uml.property  name="replyList"
+	 */
 	private ArrayList<Reply> replyList = new ArrayList<Reply>();
 	//to keep track of who's voted what (hashed for quick lookup)
+	/**
+	 * @uml.property  name="voterSet"
+	 */
 	private HashSet<String> voterSet = new HashSet<String>(); 
 	
+	/**
+	 * @return
+	 * @uml.property  name="score"
+	 */
 	public int getScore() {
 		return score;
 	}
+	/**
+	 * @return
+	 * @uml.property  name="picture"
+	 */
 	public Drawable getPicture() {
 		return picture;
 	}
+	/**
+	 * @return
+	 * @uml.property  name="replyList"
+	 */
 	public ArrayList<Reply> getReplyList() {
 		return replyList;
 	}
+	/**
+	 * @return
+	 * @uml.property  name="voterSet"
+	 */
 	public HashSet<String> getVoterSet() {
 		return voterSet;
 	}

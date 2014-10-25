@@ -26,4 +26,8 @@ public class TextPrimitiveTest extends TestCase {
 		TextPrimitive tp = new TextPrimitive();
 		assertTrue("tp.getTime is null", tp.getTime() != null);
 	}
+	public void testID() {
+		TextPrimitive tp = new TextPrimitive();
+		assertTrue("No ID", tp.getID() != 0);
+	}
 }

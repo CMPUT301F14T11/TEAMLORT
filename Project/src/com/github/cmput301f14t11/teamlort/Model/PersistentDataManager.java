@@ -8,16 +8,38 @@ import java.util.Observer;
 
 import com.github.cmput301f14t11.teamlort.Question;
 
+/**
+ * @author  eunderhi
+ */
 public class PersistentDataManager
 extends Observable
 {
+	/**
+	 * @uml.property  name="managerInstance"
+	 * @uml.associationEnd  
+	 */
 	static private PersistentDataManager managerInstance = new PersistentDataManager();
 	public ArrayList<Observer> observers;
 	
+	/**
+	 * @author   eunderhi
+	 */
 	static public enum SORT_METHOD
 	{
+		/**
+		 * @uml.property  name="bY_DATE"
+		 * @uml.associationEnd  
+		 */
 		BY_DATE,
+		/**
+		 * @uml.property  name="bY_SCORE"
+		 * @uml.associationEnd  
+		 */
 		BY_SCORE,
+		/**
+		 * @uml.property  name="bY_PICTURE"
+		 * @uml.associationEnd  
+		 */
 		BY_PICTURE
 	}
 	

@@ -6,11 +6,16 @@ import java.util.ArrayList;
 
 
 
+
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -19,7 +24,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 
 public class HomeActivity
-extends AppBaseActivity {
+extends AppBaseActivity  {
 	
 	ListView questionlistview;
 	private RelativeLayout tasklayout;
@@ -33,6 +38,9 @@ extends AppBaseActivity {
         setContentView(R.layout.activity_home);
         questionlistview = (ListView)tasklayout.findViewById(R.id.expandableListView1);
         adapter = new customadapter(getApplicationContext(), listofquestions);
+        Button favorite = (Button)questionlistview.getChildAt(0);
+        Button saved = (Button)questionlistview.getChildAt(1);
+
         questionlistview.setOnItemClickListener(new OnItemClickListener()//the core functionality of this app: did the user do the task?
 		{
 
@@ -41,13 +49,32 @@ extends AppBaseActivity {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				//JUMP TO QUESTION VIEW,FILLING DATA ACCORDING TO QUESTION ID - NEED MORE DISCUSSION
-				//QUESTIONS: HOW TO ACCESS SAVE/FAVORITE BUTTON ON EACH SINGLE QUESTION?
+				Intent intent = new Intent(getApplicationContext(),QuestionViewActivity.class);
+				Single_Home_Question holder = (Single_Home_Question) view.getTag();
+				Question temp = (Question) holder.title.getTag();
+				intent.putExtra("id", position);
+				startActivity(intent);
+				
 			}
-			
+			public void Favorite(View v)
+		    {
+		    	//gets the question from list
+				Single_Home_Question holder = (Single_Home_Question) v.getTag();
+				Question temp = (Question) holder.title.getTag();
+				//favoritequestion(temp)
+		    }
+			public void Save(View v)
+			{
+				Single_Home_Question holder = (Single_Home_Question) v.getTag();
+				Question temp = (Question) holder.title.getTag();
+				//savequestion(temp)
+			}
 		});
-    
+        
     }
-
+    
+    
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {

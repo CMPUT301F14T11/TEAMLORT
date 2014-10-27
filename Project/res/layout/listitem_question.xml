@@ -79,7 +79,8 @@
                 android:layout_weight="1"
                 android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@string/accessibility_favorite_ico"
-                android:src="@drawable/ic_action_favorite_dark" />
+                android:src="@drawable/ic_action_favorite_dark"
+                android:onClick="Favorite" />
 
             <View
                 android:layout_width="match_parent"
@@ -95,7 +96,8 @@
                 android:layout_weight="1"
                 android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@string/accessibility_save_ico"
-                android:src="@drawable/ic_action_save_dark" />
+                android:src="@drawable/ic_action_save_dark" 
+                android:onClick="Save"/>
 
         </LinearLayout>
     </RelativeLayout>

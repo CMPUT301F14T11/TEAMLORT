@@ -53,6 +53,7 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 		}
 		Question temp = da_list.get(position);
 		holder.title.setText(da_list.get(position).getTitle());
+		holder.content.setText(da_list.get(position).getBody());
 		return row;
 	}
 	public void updatelist(ArrayList<Question> provided)//refreshes the gridview

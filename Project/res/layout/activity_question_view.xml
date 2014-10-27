@@ -22,21 +22,21 @@
             android:padding="@dimen/activity_margin" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/QuestionTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/listitem_question_title"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/QuestionBodyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_less_vertical_margin"
                 android:text="@string/listitem_question_desc" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/QuestionTimeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_less_vertical_margin"

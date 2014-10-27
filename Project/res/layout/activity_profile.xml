@@ -23,7 +23,7 @@
 		    android:src="@drawable/ic_action_edit_dark" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/QuestionTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -35,12 +35,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/QuestionBodyTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/textView1"
+            android:layout_below="@+id/QuestionTitleTextView"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:text="@string/profile_stats"
@@ -48,10 +48,10 @@
             android:textStyle="italic" />
         
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/QuestionTimeTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/QuestionBodyTextView"
             android:gravity="center"
             android:layout_marginTop="@dimen/activity_less_vertical_margin"
             android:labelFor="@+id/profileButtonBar"
@@ -59,7 +59,7 @@
         
         <LinearLayout 
             android:id="@+id/profileButtonBar"
-            android:layout_below="@+id/textView3"
+            android:layout_below="@+id/QuestionTimeTextView"
             android:orientation="horizontal"
             android:layout_width="match_parent" 
             android:layout_height="wrap_content" >

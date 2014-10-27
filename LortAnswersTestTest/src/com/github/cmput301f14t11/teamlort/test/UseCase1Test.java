@@ -3,15 +3,16 @@ package com.github.cmput301f14t11.teamlort.test;
 import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.DataController;
+import com.github.cmput301f14t11.teamlort.HomeActivity;
 import com.github.cmput301f14t11.teamlort.Question;
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-public class UseCase1Test extends ActivityInstrumentationTestCase2<BrowseQuestionsActivity> {
+public class UseCase1Test extends ActivityInstrumentationTestCase2<HomeActivity> {
 
 	public UseCase1Test() {
-		super(BrowseQuestionsActivity.class);
+		super(HomeActivity.class);
 	}
 	
 	public void testCaseOne(){

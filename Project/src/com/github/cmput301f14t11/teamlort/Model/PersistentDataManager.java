@@ -1,15 +1,24 @@
 package com.github.cmput301f14t11.teamlort.Model;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.StreamCorruptedException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import android.util.Log;
+
 import com.github.cmput301f14t11.teamlort.Question;
 
 /**
- * @author  eunderhi
+ * @author  Brandon Yue
  */
 public class PersistentDataManager
 extends Observable
@@ -22,7 +31,7 @@ extends Observable
 	public ArrayList<Observer> observers;
 	
 	/**
-	 * @author   eunderhi
+	 * @author   Brandon Yue
 	 */
 	static public enum SORT_METHOD
 	{
@@ -64,8 +73,31 @@ extends Observable
 	
 	public void addQuestion(Question q)
 	{
-		data.uploadBuffer.add(q);
+		data.cacheQuestions.add(q);
+		data.uploadBuffer.add(q.getID());
 		Save();
+	}
+	
+	public boolean editQuestion(int questionID, Question editedQuestion)
+	{
+		Question toEdit = null;
+		for (Question q : data.cacheQuestions)
+		{
+			// Check to make sure the question to edit is in the cache.
+			if (q.getID() == questionID)
+			{
+				toEdit = q;
+				break;
+			}
+		}
+		
+		if (toEdit == null) return false;
+
+		toEdit.setTitle(editedQuestion.getTitle());
+		toEdit.setBody(editedQuestion.getBody());
+		toEdit.setAuthor(editedQuestion.getAuthor());
+		
+		return true;
 	}
 	
 	public void getMore()
@@ -74,10 +106,10 @@ extends Observable
 		ElasticManager.serverQuery("Foo!");
 	}
 	
-	public Question get(Object id) // Replace Object with datatype of ID
+	public Question get(int id) // Replace Object with datatype of ID
 	{
 		for (Question q : data.cacheQuestions)
-			if (q.getId() == id)
+			if (q.getID() == id)
 			{
 				return q;
 			}
@@ -86,8 +118,8 @@ extends Observable
 	
 	public void saveQuestion(Question q)
 	{
-		if (!data.savedQuestions.contains(q))
-			data.savedQuestions.add(q);
+		if (!data.savedQuestions.contains(q.getID()))
+			data.savedQuestions.add(q.getID());
 	}
 	
 	public void unsaveQuestion(Question q)
@@ -97,8 +129,8 @@ extends Observable
 	
 	public void faveQuestion(Question q)
 	{
-		if (!data.favedQuestions.contains(q))
-			data.favedQuestions.add(q);
+		if (!data.favedQuestions.contains(q.getID()))
+			data.favedQuestions.add(q.getID());
 	}
 	
 	public void unfaveQuestion(Question q)
@@ -108,13 +140,7 @@ extends Observable
 	
 	public ArrayList<Question> getAllQuestions()
 	{
-		ArrayList<Question> result = new ArrayList<Question>();
-		
-		result.addAll(data.cacheQuestions);
-		result.addAll(data.savedQuestions);
-		result.addAll(data.favedQuestions);
-		
-		return result;
+		return data.cacheQuestions;
 	}
 	//added in since it was part of UML - Sam 10/28/2014
 	public ArrayList<Question> getQuestion() {
@@ -125,12 +151,28 @@ extends Observable
 	
 	public ArrayList<Question> getSavedQuestions()
 	{
-		return data.savedQuestions;
+		ArrayList<Question> result = new ArrayList<Question>();
+		
+		for (Question q : data.cacheQuestions)
+		{
+			if (data.savedQuestions.contains(q.getID()))
+				result.add(q);
+		}
+		
+		return result;
 	}
 	
 	public ArrayList<Question> getFavedQuestions() 
 	{
-		return data.favedQuestions;
+		ArrayList<Question> result = new ArrayList<Question>();
+		
+		for (Question q : data.cacheQuestions)
+		{
+			if (data.favedQuestions.contains(q.getID()))
+				result.add(q);
+		}
+		
+		return result;
 	}
 	
 	public ArrayList<Question> searchQuestions(String terms)//changed from String [] to String - sam
@@ -189,17 +231,86 @@ extends Observable
 	 */
 	private static class LocalManager
 	{
-		private static final URI filePath = null;
+		private static final URI filePath;
+		private LocalManager manager = new LocalManager();
+		static
+		{
+			URI initURI = null;
+			
+			try
+			{
+				initURI = new URI("sav/data.ser");
+			}
+			catch (URISyntaxException e)
+			{
+				Log.e("com.github.cmput301f14t11.teamlort.Model.PersistentDataManager.LocalManager.staticInitializer", "LocalManager's file URI could not be initialized! (URISyntaxException)");
+			}
+			
+			filePath = initURI;
+		}
+		
+		
+		private LocalManager() 
+		{
+			
+		}
+		
+		public LocalManager getLocalManager()
+		{
+			return manager;
+		}
 		
 		public static void saveFile(Serializable obj)
 		{
-			//TODO
+			FileOutputStream fos = null;
+			ObjectOutputStream oos = null;
+			
+			try
+			{
+				fos = new FileOutputStream(filePath.getPath());
+				oos = new ObjectOutputStream(fos);
+				
+				oos.writeObject(obj);
+				
+				oos.close();
+				fos.close();
+			}
+			catch (IOException e)
+			{
+				Log.e("com.github.cmput301f14t11.teamlort.Model.PersistentDataManager.LocalManager.saveFile(Serializable)", "Failed to save file!");
+			}
 		}
 		
 		public static Object loadFile()
 		{
-			//TODO
-			return null;
+			FileInputStream fis = null;
+			ObjectInputStream ois = null;
+			UserData result = null;
+			
+			try
+			{
+				fis = new FileInputStream(filePath.getPath());
+				ois = new ObjectInputStream(fis);
+				
+				result = (UserData) ois.readObject();
+				
+				ois.close();
+				fis.close();
+			}
+			catch (StreamCorruptedException e)
+			{
+				Log.e("com.github.cmput301f14t11.teamlort.Model.PersistentDataManager.LocalManager.loadFile()", "Could not load user data (StreamCorruptedException)");
+			}
+			catch (IOException e)
+			{
+				Log.e("com.github.cmput301f14t11.teamlort.Model.PersistentDataManager.LocalManager.loadFile()", "Could not load user data (IOException)");
+			}
+			catch (ClassNotFoundException e)
+			{
+				Log.e("com.github.cmput301f14t11.teamlort.Model.PersistentDataManager.LocalManager.loadFile()", "Could not load user data (ClassNotFoundException)");
+			}
+			
+			return result;
 		}
 	}
 	private static void Save()
@@ -221,9 +332,9 @@ extends Observable
 		
 		public String userName;
 		public ArrayList<Question> cacheQuestions;
-		public ArrayList<Question> savedQuestions;
-		public ArrayList<Question> favedQuestions;
-		public ArrayList<Question> uploadBuffer;
+		public ArrayList<Integer>  savedQuestions;
+		public ArrayList<Integer>  favedQuestions;
+		public ArrayList<Integer>  uploadBuffer;
 	}
 	private static UserData data;
 	

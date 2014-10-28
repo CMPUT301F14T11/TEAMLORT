@@ -57,7 +57,8 @@ extends AppBaseActivity  {
 				Intent intent = new Intent(getApplicationContext(),QuestionViewActivity.class);
 				Single_Home_Question holder = (Single_Home_Question) view.getTag();
 				Question temp = (Question) holder.title.getTag();
-				intent.putExtra("id", position);
+				intent.putExtra("position", position);
+				intent.putExtra("id", temp.getID());// corrected the id confusion as requested - Sam
 				startActivity(intent);
 				
 			}

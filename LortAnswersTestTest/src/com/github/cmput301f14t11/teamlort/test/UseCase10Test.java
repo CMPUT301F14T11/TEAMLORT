@@ -1,9 +1,12 @@
 package com.github.cmput301f14t11.teamlort.test;
 
+import com.github.cmput301f14t11.teamlort.HomeActivity;
+
+import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.TestCase;
 
 
-public class UseCase10Test extends TestCase 
+public class UseCase10Test extends ActivityInstrumentationTestCase2<HomeActivity> 
 {  
 	Date date = new Date();
 	

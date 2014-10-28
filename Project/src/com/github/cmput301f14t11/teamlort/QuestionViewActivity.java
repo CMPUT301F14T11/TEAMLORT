@@ -1,5 +1,6 @@
 package com.github.cmput301f14t11.teamlort;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
@@ -17,7 +18,7 @@ extends AppBaseActivity
 {
 	
 	Question question;
-	
+	ArrayList<Answer> listofanswer;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -34,10 +35,12 @@ extends AppBaseActivity
 			finish();
 		} 
 		//Else continue the activity
-		PersistentDataManager dataManager = PersistentDataManager.getInstance();
+		PersistentDataManager pdm = PersistentDataManager.getInstance();
 		
 		//Set question title and description on GUI.
-		question = dataManager.get(questionID);
+		question = pdm.get(questionID);
+		listofanswer = question.getAnswerList();
+		
 		TextView questionTitleTextView = (TextView) findViewById(R.id.QuestionTitleTextView);
 		questionTitleTextView.setText(question.getTitle());
 		TextView questionBodyTextView = (TextView) findViewById(R.id.QuestionBodyTextView);

@@ -36,11 +36,14 @@ extends AppBaseActivity  {
     //initialize user controller
 	PersistentDataManager pdm = PersistentDataManager.getInstance();//why isn't the contructor usable?
 	UserController usecontrol = new UserController();//initialize user controller to use its functions
+	
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+                
         questionlistview = (ListView)tasklayout.findViewById(R.id.expandableListView1);
         adapter = new customadapter(getApplicationContext(), listofquestions);
         
@@ -60,25 +63,39 @@ extends AppBaseActivity  {
 				startActivity(intent);
 				
 			}
-			public void Favorite(View v)
-		    {
-		    	//gets the question from list
-				Single_Home_Question holder = (Single_Home_Question) v.getTag();
-				Question temp = (Question) holder.title.getTag();
-				usecontrol.addFavorite(temp);
-		    }
-			public void Save(View v)
-			{
-				Single_Home_Question holder = (Single_Home_Question) v.getTag();
-				Question temp = (Question) holder.title.getTag();
-				usecontrol.addCache(temp);
-			}
+			
 		});
         
     }
     
     
-    
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		// getlist of questions
+		
+		// so far as I understand, the pullfromcloud from persistent data manager grabs questions into viewingquestions
+		pdm.pullFromCloud();
+		listofquestions = pdm.getQuestion();
+		adapter.updatelist(listofquestions);
+	}
+
+
+	public void Favorite(View v)
+    {
+    	//gets the question from list
+		Single_Home_Question holder = (Single_Home_Question) v.getTag();
+		Question temp = (Question) holder.title.getTag();
+		usecontrol.addFavorite(temp);
+    }
+	public void Save(View v)
+	{
+		Single_Home_Question holder = (Single_Home_Question) v.getTag();
+		Question temp = (Question) holder.title.getTag();
+		usecontrol.addCache(temp);
+	}
+	
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {

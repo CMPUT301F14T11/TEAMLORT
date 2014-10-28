@@ -116,6 +116,12 @@ extends Observable
 		
 		return result;
 	}
+	//added in since it was part of UML - Sam 10/28/2014
+	public ArrayList<Question> getQuestion() {
+		// TODO Auto-generated method stub
+		ArrayList<Question> result = new ArrayList<Question>();
+		return result;
+	}
 	
 	public ArrayList<Question> getSavedQuestions()
 	{
@@ -127,10 +133,11 @@ extends Observable
 		return data.favedQuestions;
 	}
 	
-	public ArrayList<Question> searchQuestions(String [] terms)
+	public ArrayList<Question> searchQuestions(String terms)//changed from String [] to String - sam
 	{
 		// Going to implement this as searching titles for keywords.
 		// WIP.
+		
 		return null;
 	}
 	
@@ -219,4 +226,6 @@ extends Observable
 		public ArrayList<Question> uploadBuffer;
 	}
 	private static UserData data;
+	
+	
 }

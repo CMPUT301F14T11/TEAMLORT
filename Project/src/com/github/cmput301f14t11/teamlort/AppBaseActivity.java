@@ -1,5 +1,7 @@
 package com.github.cmput301f14t11.teamlort;
 
+import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
@@ -25,15 +28,16 @@ extends Activity
 	{
 		super.onCreate(inState);
 		this.setContentView(R.layout.activity_app_base);
-		
+		//initialize persistent data manager
+		final PersistentDataManager pdm = PersistentDataManager.getInstance();
 		// Set the top ActionBar to a custom view.
         this.inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ActionBar ab = this.getActionBar();
         
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         ab.setCustomView(inflater.inflate(R.layout.actionbar_top_layout, null));
-        
         // Connect the buttons in the top ActionBar
+        final EditText searchinput = (EditText)this.findViewById(R.id.searchfield);
         searchButton = (ImageButton) this.findViewById(R.id.action_sort);
 		pMenu = new PopupMenu(this, searchButton);
 		pMenu.getMenuInflater().inflate(R.menu.app_base_sort, pMenu.getMenu());
@@ -45,13 +49,15 @@ extends Activity
 				return AppBaseActivity.this.onSortMenuItemSelect(item);
 			}
 		});
-		
+	
         searchButton.setOnClickListener(new View.OnClickListener()
         {
 			@Override
 			public void onClick(View v)
 			{
 				AppBaseActivity.this.pMenu.show();
+				pdm.searchQuestions(searchinput.getText().toString());// we need to somehow grab the input user provided 
+				
 			}
 		});
 	}

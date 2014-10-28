@@ -43,10 +43,6 @@ public class ScoreController {
 		
 	}
 
-	public int getScore(RepliableText rt) {
-		// TODO Auto-generated method stub
-		return rt.getVoterSet().size();
-	}
 	
 
 }

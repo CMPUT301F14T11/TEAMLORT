@@ -1,10 +1,18 @@
 package com.github.cmput301f14t11.teamlort.test;
 
+import com.github.cmput301f14t11.teamlort.HomeActivity;
+
+import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.TestCase;
 
 
-public class UseCase9Test extends ActivityInstrumentationTestCase2 
+public class UseCase9Test extends ActivityInstrumentationTestCase2<HomeActivity> 
 {  
+	public UseCase9Test(Class<HomeActivity> activityClass) {
+		super(activityClass);
+		// TODO Auto-generated constructor stub
+	}
+
 	public void testSort()
 	{
 		public static final int CONSTANT_IMAGE = 1;

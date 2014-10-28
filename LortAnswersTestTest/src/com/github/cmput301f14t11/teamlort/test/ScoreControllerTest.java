@@ -2,6 +2,7 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import com.github.cmput301f14t11.teamlort.RepliableText;
 import com.github.cmput301f14t11.teamlort.ScoreController;
+import com.github.cmput301f14t11.teamlort.UserController;
 
 import junit.framework.TestCase;
 
@@ -71,11 +72,21 @@ public class ScoreControllerTest extends TestCase {
 	
 	public void testCheckIllegal(){
 		ScoreController sc = new ScoreController();
+		UserController uc = new UserController();
 		RepliableText rt = new RepliableText();
-		rt.setAuthor("Author1");
-		assertFalse("Authors can't vote their own questions",!sc.checkIllegal(rt));
-		// unfinished code.. need userController
-		
+		rt.setAuthor("Ann");
+		assertFalse("No user logging in",sc.checkIllegal(rt));
+		//First case, verify that author cannot change the score.
+		uc.login("Ann");
+		assertFalse("Authors can't vote their own questions",sc.checkIllegal(rt));
+		//Second case, verify that the user cannot modify the score of same text twice.
+		uc.login("Bob");
+		assertTrue("Bob now should be able to change score",sc.checkIllegal(rt));
+		sc.increaseScore(rt);
+		//Since Bob already change the score, he is no longer able to modify the score
+		//of this text.
+		assertFalse("Bob should not be legal to change the socre",sc.checkIllegal(rt));
+
 	}
 
 }

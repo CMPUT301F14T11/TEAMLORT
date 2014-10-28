@@ -1,7 +1,11 @@
 package com.github.cmput301f14t11.teamlort.test;
 
-import com.github.cmput301f14t11.teamlort.HomeActivity;
+import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.HomeActivity;
+import com.github.cmput301f14t11.teamlort.Question;
+
+import android.graphics.Bitmap;
 import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.TestCase;
 
@@ -15,7 +19,7 @@ public class UseCase9Test extends ActivityInstrumentationTestCase2<HomeActivity>
 
 	public void testSort()
 	{
-		public static final int CONSTANT_IMAGE = 1;
+		final int CONSTANT_IMAGE = 1;
 		String title = "testing";
 		ArrayList<Question> questionlist;
 		for (int i =0; x<=9; x++)
@@ -23,21 +27,22 @@ public class UseCase9Test extends ActivityInstrumentationTestCase2<HomeActivity>
 			if(i%2 == 0)
 			{
 				Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888 ); 
- 				Question question = new Question(title); 
+ 				Question question = new Question(); 
  				question.addImage(bitmap); 
 			}
 			pdm.add(singlequestion);//persistent data manager
 		}
 
   	questionlist.sort(CONSTANT_IMAGE);
+  	
 
 		for(int i=1;i<questionlist.size()-1;i++)
 		{
-			if(questionlist.get(i-1).getpic()!=questionlist.get(i).getpic()&&questionlist.get(i).getpic()!=questionlist.get(i+1).getpic())
+			if(questionlist.get(i-1).getPicture()!=questionlist.get(i).getPicture()&&questionlist.get(i).getPicture()!=questionlist.get(i+1).getPicture())
 			{
 				fail("list not properly sorted by image");
 			}
 			
-		}); 
+		}
 	}
 }

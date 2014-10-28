@@ -44,9 +44,7 @@ public class ScoreControllerTest extends TestCase {
 		assertTrue("should throw a null pointer exception", thrown);
 		sc.removeFromVotedList(rt,"Bob");
 		assertTrue("size of voter lsit should be 0", rt.getVoterSet().size() == 0);
-		assertTrue("Ann should not in the list",!rt.getVoterSet().contains("Bob"));
-		
-		
+		assertTrue("Ann should not in the list",!rt.getVoterSet().contains("Bob"));	
 		
 	}
 	
@@ -58,16 +56,6 @@ public class ScoreControllerTest extends TestCase {
 		assertTrue("socre of rt should be 1", rt.getScore() == 1);
 		sc.increaseScore(rt);
 		assertTrue("score of rt should be 2", rt.getScore() == 2);
-	}
-	
-	public void testDecreasScore(){
-		RepliableText rt = new RepliableText();
-		assertTrue("score of rt should be 0", rt.getScore() == 0);
-		ScoreController sc = new ScoreController();
-		sc.decreaseScore(rt);
-		assertTrue("socre of rt should be -1", rt.getScore() == -1);
-		sc.decreaseScore(rt);
-		assertTrue("score of rt should be -2", rt.getScore() == -2);
 	}
 	
 	public void testCheckIllegal(){

@@ -1,10 +1,24 @@
 package com.github.cmput301f14t11.teamlort;
 
+import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
+
 public class ScoreController {
+	
+	private static PersistentDataManager pdm = PersistentDataManager.getInstance();
+	private static String username = pdm.getUsername();
 
 	public boolean checkIllegal(RepliableText rt) {
-		
-		return false;
+		if(username.isEmpty()){
+			return false;
+		}
+		else{
+			if(rt.getVoterSet().contains(username) || rt.getAuthor().equals(username)){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
 	}
 
 	public void addToVotedList(RepliableText rt, String string) {
@@ -16,14 +30,7 @@ public class ScoreController {
 	public void increaseScore(RepliableText rt) {
 		
 		if(this.checkIllegal(rt)){
-			//rt.upVote(username);
-		}
-		
-	}
-
-	public void decreaseScore(RepliableText rt) {
-		if(this.checkIllegal(rt)){
-			//rt.downVote(username);
+			rt.upVote(username);
 		}
 		
 	}

@@ -1,8 +1,6 @@
 package com.github.cmput301f14t11.teamlort.test;
 
-import com.github.cmput301f14t11.teamlort.DataController;
 import com.github.cmput301f14t11.teamlort.Question;
-import com.github.cmput301f14t11.teamlort.RepliableText;
 import com.github.cmput301f14t11.teamlort.UserController;
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 

@@ -3,7 +3,7 @@ package com.github.cmput301f14t11.teamlort.test;
 import junit.framework.TestCase;
 
 
-public class UseCase9Test extends TestCase 
+public class UseCase9Test extends ActivityInstrumentationTestCase2 
 {  
 	public void testSort()
 	{

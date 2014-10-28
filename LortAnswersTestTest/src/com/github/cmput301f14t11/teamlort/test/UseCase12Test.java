@@ -3,7 +3,7 @@ package com.github.cmput301f14t11.teamlort.test;
 import junit.framework.TestCase;
 
 
-public class UseCase12Test extends TestCase 
+public class UseCase12Test extends ActivityInstrumentationTestCase2 
 {  
 	//yo elvis thanks buddy!
 	//Oct.18 added controller to tests

@@ -4,6 +4,8 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
+
 
 
 
@@ -31,7 +33,10 @@ extends AppBaseActivity  {
 	static customadapter adapter; // since we are displaying question objects, the normal ArrayAdapter will not cut it, for right now I've modified the customer adapter I used for my assignment 1 and sticked it in here
 								  // should anyone think something else should be used instead,feel free to bring it up in group discussion
 	ArrayList<Question> listofquestions;
-    @Override
+    //initialize user controller
+	PersistentDataManager dataManager = new PersistentDataManager();//why isn't the contructor usable?
+	UserController usecontrol = new usercontroller();//initialize user controller to use its functions
+	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -40,7 +45,7 @@ extends AppBaseActivity  {
         adapter = new customadapter(getApplicationContext(), listofquestions);
         Button favorite = (Button)questionlistview.getChildAt(0);
         Button saved = (Button)questionlistview.getChildAt(1);
-
+        
         questionlistview.setOnItemClickListener(new OnItemClickListener()//the core functionality of this app: did the user do the task?
 		{
 

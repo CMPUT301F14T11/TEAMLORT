@@ -34,8 +34,8 @@ extends AppBaseActivity  {
 								  // should anyone think something else should be used instead,feel free to bring it up in group discussion
 	ArrayList<Question> listofquestions;
     //initialize user controller
-	PersistentDataManager dataManager = new PersistentDataManager();//why isn't the contructor usable?
-	UserController usecontrol = new usercontroller();//initialize user controller to use its functions
+	PersistentDataManager pdm = PersistentDataManager.getInstance();//why isn't the contructor usable?
+	UserController usecontrol = new UserController();//initialize user controller to use its functions
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -43,8 +43,6 @@ extends AppBaseActivity  {
         setContentView(R.layout.activity_home);
         questionlistview = (ListView)tasklayout.findViewById(R.id.expandableListView1);
         adapter = new customadapter(getApplicationContext(), listofquestions);
-        Button favorite = (Button)questionlistview.getChildAt(0);
-        Button saved = (Button)questionlistview.getChildAt(1);
         
         questionlistview.setOnItemClickListener(new OnItemClickListener()//the core functionality of this app: did the user do the task?
 		{
@@ -67,13 +65,13 @@ extends AppBaseActivity  {
 		    	//gets the question from list
 				Single_Home_Question holder = (Single_Home_Question) v.getTag();
 				Question temp = (Question) holder.title.getTag();
-				//favoritequestion(temp)
+				usecontrol.addFavorite(temp);
 		    }
 			public void Save(View v)
 			{
 				Single_Home_Question holder = (Single_Home_Question) v.getTag();
 				Question temp = (Question) holder.title.getTag();
-				//savequestion(temp)
+				usecontrol.addCache(temp);
 			}
 		});
         

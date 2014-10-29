@@ -43,8 +43,8 @@ extends AppBaseActivity  {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-                
-        questionlistview = (ListView)tasklayout.findViewById(R.id.expandableListView1);
+              
+        questionlistview = (ListView)findViewById(R.id.expandableListView1);
         adapter = new customadapter(getApplicationContext(), listofquestions);
         
         questionlistview.setOnItemClickListener(new OnItemClickListener()//the core functionality of this app: did the user do the task?

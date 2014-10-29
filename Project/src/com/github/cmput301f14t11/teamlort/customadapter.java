@@ -8,7 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+
+class Single_Home_Question
+{
+	TextView title;
+	TextView content;
+	Button save;
+	Button favorite;
+	Single_Home_Question(View feed)
+	{
+		title = (TextView) feed.findViewById(R.id.listitem_question_title);
+		content = (TextView) feed.findViewById(R.id.listitem_question_desc);
+		save = (Button) feed.findViewById(R.id.listitem_question_save_button);
+		favorite = (Button) feed.findViewById(R.id.listitem_question_favorite_button);
+	}
+}
 //this adapter was inspired by the extended baseadapter example on android developer website
 //http://developer.android.com/guide/topics/ui/layout/gridview.html
 class customadapter extends BaseAdapter// the adapter used for displaying items in the two gridviews from current task and archived task

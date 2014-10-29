@@ -6,5 +6,6 @@
     <string name="listitem_question_stats">Posted 2h ago, 1 reply.</string>
     
     <string name="profile_stats">User since January 1st, 1970 with 9001 points.</string>
+    <string name="listitem_answer_desc">This is an answer to the question</string>
     
 </resources>

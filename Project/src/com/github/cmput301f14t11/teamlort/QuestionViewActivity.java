@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
-
-import ca.ualberta.cs.ejlo.todolistforandroid.MainActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +21,7 @@ extends AppBaseActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_question_view);
+		setContentView(R.layout.old_activity_question_view);
 		Button reply = (Button)findViewById(R.id.reply_button);
 		
 		Intent intent = getIntent();
@@ -33,13 +31,22 @@ extends AppBaseActivity
 			
 			Toast.makeText(this, "Error: Question not found", Toast.LENGTH_SHORT).show();
 			finish();
-		} 
+		}
+		//Fix this later
+		/*
 		//Else continue the activity
 		PersistentDataManager pdm = PersistentDataManager.getInstance();
 		
 		//Set question title and description on GUI.
 		question = pdm.get(questionID);
 		listofanswer = question.getAnswerList();
+		*/
+		
+		//For testing purposes:
+		Question question = new Question();
+		question.setTitle("testTitle");
+		question.setBody("testBody");
+		question.setAuthor("SIVLEOL");
 		
 		TextView questionTitleTextView = (TextView) findViewById(R.id.QuestionTitleTextView);
 		questionTitleTextView.setText(question.getTitle());

@@ -2,6 +2,8 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import android.graphics.drawable.Drawable;
+
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 import com.github.cmput301f14t11.teamlort.Question;
 
@@ -13,6 +15,24 @@ public class DataController {
 		
 		dataManager = PersistentDataManager.getInstance();
 		
+	}
+	
+	public Question initQuestion(Question question, String title, String body, String author){
+		question.setTitle(title);
+		question.setBody(body);
+		question.setAuthor(author);
+		// TODO We can't actually set id
+		return question;
+	}
+	
+	public Question initQuestion(Question question, String title, String body, String author, Drawable image){
+		//An overload that takes in an image
+		question.setTitle(title);
+		question.setBody(body);
+		question.setAuthor(author);
+		// TODO We can't actually set id
+		question.addPicture(image);
+		return question;
 	}
 	
 	public void addQuestion(Question question){

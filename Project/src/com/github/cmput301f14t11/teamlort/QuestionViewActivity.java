@@ -1,13 +1,14 @@
 package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +22,9 @@ extends AppBaseActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.old_activity_question_view);
-		Button reply = (Button)findViewById(R.id.reply_button);
+		setContentView(R.layout.activity_question_view);
+		
+		// TODO Fix how question is being received later
 		
 		Intent intent = getIntent();
 		int questionID = intent.getIntExtra("id", -1); //Need question ID not question position in ListView
@@ -32,39 +34,37 @@ extends AppBaseActivity
 			Toast.makeText(this, "Error: Question not found", Toast.LENGTH_SHORT).show();
 			finish();
 		}
-		//Fix this later
-		/*
-		//Else continue the activity
+		
 		PersistentDataManager pdm = PersistentDataManager.getInstance();
 		
 		//Set question title and description on GUI.
 		question = pdm.get(questionID);
 		listofanswer = question.getAnswerList();
-		*/
 		
-		//For testing purposes:
-		Question question = new Question();
-		question.setTitle("testTitle");
-		question.setBody("testBody");
-		question.setAuthor("SIVLEOL");
+		ListView answerListView = (ListView) findViewById(R.id.answer_list_view);
+		LayoutInflater layoutInflater = getLayoutInflater();
 		
-		TextView questionTitleTextView = (TextView) findViewById(R.id.QuestionTitleTextView);
+		//Setup the header
+		ViewGroup header = (ViewGroup) layoutInflater.inflate(R.layout.question_view_header, answerListView, false);
+		
+		TextView questionTitleTextView = (TextView) header.findViewById(R.id.QuestionTitleTextView);
 		questionTitleTextView.setText(question.getTitle());
-		TextView questionBodyTextView = (TextView) findViewById(R.id.QuestionBodyTextView);
+		TextView questionBodyTextView = (TextView) header.findViewById(R.id.QuestionBodyTextView);
 		questionBodyTextView.setText(question.getBody());
+		TextView questionTimeTextView = (TextView) header.findViewById(R.id.QuestionTimeTextView);
+		questionTimeTextView.setText(question.getTime().toString());
 		
-		//WIP, was looking at wrong date doc, will change
-		/*
-		TextView questionTimeTextView = (TextView) findViewById(R.id.QuestionTimeTextView);
-		Date date = question.getTime();
-		String[] splitDateString = date.toString().split("-");
-		Date currentDate = new Date();
-		String[] splitCurDateString = currentDate.toString().split("-");
-		Integer curYear = new Integer(splitCurDateString[0]);
-		Integer questionYear = new Integer(splitDateString[0]);
-		if(curYear) 
-		questionTimeTextView.setText("Posted " + "reply");
-		*/
+		// TODO make these buttons do things
+		
+		Button replyButton = (Button) header.findViewById(R.id.reply_button);
+		Button favoriteButton = (Button) header.findViewById(R.id.favorite_button);
+		Button saveButton = (Button) header.findViewById(R.id.save_button);
+		
+		//Add the header top top of listview
+		answerListView.addHeaderView(header, null, false);
+		
+		AnswerAdapter answerAdapter = new AnswerAdapter(question.getAnswerList(), this);
+		answerListView.setAdapter(answerAdapter);
 		
 		//I don't think this should be here?
 		/*

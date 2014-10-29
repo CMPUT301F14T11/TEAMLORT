@@ -58,4 +58,7 @@ public class TextPrimitive {
 	public int getID() {
 		return ID;
 	}
+	public void setID(int newID) {
+		ID = newID;
+	}
 }

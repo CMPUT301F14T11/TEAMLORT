@@ -33,7 +33,7 @@ extends AppBaseActivity {
 				if(v.getId() == R.id.accept_button)
 				{
 					//addquestion
-					dt.dataManager.addQuestion(dt.initQuestion(new Question(), title.getText().toString(), content.getText().toString(), dt.dataManager.getUsername()));
+					dt.dataManager.addQuestion(dt.initQuestion(title.getText().toString(), content.getText().toString(), dt.dataManager.getUsername()));
 					finish();
 				}
 				else if(v.getId() == R.id.cancel_button);

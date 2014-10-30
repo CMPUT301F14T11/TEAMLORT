@@ -52,8 +52,7 @@ extends AppBaseActivity  {
         adapter = new customadapter(getApplicationContext(), listofquestions);
         for(int i = 0; i<=9; i++)
         {
-        	Question t = new Question();
-        	t = dt.initQuestion(t, "testing", "test some more", "sam");
+        	Question t = dt.initQuestion("testing", "test some more", "sam");
         	t.setID(t.hashCode());
         	Answer answer = new Answer();
         	answer.setBody("dsadasd");

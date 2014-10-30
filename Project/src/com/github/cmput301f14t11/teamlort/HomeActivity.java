@@ -54,6 +54,7 @@ extends AppBaseActivity  {
         {
         	Question t = new Question();
         	t = dt.initQuestion(t, "testing", "test some more", "sam");
+        	t.setID(t.hashCode());
         	listofquestions.add(t);
         	//dt.addQuestions(listofquestions);
         }
@@ -69,7 +70,7 @@ extends AppBaseActivity  {
 				Single_Home_Question holder = (Single_Home_Question) view.getTag();
 				Question temp = (Question) holder.title.getTag();
 				intent.putExtra("position", position);
-				intent.putExtra("id", temp.getID());// corrected the id confusion as requested - Sam
+				//intent.putExtra("id", 0);// corrected the id confusion as requested - Sam
 				startActivity(intent);
 				
 			}

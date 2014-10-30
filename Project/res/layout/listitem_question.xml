@@ -8,7 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/default_fg" >
+        android:background="@color/default_fg"
+        android:descendantFocusability="blocksDescendants" >
 
         <TextView
             android:id="@+id/listitem_question_title"

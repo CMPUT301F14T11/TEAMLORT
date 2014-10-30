@@ -20,6 +20,7 @@ extends AppBaseActivity
 	
 	Question question;
 	ArrayList<Answer> listofanswer;
+	DataController dt = new DataController();
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -29,7 +30,7 @@ extends AppBaseActivity
 		// TODO Fix how question is being received later
 		
 		Intent intent = getIntent();
-		int questionID = intent.getIntExtra("id", -1); //Need question ID not question position in ListView
+		int questionID = intent.getIntExtra("id", 2); //Need question ID not question position in ListView
 		//If no question with questionID found:
 		if(questionID == -1){
 			
@@ -40,7 +41,12 @@ extends AppBaseActivity
 		PersistentDataManager pdm = PersistentDataManager.getInstance();
 		
 		//Set question title and description on GUI.
-		question = pdm.get(questionID);
+		//question = pdm.get(questionID);
+		question = dt.initQuestion(new Question(), "testing", "testing", "sdfasfds");
+		Answer answer = new Answer();
+		answer.setBody("dsadasd");
+		answer.setAuthor("asdsadas");
+		question.addAnswer(answer);
 		listofanswer = question.getAnswerList();
 		
 		ListView answerListView = (ListView) findViewById(R.id.answer_list_view);
@@ -78,8 +84,8 @@ extends AppBaseActivity
 		
 		// TODO make these buttons do things
 		
-		Button favoriteButton = (Button) header.findViewById(R.id.favorite_button);
-		Button saveButton = (Button) header.findViewById(R.id.save_button);
+		//Button favoriteButton = (Button) header.findViewById(R.id.favorite_button);
+		//Button saveButton = (Button) header.findViewById(R.id.save_button);
 		
 		//Add the header top top of listview
 		answerListView.addHeaderView(header, null, false);
@@ -87,8 +93,8 @@ extends AppBaseActivity
 		AnswerAdapter answerAdapter = new AnswerAdapter(question.getAnswerList(), this);
 		answerListView.setAdapter(answerAdapter);
 
-		favoriteButton.setOnClickListener(onClickListener);
-		saveButton.setOnClickListener(onClickListener);//here, these button will now do things
+		/*favoriteButton.setOnClickListener(onClickListener);
+		saveButton.setOnClickListener(onClickListener);//here, these button will now do things*/
 	}
 	
 }

@@ -6,7 +6,9 @@ import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,6 +46,26 @@ extends AppBaseActivity
 		ListView answerListView = (ListView) findViewById(R.id.answer_list_view);
 		LayoutInflater layoutInflater = getLayoutInflater();
 		
+		OnClickListener onClickListener = new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(v.getId() == R.id.favorite_button)
+				{
+					//addtofavorite
+					
+					finish();
+				}
+				else if(v.getId() == R.id.save_button);
+				{
+					//cache
+					finish();
+				}
+			}
+			
+		};
+		
 		//Setup the header
 		ViewGroup header = (ViewGroup) layoutInflater.inflate(R.layout.question_view_header, answerListView, false);
 		
@@ -56,7 +78,6 @@ extends AppBaseActivity
 		
 		// TODO make these buttons do things
 		
-		Button replyButton = (Button) header.findViewById(R.id.reply_button);
 		Button favoriteButton = (Button) header.findViewById(R.id.favorite_button);
 		Button saveButton = (Button) header.findViewById(R.id.save_button);
 		
@@ -65,17 +86,9 @@ extends AppBaseActivity
 		
 		AnswerAdapter answerAdapter = new AnswerAdapter(question.getAnswerList(), this);
 		answerListView.setAdapter(answerAdapter);
-		
-		//I don't think this should be here?
-		/*
-		reply.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	Intent intent = new Intent(QuestionViewActivity.this,ReplyActivity.class);
-            	startActivity(intent);
-            }
-        });
-		*/
+
+		favoriteButton.setOnClickListener(onClickListener);
+		saveButton.setOnClickListener(onClickListener);//here, these button will now do things
 	}
 	
 }

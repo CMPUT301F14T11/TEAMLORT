@@ -1,11 +1,14 @@
 package com.github.cmput301f14t11.teamlort;
 
+import java.util.ArrayList;
+
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -56,8 +59,15 @@ extends Activity
 			public void onClick(View v)
 			{
 				AppBaseActivity.this.pMenu.show();
-				pdm.searchQuestions(searchinput.getText().toString());// we need to somehow grab the input user provided 
-				
+				ArrayList<Question>results = pdm.searchQuestions(searchinput.getText().toString());// we need to somehow grab the input user provided 
+				if(results == null)
+				{
+					//give warning
+				}
+				else
+				{
+					//pass this array to homeactivity
+				}
 			}
 		});
 	}
@@ -78,9 +88,13 @@ extends Activity
 			return true;
 		
 		case (R.id.action_new_question):
+			Intent intent = new Intent(this,ComposeQuestionActivity.class);
+			startActivity(intent);
 			return true;
 		
 		case (R.id.action_profile):
+			Intent profileintent = new Intent(this,ProfileActivity.class);
+			startActivity(profileintent);
 			return true;
 		
 		case (R.id.action_login):

@@ -179,6 +179,12 @@ extends Observable
 	{
 		// Going to implement this as searching titles for keywords.
 		// WIP.
+		//for each question in listofquestion on database
+		//look through title
+		//if found, return founded
+		//if not, return null
+		Question founded;
+		
 		
 		return null;
 	}

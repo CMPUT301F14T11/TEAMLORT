@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,14 +18,14 @@ class Single_Home_Question
 {
 	TextView title;
 	TextView content;
-	Button save;
-	Button favorite;
+	ImageButton save;
+	ImageButton favorite;
 	Single_Home_Question(View feed)
 	{
 		title = (TextView) feed.findViewById(R.id.listitem_question_title);
 		content = (TextView) feed.findViewById(R.id.listitem_question_desc);
-		save = (Button) feed.findViewById(R.id.listitem_question_save_button);
-		favorite = (Button) feed.findViewById(R.id.listitem_question_favorite_button);
+		save = (ImageButton) feed.findViewById(R.id.listitem_question_save_button);
+		favorite = (ImageButton) feed.findViewById(R.id.listitem_question_favorite_button);
 	}
 }
 //this adapter was inspired by the extended baseadapter example on android developer website

@@ -8,9 +8,11 @@
     <ListView
         android:id="@+id/answer_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+	    android:layout_height="match_parent"
+	    android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
+	    android:layout_marginRight="@dimen/activity_less_horizontal_margin"
+	    android:divider="@null"
+	    android:dividerHeight="0dp"
         tools:listitem="@layout/question_view_answer_item" />
 
 </RelativeLayout>

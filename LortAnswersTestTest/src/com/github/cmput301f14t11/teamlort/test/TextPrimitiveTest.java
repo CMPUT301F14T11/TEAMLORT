@@ -28,8 +28,7 @@ public class TextPrimitiveTest extends TestCase {
 	}
 	public void testID() {
 		TextPrimitive tp = new TextPrimitive();
-		assertTrue("No ID", tp.getID() != 0);
-		tp.setID(123);
-		assertTrue("ID not set", tp.getID() == 123);
+		tp.setID();
+		assertTrue(tp.getID() != 0);
 	}
 }

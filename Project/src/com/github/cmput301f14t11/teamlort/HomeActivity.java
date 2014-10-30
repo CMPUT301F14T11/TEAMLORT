@@ -53,7 +53,7 @@ extends AppBaseActivity  {
         for(int i = 0; i<=9; i++)
         {
         	Question t = dt.initQuestion("testing", "test some more", "sam");
-        	t.setID(t.hashCode());
+        	t.setID();
         	Answer answer = new Answer();
         	answer.setBody("dsadasd");
     		answer.setAuthor("asdsadas");

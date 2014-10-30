@@ -55,6 +55,10 @@ extends AppBaseActivity  {
         	Question t = new Question();
         	t = dt.initQuestion(t, "testing", "test some more", "sam");
         	t.setID(t.hashCode());
+        	Answer answer = new Answer();
+        	answer.setBody("dsadasd");
+    		answer.setAuthor("asdsadas");
+    		t.addAnswer(answer);
         	listofquestions.add(t);
         	//dt.addQuestions(listofquestions);
         }

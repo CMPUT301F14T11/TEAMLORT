@@ -18,14 +18,17 @@ class Single_Home_Question
 {
 	TextView title;
 	TextView content;
+	TextView count;
 	ImageButton save;
 	ImageButton favorite;
 	Single_Home_Question(View feed)
 	{
 		title = (TextView) feed.findViewById(R.id.listitem_question_title);
 		content = (TextView) feed.findViewById(R.id.listitem_question_desc);
+		count = (TextView) feed.findViewById(R.id.listitem_question_stats);
 		save = (ImageButton) feed.findViewById(R.id.listitem_question_save_button);
 		favorite = (ImageButton) feed.findViewById(R.id.listitem_question_favorite_button);
+		
 	}
 }
 //this adapter was inspired by the extended baseadapter example on android developer website
@@ -73,6 +76,7 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 		Question temp = da_list.get(position);
 		holder.title.setText(da_list.get(position).getTitle());
 		holder.content.setText(da_list.get(position).getBody());
+		holder.count.setText("posted on "+temp.getTime().toString()+", "+temp.getAnswerList().size()+" answers");
 		return row;
 	}
 	public void updatelist(ArrayList<Question> provided)//refreshes the gridview

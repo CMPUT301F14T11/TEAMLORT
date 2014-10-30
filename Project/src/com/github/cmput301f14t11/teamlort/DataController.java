@@ -17,21 +17,25 @@ public class DataController {
 		
 	}
 	
-	public Question initQuestion(Question question, String title, String body, String author){
+	public Question initQuestion(String title, String body, String author){
+		Question question = new Question();
+		
 		question.setTitle(title);
 		question.setBody(body);
 		question.setAuthor(author);
-		// TODO We can't actually set id
+		question.setID();
 		return question;
 	}
 	
-	public Question initQuestion(Question question, String title, String body, String author, Drawable image){
+	public Question initQuestion(String title, String body, String author, Drawable image){
 		//An overload that takes in an image
+		Question question = new Question();
+		
 		question.setTitle(title);
 		question.setBody(body);
 		question.setAuthor(author);
-		// TODO We can't actually set id
 		question.addPicture(image);
+		question.setID();
 		return question;
 	}
 	

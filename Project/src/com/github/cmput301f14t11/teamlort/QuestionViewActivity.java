@@ -42,7 +42,7 @@ extends AppBaseActivity
 		
 		//Set question title and description on GUI.
 		//question = pdm.get(questionID);
-		question = dt.initQuestion(new Question(), "testing", "testing", "sdfasfds");
+		question = dt.initQuestion("testing", "testing", "sdfasfds");
 		Answer answer = new Answer();
 		answer.setBody("dsadasd");
 		answer.setAuthor("asdsadas");

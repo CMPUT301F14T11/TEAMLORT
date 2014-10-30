@@ -57,7 +57,7 @@ extends AppBaseActivity  {
         	listofquestions.add(t);
         	//dt.addQuestions(listofquestions);
         }
-        questionlistview.setOnItemClickListener(new OnItemClickListener()//the core functionality of this app: did the user do the task?
+        questionlistview.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
 		{
 
 			@Override
@@ -85,12 +85,12 @@ extends AppBaseActivity  {
 		super.onStart();
 		// getlist of questions
 		
-		if (ne.checkConnection(getApplicationContext()) == true)
+		/*if (ne.checkConnection(getApplicationContext()) == true)
 		{
 			ne.notifyAll();
 			pdm.getMore();
 			listofquestions = pdm.getQuestion();
-		}
+		}*/
 		adapter.updatelist(listofquestions);
 	}
 

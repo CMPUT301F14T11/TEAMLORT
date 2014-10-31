@@ -39,6 +39,15 @@ public class DataController {
 		return question;
 	}
 	
+	public Answer initAnswer(String body, String author){
+		Answer answer = new Answer();
+		
+		answer.setBody(body);
+		answer.setAuthor(author);
+		answer.setID();
+		return answer;
+	}
+	
 	public void addQuestion(Question question){
 		dataManager.getAllQuestions().add(question);
 	}

@@ -21,8 +21,8 @@
         android:id="@+id/replyok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_toRightOf="@+id/editText1"
+        android:layout_alignBottom="@+id/answerEditText"
+        android:layout_toRightOf="@+id/answerEditText"
         android:contentDescription="@string/accessibility_accept_ico"
         android:src="@drawable/ic_action_accept_dark" />
 
@@ -39,8 +39,8 @@
         android:id="@+id/replycancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
-        android:layout_toRightOf="@+id/editText1"
+        android:layout_below="@+id/answerEditText"
+        android:layout_toRightOf="@+id/answerEditText"
         android:contentDescription="@string/accessibility_accept_ico"
         android:src="@drawable/ic_action_cancel_dark" />
 

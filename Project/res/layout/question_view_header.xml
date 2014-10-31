@@ -72,6 +72,17 @@
             android:contentDescription="@string/accessibility_cancel_ico"
             android:src="@drawable/ic_action_reply_dark" />
         
-    </LinearLayout>   
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/answerEditText"
+        android:labelFor="@+id/answerEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
 
 </LinearLayout>

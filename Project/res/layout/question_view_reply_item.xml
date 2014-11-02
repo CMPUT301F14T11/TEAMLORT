@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_bg"
+    android:orientation="vertical" >
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@color/default_divider" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_less_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_less_vertical_margin"
+        android:background="@color/default_fg" >
+
+        <LinearLayout
+            android:id="@+id/listitem_question_button_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_less_horizontal_margin" >
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/reply1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/reply_author"
+            android:layout_margin="@dimen/activity_margin"
+            android:text="@string/listitem_answer_desc" />
+
+        <TextView
+            android:id="@+id/reply_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/reply1"
+            android:layout_below="@+id/reply1"
+            android:paddingBottom="@dimen/activity_less_vertical_margin"
+            android:text="@string/listitem_question_stats"
+            android:textColor="@color/light_text"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/reply_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/reply_time"
+            android:layout_alignBottom="@+id/reply_time"
+            android:layout_toLeftOf="@+id/listitem_question_button_bar"
+            android:text="@string/listitem_answer_author"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

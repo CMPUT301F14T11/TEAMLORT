@@ -75,7 +75,7 @@ extends AppBaseActivity
 		//Setup the header
 		ViewGroup header = (ViewGroup) layoutInflater.inflate(R.layout.question_view_header, answerListView, false);
 		
-		TextView questionTitleTextView = (TextView) header.findViewById(R.id.QuestionTitleTextView);
+		TextView questionTitleTextView = (TextView) header.findViewById(R.id.UsernameTitleTextView);
 		questionTitleTextView.setText(question.getTitle());
 		TextView questionBodyTextView = (TextView) header.findViewById(R.id.QuestionBodyTextView);
 		questionBodyTextView.setText(question.getBody());

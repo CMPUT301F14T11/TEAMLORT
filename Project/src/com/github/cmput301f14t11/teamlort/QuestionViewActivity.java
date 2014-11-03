@@ -33,21 +33,24 @@ extends AppBaseActivity
 		
 		// TODO Fix how question is being received later
 		
-		Intent intent = getIntent();
-		int questionID = intent.getIntExtra("id", 2); //Need question ID not question position in ListView
+		//Intent intent = getIntent();
+		//int questionID = intent.getIntExtra("id", 2); //Need question ID not question position in ListView
 		//If no question with questionID found:
-		if(questionID == -1){
-			
-			Toast.makeText(this, "Error: Question not found", Toast.LENGTH_SHORT).show();
-			finish();
-		}
+//		if(questionID == -1){
+//			
+//			Toast.makeText(this, "Error: Question not found", Toast.LENGTH_SHORT).show();
+//			finish();
+//		}
 		
 		PersistentDataManager pdm = PersistentDataManager.getInstance();
 		
 		//Set question title and description on GUI.
 		//question = pdm.get(questionID);
 		//TODO These are just temporary test question/answers/replies
-		question = dt.initQuestion("testing", "testing", "sdfasfds");
+		//question = dt.initQuestion("testing", "testing", "sdfasfds");
+		appcache.setContext(getApplicationContext());
+		question = appcache.read();
+		
 		Reply reply = new Reply();
 		reply.setBody("test reply");
 		reply.setAuthor("test reply author");

@@ -19,10 +19,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 
 public class HomeActivity
@@ -53,11 +55,12 @@ extends AppBaseActivity  {
         adapter = new customadapter(getApplicationContext(), listofquestions);
         for(int i = 0; i<=9; i++)
         {
-        	Question t = dt.initQuestion("testing", "test some more", "sam");
+        	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
         	t.setID();
         	Answer answer = new Answer();
         	answer.setBody("dsadasd");
     		answer.setAuthor("asdsadas");
+    		
     		t.addAnswer(answer);
         	qlc.add(t,listofquestions);
         	//dt.addQuestions(listofquestions);
@@ -72,11 +75,14 @@ extends AppBaseActivity  {
 				//JUMP TO QUESTION VIEW,FILLING DATA ACCORDING TO QUESTION ID - NEED MORE DISCUSSION
 				Intent intent = new Intent(getApplicationContext(),QuestionViewActivity.class);
 				Single_Home_Question holder = (Single_Home_Question) view.getTag();
-				Question temp = (Question) holder.title.getTag();
+				Question temp = holder.thisquestion;
 				intent.putExtra("position", position);
-				//intent.putExtra("id", 0);// corrected the id confusion as requested - Sam
+				intent.putExtra("id", temp.getID());// corrected the id confusion as requested - Sam
+				Toast.makeText(getApplicationContext(), temp.getTitle(), Toast.LENGTH_SHORT).show();
+				appcache.setContext(getApplicationContext());
+				appcache.providewritedata(temp);
+				appcache.write();//written the question in appcachefile
 				startActivity(intent);
-				
 			}
 			
 		});
@@ -103,6 +109,7 @@ extends AppBaseActivity  {
 	public void Favorite(View v)
     {
     	//gets the question from list
+		
 		Single_Home_Question holder = (Single_Home_Question) v.getTag();
 		Question temp = (Question) holder.title.getTag();
 		usecontrol.addFavorite(temp);

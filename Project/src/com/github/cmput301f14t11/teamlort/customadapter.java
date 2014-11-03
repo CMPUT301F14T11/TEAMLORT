@@ -21,6 +21,7 @@ class Single_Home_Question
 	TextView count;
 	ImageButton save;
 	ImageButton favorite;
+	Question thisquestion;
 	Single_Home_Question(View feed)
 	{
 		title = (TextView) feed.findViewById(R.id.listitem_question_title);
@@ -67,16 +68,18 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 			row = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_question, parent,false);
 			
 			holder = new Single_Home_Question(row);
+			
 			row.setTag(holder);
 		}
 		else
 		{
 			holder = (Single_Home_Question) row.getTag();
 		}
-		Question temp = da_list.get(position);
+		holder.thisquestion = da_list.get(position);
 		holder.title.setText(da_list.get(position).getTitle());
 		holder.content.setText(da_list.get(position).getBody());
-		holder.count.setText("posted on "+temp.getTime().toString()+", "+temp.getAnswerList().size()+" answers");
+		holder.count.setText("posted on "+holder.thisquestion.getTime().toString()+", "+holder.thisquestion.getAnswerList().size()+" answers");
+		
 		return row;
 	}
 	public void updatelist(ArrayList<Question> provided)//refreshes the gridview

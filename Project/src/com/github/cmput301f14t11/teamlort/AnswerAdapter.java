@@ -26,6 +26,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 		ImageButton answer_action_overflow;
 		TextView answer_author;
 		TextView answer_stats_1;
+		TextView answer_comment_count;
 	}
 	
 	static class ReplyViewHolder{
@@ -92,6 +93,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_action_overflow = (ImageButton) convertView.findViewById(R.id.answer_action_overflow);
 			answerViewHolder.answer_author = (TextView) convertView.findViewById(R.id.answer_author);
 			answerViewHolder.answer_stats_1 = (TextView) convertView.findViewById(R.id.answer_stats_1);
+			answerViewHolder.answer_comment_count = (TextView) convertView.findViewById(R.id.answer_comment_count_textview);
 			
 			convertView.setTag(answerViewHolder);
 			
@@ -106,7 +108,8 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer1.setText(answer.getBody());
 			answerViewHolder.answer_author.setText(answer.getAuthor());
 			answerViewHolder.answer_stats_1.setText(answer.getTime().toString());
-		}
+			//answerViewHolder.answer_comment_count.setText(answer.getReplyList().size());
+			}
 		
 		/*//These appear to be broken right now
 		answerViewHolder.answer_action_reply.setOnClickListener(new OnClickListener(){

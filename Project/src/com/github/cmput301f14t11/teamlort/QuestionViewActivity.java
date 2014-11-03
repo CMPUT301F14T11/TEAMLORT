@@ -112,19 +112,22 @@ extends AppBaseActivity
 		answerListView.addHeaderView(header, null, false);
 		
 		AnswerAdapter answerAdapter = new AnswerAdapter(answerList, this);
-		answerListView.setAdapter(answerAdapter);
-		
+		answerListView.setAdapter(answerAdapter);		
+
 		final TextView questionCommentIndicator = (TextView) header.findViewById(R.id.commentIndicatorTextView);
+		
+		//Set the initial question comment indicator.
+		questionCommentIndicator.setText("[ + ] " + QuestionReplyListView.getCount() + " comments");
 		
 		header.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				if (QuestionReplyListView.getVisibility() == View.GONE){
-					questionCommentIndicator.setText("[ - ]");
+					questionCommentIndicator.setText("[ - ] " + QuestionReplyListView.getCount() + " comments");
 					QuestionReplyListView.setVisibility(View.VISIBLE);
 				} else {
-					questionCommentIndicator.setText("[ + ]");
+					questionCommentIndicator.setText("[ + ] " + QuestionReplyListView.getCount() + " comments");
 					QuestionReplyListView.setVisibility(View.GONE);
 				}
 				

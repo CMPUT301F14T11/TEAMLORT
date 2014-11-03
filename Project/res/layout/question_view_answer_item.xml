@@ -52,25 +52,32 @@
             android:text="@string/listitem_answer_desc" />
 
         <TextView
-            android:id="@+id/answer_author"
+            android:id="@+id/answer_comment_count_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/answer1"
-            android:layout_toLeftOf="@+id/listitem_question_button_bar"
-            android:paddingBottom="@dimen/activity_less_vertical_margin"
-            android:text="@string/listitem_answer_author"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_alignLeft="@+id/answer_stats_1"
+            android:layout_below="@+id/answer_stats_1"
+            android:text="@string/listitem_answer_reply_count" />
 
         <TextView
             android:id="@+id/answer_stats_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/answer_author"
             android:layout_alignLeft="@+id/answer1"
-            android:layout_alignTop="@+id/answer_author"
+            android:layout_below="@+id/listitem_question_button_bar"
             android:text="@string/listitem_question_stats"
             android:textColor="@color/light_text"
             android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/answer_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/answer_comment_count_textview"
+            android:layout_alignTop="@+id/answer_comment_count_textview"
+            android:layout_toLeftOf="@+id/listitem_question_button_bar"
+            android:text="@string/listitem_answer_author"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
 

@@ -62,13 +62,13 @@ extends Observable
 	public void pushToCloud()
 	{
 		// TODO: Research ElasticSearch
-		//ElasticManager.serverQuery("Foo!");
+		ElasticManager.serverQuery("Foo!");
 	}
 	
 	public void pullFromCloud()
 	{
 		// TODO: Research ElasticSearch
-		//ElasticManager.serverQuery("Foo!");
+		ElasticManager.serverQuery("Foo!");
 	}
 	
 	public void addQuestion(Question q)
@@ -103,7 +103,7 @@ extends Observable
 	public void getMore()
 	{
 		// TODO: Research ElasticSearch
-		//ElasticManager.serverQuery("Foo!");
+		ElasticManager.serverQuery("Foo!");
 	}
 	
 	public Question get(int id) // Replace Object with datatype of ID

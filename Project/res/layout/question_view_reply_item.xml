@@ -40,7 +40,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/reply_author"
             android:layout_margin="@dimen/activity_margin"
-            android:text="@string/listitem_answer_desc" />
+            android:text="@string/listitem_reply_desc" />
 
         <TextView
             android:id="@+id/reply_time"
@@ -62,6 +62,14 @@
             android:layout_toLeftOf="@+id/listitem_question_button_bar"
             android:text="@string/listitem_answer_author"
             android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+        <View
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/reply_author"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/reply_time"
+            android:background="@color/default_divider" />
 
     </RelativeLayout>
 

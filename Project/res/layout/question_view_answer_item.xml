@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/default_bg"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical" >
 
     <View
@@ -38,21 +39,6 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@string/accessibility_reply_ico"
                 android:src="@drawable/ic_action_reply_dark" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="@dimen/activity_less_vertical_margin"
-                android:layout_marginTop="@dimen/activity_less_vertical_margin"
-                android:background="@color/default_divider" />
-
-            <ImageButton
-                android:id="@+id/answer_action_overflow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/accessibility_overflow_ico"
-                android:src="@drawable/ic_action_overflow_dark" />
         </LinearLayout>
 
         <TextView
@@ -70,8 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/answer1"
-            android:layout_marginTop="14dp"
             android:layout_toLeftOf="@+id/listitem_question_button_bar"
+            android:paddingBottom="@dimen/activity_less_vertical_margin"
             android:text="@string/listitem_answer_author"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -79,10 +65,9 @@
             android:id="@+id/answer_stats_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/answer_author"
             android:layout_alignBottom="@+id/answer_author"
             android:layout_alignLeft="@+id/answer1"
-            android:paddingBottom="@dimen/activity_less_vertical_margin"
+            android:layout_alignTop="@+id/answer_author"
             android:text="@string/listitem_question_stats"
             android:textColor="@color/light_text"
             android:textStyle="italic" />

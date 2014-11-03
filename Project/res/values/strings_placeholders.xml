@@ -8,5 +8,6 @@
     <string name="profile_stats">User since January 1st, 1970 with 9001 points.</string>
     <string name="listitem_answer_desc">This is an answer to the question</string>
     <string name="listitem_answer_author">Author</string>
+    <string name="listitem_reply_desc">This is a reply to an answer.</string>
     
 </resources>

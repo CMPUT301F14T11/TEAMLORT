@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.AdapterView;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class QuestionViewActivity
 extends AppBaseActivity
@@ -42,14 +44,19 @@ extends AppBaseActivity
 		
 		//Set question title and description on GUI.
 		//question = pdm.get(questionID);
+		//TODO These are just temporary test question/answers/replies
 		question = dt.initQuestion("testing", "testing", "sdfasfds");
+		Reply reply = new Reply();
+		reply.setBody("test reply");
+		reply.setAuthor("test reply author");
 		Answer answer = new Answer();
 		answer.setBody("dsadasd");
 		answer.setAuthor("asdsadas");
+		answer.addReply(reply);
 		question.addAnswer(answer);
 		listofanswer = question.getAnswerList();
 		
-		ListView answerListView = (ListView) findViewById(R.id.answer_list_view);
+		ExpandableListView answerListView = (ExpandableListView) findViewById(R.id.answer_list_view);
 		LayoutInflater layoutInflater = getLayoutInflater();
 		
 		OnClickListener onClickListener = new OnClickListener(){
@@ -90,7 +97,7 @@ extends AppBaseActivity
 		//Add the header top top of listview
 		answerListView.addHeaderView(header, null, false);
 		
-		AnswerAdapter answerAdapter = new AnswerAdapter(question.getAnswerList(), this);
+		AnswerAdapter answerAdapter = new AnswerAdapter(listofanswer, this);
 		answerListView.setAdapter(answerAdapter);
 
 		/*favoriteButton.setOnClickListener(onClickListener);

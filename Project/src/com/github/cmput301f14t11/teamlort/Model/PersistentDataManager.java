@@ -221,16 +221,7 @@ extends Observable
 	/*
 	 * ElasticManager -- auxiliary class to handle all server I/O
 	 */
-	private static class ElasticManager
-	{
-		private static final URI serverAddress = null;
-		
-		public static Object serverQuery(String query)
-		{
-			//TODO
-			return null;
-		}
-	}
+	
 	
 	/*
 	 * LocalManager -- auxiliary class to handle file I/O

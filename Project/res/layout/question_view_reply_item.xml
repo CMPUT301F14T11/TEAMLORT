@@ -20,7 +20,7 @@
         android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
         android:layout_marginRight="@dimen/activity_less_horizontal_margin"
         android:layout_marginTop="@dimen/activity_less_vertical_margin"
-        android:background="@color/default_fg" >
+        android:background="#F8F8F8" >
 
         <LinearLayout
             android:id="@+id/listitem_question_button_bar"
@@ -62,14 +62,6 @@
             android:layout_toLeftOf="@+id/listitem_question_button_bar"
             android:text="@string/listitem_answer_author"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-        
-        <View
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/reply_author"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/reply_time"
-            android:background="@color/default_divider" />
 
     </RelativeLayout>
 

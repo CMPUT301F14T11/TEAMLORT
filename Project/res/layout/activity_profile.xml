@@ -20,10 +20,11 @@
 		    android:layout_marginLeft="@dimen/activity_horizontal_margin"
 		    android:layout_marginTop="@dimen/activity_vertical_margin"
 		    android:background="?android:attr/selectableItemBackground"
+		    android:onClick="editUsernameButtomPressed"
 		    android:src="@drawable/ic_action_edit_dark" />
 
         <TextView
-            android:id="@+id/QuestionTitleTextView"
+            android:id="@+id/UsernameTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/QuestionTitleTextView"
+            android:layout_below="@+id/UsernameTitleTextView"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:text="@string/profile_stats"
@@ -71,6 +72,7 @@
 			    android:layout_weight="1"
 			    android:background="?android:attr/selectableItemBackground"
 			    android:contentDescription="@string/accessibility_favorite_ico"
+			    android:onClick="favedListButtonPressed"
 			    android:src="@drawable/ic_action_favorite_dark" />
 			
 			<View
@@ -85,6 +87,7 @@
 			    android:layout_weight="1"
 			    android:background="?android:attr/selectableItemBackground"
 			    android:contentDescription="@string/accessibility_save_ico"
+			    android:onClick="savedListButtonPressed"
 			    android:src="@drawable/ic_action_save_dark" />
             
         </LinearLayout>
@@ -101,13 +104,13 @@
         
     </android.support.v4.view.ViewPager>
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/ProfileQuestionListView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/profile_pager"
-        android:layout_centerHorizontal="true"
-        android:text="SOMEDAY THERE WILL BE A LISTVIEW HERE, IT'LL BE GREAT"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/profile_pager" >
+
+    </ListView>
 
 </RelativeLayout>

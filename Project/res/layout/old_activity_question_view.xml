@@ -22,7 +22,7 @@
             android:padding="@dimen/activity_margin" >
 
             <TextView
-                android:id="@+id/QuestionTitleTextView"
+                android:id="@+id/UsernameTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/listitem_question_title"

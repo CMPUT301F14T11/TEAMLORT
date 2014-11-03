@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/default_bg"
-    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical" >
 
     <View
@@ -21,7 +20,7 @@
         android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
         android:layout_marginRight="@dimen/activity_less_horizontal_margin"
         android:layout_marginTop="@dimen/activity_less_vertical_margin"
-        android:background="@color/default_fg" >
+        android:background="#F8F8F8" >
 
         <LinearLayout
             android:id="@+id/listitem_question_button_bar"
@@ -31,46 +30,38 @@
             android:layout_alignParentTop="true"
             android:orientation="vertical"
             android:padding="@dimen/activity_less_horizontal_margin" >
-
-            <ImageButton
-                android:id="@+id/answer_action_reply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/accessibility_reply_ico"
-                android:src="@drawable/ic_action_reply_dark" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/answer1"
+            android:id="@+id/reply1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/answer_author"
+            android:layout_alignRight="@+id/reply_author"
             android:layout_margin="@dimen/activity_margin"
-            android:text="@string/listitem_answer_desc" />
+            android:text="@string/listitem_reply_desc" />
 
         <TextView
-            android:id="@+id/answer_author"
+            android:id="@+id/reply_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/answer1"
-            android:layout_toLeftOf="@+id/listitem_question_button_bar"
+            android:layout_alignLeft="@+id/reply1"
+            android:layout_below="@+id/reply1"
             android:paddingBottom="@dimen/activity_less_vertical_margin"
-            android:text="@string/listitem_answer_author"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/answer_stats_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/answer_author"
-            android:layout_alignLeft="@+id/answer1"
-            android:layout_alignTop="@+id/answer_author"
             android:text="@string/listitem_question_stats"
             android:textColor="@color/light_text"
             android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/reply_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/reply_time"
+            android:layout_alignBottom="@+id/reply_time"
+            android:layout_toLeftOf="@+id/listitem_question_button_bar"
+            android:text="@string/listitem_answer_author"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
 

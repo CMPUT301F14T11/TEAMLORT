@@ -59,7 +59,7 @@ extends AppBaseActivity  {
         	answer.setBody("dsadasd");
     		answer.setAuthor("asdsadas");
     		t.addAnswer(answer);
-        	listofquestions.add(t);
+        	qlc.add(t,listofquestions);
         	//dt.addQuestions(listofquestions);
         }
         questionlistview.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?

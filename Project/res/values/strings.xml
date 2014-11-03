@@ -17,5 +17,6 @@
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_reply">ReplyActivity</string>
     <string name="compose_reply">Write Reply:</string>
+    <string name="question_view_comment_indicator">[ + ]</string>
 
 </resources>

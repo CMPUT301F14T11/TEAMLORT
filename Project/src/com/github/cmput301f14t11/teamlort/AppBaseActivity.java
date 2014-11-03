@@ -24,7 +24,7 @@ extends Activity
 	private LayoutInflater inflater;
 	private ImageButton searchButton;
 	private PopupMenu pMenu;
-	
+	private ProfileController pc;
 	@SuppressLint("InflateParams")
 	@Override
 	protected void onCreate(Bundle inState)

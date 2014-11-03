@@ -38,6 +38,7 @@ extends AppBaseActivity  {
 	
     //initialize controllers
 	PersistentDataManager pdm = PersistentDataManager.getInstance();//why isn't the contructor usable?
+	Qlistcontroller qlc = new Qlistcontroller();
 	UserController usecontrol = new UserController();//initialize user controller to use its functions
 	//ScoreController sc = new ScoreController();
 	DataController dt = new DataController();

@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -21,7 +22,8 @@ extends AppBaseActivity
 {
 	
 	Question question;
-	ArrayList<Answer> listofanswer;
+	ArrayList<Answer> answerList;
+	ArrayList<Reply> questionReplyList;
 	DataController dt = new DataController();
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -54,7 +56,13 @@ extends AppBaseActivity
 		answer.setAuthor("asdsadas");
 		answer.addReply(reply);
 		question.addAnswer(answer);
-		listofanswer = question.getAnswerList();
+		answerList = question.getAnswerList();
+		
+		Reply reply2 = new Reply();
+		reply2.setBody("test reply to question");
+		reply2.setAuthor("test reply author");
+		question.addReply(reply2);
+		questionReplyList = question.getReplyList();
 		
 		ExpandableListView answerListView = (ExpandableListView) findViewById(R.id.answer_list_view);
 		LayoutInflater layoutInflater = getLayoutInflater();
@@ -82,6 +90,8 @@ extends AppBaseActivity
 		//Setup the header
 		ViewGroup header = (ViewGroup) layoutInflater.inflate(R.layout.question_view_header, answerListView, false);
 		
+		final ListView QuestionReplyListView = (ListView) header.findViewById(R.id.question_reply_listview);
+		
 		TextView questionTitleTextView = (TextView) header.findViewById(R.id.UsernameTitleTextView);
 		questionTitleTextView.setText(question.getTitle());
 		TextView questionBodyTextView = (TextView) header.findViewById(R.id.QuestionBodyTextView);
@@ -89,19 +99,35 @@ extends AppBaseActivity
 		TextView questionTimeTextView = (TextView) header.findViewById(R.id.QuestionTimeTextView);
 		questionTimeTextView.setText(question.getTime().toString());
 		
-		// TODO make these buttons do things
+		ReplyAdapter replyAdapter = new ReplyAdapter(questionReplyList, this);
+		QuestionReplyListView.setAdapter(replyAdapter);
 		
-		//Button favoriteButton = (Button) header.findViewById(R.id.favorite_button);
-		//Button saveButton = (Button) header.findViewById(R.id.save_button);
+		//By default the reply listview for question should be collapsed
+		QuestionReplyListView.setVisibility(View.GONE);
 		
 		//Add the header top top of listview
 		answerListView.addHeaderView(header, null, false);
 		
-		AnswerAdapter answerAdapter = new AnswerAdapter(listofanswer, this);
+		AnswerAdapter answerAdapter = new AnswerAdapter(answerList, this);
 		answerListView.setAdapter(answerAdapter);
+		
+		final TextView questionCommentIndicator = (TextView) header.findViewById(R.id.commentIndicatorTextView);
+		
+		header.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (QuestionReplyListView.getVisibility() == View.GONE){
+					questionCommentIndicator.setText("[ - ]");
+					QuestionReplyListView.setVisibility(View.VISIBLE);
+				} else {
+					questionCommentIndicator.setText("[ + ]");
+					QuestionReplyListView.setVisibility(View.GONE);
+				}
+				
+			}
+		}  );
 
-		/*favoriteButton.setOnClickListener(onClickListener);
-		saveButton.setOnClickListener(onClickListener);//here, these button will now do things*/
 	}
 	
 }

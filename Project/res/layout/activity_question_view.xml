@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    tools:context="com.github.cmput301f14t11.teamlort.HomeActivity" >
+    tools:context="com.github.cmput301f14t11.teamlort.QuestionViewActivity" >
 
     <ExpandableListView
         android:id="@+id/answer_list_view"

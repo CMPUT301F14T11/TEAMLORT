@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 public class AnswerAdapter extends BaseExpandableListAdapter {
 
-	AnswerViewHolder answerViewHolder;
-	ReplyViewHolder replyViewHolder;
+	private AnswerViewHolder answerViewHolder;
+	private ReplyViewHolder replyViewHolder;
 	
 	private ArrayList<Answer> answerList;
 	private Context context;
@@ -29,7 +29,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	}
 	
 	static class ReplyViewHolder{
-		//Stores views for an answer
+		//Stores views for an reply
 		TextView reply1;
 		TextView reply_author;
 		TextView reply_time;

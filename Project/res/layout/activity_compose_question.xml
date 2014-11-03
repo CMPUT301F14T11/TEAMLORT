@@ -79,7 +79,7 @@
                 android:src="@drawable/placeholder" />
 
             <ImageButton
-                android:id="@+id/imageButton1"
+                android:id="@+id/compose_add_img_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -116,7 +116,7 @@
             android:layout_marginTop="@dimen/activity_less_vertical_margin" >
 
             <ImageButton
-                android:id="@+id/accept_button"
+                android:id="@+id/compose_accept_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -130,7 +130,7 @@
                 android:background="@color/default_divider" />
 
             <ImageButton
-                android:id="@+id/cancel_button"
+                android:id="@+id/compose_cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

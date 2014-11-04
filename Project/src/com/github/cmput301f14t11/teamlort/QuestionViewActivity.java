@@ -31,19 +31,6 @@ extends AppBaseActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_view);
 		
-		// TODO Fix how question is being received later
-		
-		//Intent intent = getIntent();
-		//int questionID = intent.getIntExtra("id", 2); //Need question ID not question position in ListView
-		//If no question with questionID found:
-//		if(questionID == -1){
-//			
-//			Toast.makeText(this, "Error: Question not found", Toast.LENGTH_SHORT).show();
-//			finish();
-//		}
-		
-		PersistentDataManager pdm = PersistentDataManager.getInstance();
-		
 		//Set question title and description on GUI.
 		//question = pdm.get(questionID);
 		//TODO These are just temporary test question/answers/replies
@@ -58,6 +45,16 @@ extends AppBaseActivity
 		answer.setBody("dsadasd");
 		answer.setAuthor("asdsadas");
 		answer.addReply(reply);
+		question.addAnswer(answer);
+		question.addAnswer(answer);
+		question.addAnswer(answer);
+		question.addAnswer(answer);
+		question.addAnswer(answer);
+		question.addAnswer(answer);
+		question.addAnswer(answer);
+		question.addAnswer(answer);
+		question.addAnswer(answer);
+		question.addAnswer(answer);
 		question.addAnswer(answer);
 		answerList = question.getAnswerList();
 		

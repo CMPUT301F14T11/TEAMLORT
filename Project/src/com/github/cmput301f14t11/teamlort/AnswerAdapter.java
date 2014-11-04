@@ -108,7 +108,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer1.setText(answer.getBody());
 			answerViewHolder.answer_author.setText(answer.getAuthor());
 			answerViewHolder.answer_stats_1.setText(answer.getTime().toString());
-			//answerViewHolder.answer_comment_count.setText(answer.getReplyList().size());
+			answerViewHolder.answer_comment_count.setText(String.valueOf(answer.getReplyList().size()) + " comments");
 			}
 		
 		/*//These appear to be broken right now

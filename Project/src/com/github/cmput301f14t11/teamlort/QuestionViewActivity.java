@@ -36,8 +36,8 @@ extends AppBaseActivity
 		//question = pdm.get(questionID);
 		//TODO These are just temporary test question/answers/replies
 		//question = dt.initQuestion("testing", "testing", "sdfasfds");
-		appcache.setContext(getApplicationContext());
-		question = appcache.read();
+		AppCache appCache = AppCache.getInstance();
+		question = appCache.getQuestion();
 		
 		Reply reply = new Reply();
 		reply.setBody("test reply");

@@ -76,12 +76,9 @@ extends AppBaseActivity  {
 				Intent intent = new Intent(getApplicationContext(),QuestionViewActivity.class);
 				Single_Home_Question holder = (Single_Home_Question) view.getTag();
 				Question temp = holder.thisquestion;
-				intent.putExtra("position", position);
-				intent.putExtra("id", temp.getID());// corrected the id confusion as requested - Sam
 				Toast.makeText(getApplicationContext(), temp.getTitle(), Toast.LENGTH_SHORT).show();
-				appcache.setContext(getApplicationContext());
-				appcache.providewritedata(temp);
-				appcache.write();//written the question in appcachefile
+				AppCache appCache = AppCache.getInstance(); //written the question in appcachefile
+				appCache.setQuestion(temp);
 				startActivity(intent);
 			}
 			

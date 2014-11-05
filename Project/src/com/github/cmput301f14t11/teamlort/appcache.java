@@ -4,6 +4,7 @@ public class AppCache {
 
 	private static AppCache appCache = null;
 	private Question question = null;
+	private String username = null;
 	
 	public static AppCache getInstance(){
 		if (appCache == null){
@@ -18,6 +19,14 @@ public class AppCache {
 	
 	public Question getQuestion(){
 		return question;
+	}
+	
+	public void setUsername(String username){
+		this.username = username;
+	}
+	
+	public String getUsername(){
+		return username;
 	}
 	
 }

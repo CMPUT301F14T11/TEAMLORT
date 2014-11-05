@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -98,6 +99,7 @@ extends AppBaseActivity
 		questionBodyTextView.setText(question.getBody());
 		TextView questionTimeTextView = (TextView) header.findViewById(R.id.QuestionTimeTextView);
 		questionTimeTextView.setText(question.getTime().toString());
+		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
 		
 		ReplyAdapter replyAdapter = new ReplyAdapter(questionReplyList, this);
 		QuestionReplyListView.setAdapter(replyAdapter);
@@ -108,7 +110,7 @@ extends AppBaseActivity
 		//Add the header top top of listview
 		answerListView.addHeaderView(header, null, false);
 		
-		AnswerAdapter answerAdapter = new AnswerAdapter(answerList, this);
+		final AnswerAdapter answerAdapter = new AnswerAdapter(answerList, this);
 		answerListView.setAdapter(answerAdapter);		
 
 		final TextView questionCommentIndicator = (TextView) header.findViewById(R.id.commentIndicatorTextView);
@@ -130,6 +132,20 @@ extends AppBaseActivity
 				
 			}
 		}  );
+		replyButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getBaseContext(), "Bleh", Toast.LENGTH_SHORT).show();
+				Answer answer = new Answer();
+				TextView answerText = (TextView) findViewById(R.id.answerEditText);
+				answer.setBody(answerText.getText().toString());
+				answer.setAuthor("Profile controller stuff");
+				question.addAnswer(answer); 
+				answerAdapter.notifyDataSetChanged();
+			}
+		});
 
 	}
 	

@@ -137,13 +137,18 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Toast.makeText(getBaseContext(), "Bleh", Toast.LENGTH_SHORT).show();
-				Answer answer = new Answer();
 				TextView answerText = (TextView) findViewById(R.id.answerEditText);
+				if (answerText.getText().length() == 0) {
+					Toast.makeText(getBaseContext(), "No empty questions", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				Answer answer = new Answer();
 				answer.setBody(answerText.getText().toString());
 				answer.setAuthor("Profile controller stuff");
 				question.addAnswer(answer); 
+				answerText.setText("");
 				answerAdapter.notifyDataSetChanged();
+				//Toast.makeText(getBaseContext(), "Added Question", Toast.LENGTH_SHORT).show();
 			}
 		});
 

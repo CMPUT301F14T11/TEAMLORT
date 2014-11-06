@@ -15,7 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
- * Custom adapter for an {@link ExpandableListView} containing {@link Answer} groups each with 
+ * Custom {@link Adapter} for an {@link ExpandableListView} containing {@link Answer} groups each with 
  * an expandable list of {@link Reply} objects. Extends {@link BaseExpandableListAdapter}.
  * 
  * @author Elvis Lo

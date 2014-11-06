@@ -8,9 +8,18 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Custom {@link Adapter} for an {@link ListView} containing {@link Reply} objects.
+ * 
+ * @author Elvis Lo
+ */
 public class ReplyAdapter extends BaseAdapter {
 	
 	private ReplyViewHolder replyViewHolder;

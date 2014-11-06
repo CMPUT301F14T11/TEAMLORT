@@ -4,6 +4,7 @@ public class AppCache {
 
 	private static AppCache appCache = null;
 	private Question question = null;
+	private Profile profile = null;
 	
 	public static AppCache getInstance(){
 		if (appCache == null){
@@ -18,6 +19,14 @@ public class AppCache {
 	
 	public Question getQuestion(){
 		return question;
+	}
+	
+	public void setProfile(Profile profile){
+		this.profile = profile;
+	}
+	
+	public Profile getProfile(){
+		return profile;
 	}
 	
 }

@@ -51,12 +51,6 @@ extends AppBaseActivity
 		question.addAnswer(answer);
 		question.addAnswer(answer);
 		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
 		answerList = question.getAnswerList();
 		
 		Reply reply2 = new Reply();

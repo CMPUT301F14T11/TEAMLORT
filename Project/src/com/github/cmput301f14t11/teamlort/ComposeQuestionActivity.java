@@ -31,7 +31,7 @@ extends AppBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compose_question);
 		
-		GetModel();
+		GetProfile();
 		GetControllers();
 		GetLayoutElements();
 		AttachListeners();
@@ -40,8 +40,9 @@ extends AppBaseActivity {
 	/*
 	 * Auxiliary
 	 */
-	private void GetModel()
+	private void GetProfile()
 	{
+		// TODO Auto-generated method stub
 		
 	}
 	private void GetControllers()

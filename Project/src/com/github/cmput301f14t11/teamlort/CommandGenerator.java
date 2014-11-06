@@ -54,15 +54,6 @@ public class CommandGenerator {
 		return null;
 	}
 
-	/**
-	 * @param username The username {@link string} to be pushed.
-	 * @return {@link String} query formatted for pushing a username {@link string} to 
-	 * Elastic Search.
-	 */
-	public String getPushUsernameCommand(String username){
-		//TODO stub
-		return null;
-	}
 
 	/**
 	 * @return {@link String} query formatted for requesting a {@link Question} list from 

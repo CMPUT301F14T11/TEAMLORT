@@ -3,49 +3,42 @@ package com.github.cmput301f14t11.teamlort.test;
 import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.Answer;
-import com.github.cmput301f14t11.teamlort.ComposeQuestionActivity;
-import com.github.cmput301f14t11.teamlort.DataController;
+import com.github.cmput301f14t11.teamlort.AppCache;
 import com.github.cmput301f14t11.teamlort.Question;
 import com.github.cmput301f14t11.teamlort.QuestionViewActivity;
 import com.github.cmput301f14t11.teamlort.Reply;
-import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
-
-import android.graphics.Bitmap;
 import android.test.ActivityInstrumentationTestCase2;
-
-import junit.framework.TestCase;
 
 public class UseCase2And3Test extends ActivityInstrumentationTestCase2<QuestionViewActivity> {
 	
-	public UseCase2And3Test(String name) {
+	public UseCase2And3Test() {
 		super(QuestionViewActivity.class);
 	}
 	
 	public void testCaseTwo(){
 		//Test case for Use Case #2: User views a question and its answers
-		PersistentDataManager dataManager = PersistentDataManager.getInstance();
-		DataController dataController = new DataController();
+		AppCache appCache = AppCache.getInstance();
 		String title = "What was Lancer's noble phantasm?";
 		String desc = "His spear did weird stuff, I'm confused";
 		Question question = new Question();
 		question.setTitle(title);
 		question.setBody(desc);
-		dataController.addQuestion(question);
+		appCache.setQuestion(question);
 		
 		//Title and description must be retrievable for display.
-		Question testQuestion = dataManager.getQuestion(0);
-		assertTrue("Title doesn't match title", question.getTitle() == title);
-		assertTrue("Description doesn't match desc", question.getBody() == desc);
+		Question testQuestion = appCache.getQuestion();
+		assertTrue("Title doesn't match title", testQuestion.getTitle() == title);
+		assertTrue("Description doesn't match desc", testQuestion.getBody() == desc);
 		
 		Answer answer = new Answer();
 		answer.setBody("It reverses cause and effect");
 		Answer answer2 = new Answer();
 		answer2.setBody("Ufotable too flashy");
-		question.addAnswer(answer);
-		question.addAnswer(answer2);
+		testQuestion.addAnswer(answer);
+		testQuestion.addAnswer(answer2);
 		
 		//Any answers the question has must be retrievable for display.
-		ArrayList<Answer> list1 = question.getAnswerList();
+		ArrayList<Answer> list1 = testQuestion.getAnswerList();
 		assertTrue("Question does not have answer", list1.get(0) == answer);
 		assertTrue("Question does not have answer2", list1.get(1) == answer2);
 	}

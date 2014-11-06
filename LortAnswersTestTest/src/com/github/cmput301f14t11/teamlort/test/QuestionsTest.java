@@ -2,7 +2,13 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.Answer;
+import com.github.cmput301f14t11.teamlort.Question;
+import com.github.cmput301f14t11.teamlort.Reply;
+
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
 import junit.framework.TestCase;
 
@@ -21,30 +27,35 @@ public class QuestionsTest extends TestCase {
 	
 	public void testGetTitle(){
 		String title = "How do I fly?";
-		Question question = new Question(title);
+		Question question = new Question();
+		question.setTitle(title);
 		assertTrue("title doesn't match title", question.getTitle() == title);
 	}
 	
 	public void testSetDescription(){
 		String desc = "I have some feathers halp";
 		Question question = new Question();
-		assertTrue("Desc not empty by default", question.getDescription() == "");
-		question.setDescription(desc);
-		assertTrue("Description doesn't match desc", question.getDescription() == desc);
+		assertTrue("Desc not empty by default", question.getBody() == "");
+		question.setBody(desc);
+		assertTrue("Description doesn't match desc", question.getBody() == desc);
 	}
 	
 	public void testGetDescription(){
 		String title = "How do I fly?";
 		String desc = "I have some feathers halp";
-		Question question = new Question(title, desc);
-		assertTrue("Description doesn't match desc", question.getDescription() == desc);
+		Question question = new Question();
+		question.setTitle(title);
+		question.setBody(desc);
+		assertTrue("Description doesn't match desc", question.getBody() == desc);
 	}
 	
 	public void testAddReplies(){
 		String title = "How do I fly?";
 		String rep = "this is incredibly stupid";
-		Question question = new Question(title);
-		Reply reply = new Reply(rep);
+		Question question = new Question();
+		question.setTitle(title);
+		Reply reply = new Reply();
+		reply.setBody(rep);
 		question.addReply(reply);
 		assertTrue("Reply doesn't match rep", question.getReply(0) == reply);
 	}
@@ -53,9 +64,12 @@ public class QuestionsTest extends TestCase {
 		String title = "How do I fly?";
 		String rep = "this is incredibly stupid";
 		String rep2 = "this is incredibly silly";
-		Question question = new Question(title);
-		Reply reply = new Reply(rep);
-		Reply reply2 = new Reply(rep2);
+		Question question = new Question();
+		question.setTitle(title);
+		Reply reply = new Reply();
+		reply.setBody(rep);
+		Reply reply2 = new Reply();
+		reply2.setBody(rep2);
 		question.addReply(reply);
 		question.addReply(reply2);
 		assertTrue("Reply doesn't match rep", question.getReply(0) == reply);
@@ -69,47 +83,36 @@ public class QuestionsTest extends TestCase {
 		assertTrue("Author doesn't match username", question.getAuthor() == username);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void testAddImage(){
 		//Right now this also tests getImage
+		Question question = new Question();
 		Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888 );
-		Question question = new Question(title);
-		question.addImage(bitmap);
-		assertTrue("Bitmap does not match bitmap or getImage failed", question.getImage() == bitmap);
+		Drawable drawable = new BitmapDrawable(bitmap);
+		question.addPicture(drawable);
+		assertTrue("Bitmap does not match bitmap or getImage failed", question.getPicture() == drawable);
 	}
 	
 	public void testUpvote(){
 		String username = "SIVLEOL";
 		Question question = new Question();
 		assertTrue("question initialized with more than 0 upvotes", question.getScore() == 0);
-		question.upvote(username);
+		question.upVote(username);
 		assertTrue("Upvote did not change score", question.getScore() == 1);
-		question.upvote(username);
+		question.upVote(username);
 		assertTrue("Same user managed to upvote same question twice", question.getScore() == 1);
-	}
-	
-	public void testDownvote(){
-		String username = "SIVLEOL";
-		Question question = new Question();
-		question.downvote(username);
-		assertTrue("Downvote did not change score", question.getScore() == -1);
-		question.downvote(username);
-		assertTrue("Same user managed to downvote same question twice", question.getScore() == -1);
-		question.upvote(username);
-		assertTrue("User was unable to re-upvote after downvoting", question.getScore() == 0);
-		question.upvote(username);
-		assertTrue("Upvote did not change score after canceling downvote", question.getScore() == 1);
 	}
 	
 	public void testDate(){
 		Question question = new Question();
-		assertTrue("question date is null", question.getDate() != null);
+		assertTrue("question date is null", question.getTime() != null);
 	}
 	
 	public void testAddAnswer(){
 		Question question = new Question();
 		Answer answer = new Answer();
 		question.addAnswer(answer);
-		ArrayList<Answer> list1 = question.getAnswers();
+		ArrayList<Answer> list1 = question.getAnswerList();
 		assertTrue("Question does not have answer", list1.get(0) == answer);
 	}
 	
@@ -117,27 +120,28 @@ public class QuestionsTest extends TestCase {
 		Question question = new Question();
 		Answer answer = new Answer();
 		question.addAnswer(answer);
-		question.removeAnswer(answer);
-		ArrayList<Answer> list1 = question.getAnswers();
+		question.deleteAnswer(answer);
+		ArrayList<Answer> list1 = question.getAnswerList();
 		assertTrue("Question remove failed", list1.size() == 0);
 	}
 	
-	public void testGetAnswers(){
+	public void testGetAnswerList(){
 		Question question = new Question();
 		Answer answer = new Answer();
-		ArrayList<Answer> list1 = question.getAnswers();
+		ArrayList<Answer> list1 = question.getAnswerList();
 		assertTrue("getAnswer() returned > 0 when should be empty", list1.size() == 0);
 		question.addAnswer(answer);
 		assertTrue("getAnswer() did not return list with answer", list1.get(0) == answer);
 	}
 	
 	public void testQUEPIC() 
-54 	{ 
-55 		Question question = new Question(title);
+ 	{ 
+ 		Question question = new Question();
 		Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888 );
-		question.addImage(bitmap);
-58 		assertTrue("picture file size too large",question.getpic().getAllocationByteCount () <= 64); 
-59 	} 
+		Drawable drawable = new BitmapDrawable(bitmap);
+		question.addPicture(drawable);
+ 		assertTrue("picture file size too large", ((BitmapDrawable) question.getPicture()).getBitmap().getByteCount() <= 64); 
+ 	} 
 
 	public void testSort()
 	{

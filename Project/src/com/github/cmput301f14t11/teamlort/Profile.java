@@ -35,7 +35,7 @@ public class Profile {
 	public ArrayList<Question> getTestQuestionList(){
 		ArrayList<Question> testQuestionList = new ArrayList<Question>();
 		for (int i = 0; i<3; i++){
-			DataController dc = new DataController();
+			ObjectFactory dc = new ObjectFactory();
 			testQuestionList.add(dc.initQuestion("Title", "Body", "author"));
 		}
 		return testQuestionList;
@@ -44,7 +44,7 @@ public class Profile {
 	public ArrayList<Question> getTestQuestionList1(){
 		ArrayList<Question> testQuestionList = new ArrayList<Question>();
 		for (int i = 0; i<3; i++){
-			DataController dc = new DataController();
+			ObjectFactory dc = new ObjectFactory();
 			testQuestionList.add(dc.initQuestion("Title1", "Body1", "author1"));
 		}
 		return testQuestionList;
@@ -53,7 +53,7 @@ public class Profile {
 	public ArrayList<Question> getTestQuestionList2(){
 		ArrayList<Question> testQuestionList = new ArrayList<Question>();
 		for (int i = 0; i<3; i++){
-			DataController dc = new DataController();
+			ObjectFactory dc = new ObjectFactory();
 			testQuestionList.add(dc.initQuestion("Title2", "Body2", "author2"));
 		}
 		return testQuestionList;

@@ -19,7 +19,7 @@ extends TestCase
 	public void testCaseFive()
 	{
 		PersistentDataManager data = PersistentDataManager.getInstance();
-		DataController inputManager = new DataController();
+		ObjectFactory inputManager = new ObjectFactory();
 		
 		// The user creates a question. Here the views (EditTexts) should have
 		// the strings, but since that's not done we'll just make them up.
@@ -59,7 +59,7 @@ extends TestCase
 	public void testCaseSix()
 	{
 		PersistentDataManager data = PersistentDataManager.getInstance();
-		DataController inputManager = new DataController();
+		ObjectFactory inputManager = new ObjectFactory();
 		
 		// This portion is the same as testCase5 -- make the Q&A
 		String title = "I have a question about things.";
@@ -103,7 +103,7 @@ extends TestCase
 	public void testCaseSeven()
 	{
 		PersistentDataManager data = PersistentDataManager.getInstance();
-		DataController inputManager = new DataController();
+		ObjectFactory inputManager = new ObjectFactory();
 		
 		// This portion is the same as testCase5 -- make the Q&A
 		// Except we want to add a picture to the Q&A this time.

@@ -15,7 +15,7 @@ public class UseCase13Through16Test extends TestCase {
 		
 		//Create existed database
 		PersistentDataManager dataManager = new PersistentDataManager();
-		DataController inputManager = new DataController();
+		ObjectFactory inputManager = new ObjectFactory();
 		ScoreController sc = new ScoreController();
 		ArrayList<Question> highestScoreQuestionList = new ArrayList<Question>();
 		ArrayList<Answer> highestScoreAnswerList = new ArrayList<Answer>();
@@ -59,7 +59,7 @@ public class UseCase13Through16Test extends TestCase {
 	public void testCase14(){
 		//Create the existed database
 		PersistentDataManager dataManager = new PersistentDataManager();
-		DataController inputManager = new DataController();
+		ObjectFactory inputManager = new ObjectFactory();
 		
 		QuestionViewActivity activity = (QuestionViewActivity) getAcetivity();
 		TextView tv = (TextView)activity.findViewById(R.id.textView3);
@@ -106,7 +106,7 @@ public class UseCase13Through16Test extends TestCase {
 	public void testCase15(){
 		//Create existed database
 		PersistentDataManager dataManager = new PersistentDataManager();
-		DataController inputManager = new DataController();
+		ObjectFactory inputManager = new ObjectFactory();
 		ArrayList<Question> result = new ArrayList<Question>();
 
 		Question question1 = new Question("Cat");
@@ -138,7 +138,7 @@ public class UseCase13Through16Test extends TestCase {
 	//Recording Authors’ Questions
 	public void testCase16(){
 		PersistentDataManager dataManager = new PersistentDataManager();
-		DataController inputManager = new DataController();
+		ObjectFactory inputManager = new ObjectFactory();
 		UserController uc = new UserController(dataManager);
 		ArrayList<Question> authorQuestionList = new ArrayList<Question>();
 		

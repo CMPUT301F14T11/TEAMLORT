@@ -2,15 +2,24 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+/**
+ * Custom {@link Adapter} for an {@link ExpandableListView} containing {@link Answer} groups each with 
+ * an expandable list of {@link Reply} objects. Extends {@link BaseExpandableListAdapter}.
+ * 
+ * @author Elvis Lo
+ */
 public class AnswerAdapter extends BaseExpandableListAdapter {
 
 	private AnswerViewHolder answerViewHolder;
@@ -19,6 +28,11 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Answer> answerList;
 	private Context context;
 	
+	/**
+	 * ViewHolder for {@link Answer} view elements.
+	 * 
+	 * @author Elvis Lo
+	 */
 	static class AnswerViewHolder{
 		//Stores views for an answer
 		TextView answer1;
@@ -29,6 +43,14 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 		TextView answer_comment_count;
 	}
 	
+	/**
+	 * ViewHolder for {@link Reply} view elements.
+	 * 
+	 * @author Elvis Lo
+	 * 
+	 * @Credit ViewHolder pattern from:
+	 *  http://developer.android.com/training/improving-layouts/smooth-scrolling.html
+	 */
 	static class ReplyViewHolder{
 		//Stores views for an reply
 		TextView reply1;
@@ -36,6 +58,12 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 		TextView reply_time;
 	}
 	
+	/**
+	 * {@link AnswerAdapter} constructor.
+	 * 
+	 * @param answerList The {@link ArrayList}<{@link Answer}> the adapter will adapt views for.
+	 * @param context The {@link Activity} {@link Context}.
+	 */
 	public AnswerAdapter(ArrayList<Answer> answerList, Context context) {
 		this.answerList = answerList;
 		this.context = context;

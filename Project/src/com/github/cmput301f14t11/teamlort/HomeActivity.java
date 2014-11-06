@@ -43,7 +43,7 @@ extends AppBaseActivity  {
 	Qlistcontroller qlc = new Qlistcontroller();
 	UserController usecontrol = new UserController();//initialize user controller to use its functions
 	//ScoreController sc = new ScoreController();
-	DataController dt = new DataController();
+	ObjectFactory dt = new ObjectFactory();
 	NetworkController ne = new NetworkController();
 	
 	@Override

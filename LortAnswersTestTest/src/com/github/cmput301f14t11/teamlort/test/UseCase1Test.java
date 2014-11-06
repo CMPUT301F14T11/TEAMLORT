@@ -2,7 +2,7 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.ArrayList;
 
-import com.github.cmput301f14t11.teamlort.DataController;
+import com.github.cmput301f14t11.teamlort.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.HomeActivity;
 import com.github.cmput301f14t11.teamlort.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Question;

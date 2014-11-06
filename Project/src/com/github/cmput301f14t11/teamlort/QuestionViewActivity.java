@@ -31,7 +31,7 @@ extends AppBaseActivity
 	Question question;
 	ArrayList<Answer> answerList;
 	ArrayList<Reply> questionReplyList;
-	DataController dt = new DataController();
+	ObjectFactory dt = new ObjectFactory();
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{

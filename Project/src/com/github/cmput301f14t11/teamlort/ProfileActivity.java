@@ -25,7 +25,7 @@ public class ProfileActivity extends AppBaseActivity {
 		
     //initialize controllers
 	ProfileController pc = new ProfileController();
-	DataController dt = new DataController();
+	ObjectFactory dt = new ObjectFactory();
 	Profile p = new Profile();
 
 	@Override

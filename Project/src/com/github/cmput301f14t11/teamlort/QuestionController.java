@@ -12,15 +12,7 @@ public class QuestionController {
 		//TODO stub
 	}
 	
-	public void addAnswer(Answer answer, int questionID){
-		//TODO stub
-	}
-	
-	public void addQuestionReply(Reply reply, int questionID){
-		//TODO stub
-	}
-	
-	public void addAnswerReply(Reply reply, int questionID, int answerID){
+	public void addReply(Reply reply, int questionID){
 		//TODO stub
 	}
 

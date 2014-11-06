@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.DataController;
 import com.github.cmput301f14t11.teamlort.HomeActivity;
+import com.github.cmput301f14t11.teamlort.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Question;
+import com.github.cmput301f14t11.teamlort.elasticmanager;
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -17,10 +19,10 @@ public class UseCase1Test extends ActivityInstrumentationTestCase2<HomeActivity>
 	
 	public void testCaseOne(){
 		//Test case for Use Case #1: User browses questions
-		PersistentDataManager dataManager = PersistentDataManager.getInstance();
-		DataController dataController = new DataController();
+		elasticmanager elasticManager = elasticmanager.getInstance();
+		Qlistcontroller qListController = new Qlistcontroller();
 		//If there are no questions, return no questions.
-		ArrayList<Question> emptyList = dataManager.getAllQuestions();
+		ArrayList<Question> emptyList = elasticManager.getQuestions();
 		assertTrue("Data manager returned questions when there should be none", emptyList.size() == 0);
 		
 		Question question = new Question();
@@ -33,18 +35,16 @@ public class UseCase1Test extends ActivityInstrumentationTestCase2<HomeActivity>
 		question4.setTitle("Are these spoilers for F/SN?");
 		Question question5 = new Question();
 		question5.setTitle("Which route is this?");
-		dataController.addQuestion(question);
-		dataController.addQuestion(question2);
-		dataController.addQuestion(question3);
-		dataController.addQuestion(question4);
-		dataController.addQuestion(question5);
-		//App can retrieve a list of questions from PersistentDataManager
-		ArrayList<Question> partialList = dataManager.getQuestions(0, 2);
+		qListController.add(question);
+		qListController.add(question2);
+		qListController.add(question3);
+		qListController.add(question4);
+		qListController.add(question5);
+		//App can retrieve a list of questions from ElasticManager
+		ArrayList<Question> partialList = elasticManager.getQuestions();
 		assertTrue("Partial list does not contain question 1 where it should be", partialList.get(0) == question);
 		assertTrue("Partial list does not contain question 2 where it should be", partialList.get(1) == question2);
 		assertTrue("Partial list does not contain question 3 where it should be", partialList.get(2) == question3);
-		//App can add additional questions to current question list.
-		partialList.append(dataManager.getQuestions(2, 4));
 		assertTrue("Partial list does not contain question 4 where it should be", partialList.get(3) == question2);
 		assertTrue("Partial list does not contain question 5 where it should be", partialList.get(4) == question3);
 	}

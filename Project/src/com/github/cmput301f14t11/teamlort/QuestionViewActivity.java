@@ -2,6 +2,7 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * {@link Activity} for viewing a {@link Question} and it's {@link Answer}s and {@link Reply}s, 
+ * user can answer the {@link Question} or {@link Reply} to the question or an answer as 
+ * well as save/favorite the {@link Question}. Covers use cases 2, 3, 5, 6, 11, 12, 22
+ * and involved in cases 7, 13, 18.
+ * 
+ * @author Elvis Lo
+ * 
+ * @issues Currently still using test questions for demo purposes.
+ */
 public class QuestionViewActivity
 extends AppBaseActivity
 {

@@ -1,5 +1,9 @@
 package com.github.cmput301f14t11.teamlort;
 
+/**
+ * @author Elvis Lo
+ *
+ */
 public class QuestionController {
 
 	public void addQuestion(Question question){

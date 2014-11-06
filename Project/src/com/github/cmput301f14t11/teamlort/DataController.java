@@ -7,6 +7,14 @@ import android.graphics.drawable.Drawable;
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 import com.github.cmput301f14t11.teamlort.Question;
 
+/**
+ * {@link Deprecated}, should not be used.
+ * 
+ * Allows building of {@link Question}, {@link Answer} and {@link Reply} objects.
+ * 
+ * @author Elvis Lo
+ *
+ */
 public class DataController {
 
 	PersistentDataManager dataManager;

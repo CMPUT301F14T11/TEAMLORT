@@ -1,8 +1,10 @@
 package com.github.cmput301f14t11.teamlort;
 
 /**
+ * Controller for modifying a {@link Question} and it's contents ({@link Answer} and {@link Reply} objects) and related 
+ * details.
+ * 
  * @author Elvis Lo
- *
  */
 public class QuestionController {
 

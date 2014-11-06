@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.AnswerAdapter.ReplyViewHolder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,14 @@ public class ReplyAdapter extends BaseAdapter {
 	private ArrayList<Reply> replyList;
 	private Context context;
 	
+	/**
+	 * ViewHolder for {@link Reply} view elements.
+	 * 
+	 * @author Elvis Lo
+	 * 
+	 * @Credit ViewHolder pattern from:
+	 *  http://developer.android.com/training/improving-layouts/smooth-scrolling.html
+	 */
 	static class ReplyViewHolder{
 		//Stores views for an reply
 		TextView reply1;
@@ -34,6 +43,12 @@ public class ReplyAdapter extends BaseAdapter {
 		TextView reply_time;
 	}
 	
+	/**
+	 * {@link ReplyAdapter} constructor.
+	 * 
+	 * @param replyList The {@link ArrayList}<{@link Reply} > the adapter will adapt views for.
+	 * @param context The {@link Activity} {@link Context}.
+	 */
 	public ReplyAdapter(ArrayList<Reply> replyList, Context context) {
 		this.replyList = replyList;
 		this.context = context;

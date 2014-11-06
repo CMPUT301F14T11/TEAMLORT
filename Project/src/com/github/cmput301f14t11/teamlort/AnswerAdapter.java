@@ -47,6 +47,9 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	 * ViewHolder for {@link Reply} view elements.
 	 * 
 	 * @author Elvis Lo
+	 * 
+	 * @Credit ViewHolder pattern from:
+	 *  http://developer.android.com/training/improving-layouts/smooth-scrolling.html
 	 */
 	static class ReplyViewHolder{
 		//Stores views for an reply
@@ -58,7 +61,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	/**
 	 * {@link AnswerAdapter} constructor.
 	 * 
-	 * @param answerList The {@link Answer} list the adapter will adapt views for.
+	 * @param answerList The {@link ArrayList}<{@link Answer}> the adapter will adapt views for.
 	 * @param context The {@link Activity} {@link Context}.
 	 */
 	public AnswerAdapter(ArrayList<Answer> answerList, Context context) {

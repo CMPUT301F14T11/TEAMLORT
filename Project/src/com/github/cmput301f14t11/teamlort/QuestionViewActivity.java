@@ -2,21 +2,16 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
-import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class QuestionViewActivity
 extends AppBaseActivity

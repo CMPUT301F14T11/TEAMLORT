@@ -3,7 +3,6 @@ package com.github.cmput301f14t11.teamlort.test;
 import com.github.cmput301f14t11.teamlort.ComposeQuestionActivity;
 import com.github.cmput301f14t11.teamlort.Question;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,7 +10,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 public class UseCase4Test extends ActivityInstrumentationTestCase2<ComposeQuestionActivity> {
 
-	public UseCase4Test(String name) {
+	public UseCase4Test() {
 		super(ComposeQuestionActivity.class);
 	}
 	

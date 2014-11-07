@@ -40,7 +40,11 @@ public class Elasticmanager {
 	      return instance;
 	   }
 
-	
+	/**
+	 * for getting a single question, based on ID
+	 * @param id
+	 * @return
+	 */
 	public RepliableText getItem(int id) {
 
 		HttpClient httpClient = new DefaultHttpClient();
@@ -59,6 +63,7 @@ public class Elasticmanager {
 
 		return null;
 	}
+	
 	private Elasticitem<RepliableText> parseItem(HttpResponse response) {
 		
 		try {
@@ -95,7 +100,10 @@ public class Elasticmanager {
 		//TODO
 		return null;
 	}
-	
+	/**
+	 * adds a single question to the server
+	 * @param deliveritem
+	 */
 	public void addItem(RepliableText deliveritem) {
 		HttpClient httpClient = new DefaultHttpClient();
 
@@ -114,6 +122,10 @@ public class Elasticmanager {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * deletes question from server based on id
+	 * @param Id
+	 */
 	public void deleteItem(int Id) {
 		HttpClient httpClient = new DefaultHttpClient();
 
@@ -129,6 +141,13 @@ public class Elasticmanager {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * grabs content from server, provided it receives an ID as a starting point
+	 * and how far down the list it needs to go
+	 * @param id
+	 * @param amount
+	 * @return
+	 */
 	public ArrayList<RepliableText>get(int id,int amount)
 	{
 		HttpClient httpClient = new DefaultHttpClient();

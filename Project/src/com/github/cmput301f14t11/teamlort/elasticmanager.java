@@ -23,18 +23,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
-public class elasticmanager {
-	private static elasticmanager instance = null;
+public class ElasticManager {
+	private static ElasticManager instance = null;
 	
 	private static final String serverAddress = "http://cmput301.softwareprocess.es:8080/cmput301f14t11/";
 	private static Gson gson;
 
-	protected elasticmanager() {
+	protected ElasticManager() {
 		
 	}
-	public static elasticmanager getInstance() {
+	public static ElasticManager getInstance() {
 	      if(instance == null) {
-	         instance = new elasticmanager();
+	         instance = new ElasticManager();
 	         gson = new Gson();
 	      }
 	      return instance;
@@ -129,6 +129,7 @@ public class elasticmanager {
 			e.printStackTrace();
 		}
 	}
+
 	public ArrayList<RepliableText>getByDate(int id,int amount)
 	{
 		HttpClient httpClient = new DefaultHttpClient();
@@ -152,7 +153,17 @@ public class elasticmanager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-
+		
+	public ArrayList<Question> sortQuestions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<Answer> sortAnswers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<Question> search(String string) {
+		// TODO Auto-generated method stubs
 		return null;
 	}
 }

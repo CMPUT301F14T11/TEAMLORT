@@ -7,7 +7,14 @@ package com.github.cmput301f14t11.teamlort;
  */
 public class ProfileController {
 	private static Profile p = new Profile();
-
+	
+	/**
+	 * Sets the {@link Profile} in ProfileController to the instance in AppCache
+	 */
+	private ProfileController() {
+		p = AppCache.getInstance().getProfile();
+	}
+	
 	/**
 	 * add favorite question into the favorite question list in the profile
 	 * @param q1 question that will be added

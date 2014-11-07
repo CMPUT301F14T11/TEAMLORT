@@ -11,7 +11,7 @@ public class Qlistcontroller {
 	public void getMore()
 	{
 		// TODO: Research ElasticSearch
-		elasticManager.serverQuery("Foo!");
+		ElasticManager.serverQuery("Foo!");
 	}
 
 	public void add(Question t, ArrayList<Question> listofquestions) {

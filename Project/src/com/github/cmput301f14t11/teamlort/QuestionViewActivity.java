@@ -59,6 +59,10 @@ extends AppBaseActivity
 		question.addAnswer(answer);
 		answerList = question.getAnswerList();
 		
+		final ProfileController pc = new ProfileController();
+		Profile profile = new Profile();
+		pc.setProfile(profile);
+		
 		Reply reply2 = new Reply();
 		reply2.setBody("test reply to question");
 		reply2.setAuthor("test reply author");
@@ -72,11 +76,10 @@ extends AppBaseActivity
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				// Adds to favorite List
 				if(v.getId() == R.id.favorite_button)
 				{
-					//addtofavorite
-					
+					pc.addFavorite(question);
 					finish();
 				}
 				else if(v.getId() == R.id.save_button);

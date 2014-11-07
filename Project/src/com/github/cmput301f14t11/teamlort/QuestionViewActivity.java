@@ -22,7 +22,7 @@ import android.widget.Toast;
  * 
  * @author Elvis Lo
  * 
- * @issues Currently still using test questions for demo purposes.
+ * @issues Currently missing a button for entering replies and missing an author textfield in header.
  */
 public class QuestionViewActivity
 extends AppBaseActivity

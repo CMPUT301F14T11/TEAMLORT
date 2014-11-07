@@ -2,6 +2,7 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.Elasticmanager;
 import com.github.cmput301f14t11.teamlort.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.HomeActivity;
 import com.github.cmput301f14t11.teamlort.Qlistcontroller;
@@ -19,10 +20,10 @@ public class UseCase1Test extends ActivityInstrumentationTestCase2<HomeActivity>
 	
 	public void testCaseOne(){
 		//Test case for Use Case #1: User browses questions
-		elasticmanager elasticManager = elasticmanager.getInstance();
+		Elasticmanager elasticManager = Elasticmanager.getInstance();
 		Qlistcontroller qListController = new Qlistcontroller();
 		//If there are no questions, return no questions.
-		ArrayList<Question> emptyList = elasticManager.getQuestions();
+		ArrayList<Question> emptyList = elasticManager.get(0, 10);
 		assertTrue("Data manager returned questions when there should be none", emptyList.size() == 0);
 		
 		Question question = new Question();
@@ -41,7 +42,7 @@ public class UseCase1Test extends ActivityInstrumentationTestCase2<HomeActivity>
 		qListController.add(question4);
 		qListController.add(question5);
 		//App can retrieve a list of questions from ElasticManager
-		ArrayList<Question> partialList = elasticManager.getQuestions();
+		ArrayList<Question> partialList = elasticManager.get(0, 10);
 		assertTrue("Partial list does not contain question 1 where it should be", partialList.get(0) == question);
 		assertTrue("Partial list does not contain question 2 where it should be", partialList.get(1) == question2);
 		assertTrue("Partial list does not contain question 3 where it should be", partialList.get(2) == question3);

@@ -32,6 +32,8 @@ extends AppBaseActivity
 	ArrayList<Answer> answerList;
 	ArrayList<Reply> questionReplyList;
 	ObjectFactory dt = new ObjectFactory();
+	ReplyAdapter replyAdapter;
+	AnswerAdapter answerAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -45,24 +47,7 @@ extends AppBaseActivity
 		AppCache appCache = AppCache.getInstance();
 		question = appCache.getQuestion();
 		
-		Reply reply = new Reply();
-		reply.setBody("test reply");
-		reply.setAuthor("test reply author");
-		Answer answer = new Answer();
-		answer.setBody("dsadasd");
-		answer.setAuthor("asdsadas");
-		answer.addReply(reply);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		answerList = question.getAnswerList();
-		
-		Reply reply2 = new Reply();
-		reply2.setBody("test reply to question");
-		reply2.setAuthor("test reply author");
-		question.addReply(reply2);
+		answerList = question.getAnswerList();		
 		questionReplyList = question.getReplyList();
 		
 		ExpandableListView answerListView = (ExpandableListView) findViewById(R.id.answer_list_view);
@@ -101,7 +86,7 @@ extends AppBaseActivity
 		questionTimeTextView.setText(question.getTime().toString());
 		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
 		
-		ReplyAdapter replyAdapter = new ReplyAdapter(questionReplyList, this);
+		replyAdapter = new ReplyAdapter(questionReplyList, this);
 		QuestionReplyListView.setAdapter(replyAdapter);
 		
 		//By default the reply listview for question should be collapsed
@@ -160,6 +145,14 @@ extends AppBaseActivity
 			}
 		});
 
+	}
+	
+	public ReplyAdapter getReplyAdapter(){
+		return replyAdapter;
+	}
+	
+	public AnswerAdapter getAnswerAdapter(){
+		return answerAdapter;
 	}
 	
 }

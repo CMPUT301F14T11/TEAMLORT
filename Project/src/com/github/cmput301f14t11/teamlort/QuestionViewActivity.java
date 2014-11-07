@@ -132,6 +132,14 @@ extends AppBaseActivity
 				
 			}
 		}  );
+		/*
+		 * Listens to the question reply button
+		 * When the user clicks the reply button this method
+		 * takes whatever is in the answerEditText field and 
+		 * makes a new answer with the user's username and 
+		 * current date. It also makes sure the textfield is not
+		 * before posting a new answer.
+		 * */
 		replyButton.setOnClickListener(new OnClickListener() {
 			
 			@Override

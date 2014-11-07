@@ -2,10 +2,12 @@ package com.github.cmput301f14t11.teamlort;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -16,7 +18,8 @@ import android.widget.Toast;
  * @author Brandon Yue
  */
 public class ComposeQuestionActivity
-extends AppBaseActivity {
+extends AppBaseActivity
+{
 	
 	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
@@ -29,9 +32,9 @@ extends AppBaseActivity {
 	private EditText detailEntry;
 	private EditText tagEntry;
 	
-	private Button addImageButton;
-	private Button acceptButton;
-	private Button cancelButton;
+	private ImageButton addImageButton;
+	private ImageButton acceptButton;
+	private ImageButton cancelButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -68,6 +71,20 @@ extends AppBaseActivity {
 		if (detail != null) detailEntry.setText(detail);
 		if (tags != null) tagEntry.setText(tags);
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+		case R.id.action_new_question:
+			// Do nothing!
+			return true;
+		
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 
 	/**
 	 * Auxiliary method.
@@ -98,9 +115,9 @@ extends AppBaseActivity {
 		detailEntry = (EditText) this.findViewById(R.id.compose_desc_entry);
 		tagEntry    = (EditText) this.findViewById(R.id.compose_tags_entry);
 		
-		addImageButton = (Button) this.findViewById(R.id.compose_add_img_button);
-		acceptButton   = (Button) this.findViewById(R.id.compose_accept_button);
-		cancelButton   = (Button) this.findViewById(R.id.compose_cancel_button);
+		addImageButton = (ImageButton) this.findViewById(R.id.compose_add_img_button);
+		acceptButton   = (ImageButton) this.findViewById(R.id.compose_accept_button);
+		cancelButton   = (ImageButton) this.findViewById(R.id.compose_cancel_button);
 	}
 	
 	/**
@@ -217,10 +234,11 @@ extends AppBaseActivity {
 		}
 		
 		qController.addQuestion(
-				ObjectFactory.initQuestion(
-						title, detail, usrProfile.getUsername()
-						)
-				);
+			ObjectFactory.initQuestion(
+					title,
+					detail,
+					usrProfile.getUsername()
+					)
+			);
 	}
-
 }

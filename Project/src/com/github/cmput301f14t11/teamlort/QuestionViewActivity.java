@@ -22,7 +22,7 @@ import android.widget.Toast;
  * 
  * @author Elvis Lo
  * 
- * @issues Currently still using test questions for demo purposes.
+ * @issues Currently missing a button for entering replies and missing an author textfield in header.
  */
 public class QuestionViewActivity
 extends AppBaseActivity
@@ -32,6 +32,8 @@ extends AppBaseActivity
 	ArrayList<Answer> answerList;
 	ArrayList<Reply> questionReplyList;
 	ObjectFactory dt = new ObjectFactory();
+	ReplyAdapter replyAdapter;
+	AnswerAdapter answerAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -67,6 +69,9 @@ extends AppBaseActivity
 		reply2.setBody("test reply to question");
 		reply2.setAuthor("test reply author");
 		question.addReply(reply2);
+
+		answerList = question.getAnswerList();		
+
 		questionReplyList = question.getReplyList();
 		
 		ExpandableListView answerListView = (ExpandableListView) findViewById(R.id.answer_list_view);
@@ -104,7 +109,7 @@ extends AppBaseActivity
 		questionTimeTextView.setText(question.getTime().toString());
 		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
 		
-		ReplyAdapter replyAdapter = new ReplyAdapter(questionReplyList, this);
+		replyAdapter = new ReplyAdapter(questionReplyList, this);
 		QuestionReplyListView.setAdapter(replyAdapter);
 		
 		//By default the reply listview for question should be collapsed
@@ -135,6 +140,14 @@ extends AppBaseActivity
 				
 			}
 		}  );
+		/*
+		 * Listens to the question reply button
+		 * When the user clicks the reply button this method
+		 * takes whatever is in the answerEditText field and 
+		 * makes a new answer with the user's username and 
+		 * current date. It also makes sure the textfield is not
+		 * before posting a new answer.
+		 * */
 		replyButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -155,6 +168,14 @@ extends AppBaseActivity
 			}
 		});
 
+	}
+	
+	public ReplyAdapter getReplyAdapter(){
+		return replyAdapter;
+	}
+	
+	public AnswerAdapter getAnswerAdapter(){
+		return answerAdapter;
 	}
 	
 }

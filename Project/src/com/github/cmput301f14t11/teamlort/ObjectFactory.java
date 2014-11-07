@@ -19,7 +19,7 @@ public class ObjectFactory {
 		
 	}
 	
-	public Question initQuestion(String title, String body, String author){
+	public static Question initQuestion(String title, String body, String author){
 		Question question = new Question();
 		
 		question.setTitle(title);
@@ -29,7 +29,7 @@ public class ObjectFactory {
 		return question;
 	}
 	
-	public Question initQuestion(String title, String body, String author, Drawable image){
+	public static Question initQuestion(String title, String body, String author, Drawable image){
 		//An overload that takes in an image
 		Question question = new Question();
 		
@@ -38,16 +38,28 @@ public class ObjectFactory {
 		question.setAuthor(author);
 		question.addPicture(image);
 		question.setID();
+		
 		return question;
 	}
 	
-	public Answer initAnswer(String body, String author){
+	public static Answer initAnswer(String body, String author){
 		Answer answer = new Answer();
 		
 		answer.setBody(body);
 		answer.setAuthor(author);
 		answer.setID();
+		
 		return answer;
 	}
 	
+	public static Reply initReply(String body, String author)
+	{
+		Reply reply = new Reply();
+		
+		reply.setBody(body);
+		reply.setAuthor(author);
+		reply.setID();
+		
+		return reply;
+	}
 }

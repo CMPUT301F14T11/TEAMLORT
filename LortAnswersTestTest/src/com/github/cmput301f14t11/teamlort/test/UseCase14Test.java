@@ -1,7 +1,5 @@
 package com.github.cmput301f14t11.teamlort.test;
 
-import java.util.ArrayList;
-
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.TextView;
 
@@ -20,25 +18,23 @@ public class UseCase14Test extends ActivityInstrumentationTestCase2<QuestionView
 	
 	//Display the number of Answers for each question
 		public void testCase14(){
-			ObjectFactory obf = new ObjectFactory();
-			ArrayList<Question> temp = new ArrayList<Question>();
 			Qlistcontroller ql = new Qlistcontroller();
 			
-			Question question1 = obf.initQuestion("T1", "B1", "A1");
-			Question question2 = obf.initQuestion("T2", "B2", "A2");
-			Question question3 = obf.initQuestion("T3", "B3", "A3");
-			Answer answer1 =  obf.initAnswer("B1", "A1");
-			Answer answer2 =  obf.initAnswer("B1", "A1");
-			Answer answer3 =  obf.initAnswer("B1", "A1");
-			Answer answer4 =  obf.initAnswer("B1", "A1");
+			Question question1 = ObjectFactory.initQuestion("T1", "B1", "A1");
+			Question question2 = ObjectFactory.initQuestion("T2", "B2", "A2");
+			Question question3 = ObjectFactory.initQuestion("T3", "B3", "A3");
+			Answer answer1 =  ObjectFactory.initAnswer("B1", "A1");
+			Answer answer2 =  ObjectFactory.initAnswer("B1", "A1");
+			Answer answer3 =  ObjectFactory.initAnswer("B1", "A1");
+			Answer answer4 =  ObjectFactory.initAnswer("B1", "A1");
 			
 			question1.addAnswer(answer1);
 			question2.addAnswer(answer2);
 			question1.addAnswer(answer3);
 			question1.addAnswer(answer4);
-			ql.add(question1,temp);
-			ql.add(question2,temp);
-			ql.add(question3,temp);
+			ql.add(question1);
+			ql.add(question2);
+			ql.add(question3);
 
 			// And now users should see the number of answers for each question in
 			// the question detail screen.

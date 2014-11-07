@@ -17,21 +17,19 @@ public class UseCase16Test extends ActivityInstrumentationTestCase2<ProfileActiv
 	
 	//Recording AuthorsÕ Questions
 		public void testCase16(){
-			LocalManager lm = new LocalManager();
-			ObjectFactory obf = new ObjectFactory();
 			ArrayList<Question> authorQuestionList = new ArrayList<Question>();
 			
-			authorQuestionList = lm.loadQuestions();
+			authorQuestionList = LocalManager.getManager().loadQuestions();
 			// author has not started a question yet. authorQuestionList should be empty
 			assertTrue("author list is not empty", authorQuestionList.size() == 0);
 			
-			Question question1 = obf.initQuestion("T1", "B1", "A1");
-			Question question2 = obf.initQuestion("T2", "B2", "A2");
-			lm.saveQuestion(question1);
-			lm.saveQuestion(question2);
+			Question question1 = ObjectFactory.initQuestion("T1", "B1", "A1");
+			Question question2 = ObjectFactory.initQuestion("T2", "B2", "A2");
+			LocalManager.getManager().saveQuestion(question1);
+			LocalManager.getManager().saveQuestion(question2);
 			//when user exit the program or logout and login later, the question should
 			//still traceable.
-			authorQuestionList = lm.loadQuestions();
+			authorQuestionList = LocalManager.getManager().loadQuestions();
 			
 			assertTrue("Only one question should stored in the user cache list",
 					authorQuestionList.size() == 1);

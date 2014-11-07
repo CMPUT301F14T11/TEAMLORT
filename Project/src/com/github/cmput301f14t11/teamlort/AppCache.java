@@ -50,6 +50,9 @@ public class AppCache {
 	 * @return The {@link Profile} currently held in appCache.
 	 */
 	public Profile getProfile(){
+		if(profile == null){
+			profile = new Profile();
+		}
 		return profile;
 	}
 	

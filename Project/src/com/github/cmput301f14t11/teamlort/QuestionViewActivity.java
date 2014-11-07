@@ -63,7 +63,7 @@ extends AppBaseActivity
 		
 		final ProfileController pc = new ProfileController();
 		Profile profile = new Profile();
-		pc.setProfile(profile);
+		//pc.setProfile(profile);
 		
 		Reply reply2 = new Reply();
 		reply2.setBody("test reply to question");

@@ -38,16 +38,28 @@ public class ObjectFactory {
 		question.setAuthor(author);
 		question.addPicture(image);
 		question.setID();
+		
 		return question;
 	}
 	
-	public Answer initAnswer(String body, String author){
+	public static Answer initAnswer(String body, String author){
 		Answer answer = new Answer();
 		
 		answer.setBody(body);
 		answer.setAuthor(author);
 		answer.setID();
+		
 		return answer;
 	}
 	
+	public static Reply initReply(String body, String author)
+	{
+		Reply reply = new Reply();
+		
+		reply.setBody(body);
+		reply.setAuthor(author);
+		reply.setID();
+		
+		return reply;
+	}
 }

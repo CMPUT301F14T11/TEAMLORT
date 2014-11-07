@@ -23,18 +23,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
-public class Elasticmanager {
-	private static Elasticmanager instance = null;
+public class ElasticManager {
+	private static ElasticManager instance = null;
 	
 	private static final String serverAddress = "http://cmput301.softwareprocess.es:8080/cmput301f14t11/";
 	private static Gson gson;
 
-	protected Elasticmanager() {
+	protected ElasticManager() {
 		
 	}
-	public static Elasticmanager getInstance() {
+	public static ElasticManager getInstance() {
 	      if(instance == null) {
-	         instance = new Elasticmanager();
+	         instance = new ElasticManager();
 	         gson = new Gson();
 	      }
 	      return instance;

@@ -143,61 +143,61 @@ public class QuestionsTest extends TestCase {
  		assertTrue("picture file size too large", ((BitmapDrawable) question.getPicture()).getBitmap().getByteCount() <= 64); 
  	} 
 
-	public void testSort()
-	{
-		ArrayList<Question> questionlist;
-		for (int i =0; x<=9; x++)
-		{
-			Question singlequestion = new Question()
-			singlequestion.setvote(i);
-			singlequestion
-			questionlist.add(singlequestion);
-		}
-		//http://stackoverflow.com/questions/5815423/sorting-arraylist-in-alphabetical-order-case-insensitive
-		// Collections.sort(questionlist, new Comparator<Question>() 
-		// {
-  //      		@Override
-  //      		public int compare(Question s1, Question s2)
-  //      		{
-  //          			return s1.Upvote.compareToIgnoreCase(s2.Upvote);
-  //      		}
-  //  		});
-  		//i suggest we provide constants to tell our sorthing method what mode of sorting we chose
-  		//sort function should be defined in super class,answer and question should use the same function
-  		questionlist.sort(CONSTANT_IMAGE);
-    		for(int i=1;i<questionlist.size()-1;i++)
-    		{
-    			if(questionlist.get(i-1).haspic()!=questionlist.get(i).haspic()&&questionlist.get(i).haspic()!=questionlist.get(i+1).haspic())
-    			{
-    				fail("list not properly sorted by image");
-    			
-    			}
-    			
-    		}); 
-    		questionlist.sort(CONSTANT_UPVOTE);//it makes no sense to me why user would want to see question with the least amount of upvotes(0) first, so we are sorthing this one way
-    		for(int i=1;i<questionlist.size();i++)
-    		{
-    			if(questionlist.get(i-1).upvote<=questionlist.get(i).upvote)
-    			{
-    				fail("list not properly sorted by upvote");
-    				
-    			}
-    			
-    		}); 
-    		questionlist.sort(CONSTANT_DATE);
-    		for(int i=1;i<questionlist.size();i++)
-    		{
-    			if(questionlist.get(i-1).date<=questionlist.get(i).date)//needs to work on date, sorting it by oldest/newest
-    			{
-    				fail("list not properly sorted by date");
-    				break();
-    			}
-    			
-    		}); 
-		//Sort by up votes, dates, images, and?(I'll just get these 3 done for now)
-		// we will need a "cheating method" to superficially add upvote count inorder to test sort,this method should be deleted in the release version
-	
-	}
+//	public void testSort()
+//	{
+//		ArrayList<Question> questionlist;
+//		for (int i =0; x<=9; x++)
+//		{
+//			Question singlequestion = new Question()
+//			singlequestion.setvote(i);
+//			singlequestion
+//			questionlist.add(singlequestion);
+//		}
+//		//http://stackoverflow.com/questions/5815423/sorting-arraylist-in-alphabetical-order-case-insensitive
+//		// Collections.sort(questionlist, new Comparator<Question>() 
+//		// {
+//  //      		@Override
+//  //      		public int compare(Question s1, Question s2)
+//  //      		{
+//  //          			return s1.Upvote.compareToIgnoreCase(s2.Upvote);
+//  //      		}
+//  //  		});
+//  		//i suggest we provide constants to tell our sorthing method what mode of sorting we chose
+//  		//sort function should be defined in super class,answer and question should use the same function
+//  		questionlist.sort(CONSTANT_IMAGE);
+//    		for(int i=1;i<questionlist.size()-1;i++)
+//    		{
+//    			if(questionlist.get(i-1).haspic()!=questionlist.get(i).haspic()&&questionlist.get(i).haspic()!=questionlist.get(i+1).haspic())
+//    			{
+//    				fail("list not properly sorted by image");
+//    			
+//    			}
+//    			
+//    		}); 
+//    		questionlist.sort(CONSTANT_UPVOTE);//it makes no sense to me why user would want to see question with the least amount of upvotes(0) first, so we are sorthing this one way
+//    		for(int i=1;i<questionlist.size();i++)
+//    		{
+//    			if(questionlist.get(i-1).upvote<=questionlist.get(i).upvote)
+//    			{
+//    				fail("list not properly sorted by upvote");
+//    				
+//    			}
+//    			
+//    		}); 
+//    		questionlist.sort(CONSTANT_DATE);
+//    		for(int i=1;i<questionlist.size();i++)
+//    		{
+//    			if(questionlist.get(i-1).date<=questionlist.get(i).date)//needs to work on date, sorting it by oldest/newest
+//    			{
+//    				fail("list not properly sorted by date");
+//    				break();
+//    			}
+//    			
+//    		}); 
+//		//Sort by up votes, dates, images, and?(I'll just get these 3 done for now)
+//		// we will need a "cheating method" to superficially add upvote count inorder to test sort,this method should be deleted in the release version
+//	
+//	}
 	
 	
 	

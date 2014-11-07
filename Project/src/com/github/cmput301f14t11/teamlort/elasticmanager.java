@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -127,5 +128,31 @@ public class elasticmanager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public ArrayList<RepliableText>getByDate(int id,int amount)
+	{
+		HttpClient httpClient = new DefaultHttpClient();
+		ArrayList<RepliableText> result = new ArrayList<RepliableText>();
+		
+		
+
+		HttpResponse response;
+
+		try {
+			for(int i = 1;i<=amount+1; i++)
+			{
+				HttpGet httpGet = new HttpGet(serverAddress + id+i);
+				response = httpClient.execute(httpGet);
+				Elasticitem<RepliableText> sr = parseItem(response);
+				result.add(sr.getSource());
+			}
+			
+			return result;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+
+		return null;
 	}
 }

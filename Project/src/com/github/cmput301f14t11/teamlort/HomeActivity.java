@@ -35,7 +35,6 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	private RelativeLayout tasklayout;
 	static customadapter adapter; // since we are displaying question objects, the normal ArrayAdapter will not cut it, for right now I've modified the customer adapter I used for my assignment 1 and sticked it in here
 								  // should anyone think something else should be used instead,feel free to bring it up in group discussion
-	QuestionList listofquestions;
 	// I will manually write down some questions to help implement the display for right now
 	
 	
@@ -53,7 +52,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);     
         questionlistview = (ListView)findViewById(R.id.expandableListView1);
-        adapter = new customadapter(getApplicationContext(), listofquestions.modellist);
+        adapter = new customadapter(getApplicationContext(), qlc.questionlist.modellist);
         for(int i = 0; i<=9; i++)
         {
         	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
@@ -140,6 +139,6 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	@Override
 	public void update(Observable observable, Object data) {
 		// TODO Auto-generated method stub
-		adapter.updatelist(listofquestions.modellist);
+		adapter.updatelist(qlc.questionlist.modellist);
 	}
 }

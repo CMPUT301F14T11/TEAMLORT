@@ -15,7 +15,7 @@ public class QuestionList extends Observable {
 	View v;
 	public QuestionList()
 	{
-		
+		modellist = new ArrayList<Question>();
 	}
 	public void providecontext(Context provided)
 	{

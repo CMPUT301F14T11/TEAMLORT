@@ -18,7 +18,7 @@ public class LocalManager
 	/**
 	 * Singleton instance getter.
 	 */
-	public LocalManager getManager()
+	public static LocalManager getManager()
 	{
 		return manager;
 	}

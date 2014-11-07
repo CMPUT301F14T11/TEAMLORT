@@ -25,20 +25,20 @@ public class UseCase15Test extends ActivityInstrumentationTestCase2<HomeActivity
 			Qlistcontroller ql = new Qlistcontroller();
 			ElasticManager em = ElasticManager.getInstance();
 
-			Question question1 = obf.initQuestion("Cat", "B1", "A1");
-			Question question2 = obf.initQuestion("Dog", "B2", "A2");
-			Question question3 = obf.initQuestion("Horse", "B3", "A3");
-			Answer answer1 =  obf.initAnswer("mew", "A1");
-			Answer answer2 =  obf.initAnswer("bark", "A1");
-			Answer answer3 =  obf.initAnswer("neigh", "A1");
-			Answer answer4 =  obf.initAnswer("bbar", "A1");
+			Question question1 = ObjectFactory.initQuestion("Cat", "B1", "A1");
+			Question question2 = ObjectFactory.initQuestion("Dog", "B2", "A2");
+			Question question3 = ObjectFactory.initQuestion("Horse", "B3", "A3");
+			Answer answer1 =  ObjectFactory.initAnswer("mew", "A1");
+			Answer answer2 =  ObjectFactory.initAnswer("bark", "A1");
+			Answer answer3 =  ObjectFactory.initAnswer("neigh", "A1");
+			Answer answer4 =  ObjectFactory.initAnswer("bbar", "A1");
 
 			question1.addAnswer(answer1);
 			question2.addAnswer(answer2);
 			question3.addAnswer(answer3);
-			ql.add(question1,temp);
-			ql.add(question2,temp);
-			ql.add(question3,temp);
+			ql.add(question1);
+			ql.add(question2);
+			ql.add(question3);
 			
 			
 			//Search "cat" and question1 should append to the result list

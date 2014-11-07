@@ -15,25 +15,38 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
+
+/**
+ * Profile activity is an UI activity class implemented that users are enable to 
+ * go to profile layout from the home and retrieve profile data from the local files.
+ *
+ */
 public class ProfileActivity extends AppBaseActivity {
-	// Profile Activity is kind of same as home activity, so the listview adapter and entering single question activity
-	// code are directed used in home activity
 	static customadapter adapter; 
 	ArrayList<Question> displayQuestionList = new ArrayList<Question>();
 	ListView lv;
-	
-		
-    //initialize controllers
+
+	/**
+	 * Instantiate the controllers and models
+	 */
 	ProfileController pc = new ProfileController();
 	ObjectFactory dt = new ObjectFactory();
 	Profile p = new Profile();
 
+	
+	/**
+	 * onCreate method will initial the main layout of profile activity and 
+	 * first load the author's question list from the local manager and when 
+	 * the user click on the question, it should be able to bring user to the
+	 * QuestionViewActivity to see the detail of the chosen question
+	 *
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		adapter = new customadapter(getApplicationContext(),p.getTestQuestionList());
+		adapter = new customadapter(getApplicationContext(),p.getTestQuestionList(1));
 		lv = (ListView) findViewById(R.id.ProfileQuestionListView);
 		lv.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
 			{
@@ -64,34 +77,47 @@ public class ProfileActivity extends AppBaseActivity {
 		return true;
 	}
 
+	/**
+	 *  Handle action bar item clicks here. The action bar will 
+	 *  automatically handle clicks on the Home/Up button, so long
+	 *  as you specify a parent activity in AndroidManifest.xml.
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+	/**
+	 *  when save button is pressed, the method will return the saved list from 
+	 *  the local manager
+	 *  @issue not implemented
+	 */
 	public void savedListButtonPressed(View view){
-		adapter = new customadapter(getApplicationContext(),p.getTestQuestionList1());
+		adapter = new customadapter(getApplicationContext(),p.getTestQuestionList(2));
 		lv.setAdapter(adapter);
 		
 	}
-	
+	/**
+	 *  when favorite button is pressed, the method will return the faved list from 
+	 *  the local manager
+	 *  @issue not implemented
+	 */
 	public void favedListButtonPressed(View view){
-		adapter = new customadapter(getApplicationContext(),p.getTestQuestionList2());
+		adapter = new customadapter(getApplicationContext(),p.getTestQuestionList(3));
 		lv.setAdapter(adapter);
 	}
-	
-	// when editUsername button is pressed, a pop-up window will show up 
-	//and enable user to type their username to log in;
-	//Inspired from http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
+	/**
+	 * when editUsername button is pressed, a pop-up window will show up 
+	 * and enable user to type their username to log in;
+	 * Inspired from http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
+	 * @issue not fully implement: after logging in, listview need to load data from the cloud
+	 * 		  and local manager.
+	 */
 	public void editUsernameButtomPressed(View view){
-		//UserController uc = new UserController();
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("UserName");
 		alert.setMessage("Please type your username: ");
@@ -102,10 +128,9 @@ public class ProfileActivity extends AppBaseActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				String username = input.getText().toString();
-				pc.login(username);
+				p.setUsername(username);
 				TextView tv = (TextView) findViewById(R.id.UsernameTitleTextView);
 				tv.setText(username);
-				// unfinished, after logging in, listview need to load data from the cloud.
 			}
 		});
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -5,7 +5,8 @@ import java.util.Date;
 /**
  * @author  eunderhi
  */
-public class TextPrimitive {
+public class TextPrimitive 
+implements java.io.Serializable {
 	/**
 	 * @uml.property  name="body"
 	 */

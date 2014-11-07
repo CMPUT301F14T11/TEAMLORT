@@ -93,6 +93,6 @@ public class LocalManager
 	 */
 	private Object loadobject(String filename)
 	{
-		
+		return null;
 	}
 }

@@ -2,32 +2,43 @@ package com.github.cmput301f14t11.teamlort;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+/**
+ * Compose Question Activity: Pretty self explanatory. You compose new
+ * questions via this activity.
+ * @author Brandon Yue
+ */
 public class ComposeQuestionActivity
-extends AppBaseActivity {
+extends AppBaseActivity
+{
 	
-	//private Profile usrProfile;
+	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
+	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
+	private static final String TAGS_BUNDLE_KEY = "COMPOSE_TAGS";
 	
-	//private QuestionController qController;
-	//private ProfileController pController;
+	private Profile usrProfile;
+	private QuestionController qController;
 	
 	private EditText titleEntry;
 	private EditText detailEntry;
 	private EditText tagEntry;
 	
-	private Button addImageButton;
-	private Button acceptButton;
-	private Button cancelButton;
+	private ImageButton addImageButton;
+	private ImageButton acceptButton;
+	private ImageButton cancelButton;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compose_question);
 		
@@ -36,29 +47,83 @@ extends AppBaseActivity {
 		GetLayoutElements();
 		AttachListeners();
 	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState)
+	{
+		super.onSaveInstanceState(outState);
+		
+		outState.putString(TITLE_BUNDLE_KEY, titleEntry.getText().toString());
+		outState.putString(DETAIL_BUNDLE_KEY, detailEntry.getText().toString());
+		outState.putString(TAGS_BUNDLE_KEY, tagEntry.getText().toString());
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle inState)
+	{
+		super.onRestoreInstanceState(inState);
+		
+		String title = inState.getString(TITLE_BUNDLE_KEY);
+		String detail = inState.getString(DETAIL_BUNDLE_KEY);
+		String tags = inState.getString(TAGS_BUNDLE_KEY);
+		
+		if (title != null) titleEntry.setText(title);
+		if (detail != null) detailEntry.setText(detail);
+		if (tags != null) tagEntry.setText(tags);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+		case R.id.action_new_question:
+			// Do nothing!
+			return true;
+		
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 
-	/*
-	 * Auxiliary
+	/**
+	 * Auxiliary method.
+	 * Gets the current user profile. The username from the profile is
+	 * required to construct the new question.
 	 */
 	private void GetProfile()
 	{
-		// TODO Auto-generated method stub
-		
+		usrProfile = AppCache.getInstance().getProfile();
 	}
+	
+	/**
+	 * Auxiliary method.
+	 * Get some new controllers for the activity.
+	 */
 	private void GetControllers()
 	{
-		
+		qController = new QuestionController();
 	}
+	
+	/**
+	 * Auxiliary method.
+	 * Gets references to the view's layout elements.
+	 */
 	private void GetLayoutElements()
 	{
 		titleEntry  = (EditText) this.findViewById(R.id.compose_title_entry);
 		detailEntry = (EditText) this.findViewById(R.id.compose_desc_entry);
 		tagEntry    = (EditText) this.findViewById(R.id.compose_tags_entry);
 		
-		addImageButton = (Button) this.findViewById(R.id.compose_add_img_button);
-		acceptButton   = (Button) this.findViewById(R.id.compose_accept_button);
-		cancelButton   = (Button) this.findViewById(R.id.compose_cancel_button);
+		addImageButton = (ImageButton) this.findViewById(R.id.compose_add_img_button);
+		acceptButton   = (ImageButton) this.findViewById(R.id.compose_accept_button);
+		cancelButton   = (ImageButton) this.findViewById(R.id.compose_cancel_button);
 	}
+	
+	/**
+	 * Auxiliary method.
+	 * Attaches onClick and onEditorAction listeners to the appropriate views.
+	 */
 	private void AttachListeners()
 	{
 		titleEntry.setOnEditorActionListener(new OnEditorActionListener()
@@ -114,32 +179,7 @@ extends AppBaseActivity {
 			@Override
 			public void onClick(View arg0)
 			{
-				// Get all the information from the views.
-				String title, detail, tags;
-				
-				title = ((EditText) ComposeQuestionActivity.this.
-						findViewById(R.id.compose_title_entry))
-						.getText().toString();
-				detail = ((EditText) ComposeQuestionActivity.this.
-						findViewById(R.id.compose_desc_entry))
-						.getText().toString();
-				tags = ((EditText) ComposeQuestionActivity.this.
-						findViewById(R.id.compose_tags_entry))
-						.getText().toString();
-				
-				// Make sure the user has at least entered a title.
-				if(title.isEmpty() || title == null)
-				{
-					Toast.makeText(getApplicationContext(), 
-							"You need to enter a title!",
-							Toast.LENGTH_SHORT).show();
-					
-					ComposeQuestionActivity.this.titleEntry.requestFocus();
-					return;
-				}
-				
-				//ComposeQuestionActivity.this.qController
-				//.newQuestion(args);
+				ComposeQuestionActivity.this.onAcceptButtonClicked();
 			}
 		});
 		
@@ -155,4 +195,50 @@ extends AppBaseActivity {
 		});
 	}
 
+	/**
+	 * Auxiliary method.
+	 * When the user clicks Accept, put everything together and send it to the controller.
+	 */
+	protected void onAcceptButtonClicked()
+	{
+		// Get all the information from the views.
+		String title, detail, tags;
+		
+		title = ((EditText) findViewById(R.id.compose_title_entry))
+				.getText().toString();
+		detail = ((EditText) findViewById(R.id.compose_desc_entry))
+				.getText().toString();
+		tags = ((EditText) findViewById(R.id.compose_tags_entry))
+				.getText().toString();
+		
+		// Make sure the user has at least entered a title.
+		if(title.isEmpty() || title == null)
+		{
+			Toast.makeText(getApplicationContext(), 
+					"You need to enter a title!",
+					Toast.LENGTH_SHORT).show();
+			
+			titleEntry.requestFocus();
+			return;
+		}
+		
+		// Make sure the user has entered some body text.
+		if (detail.isEmpty() || detail == null)
+		{
+			Toast.makeText(getApplicationContext(), 
+					"You need to enter some body text!",
+					Toast.LENGTH_SHORT).show();
+			
+			detailEntry.requestFocus();
+			return;
+		}
+		
+		qController.addQuestion(
+			ObjectFactory.initQuestion(
+					title,
+					detail,
+					usrProfile.getUsername()
+					)
+			);
+	}
 }

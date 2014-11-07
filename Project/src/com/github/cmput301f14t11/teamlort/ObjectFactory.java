@@ -19,7 +19,7 @@ public class ObjectFactory {
 		
 	}
 	
-	public Question initQuestion(String title, String body, String author){
+	public static Question initQuestion(String title, String body, String author){
 		Question question = new Question();
 		
 		question.setTitle(title);
@@ -29,7 +29,7 @@ public class ObjectFactory {
 		return question;
 	}
 	
-	public Question initQuestion(String title, String body, String author, Drawable image){
+	public static Question initQuestion(String title, String body, String author, Drawable image){
 		//An overload that takes in an image
 		Question question = new Question();
 		

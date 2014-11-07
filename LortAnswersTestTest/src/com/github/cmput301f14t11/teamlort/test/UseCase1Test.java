@@ -2,7 +2,7 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.ArrayList;
 
-import com.github.cmput301f14t11.teamlort.Elasticmanager;
+import com.github.cmput301f14t11.teamlort.ElasticManager;
 import com.github.cmput301f14t11.teamlort.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.HomeActivity;
 import com.github.cmput301f14t11.teamlort.Qlistcontroller;
@@ -20,7 +20,7 @@ public class UseCase1Test extends ActivityInstrumentationTestCase2<HomeActivity>
 	
 	public void testCaseOne(){
 		//Test case for Use Case #1: User browses questions
-		Elasticmanager elasticManager = Elasticmanager.getInstance();
+		ElasticManager elasticManager = ElasticManager.getInstance();
 		Qlistcontroller qListController = new Qlistcontroller();
 		//If there are no questions, return no questions.
 		ArrayList<Question> emptyList = elasticManager.get(0, 10);

@@ -23,7 +23,7 @@ public class UseCase21Test extends TestCase {
 		//else: assertFalse(nc.checkConnection)
 	}
 	public void TestUseCase() {
-		Elasticmanager em = ElasticManager.getInstance();
+		ElasticManager em = ElasticManager.getInstance();
 		LocalManager lm = LocalManager.getInstance();
 		Question question = new Question();
 		lm.saveFile(question);

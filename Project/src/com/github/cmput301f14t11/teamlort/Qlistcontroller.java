@@ -10,7 +10,7 @@ import com.github.cmput301f14t11.teamlort.Question;
 import android.graphics.drawable.Drawable;
 public class Qlistcontroller implements Observer{
 	
-	Elasticmanager elc = Elasticmanager.getInstance();
+	ElasticManager elc = ElasticManager.getInstance();
 	QuestionList questionlist = new QuestionList();
 
 	public void getMore()

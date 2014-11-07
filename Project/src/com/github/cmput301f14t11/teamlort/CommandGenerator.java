@@ -3,7 +3,7 @@ package com.github.cmput301f14t11.teamlort;
 import android.R.string;
 
 /**
- * Generates Json query commands for {@link Elasticmanager};
+ * Generates Json query commands for {@link ElasticManager};
  * 
  * @Issues: Not implemented.
  * 

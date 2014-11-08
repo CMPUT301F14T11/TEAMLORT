@@ -47,33 +47,13 @@ extends AppBaseActivity
 		AppCache appCache = AppCache.getInstance();
 		question = appCache.getQuestion();
 		
-		Reply reply = new Reply();
-		reply.setBody("test reply");
-		reply.setAuthor("test reply author");
-		Answer answer = new Answer();
-		answer.setBody("dsadasd");
-		answer.setAuthor("asdsadas");
-		answer.addReply(reply);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
-		question.addAnswer(answer);
 		answerList = question.getAnswerList();
+		questionReplyList = question.getReplyList();
 		
 		final ProfileController pc = new ProfileController();
 		Profile profile = new Profile();
-		pc.setProfile(profile);
-		
-		Reply reply2 = new Reply();
-		reply2.setBody("test reply to question");
-		reply2.setAuthor("test reply author");
-		question.addReply(reply2);
-
-		answerList = question.getAnswerList();		
-
-		questionReplyList = question.getReplyList();
-		
+		//pc.setProfile(profile);
+				
 		ExpandableListView answerListView = (ExpandableListView) findViewById(R.id.answer_list_view);
 		LayoutInflater layoutInflater = getLayoutInflater();
 		

@@ -11,7 +11,7 @@ public class ProfileController {
 	/**
 	 * Sets the {@link Profile} in ProfileController to the instance in AppCache
 	 */
-	private ProfileController() {
+	public ProfileController() {
 		p = AppCache.getInstance().getProfile();
 	}
 	

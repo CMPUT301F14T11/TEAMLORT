@@ -30,11 +30,10 @@ public class UseCase9Test extends ActivityInstrumentationTestCase2<HomeActivity>
 		{
 			if(i%2 == 0)
 			{
-				
-				BitmapDrawable bitmapDrawable = (BitmapDrawable)bitmap;
+				Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888 );
 				Drawable drawable = (Drawable)bitmapDrawable;
 
-				Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888 ); 
+				 
 				
 				drawable = new BitmapDrawable(bitmap);
 				

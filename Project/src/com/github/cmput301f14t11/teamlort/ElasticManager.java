@@ -51,7 +51,7 @@ public class ElasticManager {
 	 * @param id
 	 * @return
 	 */
-	public RepliableText getItem(int id) {
+	public Question getItem(int id) {
 
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(serverAddress + id);
@@ -60,7 +60,7 @@ public class ElasticManager {
 
 		try {
 			response = httpClient.execute(httpGet);
-			Elasticitem<RepliableText> sr = parseItem(response);
+			Elasticitem<Question> sr = parseItem(response);
 			return sr.getSource();
 
 		} catch (Exception e) {
@@ -70,13 +70,13 @@ public class ElasticManager {
 		return null;
 	}
 	
-	private Elasticitem<RepliableText> parseItem(HttpResponse response) {
+	private Elasticitem<Question> parseItem(HttpResponse response) {
 		
 		try {
 			String json = getEntityContent(response);
-			Type searchHitType = new TypeToken<Elasticitem<RepliableText>>() {}.getType();
+			Type searchHitType = new TypeToken<Elasticitem<Question>>() {}.getType();
 			
-			Elasticitem<RepliableText> sr = gson.fromJson(json, searchHitType);
+			Elasticitem<Question> sr = gson.fromJson(json, searchHitType);
 			return sr;
 		} 
 		catch (IOException e) {
@@ -110,7 +110,7 @@ public class ElasticManager {
 	 * adds a single question to the server
 	 * @param deliveritem
 	 */
-	public void addItem(RepliableText deliveritem) {
+	public void addItem(Question deliveritem) {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
@@ -154,10 +154,10 @@ public class ElasticManager {
 	 * @param amount
 	 * @return
 	 */
-	public ArrayList<RepliableText>get(int id,int amount)
+	public ArrayList<Question>get(int id,int amount)
 	{
 		HttpClient httpClient = new DefaultHttpClient();
-		ArrayList<RepliableText> result = new ArrayList<RepliableText>();
+		ArrayList<Question> result = new ArrayList<Question>();
 		HttpResponse response;
 
 		try {
@@ -165,7 +165,7 @@ public class ElasticManager {
 			{
 				HttpGet httpGet = new HttpGet(serverAddress + id+i);
 				response = httpClient.execute(httpGet);
-				Elasticitem<RepliableText> sr = parseItem(response);
+				Elasticitem<Question> sr = parseItem(response);
 				result.add(sr.getSource());
 			}
 			

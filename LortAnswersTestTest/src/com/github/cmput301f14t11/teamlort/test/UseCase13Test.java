@@ -44,7 +44,11 @@ public class UseCase13Test extends  ActivityInstrumentationTestCase2<HomeActivit
 		
 		// After users press "Sort By Score" button.
 		ql.sortQuestions("upVote");
-		ql.sortAnswers();
+		for (int i = 0; i < ql.returnsize(); i++)
+		{
+			ql.sortAnswers(ql.returnquestion(i).getAnswerList(),"upVote");
+		}
+		
 		
 		// Test if the expected question and answer is on the list or not
 		assertTrue("The most upvoted question: question1 is not on the list",

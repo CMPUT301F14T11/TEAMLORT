@@ -36,7 +36,7 @@ public class LocalManager
 	/**
 	 * Private constructor to prevent arbitrary instantiation.
 	 */
-	private LocalManager()
+	public LocalManager()
 	{
 		
 	}

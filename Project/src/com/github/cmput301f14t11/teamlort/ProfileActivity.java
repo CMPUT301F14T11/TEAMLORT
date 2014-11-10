@@ -10,10 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 
 /**
@@ -108,7 +108,7 @@ public class ProfileActivity extends AppBaseActivity {
 	 *  @issue not implemented
 	 */
 	public void favedListButtonPressed(View view){
-		adapter = new customadapter(getApplicationContext(),p.getTestQuestionList(3));
+		adapter = new customadapter(getApplicationContext(),p.getFavedQuestionList());
 		lv.setAdapter(adapter);
 	}
 	/**

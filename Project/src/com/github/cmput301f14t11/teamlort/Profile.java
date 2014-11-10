@@ -1,5 +1,6 @@
 package com.github.cmput301f14t11.teamlort;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /** 
@@ -9,9 +10,11 @@ import java.util.ArrayList;
  *
  */
 
-public class Profile {
-	
-	
+public class Profile
+implements Serializable
+{
+	private static final long serialVersionUID = 1L;
+
 	private String username = "";
 	
 	protected ArrayList<Question> savedQuestionList = new ArrayList<Question>();

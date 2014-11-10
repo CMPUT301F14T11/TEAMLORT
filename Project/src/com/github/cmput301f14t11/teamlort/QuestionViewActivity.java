@@ -46,6 +46,7 @@ extends AppBaseActivity
 		//question = dt.initQuestion("testing", "testing", "sdfasfds");
 		AppCache appCache = AppCache.getInstance();
 		question = appCache.getQuestion();
+		final String username = appCache.getProfile().getUsername();
 		
 		answerList = question.getAnswerList();
 		questionReplyList = question.getReplyList();
@@ -140,7 +141,7 @@ extends AppBaseActivity
 				}
 				Answer answer = new Answer();
 				answer.setBody(answerText.getText().toString());
-				answer.setAuthor("Profile controller stuff");
+				answer.setAuthor(username);
 				question.addAnswer(answer); 
 				answerText.setText("");
 				answerAdapter.notifyDataSetChanged();

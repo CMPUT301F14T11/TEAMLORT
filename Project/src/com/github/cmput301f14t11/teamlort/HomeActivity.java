@@ -55,6 +55,8 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	//ScoreController sc = new ScoreController();
 	ObjectFactory dt = new ObjectFactory();
 	NetworkController ne = new NetworkController();
+	ProfileController pc = new ProfileController();
+	AppCache appCache = new AppCache();
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState)
@@ -91,7 +93,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 				Single_Home_Question holder = (Single_Home_Question) view.getTag();
 				Question temp = holder.thisquestion;
 				Toast.makeText(getApplicationContext(), temp.getTitle(), Toast.LENGTH_SHORT).show();
-				AppCache appCache = AppCache.getInstance(); //written the question in appcachefile
+				appCache = AppCache.getInstance(); //written the question in appcachefile
 				appCache.setQuestion(temp);
 				startActivity(intent);
 			}
@@ -119,14 +121,18 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 		
 	}
 
-
+	/**
+	 * Adds the {@link Question} to the FavedQuestionList in ProfileController
+	 * @param v
+	 */
 	public void Favorite(View v)
     {
     	//gets the question from list
 		
 		Single_Home_Question holder = (Single_Home_Question) v.getTag();
 		Question temp = (Question) holder.title.getTag();
-		usecontrol.addFavorite(temp);
+		
+		pc.addFavedQuestion(temp);
     }
 	public void Save(View v)
 	{

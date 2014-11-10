@@ -7,7 +7,7 @@ import com.github.cmput301f14t11.teamlort.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.HomeActivity;
 import com.github.cmput301f14t11.teamlort.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Question;
-import com.github.cmput301f14t11.teamlort.elasticmanager;
+import com.github.cmput301f14t11.teamlort.ElasticManager;
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 
 import android.test.ActivityInstrumentationTestCase2;

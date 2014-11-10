@@ -22,7 +22,13 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
+/**
+ * responsible for communicating with online server, 
+ * retriving questions from the server 
+ * and uploading questions from the app 
+ * @author sbao
+ *
+ */
 public class ElasticManager {
 	private static ElasticManager instance = null;
 	

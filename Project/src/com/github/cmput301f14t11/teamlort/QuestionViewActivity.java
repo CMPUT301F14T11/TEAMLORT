@@ -64,7 +64,7 @@ extends AppBaseActivity
 				// Adds to favorite List
 				if(v.getId() == R.id.favorite_button)
 				{
-					pc.addFavorite(question);
+					pc.addFavedQuestion(question);
 					finish();
 				}
 				else if(v.getId() == R.id.save_button);

@@ -18,8 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
-public class AppBaseActivity
-extends Activity
+
+public class AppBaseActivity extends Activity
 {
 	private LayoutInflater inflater;
 	private ImageButton searchButton;
@@ -127,10 +127,5 @@ extends Activity
 		default:
 			return false;
 		}
-	}
-	
-	public int getScore(RepliableText rt) {
-		// TODO Auto-generated method stub
-		return rt.getVoterSet().size();
 	}
 }

@@ -1,10 +1,19 @@
 package com.github.cmput301f14t11.teamlort.test;
 
+import android.test.ActivityInstrumentationTestCase2;
+
+import com.github.cmput301f14t11.teamlort.HomeActivity;
+
 import junit.framework.TestCase;
 
 
-public class UseCase8Test extends TestCase 
+public class UseCase8Test extends ActivityInstrumentationTestCase2<HomeActivity>  
 {  
+		public UseCase8Test(Class<HomeActivity> activityClass) {
+		super(activityClass);
+		// TODO Auto-generated constructor stub
+	}
+
 		public void testQUEPIC()  
 	 	{  
 			String title = "testsize";

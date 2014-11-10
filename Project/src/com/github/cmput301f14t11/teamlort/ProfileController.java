@@ -8,11 +8,20 @@ package com.github.cmput301f14t11.teamlort;
 public class ProfileController {
 	private static Profile p = new Profile();
 	
+	
 	/**
 	 * Sets the {@link Profile} in ProfileController to the instance in AppCache
 	 */
 	public ProfileController() {
 		p = AppCache.getInstance().getProfile();
+	}
+	
+	/**
+	 * 
+	 * @return the {@link Profile} from AppCache
+	 */
+	public Profile getProfile() {
+		return p;
 	}
 	
 	/**

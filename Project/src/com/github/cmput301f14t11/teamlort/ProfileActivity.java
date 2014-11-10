@@ -108,7 +108,7 @@ public class ProfileActivity extends AppBaseActivity {
 	 *  @issue not implemented
 	 */
 	public void favedListButtonPressed(View view){
-		adapter = new customadapter(getApplicationContext(),p.getTestQuestionList(3));
+		adapter = new customadapter(getApplicationContext(),p.getFavedQuestionList());
 		lv.setAdapter(adapter);
 	}
 	/**

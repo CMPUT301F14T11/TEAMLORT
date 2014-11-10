@@ -1,6 +1,15 @@
 package com.github.cmput301f14t11.teamlort;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+
+import android.util.Log;
 
 /**
  * LocalManager -- Auxiliary class that deals with internal file IO.
@@ -12,8 +21,9 @@ public class LocalManager
 	private static LocalManager manager = new LocalManager();
 	
 	private static final String FILE_PATH = "sav/";
-	private static final String QUESTIONS_FILE = "questions.ser";
-	private static final String PROFILE_FILE   = "profile.ser";
+	private static final String FILE_EXT = ".ser";
+	private static final String QUESTIONS_FILE = "questions";
+	private static final String PROFILE_FILE   = "profile";
 	
 	/**
 	 * Singleton instance getter.
@@ -37,7 +47,12 @@ public class LocalManager
 	 */
 	public void saveQuestion(Question saveMe)
 	{
+		ArrayList<Question> qList = (ArrayList<Question>) loadObject(FILE_PATH + QUESTIONS_FILE + FILE_EXT);
+		if (qList == null) qList = new ArrayList<Question>();
 		
+		qList.add(saveMe);
+		
+		saveObject(qList, FILE_PATH + QUESTIONS_FILE + FILE_EXT);
 	}
 	
 	/**
@@ -46,7 +61,12 @@ public class LocalManager
 	 */
 	public void saveQuestions(ArrayList<Question> saveUs)
 	{
+		ArrayList<Question> qList = (ArrayList<Question>) loadObject(FILE_PATH + QUESTIONS_FILE + FILE_EXT);
+		if (qList == null) qList = new ArrayList<Question>();
 		
+		qList.addAll(saveUs);
+		
+		saveObject(qList, FILE_PATH + QUESTIONS_FILE + FILE_EXT);
 	}
 	
 	/**
@@ -55,7 +75,7 @@ public class LocalManager
 	 */
 	public void saveProfile(Profile saveMe)
 	{
-		
+		saveObject(saveMe, FILE_PATH + PROFILE_FILE + FILE_EXT);
 	}
 
 	/**
@@ -64,7 +84,13 @@ public class LocalManager
 	 */
 	public ArrayList<Question> loadQuestions() 
 	{
-		return null;
+		ArrayList<Question> qList = (ArrayList<Question>) loadObject(FILE_PATH + QUESTIONS_FILE + FILE_EXT);
+		if (qList == null) qList = new ArrayList<Question>();
+		
+		// Clear the saved file.
+		saveObject(new ArrayList<Question>(), FILE_PATH + QUESTIONS_FILE + FILE_EXT);
+		
+		return qList;
 	}
 	
 	/**
@@ -73,7 +99,10 @@ public class LocalManager
 	 */
 	public Profile loadProfile()
 	{
-		return null;
+		Profile prof = (Profile) loadObject(FILE_PATH + PROFILE_FILE + FILE_EXT);
+		if (prof == null) prof = new Profile();
+		
+		return prof;
 	}
 	
 	/**
@@ -81,9 +110,25 @@ public class LocalManager
 	 * @param saveMe
 	 * @param filename
 	 */
-	private void saveObject(Object saveMe, String filename)
+	private void saveObject(Serializable saveMe, String filename)
 	{
-		
+		FileOutputStream fos;
+		ObjectOutputStream oos;
+		try
+		{
+			fos = new FileOutputStream(FILE_PATH + filename);
+			oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(saveMe);
+			
+			oos.close();
+			fos.close();
+		}
+		catch (IOException e)
+		{
+			Log.e("com.github.cmput301f14t11.teamlort.LocalManager.saveObject(Serializable, String)",
+			      "Failed to save object: " + e.getMessage());
+		}
 	}
 	
 	/**
@@ -91,8 +136,37 @@ public class LocalManager
 	 * @param filename
 	 * @return
 	 */
-	private Object loadobject(String filename)
+	private Object loadObject(String filename)
 	{
-		return null;
+		Object result = null;
+		
+		FileInputStream fis;
+		ObjectInputStream ois;
+		try
+		{
+			fis = new FileInputStream(FILE_PATH + filename);
+			ois = new ObjectInputStream(fis);
+			
+			result = ois.readObject();
+			
+			ois.close();
+			fis.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			Log.e("com.github.cmput301f14t11.teamlort.LocalManager.loadObject(String)",
+					"Failed to save object (FileNotFoundException): " + e.getMessage());
+		}
+		catch (ClassNotFoundException e)
+		{
+			Log.e("com.github.cmput301f14t11.teamlort.LocalManager.loadObject(String)",
+					"Failed to save object (ClassNotFoundException): " + e.getMessage());		}
+		catch (IOException e)
+		{
+			Log.e("com.github.cmput301f14t11.teamlort.LocalManager.loadObject(String)",
+					"Failed to save object (IOException): " + e.getMessage());
+		}
+		
+		return result;
 	}
 }

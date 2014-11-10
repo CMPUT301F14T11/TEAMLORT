@@ -1,21 +1,27 @@
 package com.github.cmput301f14t11.teamlort.test;
 
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+
 import junit.framework.Assert;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.github.cmput301f14t11.teamlort.Answer;
 import com.github.cmput301f14t11.teamlort.AnswerController;
-import com.github.cmput301f14t11.teamlort.HomeActivity;
+import com.github.cmput301f14t11.teamlort.AppBaseActivity;
+import com.github.cmput301f14t11.teamlort.AppCache;
 import com.github.cmput301f14t11.teamlort.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Question;
 import com.github.cmput301f14t11.teamlort.QuestionController;
 import com.github.cmput301f14t11.teamlort.Reply;
 
 public class TestCase5to8
-extends ActivityInstrumentationTestCase2<HomeActivity>
+extends ActivityInstrumentationTestCase2<AppBaseActivity>
 {
-	public TestCase5to8(Class<HomeActivity> activityClass)
+	public TestCase5to8(Class<AppBaseActivity> activityClass)
 	{
 		super(activityClass);
 		
@@ -45,10 +51,13 @@ extends ActivityInstrumentationTestCase2<HomeActivity>
 		
 		qController.addQuestion(q1);
 		
-		/*
-		Assert.assertNotNull(
-				data.getQuestion(q1.id())
-				);*/
+		//*
+		Assert.assertTrue(
+			AppCache.getInstance()
+				.getProfile()
+				.getMyQuestionList()
+				.contains(q1)
+			);//*/
 		
 		// Suppose we've navigated to the question somehow.
 		
@@ -64,13 +73,28 @@ extends ActivityInstrumentationTestCase2<HomeActivity>
 		aController.addAnswer(a2, q1.getID());
 		
 		// Make sure they're there.
-		/*
-		Collection<Answer> answers = data.getAnswers(q1.id());
+		int i = 0;
 		
-		Assert.assertEquals(2, answers.size());
-		Assert.assertEquals(answer1, answers.get(0).getText());
-		Assert.assertEquals(answer1, answers.get(1).getText());
-		*/
+		ArrayList<Question> checkResult = AppCache.getInstance().getProfile().getMyQuestionList();
+		Question checkQuestion;
+		
+		do
+		{
+			if (i == checkResult.size())
+			{
+				Assert.fail("The Profile did not contain the created question!");
+				return;
+			}
+			checkQuestion = checkResult.get(i);
+			i++;
+		} while (checkQuestion.getID() != q1.getID());
+		
+		Assert.assertTrue(
+			checkQuestion.getAnswerList().contains(a1)
+			);
+		Assert.assertTrue(
+			checkQuestion.getAnswerList().contains(a2)
+			);
 	}
 	
 	public void testCaseSix()
@@ -105,21 +129,57 @@ extends ActivityInstrumentationTestCase2<HomeActivity>
 		aController.addReply(r3, q1.getID(), a2.getID());
 		
 		// Make sure they're there.
-		/*
-		Question myQuestion = data.getQuestion(q1.id());
-		Collection<Answer> myAnswers = data.getAnswers(q1.id());
+		int i = 0;
 		
-		ArrayList<Reply> replies;
+		ArrayList<Question> checkResult = AppCache.getInstance().getProfile().getMyQuestionList();
+		Question checkQuestion;
+		Answer checkAnswer1;
+		Answer checkAnswer2;
 		
-		replies.addAll(myQuestion.getReplies());
-		for (Answer a : myAnswers)
-			replies.addAll(a.getReplies());
+		do
+		{
+			if (i == checkResult.size())
+			{
+				Assert.fail("The Profile did not contain the created question!");
+				return;
+			}
+			checkQuestion = checkResult.get(i);
+			i++;
+		} while (checkQuestion.getID() != q1.getID());
 		
-		Assert.assertEquals(3, replies.size());
+		i = 0;
+		do
+		{
+			if (i >= checkQuestion.getAnswerList().size())
+			{
+				Assert.fail("The Question did not contain a created answer!");
+				return;
+			}
+			checkAnswer1 = checkQuestion.getAnswer(i);
+			i++;
+		} while (checkAnswer1.getID() != a1.getID());
+		
+		i = 0;
+		do
+		{
+			if (i >= checkQuestion.getAnswerList().size())
+			{
+				Assert.fail("The Question did not contain a created answer!");
+				return;
+			}
+			checkAnswer2 = checkQuestion.getAnswer(i);
+			i++;
+		} while (checkAnswer2.getID() != a2.getID());
 
-		Assert.assertEquals("Sorry. I meant where's the washroom in here?", replies.get(0));
-		Assert.assertEquals("This answer sucks. Doesn't answer the question.", replies.get(1));
-		Assert.assertEquals("lol", replies.get(2));*/
+		Assert.assertTrue(
+			checkQuestion.getReplyList().contains(r1)
+			);
+		Assert.assertTrue(
+			checkAnswer1.getReplyList().contains(r2)
+			);
+		Assert.assertTrue(
+			checkAnswer2.getReplyList().contains(r3)
+			);
 	}
 	
 	public void testCaseSeven()
@@ -136,8 +196,7 @@ extends ActivityInstrumentationTestCase2<HomeActivity>
 		String detail = "My thing with the stuff isn't working properly. Help? (See pic).";
 		String answer1 = "Elaborate please? (Also you don't have a pic).";
 		String answer2 = "tl;dr";
-		Drawable img1;
-		Drawable img2;
+		Drawable img1 = null;
 		
 		Question q1 = ObjectFactory.initQuestion(title, detail, author1, img1);
 		qController.addQuestion(q1);
@@ -147,18 +206,76 @@ extends ActivityInstrumentationTestCase2<HomeActivity>
 		aController.addAnswer(a2, q1.getID());
 		
 		// Make sure they're there.
-		/*
-		Question myQuestion = data.getQuestion(q1.id());
-		Collection<Answer> myAnswers = data.getAnswers(q1.id());
+		int i = 0;
 		
-		Assert.assertNotNull(myQuestion.getImg());
-		Assert.assertNotNull(myAnswers.get(0).getImg());
-		Assert.assertNotNull(myAnswers.get(0).getImg());
-		*/
+		ArrayList<Question> checkResult = AppCache.getInstance().getProfile().getMyQuestionList();
+		Question checkQuestion;
+		
+		do
+		{
+			if (i == checkResult.size())
+			{
+				Assert.fail("The Profile did not contain the created question!");
+				return;
+			}
+			checkQuestion = checkResult.get(i);
+			i++;
+		} while (checkQuestion.getID() != q1.getID());
+		
+		Assert.assertNotNull(
+			checkQuestion.getPicture()
+			);
 	}
 	
 	public void testCaseEight()
 	{
+		QuestionController qController = new QuestionController();
+		AnswerController   aController = new AnswerController();
 		
+		// This part is just like test case 5.
+		// Create a question with some answers
+		String author1 = "Dingo Prime";
+		String author2 = "Bingo Prime";
+		String author3 = "Ringo Prime";
+		String title = "I have a question about things.";
+		String detail = "My thing with the stuff isn't working properly. Help? (See pic).";
+		String answer1 = "Elaborate please? (Also you don't have a pic).";
+		String answer2 = "tl;dr";
+		Drawable img1 = null;
+		
+		Question q1 = ObjectFactory.initQuestion(title, detail, author1, img1);
+		qController.addQuestion(q1);
+		Answer a1 = ObjectFactory.initAnswer(answer1, author2);
+		Answer a2 = ObjectFactory.initAnswer(answer2, author3);
+		aController.addAnswer(a1, q1.getID());
+		aController.addAnswer(a2, q1.getID());
+		
+		// Make sure they're there.
+		int i = 0;
+		
+		ArrayList<Question> checkResult = AppCache.getInstance().getProfile().getMyQuestionList();
+		Question checkQuestion;
+		
+		do
+		{
+			if (i == checkResult.size())
+			{
+				Assert.fail("The Profile did not contain the created question!");
+				return;
+			}
+			checkQuestion = checkResult.get(i);
+			i++;
+		} while (checkQuestion.getID() != q1.getID());
+		
+		// Convert the Drawable to a byte array.
+		Drawable draw = checkQuestion.getPicture();
+		Bitmap bmp = ((BitmapDrawable) draw).getBitmap();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+		byte[] raw = baos.toByteArray();
+		
+		Assert.assertTrue(
+				raw.length < 64000
+			);
 	}
 }

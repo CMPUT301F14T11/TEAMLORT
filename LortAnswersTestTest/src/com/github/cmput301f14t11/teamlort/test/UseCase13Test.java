@@ -19,9 +19,7 @@ public class UseCase13Test extends  ActivityInstrumentationTestCase2<HomeActivit
 	// Use case 13: Display the Most Upvoted Questions and Answer
 	public void testCase13(){
 		
-		new ObjectFactory();
 		ArrayList<Question> highestScoreQuestionList = new ArrayList<Question>();
-		new ArrayList<Question>();
 		ArrayList<Answer> highestScoreAnswerList = new ArrayList<Answer>();
 		Qlistcontroller ql = new Qlistcontroller();
 		ElasticManager.getInstance();
@@ -45,8 +43,8 @@ public class UseCase13Test extends  ActivityInstrumentationTestCase2<HomeActivit
 		answer2.upVote("A2");
 		
 		// After users press "Sort By Score" button.
-		highestScoreQuestionList = ql.sortQuestions();
-		highestScoreAnswerList = ql.sortAnswers();
+		ql.sortQuestions("upVote");
+		ql.sortAnswers();
 		
 		// Test if the expected question and answer is on the list or not
 		assertTrue("The most upvoted question: question1 is not on the list",

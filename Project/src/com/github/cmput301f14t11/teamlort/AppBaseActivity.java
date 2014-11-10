@@ -18,7 +18,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
-
+/**
+ * 
+ * overlay actionbar that appears on all activity
+ * so user can search, access profile, ask question, at any time
+ *
+ *
+ */
 public class AppBaseActivity extends Activity
 {
 	private LayoutInflater inflater;

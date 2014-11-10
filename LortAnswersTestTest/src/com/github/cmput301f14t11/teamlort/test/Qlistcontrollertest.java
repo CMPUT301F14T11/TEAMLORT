@@ -20,6 +20,9 @@ public class Qlistcontrollertest extends TestCase{
 		Qlistcontroller qt = new Qlistcontroller();
 		qt.add(new Question());
 		assertTrue("no question in questionlist",qt.returnsize() > 0);
+	}
+	public void testdelete()
+	{
 		
 	}
 

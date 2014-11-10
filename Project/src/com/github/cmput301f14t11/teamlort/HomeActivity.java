@@ -28,7 +28,17 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
-
+/**
+ * used to display list of {@link Question} when the app starts
+ * user should be able to look through question they're interested, perform search
+ * and refine search results on this activity
+ * 
+ * covers usecases 1,14,15
+ * 
+ * 
+ * @author sbao
+ * @issues: search functionality requires other parts to be completed and coordination with other team members 
+ */
 public class HomeActivity extends AppBaseActivity implements Observer {
 	
 	ListView questionlistview;

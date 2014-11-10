@@ -54,15 +54,15 @@ public class FavoriteTest extends TestCase {
 		
 		assertTrue("Should be an empty list", profile.getFavedQuestionList().size() == 0);
 	
-		pc.addFavorite(q1);
-		pc.addFavorite(q2);
-		pc.addFavorite(q3);
+		pc.removeFavedQuestion(q1);
+		pc.removeFavedQuestion(q2);
+		pc.removeFavedQuestion(q3);
 		
 		assertTrue("Should contain 3 items", profile.getFavedQuestionList().size() == 3);
 		
-		pc.removeFavorite(q1);
-		pc.removeFavorite(q2);
-		pc.removeFavorite(q3);
+		pc.removeFavedQuestion(q1);
+		pc.removeFavedQuestion(q2);
+		pc.removeFavedQuestion(q3);
 		
 		assertTrue("Something was not removed from favoriteList", profile.getFavedQuestionList().size() == 0);
 		assertTrue("q1 was not removed", !profile.getFavedQuestionList().contains(q1));

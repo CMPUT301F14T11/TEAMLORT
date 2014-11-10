@@ -88,8 +88,7 @@ public class Profile {
 	public ArrayList<Question> getTestQuestionList(int index){
 		ArrayList<Question> testQuestionList = new ArrayList<Question>();
 		for (int i = 0; i<5; i++){
-			ObjectFactory dc = new ObjectFactory();
-			testQuestionList.add(dc.initQuestion("Title" + index, "Body"+ index, "author"+ index));
+			testQuestionList.add(ObjectFactory.initQuestion("Title" + index, "Body"+ index, "author"+ index));
 		}
 		return testQuestionList;
 	}

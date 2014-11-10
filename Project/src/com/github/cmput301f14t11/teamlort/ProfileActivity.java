@@ -25,6 +25,7 @@ public class ProfileActivity extends AppBaseActivity {
 	static customadapter adapter; 
 	ArrayList<Question> displayQuestionList = new ArrayList<Question>();
 	ListView lv;
+    AlertDialog alertDialog = null;
 
 	/**
 	 * Instantiate the controllers and models
@@ -140,6 +141,22 @@ public class ProfileActivity extends AppBaseActivity {
 				
 			}
 		});
-		alert.show();
+		alertDialog = alert.show();
+	}
+	
+	/**
+	 * Used to get AlertDialog
+	 * @return reference of the alserDialog used in profile activity
+	 */
+	public AlertDialog getDialog(){
+		return alertDialog;
+	}
+	
+	/**
+	 * Used to get current profile 
+	 * @return profile hold by profile activity
+	 */
+	public Profile getProfile(){
+		return p;
 	}
 }

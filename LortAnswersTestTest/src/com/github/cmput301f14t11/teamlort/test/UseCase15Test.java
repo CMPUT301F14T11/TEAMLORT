@@ -18,10 +18,9 @@ public class UseCase15Test extends ActivityInstrumentationTestCase2<HomeActivity
 			
 		}
 		public void testCase15(){
-			//Create existed database
-			ArrayList<Question> temp = new ArrayList<Question>();
+			new ArrayList<Question>();
 			ArrayList<Question> result = new ArrayList<Question>();
-			ObjectFactory obf = new ObjectFactory();
+			new ObjectFactory();
 			Qlistcontroller ql = new Qlistcontroller();
 			ElasticManager em = ElasticManager.getInstance();
 

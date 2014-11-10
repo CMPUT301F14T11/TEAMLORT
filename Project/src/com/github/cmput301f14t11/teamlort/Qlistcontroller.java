@@ -38,6 +38,16 @@ public class Qlistcontroller implements Observer{
 	{
 		
 	}
+
+	public ArrayList<Question> sortQuestions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<Answer> sortAnswers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

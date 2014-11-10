@@ -171,4 +171,14 @@ public class ElasticManager {
 
 		return null;
 	}
+	
+	/**
+	 * Search string and return a question list that match the condition
+	 * @param string
+	 * @return
+	 */
+	public ArrayList<Question> search(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

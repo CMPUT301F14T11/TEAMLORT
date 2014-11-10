@@ -19,13 +19,12 @@ public class UseCase13Test extends  ActivityInstrumentationTestCase2<HomeActivit
 	// Use case 13: Display the Most Upvoted Questions and Answer
 	public void testCase13(){
 		
-		//Create existed database
-		ObjectFactory obf = new ObjectFactory();
+		new ObjectFactory();
 		ArrayList<Question> highestScoreQuestionList = new ArrayList<Question>();
-		ArrayList<Question> temp = new ArrayList<Question>();
+		new ArrayList<Question>();
 		ArrayList<Answer> highestScoreAnswerList = new ArrayList<Answer>();
 		Qlistcontroller ql = new Qlistcontroller();
-		ElasticManager em = ElasticManager.getInstance();
+		ElasticManager.getInstance();
 		
 		Question question1 = ObjectFactory.initQuestion("T1", "B1", "A1");
 		Question question2 = ObjectFactory.initQuestion("T2", "B2", "A2");
@@ -43,11 +42,11 @@ public class UseCase13Test extends  ActivityInstrumentationTestCase2<HomeActivit
 		
 		// After user press upvoted button for question1 and answer2
 		question1.upVote("A1");
-		question2.upVote("A2");
+		answer2.upVote("A2");
 		
 		// After users press "Sort By Score" button.
-		highestScoreQuestionList = em.sortQuestions();
-		highestScoreAnswerList = em.sortAnswers();
+		highestScoreQuestionList = ql.sortQuestions();
+		highestScoreAnswerList = ql.sortAnswers();
 		
 		// Test if the expected question and answer is on the list or not
 		assertTrue("The most upvoted question: question1 is not on the list",

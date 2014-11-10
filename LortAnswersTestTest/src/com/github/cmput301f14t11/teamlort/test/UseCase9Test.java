@@ -3,9 +3,14 @@ package com.github.cmput301f14t11.teamlort.test;
 import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.HomeActivity;
+import com.github.cmput301f14t11.teamlort.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Question;
 
+import android.R.drawable;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.TestCase;
 
@@ -19,26 +24,35 @@ public class UseCase9Test extends ActivityInstrumentationTestCase2<HomeActivity>
 
 	public void testSort()
 	{
-		final int CONSTANT_IMAGE = 1;
-		String title = "testing";
-		ArrayList<Question> questionlist;
-		for (int i =0; x<=9; x++)
+		ObjectFactory obj = new ObjectFactory();
+		Qlistcontroller qc = new Qlistcontroller();
+		for (int i =0; i<=9; i++)
 		{
 			if(i%2 == 0)
 			{
+				
+				BitmapDrawable bitmapDrawable = (BitmapDrawable)bitmap;
+				Drawable drawable = (Drawable)bitmapDrawable;
+
 				Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888 ); 
- 				Question question = new Question(); 
- 				question.addImage(bitmap); 
+				
+				drawable = new BitmapDrawable(bitmap);
+				
+				
+	
+
+ 				Question singlequestion = obj.initQuestion("testing", "body", "author", drawable);
+ 				qc.add(singlequestion);
 			}
-			pdm.add(singlequestion);//persistent data manager
+			;//persistent data manager
 		}
 
-  	questionlist.sort(CONSTANT_IMAGE);
+  	qc.sortQuestions("image");
   	
 
-		for(int i=1;i<questionlist.size()-1;i++)
+		for(int i=1;i<qc.returnsize()-1;i++)
 		{
-			if(questionlist.get(i-1).getPicture()!=questionlist.get(i).getPicture()&&questionlist.get(i).getPicture()!=questionlist.get(i+1).getPicture())
+			if(qc.returnquestion(i-1).getPicture()!=qc.returnquestion(i-1).getPicture()&&qc.returnquestion(i).getPicture()!=qc.returnquestion(i).getPicture())
 			{
 				fail("list not properly sorted by image");
 			}

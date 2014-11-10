@@ -1,10 +1,16 @@
 package com.github.cmput301f14t11.teamlort.test;
 
+import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.TestCase;
 
 
 public class UseCase12Test extends ActivityInstrumentationTestCase2 
 {  
+	public UseCase12Test(Class activityClass) {
+		super(activityClass);
+		// TODO Auto-generated constructor stub
+	}
+
 	//yo elvis thanks buddy!
 	//Oct.18 added controller to tests
 	public void testUpvote()

@@ -92,4 +92,9 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	public void add(Question question) {
+		// TODO Auto-generated method stub
+		da_list.add(question);
+		
+	}
 }

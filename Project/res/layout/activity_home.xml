@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/default_bg"
     tools:context="com.github.cmput301f14t11.teamlort.HomeActivity" >
+	
 
 	<ListView
 	    android:id="@+id/expandableListView1"
@@ -14,5 +15,5 @@
 	    android:divider="@null"
 	    android:dividerHeight="0dp"
 	    tools:listitem="@layout/listitem_question" />
-
+	
 </RelativeLayout>

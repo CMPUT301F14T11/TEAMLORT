@@ -13,6 +13,7 @@ public class QuestionList extends Observable {
 	ArrayList<View> oberservers;
 	Context ctx;
 	View v;
+	ElasticManager elasticmanager;
 	/**
 	 * initializes the questionlist object
 	 */

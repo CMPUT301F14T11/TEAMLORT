@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -57,15 +59,21 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	NetworkController ne = new NetworkController();
 	ProfileController pc = new ProfileController();
 	AppCache appCache = new AppCache();
-	
+	boolean loadingMore = false;
+	ArrayList<Question> getmoar = new ArrayList<Question>();
+	   //Runnable to load the items
+
+
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);     
+        //View footer = (TextView)findViewById(R.id.endoflist);
         questionlistview = (ListView)findViewById(R.id.expandableListView1);
+        //questionlistview.addFooterView(footer);
         adapter = new customadapter(getApplicationContext(), qlc.questionlist.modellist);
-        for(int i = 0; i<=9; i++)
+        for(int i = 0; i<=19; i++)
         {
         	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
         	t.setID();
@@ -77,6 +85,18 @@ public class HomeActivity extends AppBaseActivity implements Observer {
         	qlc.add(t);
         	//dt.addQuestions(listofquestions);
         }
+        
+        
+    	
+
+   
+        
+        
+        
+        
+        
+        
+        
         questionlistview.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
 		{
 
@@ -99,6 +119,44 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 			}
 			
 		});
+        //http://mobile.dzone.com/news/android-tutorial-dynamicaly
+        questionlistview.setOnScrollListener(new OnScrollListener()
+        {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) 
+			{
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,int visibleItemCount, int totalItemCount)
+			{
+				// TODO Auto-generated method stub
+				//what is the bottom iten that is visible
+//				int lastInScreen = firstVisibleItem + visibleItemCount;
+//				//is the bottom item visible & not loading more already ? Load more !
+//				if((lastInScreen == totalItemCount) && !(loadingMore))
+//				{
+//					Thread thread =  new Thread(null, loadMoreListItems);
+//					thread.start();
+//				}
+				if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
+	            {
+	                if(loadingMore == false)
+	                {
+	                	loadingMore = true;
+	                	qlc.getMore(qlc.questionlist.modellist.get(qlc.questionlist.modellist.size()-1).getID(), 10);
+	                	Toast.makeText(getApplicationContext(), "get More called", Toast.LENGTH_SHORT).show();
+	                	adapter.updatelist(qlc.questionlist.modellist);
+	                }
+	            }
+
+
+			}
+        });
+        
         questionlistview.setAdapter(adapter);
     }
     

@@ -25,11 +25,12 @@ public class Qlistcontroller implements Observer{
 	/**
 	 * pulls more question from the server
 	 */
-	public void getMore()
+	public ArrayList<Question> getMore(int providedid,int amount)
 	{
-		// TODO: Research ElasticSearch
-		ElasticManager.serverQuery("Foo!");
-		
+		// TODO: how to trigger getmroe
+		questionlist.modellist.addAll(elc.get(providedid, amount));
+		return elc.get(providedid, amount);
+		// updateview
 	}
 
 	/**

@@ -3,11 +3,14 @@ package com.github.cmput301f14t11.teamlort;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -18,6 +21,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 
 import android.util.Log;
+
+
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -174,17 +179,57 @@ public class ElasticManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-
-		return null;
+		// if all else fails, return a brand new Array list to avoid null pointer errors
+		return new ArrayList<Question>();
 	}
+}
 	
 	/**
 	 * Search string and return a question list that match the condition
 	 * @param string
 	 * @return
 	 */
-	public ArrayList<Question> search(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}
+//	public ArrayList<Question> search(String string) {
+//		// TODO Auto-generated method stub
+//		ArrayList<Question> result = new ArrayList<Question>();
+//
+//		// TODO: Implement search movies using ElasticSearch
+//		if(string == null || "".equals(string)){
+//			string = "*"; 
+//			HttpClient httpClient = new DefaultHttpClient();
+//			HttpPost searchRequest = new HttpPost(serverAddress);
+//		}
+//		HttpClient httpClient = new DefaultHttpClient();
+//		
+//		try{
+//			HttpPost searchRequest = createSearchRequest(string,field);
+//			HttpResponse response = httpClient.execute(searchRequest);
+//			String status = response.getStatusLine().toString();
+//			
+//			SearchResponse<Question> esResponse = parseSearchResponse(response);
+//			Hits <Movie> hits = esResponse.getHits();
+//			
+//			if( hits != null)
+//				if(hits.getHits()!=null)
+//					for (SearchHit<Movie>sesr: hits.getHits())
+//					{
+//						result.add(sesr.getSource());
+//					}
+//			
+//		}
+//		catch(UnsupportedEncodingException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		catch(ClientProtocolException e)
+//		{
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		return result;
+//	}
+	

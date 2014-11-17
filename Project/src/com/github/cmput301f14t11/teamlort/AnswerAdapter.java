@@ -2,8 +2,11 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.R.color;
+
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -141,6 +144,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_stats_1.setText(answer.getTime().toString());
 			answerViewHolder.answer_comment_count.setText(String.valueOf(answer.getReplyList().size()) + " comments");
 			answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
+			answerViewHolder.upvoteButton.setBackgroundColor(Color.GRAY);
 			answerViewHolder.upvoteButton.setOnClickListener( new View.OnClickListener() {
 				
 				@Override
@@ -148,10 +152,13 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 					if(answer.getVoterSet().contains(answer.getAuthor())){
 						answer.unVote(answer.getAuthor());
 						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
+						answerViewHolder.upvoteButton.setBackgroundColor(Color.GRAY);
 					}
 					else {
 						answer.upVote(answer.getAuthor());
 						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
+						answerViewHolder.upvoteButton.setBackgroundColor(Color.GREEN);
+
 					}
 				}
 			});

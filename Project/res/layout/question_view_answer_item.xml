@@ -42,16 +42,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/answer1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/answer_author"
-            android:layout_margin="@dimen/activity_margin"
-            android:text="@string/listitem_answer_desc" />
-
-        <TextView
             android:id="@+id/answer_comment_count_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +68,24 @@
             android:layout_toLeftOf="@+id/listitem_question_button_bar"
             android:text="@string/listitem_answer_author"
             android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/answer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/activity_margin"
+            android:layout_toRightOf="@+id/upvoteButton"
+            android:text="@string/listitem_answer_desc" />
+
+        <Button
+            android:id="@+id/upvoteButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/answer1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
 
     </RelativeLayout>
 

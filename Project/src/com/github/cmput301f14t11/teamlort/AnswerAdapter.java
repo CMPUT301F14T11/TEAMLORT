@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 		TextView answer_author;
 		TextView answer_stats_1;
 		TextView answer_comment_count;
+		Button upvoteButton;
 	}
 	
 	/**
@@ -122,6 +124,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_author = (TextView) convertView.findViewById(R.id.answer_author);
 			answerViewHolder.answer_stats_1 = (TextView) convertView.findViewById(R.id.answer_stats_1);
 			answerViewHolder.answer_comment_count = (TextView) convertView.findViewById(R.id.answer_comment_count_textview);
+			answerViewHolder.upvoteButton = (Button) convertView.findViewById(R.id.upvoteButton);
 			
 			convertView.setTag(answerViewHolder);
 			
@@ -129,7 +132,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			//Recycle view information in viewHolder
 			answerViewHolder = (AnswerViewHolder) convertView.getTag();
 		}
-		Answer answer = answerList.get(groupPosition);
+		final Answer answer = answerList.get(groupPosition);
 		
 		//Set the text for the view if answer isn't null
 		if (answer != null){
@@ -137,7 +140,23 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_author.setText(answer.getAuthor());
 			answerViewHolder.answer_stats_1.setText(answer.getTime().toString());
 			answerViewHolder.answer_comment_count.setText(String.valueOf(answer.getReplyList().size()) + " comments");
-			}
+			answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
+			answerViewHolder.upvoteButton.setOnClickListener( new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if(answer.getVoterSet().contains(answer.getAuthor())){
+						answer.unVote(answer.getAuthor());
+						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
+					}
+					else {
+						answer.upVote(answer.getAuthor());
+						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
+					}
+				}
+			});
+				
+		}
 		
 		/*//These appear to be broken right now
 		answerViewHolder.answer_action_reply.setOnClickListener(new OnClickListener(){
@@ -160,6 +179,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			
 		});
 		*/
+		
 		
 		return convertView;
 	}

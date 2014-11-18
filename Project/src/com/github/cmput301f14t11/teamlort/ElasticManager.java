@@ -20,7 +20,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 
 
@@ -36,12 +38,17 @@ import com.google.gson.reflect.TypeToken;
  */
 public class ElasticManager {
 	private static ElasticManager instance = null;
-	
+	private static final String TAG = "LORTANSWERS";
 	private static final String serverAddress = "http://cmput301.softwareprocess.es:8080/cmput301f14t11/";
 	private static Gson gson;
 
 	protected ElasticManager() {
 		
+	}
+	Context context;
+	public void providecontext(Context ctx)
+	{
+		ctx = context;
 	}
 	public static ElasticManager getInstance() {
 	      if(instance == null) {
@@ -117,7 +124,7 @@ public class ElasticManager {
 	 */
 	public void addItem(Question deliveritem) {
 		HttpClient httpClient = new DefaultHttpClient();
-
+		//Toast.makeText(context, "attempting add question, id = "+deliveritem.getID(),Toast.LENGTH_SHORT).show();
 		try {
 			HttpPost addRequest = new HttpPost(serverAddress + deliveritem.getID());
 
@@ -126,8 +133,9 @@ public class ElasticManager {
 			addRequest.setHeader("Accept", "application/json");
 
 			HttpResponse response = httpClient.execute(addRequest);
+			//Toast.makeText(context, "add successfully completed",Toast.LENGTH_SHORT).show();
 			String status = response.getStatusLine().toString();
-			//Log.i(TAG, status);
+			Log.i(TAG, "additem "+status);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -182,54 +190,92 @@ public class ElasticManager {
 		// if all else fails, return a brand new Array list to avoid null pointer errors
 		return new ArrayList<Question>();
 	}
-}
+	
+
 	
 	/**
 	 * Search string and return a question list that match the condition
 	 * @param string
 	 * @return
 	 */
-//	public ArrayList<Question> search(String string) {
-//		// TODO Auto-generated method stub
-//		ArrayList<Question> result = new ArrayList<Question>();
-//
-//		// TODO: Implement search movies using ElasticSearch
-//		if(string == null || "".equals(string)){
-//			string = "*"; 
-//			HttpClient httpClient = new DefaultHttpClient();
-//			HttpPost searchRequest = new HttpPost(serverAddress);
-//		}
-//		HttpClient httpClient = new DefaultHttpClient();
-//		
-//		try{
-//			HttpPost searchRequest = createSearchRequest(string,field);
-//			HttpResponse response = httpClient.execute(searchRequest);
-//			String status = response.getStatusLine().toString();
-//			
-//			SearchResponse<Question> esResponse = parseSearchResponse(response);
-//			Hits <Movie> hits = esResponse.getHits();
-//			
-//			if( hits != null)
-//				if(hits.getHits()!=null)
-//					for (SearchHit<Movie>sesr: hits.getHits())
-//					{
-//						result.add(sesr.getSource());
-//					}
-//			
-//		}
-//		catch(UnsupportedEncodingException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		catch(ClientProtocolException e)
-//		{
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		return result;
-//	}
+	public ArrayList<Question> search(String string,String field) {
+		// TODO Auto-generated method stub
+		ArrayList<Question> result = new ArrayList<Question>();
+
+		// TODO: Implement search movies using ElasticSearch
+		if(string == null || "".equals(string)){
+			string = "*"; 
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpPost searchRequest = new HttpPost(serverAddress);
+		}
+		HttpClient httpClient = new DefaultHttpClient();
+		
+		try{
+			HttpPost searchRequest = createSearchRequest(string,field);
+			HttpResponse response = httpClient.execute(searchRequest);
+			String status = response.getStatusLine().toString();
+			Log.i(TAG, status);
+			SearchResponse<Question> esResponse = parseSearchResponse(response);
+			Hits <Question> hits = esResponse.getHits();
+			
+			if( hits != null)
+				if(hits.getHits()!=null)
+					for (SearchHit<Question>sesr: hits.getHits())
+					{
+						result.add(sesr.getSource());
+					}
+			
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		}
+		catch(ClientProtocolException e)
+		{
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
 	
+	private SearchResponse<Question> parseSearchResponse(HttpResponse response) throws IOException 
+	{
+		String json;
+		json = getEntityContent(response);
+
+		Type searchResponseType = new TypeToken<SearchResponse<Question>>() {
+		}.getType();
+		
+		SearchResponse<Question> esResponse = gson.fromJson(json, searchResponseType);
+
+		return esResponse;
+	}
+	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
+		
+		HttpPost searchRequest = new HttpPost(serverAddress);
+
+		String[] fields = null;
+		if (field != null) {
+			fields = new String[1];
+			fields[0] = field;
+		}
+		
+		SimpleSearchCommand command = new SimpleSearchCommand(searchString,	fields);
+		
+		String query = command.getJsonCommand();
+		Log.i(TAG, "Json command: " + query);
+
+		StringEntity stringEntity;
+		stringEntity = new StringEntity(query);
+
+		searchRequest.setHeader("Accept", "application/json");
+		searchRequest.setEntity(stringEntity);
+
+		return searchRequest;
+	}
+	
+}

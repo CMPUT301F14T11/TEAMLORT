@@ -39,7 +39,7 @@ public class AppBaseActivity extends Activity
 		super.onCreate(inState);
 		this.setContentView(R.layout.activity_app_base);
 		//initialize persistent data manager
-		final PersistentDataManager pdm = PersistentDataManager.getInstance();
+		//final PersistentDataManager pdm = PersistentDataManager.getInstance();
 		// Set the top ActionBar to a custom view.
         this.inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ActionBar ab = this.getActionBar();
@@ -66,15 +66,23 @@ public class AppBaseActivity extends Activity
 			public void onClick(View v)
 			{
 				AppBaseActivity.this.pMenu.show();
-				ArrayList<Question>results = pdm.searchQuestions(searchinput.getText().toString());// we need to somehow grab the input user provided 
-				if(results == null)
+				//ArrayList<Question>results = pdm.searchQuestions();// we need to somehow grab the input user provided 
+				Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+				intent.putExtra(searchinput.getText().toString(), "searchstring");
+				//
+				//searchinput.getText().toString()
+				if(searchinput.getText().toString() == null || searchinput.getText().toString() == "")
 				{
-					//give warning
+					//pass a *
+					intent.putExtra("*", "searchstring");
 				}
 				else
 				{
-					//pass this array to homeactivity
+					//pass this searchstring to homeactivity
+					//we will do the searching in homeactivity
+					intent.putExtra(searchinput.getText().toString(), "searchstring");
 				}
+				startActivity(intent);
 			}
 		});
 	}

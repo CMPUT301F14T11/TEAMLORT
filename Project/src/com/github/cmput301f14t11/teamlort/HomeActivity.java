@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+
+
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 
 
@@ -43,6 +45,8 @@ import android.widget.Toast;
  */
 public class HomeActivity extends AppBaseActivity implements Observer {
 	
+	
+	
 	ListView questionlistview;
 	private RelativeLayout tasklayout;
 	static customadapter adapter; // since we are displaying question objects, the normal ArrayAdapter will not cut it, for right now I've modified the customer adapter I used for my assignment 1 and sticked it in here
@@ -62,7 +66,11 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	boolean loadingMore = false;
 	ArrayList<Question> getmoar = new ArrayList<Question>();
 	   //Runnable to load the items
-
+	private Runnable doUpdateGUIList = new Runnable() {
+		public void run() {
+			adapter.updatelist(qlc.questionlist.modellist);
+		}
+	};
 
 	@Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,23 +81,30 @@ public class HomeActivity extends AppBaseActivity implements Observer {
         questionlistview = (ListView)findViewById(R.id.expandableListView1);
         //questionlistview.addFooterView(footer);
         adapter = new customadapter(getApplicationContext(), qlc.questionlist.modellist);
-        for(int i = 0; i<=19; i++)
-        {
-        	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
-        	t.setID();
-        	Answer answer = new Answer();
-        	answer.setBody("dsadasd");
-    		answer.setAuthor("asdsadas");
-    		
-    		t.addAnswer(answer);
-        	qlc.add(t);
-        	//dt.addQuestions(listofquestions);
-        }
-        
-        
+//        for(int i = 0; i<=19; i++)
+//        {
+//        	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
+//        	t.setID();
+//        	Answer answer = new Answer();
+//        	answer.setBody("dsadasd");
+//    		answer.setAuthor("asdsadas");
+//    		
+//    		t.addAnswer(answer);
+//        	qlc.add(t);
+//        	//dt.addQuestions(listofquestions);
+//        }
+        /**
+         * screw locally generated question, we be grabbin shit online like real Gs
+         */
+       //Intent intent = getIntent();
+       //String searchstring = intent.getStringExtra("searchstring");
+       String searchstring = "*";
+       SearchThread search = new SearchThread(searchstring);
+	   search.start();
+       //qlc.questionlist.modellist = qlc.questionlist.elasticmanager.search(searchstring, null);
     	
 
-   
+	   
         
         
         
@@ -215,4 +230,23 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 		// TODO Auto-generated method stub
 		adapter.updatelist(qlc.questionlist.modellist);
 	}
+	class SearchThread extends Thread {
+		// TODO: Implement search thread
+		private String search;
+		public SearchThread(String s)
+		{
+			search = s;
+		}
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			qlc.questionlist.modellist.clear();
+			qlc.questionlist.modellist.addAll(qlc.elc.search(search, null));
+			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
+				runOnUiThread(doUpdateGUIList);
+			}
+		
+		
+	}
 }
+

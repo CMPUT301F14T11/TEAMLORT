@@ -1,5 +1,7 @@
 package com.github.cmput301f14t11.teamlort;
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -194,7 +196,32 @@ extends AppBaseActivity
 			}
 		});
 	}
+	private Runnable doFinishAdd = new Runnable() {
+		public void run() {
+			finish();
+		}
+	};
+	class AddThread extends Thread {
+		private Question question;
 
+		public AddThread(Question question) {
+			this.question = question;
+		}
+
+		@Override
+		public void run() {
+			qController.addQuestion(question);;
+			
+			// Give some time to get updated info
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			runOnUiThread(doFinishAdd);
+		}
+	}
 	/**
 	 * Auxiliary method.
 	 * When the user clicks Accept, put everything together and send it to the controller.
@@ -233,12 +260,22 @@ extends AppBaseActivity
 			return;
 		}
 		
-		qController.addQuestion(
-			ObjectFactory.initQuestion(
-					title,
-					detail,
-					usrProfile.getUsername()
-					)
-			);
+		
+		
+		
+		Question testing = ObjectFactory.initQuestion(
+				title,
+				detail,
+				//usrProfile.getUsername()
+				"Sam"
+				);
+		qController.providecontext(getApplicationContext());
+		qController.addQuestion(testing);
+		Toast.makeText(getApplicationContext(), "question id is "+testing.getID(), Toast.LENGTH_SHORT).show();
+		Thread thread = new AddThread(testing);
+		thread.start();
+		// jumps back to home screen
+		//Intent intent = new Intent(ComposeQuestionActivity.this,HomeActivity.class);
+		//startActivity(intent);
 	}
 }

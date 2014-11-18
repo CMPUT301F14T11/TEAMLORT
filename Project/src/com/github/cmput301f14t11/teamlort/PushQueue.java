@@ -33,7 +33,11 @@ public class PushQueue {
 	 * 
 	 * @param addMe
 	 */
-	public void addToQueue(Question addMe) {
-		//TODO stub
+	public void addQuestionToQueue(Question addMe) {
+		if (!pushList.contains(addMe)){
+			pushList.add(addMe);
+		}
 	}
+	
+
 }

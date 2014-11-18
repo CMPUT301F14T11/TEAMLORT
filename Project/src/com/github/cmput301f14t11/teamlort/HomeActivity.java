@@ -6,31 +6,26 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-
-
-import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
-
-
-
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.LinearLayout;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
+
+import com.github.cmput301f14t11.teamlort.Controller.NetworkController;
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
+import com.github.cmput301f14t11.teamlort.Controller.UserController;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
+import com.github.cmput301f14t11.teamlort.Model.Question;
 
 /**
  * used to display list of {@link Question} when the app starts
@@ -68,7 +63,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	   //Runnable to load the items
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
-			adapter.updatelist(qlc.questionlist.modellist);
+			adapter.updatelist(qlc.getQuestionlist().getModellist());
 		}
 	};
 
@@ -80,7 +75,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
         //View footer = (TextView)findViewById(R.id.endoflist);
         questionlistview = (ListView)findViewById(R.id.expandableListView1);
         //questionlistview.addFooterView(footer);
-        adapter = new customadapter(getApplicationContext(), qlc.questionlist.modellist);
+        adapter = new customadapter(getApplicationContext(), qlc.getQuestionlist().getModellist());
 //        for(int i = 0; i<=19; i++)
 //        {
 //        	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
@@ -162,9 +157,9 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	                if(loadingMore == false)
 	                {
 	                	loadingMore = true;
-	                	qlc.getMore(qlc.questionlist.modellist.get(qlc.questionlist.modellist.size()-1).getID(), 10);
+	                	qlc.getMore(qlc.getQuestionlist().getModellist().get(qlc.getQuestionlist().getModellist().size()-1).getID(), 10);
 	                	Toast.makeText(getApplicationContext(), "get More called", Toast.LENGTH_SHORT).show();
-	                	adapter.updatelist(qlc.questionlist.modellist);
+	                	adapter.updatelist(qlc.getQuestionlist().getModellist());
 	                }
 	            }
 
@@ -228,7 +223,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	@Override
 	public void update(Observable observable, Object data) {
 		// TODO Auto-generated method stub
-		adapter.updatelist(qlc.questionlist.modellist);
+		adapter.updatelist(qlc.getQuestionlist().getModellist());
 	}
 	class SearchThread extends Thread {
 		// TODO: Implement search thread
@@ -240,8 +235,8 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			qlc.questionlist.modellist.clear();
-			qlc.questionlist.modellist.addAll(qlc.elc.search(search, null));
+			qlc.getQuestionlist().getModellist().clear();
+			qlc.getQuestionlist().getModellist().addAll(qlc.getElc().search(search, null));
 			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
 				runOnUiThread(doUpdateGUIList);
 			}

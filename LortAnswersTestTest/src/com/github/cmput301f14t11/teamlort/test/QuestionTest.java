@@ -1,7 +1,7 @@
 package com.github.cmput301f14t11.teamlort.test;
 
-import com.github.cmput301f14t11.teamlort.Answer;
-import com.github.cmput301f14t11.teamlort.Question;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.Question;
 
 import junit.framework.TestCase;
 

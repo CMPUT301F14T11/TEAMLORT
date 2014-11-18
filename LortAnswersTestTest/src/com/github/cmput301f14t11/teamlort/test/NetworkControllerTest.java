@@ -1,6 +1,6 @@
 package com.github.cmput301f14t11.teamlort.test;
 
-import com.github.cmput301f14t11.teamlort.NetworkController;
+import com.github.cmput301f14t11.teamlort.Controller.NetworkController;
 
 import junit.framework.TestCase;
 

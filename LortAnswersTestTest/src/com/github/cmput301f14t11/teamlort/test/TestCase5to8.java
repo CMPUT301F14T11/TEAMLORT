@@ -9,14 +9,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.github.cmput301f14t11.teamlort.Answer;
-import com.github.cmput301f14t11.teamlort.AnswerController;
 import com.github.cmput301f14t11.teamlort.AppBaseActivity;
-import com.github.cmput301f14t11.teamlort.AppCache;
-import com.github.cmput301f14t11.teamlort.ObjectFactory;
-import com.github.cmput301f14t11.teamlort.Question;
-import com.github.cmput301f14t11.teamlort.QuestionController;
-import com.github.cmput301f14t11.teamlort.Reply;
+import com.github.cmput301f14t11.teamlort.Controller.AnswerController;
+import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.Question;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 public class TestCase5to8
 extends ActivityInstrumentationTestCase2<AppBaseActivity>

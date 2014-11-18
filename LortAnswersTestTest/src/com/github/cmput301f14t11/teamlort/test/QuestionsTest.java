@@ -2,9 +2,9 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.ArrayList;
 
-import com.github.cmput301f14t11.teamlort.Answer;
-import com.github.cmput301f14t11.teamlort.Question;
-import com.github.cmput301f14t11.teamlort.Reply;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.Question;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;

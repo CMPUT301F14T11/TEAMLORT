@@ -2,10 +2,10 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import junit.framework.TestCase;
 
-import com.github.cmput301f14t11.teamlort.AppCache;
-import com.github.cmput301f14t11.teamlort.Profile;
-import com.github.cmput301f14t11.teamlort.ProfileController;
-import com.github.cmput301f14t11.teamlort.Question;
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.Question;
 
 /**
  * Tests for UseCase 18

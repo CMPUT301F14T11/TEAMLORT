@@ -2,8 +2,8 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import android.graphics.drawable.Drawable;
 
-import com.github.cmput301f14t11.teamlort.RepliableText;
-import com.github.cmput301f14t11.teamlort.Reply;
+import com.github.cmput301f14t11.teamlort.Model.RepliableText;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 import junit.framework.TestCase;
 

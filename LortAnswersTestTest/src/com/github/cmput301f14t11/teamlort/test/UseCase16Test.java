@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.github.cmput301f14t11.teamlort.LocalManager;
-import com.github.cmput301f14t11.teamlort.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.ProfileActivity;
-import com.github.cmput301f14t11.teamlort.Question;
+import com.github.cmput301f14t11.teamlort.Model.LocalManager;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.Question;
 
 public class UseCase16Test extends ActivityInstrumentationTestCase2<ProfileActivity>{
 	

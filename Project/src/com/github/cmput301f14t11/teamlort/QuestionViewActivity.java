@@ -2,6 +2,14 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.Question;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;

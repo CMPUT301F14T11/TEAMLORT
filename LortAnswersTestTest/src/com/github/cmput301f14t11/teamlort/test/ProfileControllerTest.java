@@ -2,10 +2,11 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.ArrayList;
 
-import com.github.cmput301f14t11.teamlort.ObjectFactory;
-import com.github.cmput301f14t11.teamlort.Profile;
-import com.github.cmput301f14t11.teamlort.ProfileController;
-import com.github.cmput301f14t11.teamlort.Question;
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.Question;
+
 import junit.framework.TestCase;
 
 public class ProfileControllerTest extends TestCase {

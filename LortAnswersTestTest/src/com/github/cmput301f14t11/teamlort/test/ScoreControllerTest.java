@@ -1,8 +1,8 @@
 package com.github.cmput301f14t11.teamlort.test;
 
-import com.github.cmput301f14t11.teamlort.RepliableText;
-import com.github.cmput301f14t11.teamlort.ScoreController;
-import com.github.cmput301f14t11.teamlort.UserController;
+import com.github.cmput301f14t11.teamlort.Controller.ScoreController;
+import com.github.cmput301f14t11.teamlort.Controller.UserController;
+import com.github.cmput301f14t11.teamlort.Model.RepliableText;
 
 import junit.framework.TestCase;
 

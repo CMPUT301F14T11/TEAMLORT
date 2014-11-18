@@ -1,6 +1,6 @@
 package com.github.cmput301f14t11.teamlort.test;
 
-import com.github.cmput301f14t11.teamlort.Answer;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;

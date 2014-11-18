@@ -3,6 +3,7 @@ package com.github.cmput301f14t11.teamlort;
 import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.AnswerAdapter.ReplyViewHolder;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 import android.app.Activity;
 import android.content.Context;

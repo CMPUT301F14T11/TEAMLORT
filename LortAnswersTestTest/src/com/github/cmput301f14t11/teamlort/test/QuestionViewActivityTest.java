@@ -6,14 +6,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.github.cmput301f14t11.teamlort.Answer;
 import com.github.cmput301f14t11.teamlort.AnswerAdapter;
-import com.github.cmput301f14t11.teamlort.AppCache;
-import com.github.cmput301f14t11.teamlort.Question;
 import com.github.cmput301f14t11.teamlort.QuestionViewActivity;
 import com.github.cmput301f14t11.teamlort.R;
-import com.github.cmput301f14t11.teamlort.Reply;
 import com.github.cmput301f14t11.teamlort.ReplyAdapter;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.Question;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 public class QuestionViewActivityTest extends ActivityInstrumentationTestCase2<QuestionViewActivity>{
 

@@ -2,6 +2,8 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
 import com.github.cmput301f14t11.teamlort.R.color;
 
 import android.app.Activity;

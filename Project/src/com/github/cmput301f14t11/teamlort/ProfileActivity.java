@@ -2,6 +2,11 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.Question;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;

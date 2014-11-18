@@ -2,6 +2,11 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.R;
+import com.github.cmput301f14t11.teamlort.Model.Question;
+import com.github.cmput301f14t11.teamlort.R.id;
+import com.github.cmput301f14t11.teamlort.R.layout;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;

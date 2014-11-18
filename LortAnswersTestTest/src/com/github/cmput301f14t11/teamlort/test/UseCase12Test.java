@@ -2,10 +2,10 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.Collections;
 
-import com.github.cmput301f14t11.teamlort.Answer;
-import com.github.cmput301f14t11.teamlort.ObjectFactory;
-import com.github.cmput301f14t11.teamlort.Question;
-import com.github.cmput301f14t11.teamlort.QuestionController;
+import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.Question;
 
 import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.TestCase;

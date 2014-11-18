@@ -5,12 +5,12 @@ import java.util.Collections;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.github.cmput301f14t11.teamlort.HomeActivity;
-import com.github.cmput301f14t11.teamlort.ObjectFactory;
-import com.github.cmput301f14t11.teamlort.Qlistcontroller;
-import com.github.cmput301f14t11.teamlort.Question;
-import com.github.cmput301f14t11.teamlort.QuestionController;
-import com.github.cmput301f14t11.teamlort.ScoreController;
+import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
+import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
+import com.github.cmput301f14t11.teamlort.Controller.ScoreController;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
+import com.github.cmput301f14t11.teamlort.Model.Question;
 
 import junit.framework.TestCase;
 

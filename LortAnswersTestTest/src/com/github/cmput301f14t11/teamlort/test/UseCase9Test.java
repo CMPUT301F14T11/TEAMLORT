@@ -3,9 +3,9 @@ package com.github.cmput301f14t11.teamlort.test;
 import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.HomeActivity;
-import com.github.cmput301f14t11.teamlort.ObjectFactory;
-import com.github.cmput301f14t11.teamlort.Qlistcontroller;
-import com.github.cmput301f14t11.teamlort.Question;
+import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.Question;
 
 import android.R.drawable;
 import android.graphics.Bitmap;

@@ -15,7 +15,6 @@ import java.util.Observer;
 
 import android.util.Log;
 
-import com.github.cmput301f14t11.teamlort.Question;
 
 /**
  * @author  Brandon Yue

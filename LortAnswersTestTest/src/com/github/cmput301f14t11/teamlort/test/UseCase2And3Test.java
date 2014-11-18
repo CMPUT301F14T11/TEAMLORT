@@ -2,11 +2,12 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.ArrayList;
 
-import com.github.cmput301f14t11.teamlort.Answer;
-import com.github.cmput301f14t11.teamlort.AppCache;
-import com.github.cmput301f14t11.teamlort.Question;
 import com.github.cmput301f14t11.teamlort.QuestionViewActivity;
-import com.github.cmput301f14t11.teamlort.Reply;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.Question;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
+
 import android.test.ActivityInstrumentationTestCase2;
 
 public class UseCase2And3Test extends ActivityInstrumentationTestCase2<QuestionViewActivity> {

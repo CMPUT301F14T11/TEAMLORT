@@ -8,13 +8,13 @@ import java.io.InputStreamReader;
 import junit.framework.TestCase;
 import android.content.Context;
 
-import com.github.cmput301f14t11.teamlort.Answer;
-import com.github.cmput301f14t11.teamlort.AppCache;
-import com.github.cmput301f14t11.teamlort.LocalManager;
-import com.github.cmput301f14t11.teamlort.Profile;
-import com.github.cmput301f14t11.teamlort.ProfileController;
-import com.github.cmput301f14t11.teamlort.Question;
-import com.github.cmput301f14t11.teamlort.Reply;
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.LocalManager;
+import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.Question;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 public class UseCase171920Test extends TestCase {
 

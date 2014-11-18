@@ -22,6 +22,7 @@ import com.github.cmput301f14t11.teamlort.Controller.NetworkController;
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Controller.UserController;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
@@ -76,26 +77,26 @@ public class HomeActivity extends AppBaseActivity implements Observer {
         questionlistview = (ListView)findViewById(R.id.expandableListView1);
         //questionlistview.addFooterView(footer);
         adapter = new customadapter(getApplicationContext(), qlc.getQuestionlist().getModellist());
-//        for(int i = 0; i<=19; i++)
-//        {
-//        	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
-//        	t.setID();
-//        	Answer answer = new Answer();
-//        	answer.setBody("dsadasd");
-//    		answer.setAuthor("asdsadas");
-//    		
-//    		t.addAnswer(answer);
-//        	qlc.add(t);
-//        	//dt.addQuestions(listofquestions);
-//        }
+        for(int i = 0; i<=19; i++)
+        {
+        	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
+        	t.setID();
+        	Answer answer = new Answer();
+        	answer.setBody("dsadasd");
+    		answer.setAuthor("asdsadas");
+    		
+    		t.addAnswer(answer);
+        	qlc.add(t);
+        	//dt.addQuestions(listofquestions);
+        }
         /**
          * screw locally generated question, we be grabbin shit online like real Gs
          */
        //Intent intent = getIntent();
        //String searchstring = intent.getStringExtra("searchstring");
-       String searchstring = "*";
-       SearchThread search = new SearchThread(searchstring);
-	   search.start();
+//       String searchstring = "*";
+//       SearchThread search = new SearchThread(searchstring);
+//	   search.start();
        //qlc.questionlist.modellist = qlc.questionlist.elasticmanager.search(searchstring, null);
     	
 

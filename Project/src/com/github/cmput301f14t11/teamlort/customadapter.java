@@ -2,18 +2,16 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
-import com.github.cmput301f14t11.teamlort.R;
+
 import com.github.cmput301f14t11.teamlort.Model.Question;
-import com.github.cmput301f14t11.teamlort.R.id;
-import com.github.cmput301f14t11.teamlort.R.layout;
+
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,12 +19,12 @@ import android.widget.Toast;
 
 class Single_Home_Question
 {
-	TextView title;
-	TextView content;
-	TextView count;
-	ImageButton save;
-	ImageButton favorite;
-	Question thisquestion;
+	public TextView title;
+	public TextView content;
+	public TextView count;
+	public ImageButton save;
+	public ImageButton favorite;
+	public Question thisquestion;
 	Single_Home_Question(View feed)
 	{
 		title = (TextView) feed.findViewById(R.id.listitem_question_title);

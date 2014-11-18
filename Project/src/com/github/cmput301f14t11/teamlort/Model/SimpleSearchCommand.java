@@ -33,5 +33,6 @@ public class SimpleSearchCommand {
 		command.append("}}}");
 
 		return command.toString();
+		//return "GET _SEARCH";
 	}
 }

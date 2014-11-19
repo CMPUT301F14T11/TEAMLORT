@@ -206,7 +206,7 @@ public class ElasticManager {
 		if(string == null || "".equals(string)){
 			string = "*"; 
 			HttpClient httpClient = new DefaultHttpClient();
-			HttpPost searchRequest = new HttpPost(serverAddress);
+			HttpPost searchRequest = new HttpPost(serverAddress+"_search");
 		}
 		HttpClient httpClient = new DefaultHttpClient();
 		
@@ -256,7 +256,7 @@ public class ElasticManager {
 	}
 	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
 		
-		HttpPost searchRequest = new HttpPost(serverAddress);
+		HttpPost searchRequest = new HttpPost(serverAddress+"_search");
 
 		String[] fields = null;
 		if (field != null) {

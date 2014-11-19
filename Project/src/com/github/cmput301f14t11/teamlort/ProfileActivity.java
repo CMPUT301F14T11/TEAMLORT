@@ -35,9 +35,9 @@ public class ProfileActivity extends AppBaseActivity {
 	/**
 	 * Instantiate the controllers and models
 	 */
-	ProfileController pc = new ProfileController();
+	
 	ObjectFactory dt = new ObjectFactory();
-	Profile p = new Profile();
+	//Profile p = new Profile();
 
 	
 	/**
@@ -52,7 +52,7 @@ public class ProfileActivity extends AppBaseActivity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		adapter = new customadapter(getApplicationContext(),p.getTestQuestionList(1));
+		adapter = new customadapter(getApplicationContext(),pc.getP().getTestQuestionList(1));
 		lv = (ListView) findViewById(R.id.ProfileQuestionListView);
 		lv.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
 			{
@@ -103,7 +103,7 @@ public class ProfileActivity extends AppBaseActivity {
 	 *  @issue not implemented
 	 */
 	public void savedListButtonPressed(View view){
-		adapter = new customadapter(getApplicationContext(),p.getTestQuestionList(2));
+		adapter = new customadapter(getApplicationContext(),pc.getP().getTestQuestionList(2));
 		lv.setAdapter(adapter);
 		
 	}
@@ -113,7 +113,7 @@ public class ProfileActivity extends AppBaseActivity {
 	 *  @issue not implemented
 	 */
 	public void favedListButtonPressed(View view){
-		adapter = new customadapter(getApplicationContext(),p.getFavedQuestionList());
+		adapter = new customadapter(getApplicationContext(),pc.getP().getFavedQuestionList());
 		lv.setAdapter(adapter);
 	}
 	/**
@@ -134,7 +134,7 @@ public class ProfileActivity extends AppBaseActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				String username = input.getText().toString();
-				p.setUsername(username);
+				pc.getP().setUsername(username);
 				TextView tv = (TextView) findViewById(R.id.UsernameTitleTextView);
 				tv.setText(username);
 			}
@@ -162,6 +162,6 @@ public class ProfileActivity extends AppBaseActivity {
 	 * @return profile hold by profile activity
 	 */
 	public Profile getProfile(){
-		return p;
+		return pc.getP();
 	}
 }

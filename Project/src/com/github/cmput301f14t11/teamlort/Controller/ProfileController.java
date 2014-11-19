@@ -17,7 +17,7 @@ public class ProfileController {
 	 * Sets the {@link Profile} in ProfileController to the instance in AppCache
 	 */
 	public ProfileController() {
-		p = AppCache.getInstance().getProfile();
+		setP(AppCache.getInstance().getProfile());
 	}
 	
 	/**
@@ -25,7 +25,7 @@ public class ProfileController {
 	 * @return the {@link Profile} from AppCache
 	 */
 	public Profile getProfile() {
-		return p;
+		return getP();
 	}
 	
 	/**
@@ -34,9 +34,9 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean addFavedQuestion(Question q1) {
-		if(p.isLogin()){
-			if(!p.getFavedQuestionList().contains(q1)){
-				p.getFavedQuestionList().add(q1);
+		if(getP().isLogin()){
+			if(!getP().getFavedQuestionList().contains(q1)){
+				getP().getFavedQuestionList().add(q1);
 				return true;}
 			else{
 				return false;
@@ -54,8 +54,8 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean removeFavedQuestion(Question q1) {
-		if(p.isLogin()){
-			return p.getFavedQuestionList().remove(q1);
+		if(getP().isLogin()){
+			return getP().getFavedQuestionList().remove(q1);
 		}
 		else{
 			return false;
@@ -67,9 +67,9 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean addSavedQuestion(Question q1) {
-		if(p.isLogin()){
-			if(!p.getSavedQuestionList().contains(q1)){
-				p.getSavedQuestionList().add(q1);
+		if(getP().isLogin()){
+			if(!getP().getSavedQuestionList().contains(q1)){
+				getP().getSavedQuestionList().add(q1);
 				return true;}
 			else{
 				return false;
@@ -86,8 +86,8 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean removeSavedQuestion(Question q1) {
-		if(p.isLogin()){
-			return p.getSavedQuestionList().remove(q1);
+		if(getP().isLogin()){
+			return getP().getSavedQuestionList().remove(q1);
 		}
 		else{
 			return false;
@@ -100,8 +100,8 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean addCreatedQuestion(Question q1) {
-		if(p.isLogin()){
-			return p.getMyQuestionList().add(q1);
+		if(getP().isLogin()){
+			return getP().getMyQuestionList().add(q1);
 		}
 		else{
 		return false;
@@ -114,13 +114,21 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean removeCreatedQuestion(Question q1) {
-		if(p.isLogin()){
-			if(p.getMyQuestionList().contains(q1)){
-				return p.getMyQuestionList().remove(q1);
+		if(getP().isLogin()){
+			if(getP().getMyQuestionList().contains(q1)){
+				return getP().getMyQuestionList().remove(q1);
 			}
 			return false;
 		}
 		return false;
+	}
+
+	public static Profile getP() {
+		return p;
+	}
+
+	public static void setP(Profile p) {
+		ProfileController.p = p;
 	}
 
 }

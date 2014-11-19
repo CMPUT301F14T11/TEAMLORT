@@ -31,7 +31,7 @@ public class AppBaseActivity extends Activity
 	private LayoutInflater inflater;
 	private ImageButton searchButton;
 	private PopupMenu pMenu;
-	private ProfileController pc;
+	protected ProfileController pc;
 	
 	@SuppressLint("InflateParams")
 	@Override
@@ -49,7 +49,7 @@ public class AppBaseActivity extends Activity
         ab.setCustomView(inflater.inflate(R.layout.actionbar_top_layout, null));
         // Connect the buttons in the top ActionBar
         final EditText searchinput = (EditText)this.findViewById(R.id.searchfield);
-        searchButton = (ImageButton) this.findViewById(R.id.action_sort);
+        searchButton = (ImageButton) this.findViewById(R.id.action_search);
 		pMenu = new PopupMenu(this, searchButton);
 		pMenu.getMenuInflater().inflate(R.menu.app_base_sort, pMenu.getMenu());
 		pMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
@@ -60,7 +60,11 @@ public class AppBaseActivity extends Activity
 				return AppBaseActivity.this.onSortMenuItemSelect(item);
 			}
 		});
-	
+		/**
+		 * it is come to my realization the result - arraylist of question 
+		 * has to be accquired here inorder for the sort function to work
+		 * what whill be displayed in the homeactivity will be passed from here
+		 */
         searchButton.setOnClickListener(new View.OnClickListener()
         {
 			@Override

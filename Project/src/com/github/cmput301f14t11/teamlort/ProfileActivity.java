@@ -124,38 +124,12 @@ public class ProfileActivity extends AppBaseActivity {
 	 * 		  and local manager.
 	 */
 	public void editUsernameButtomPressed(View view){
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setTitle("UserName");
-		alert.setMessage("Please type your username: ");
-		final EditText input = new EditText(this);
-		alert.setView(input);
-		alert.setPositiveButton("Log in", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				String username = input.getText().toString();
-				pc.getP().setUsername(username);
-				TextView tv = (TextView) findViewById(R.id.UsernameTitleTextView);
-				tv.setText(username);
-			}
-		});
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
-			}
-		});
+		AlertDialog.Builder alert = buildlogin();
 		alertDialog = alert.show();
+		//alertDialog.show();
+		
 	}
 	
-	/**
-	 * Used to get AlertDialog
-	 * @return reference of the alserDialog used in profile activity
-	 */
-	public AlertDialog getDialog(){
-		return alertDialog;
-	}
 	
 	/**
 	 * Used to get current profile 

@@ -8,7 +8,9 @@ import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 /**
  * 
@@ -32,7 +35,7 @@ public class AppBaseActivity extends Activity
 	private ImageButton searchButton;
 	private PopupMenu pMenu;
 	protected ProfileController pc;
-	
+	AlertDialog alertDialog = null;
 	@SuppressLint("InflateParams")
 	@Override
 	protected void onCreate(Bundle inState)
@@ -118,6 +121,8 @@ public class AppBaseActivity extends Activity
 			return true;
 		
 		case (R.id.action_login):
+		AlertDialog.Builder alert = buildlogin();
+		alertDialog = alert.show();
 			return true;
 		
 		case (R.id.action_settings):
@@ -129,6 +134,34 @@ public class AppBaseActivity extends Activity
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	protected AlertDialog.Builder buildlogin() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("UserName");
+		alert.setMessage("Please type your username: ");
+		final EditText input = new EditText(this);
+		alert.setView(input);
+		alert.setPositiveButton("Log in", new DialogInterface.OnClickListener() 
+		{
+		
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				String username = input.getText().toString();
+				pc.getP().setUsername(username);
+				TextView tv = (TextView) findViewById(R.id.UsernameTitleTextView);
+				tv.setText(username);
+			}
+		});
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			
+		}
+});
+		return alert;
 	}
 	
 	protected boolean onSortMenuItemSelect(MenuItem item)
@@ -148,4 +181,5 @@ public class AppBaseActivity extends Activity
 			return false;
 		}
 	}
+	
 }

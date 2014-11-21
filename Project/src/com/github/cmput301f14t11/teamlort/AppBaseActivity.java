@@ -35,6 +35,7 @@ public class AppBaseActivity extends Activity
 	private ImageButton searchButton;
 	private PopupMenu pMenu;
 	protected ProfileController pc;
+	private ImageButton sortButton;
 	AlertDialog alertDialog = null;
 	@SuppressLint("InflateParams")
 	@Override
@@ -53,6 +54,7 @@ public class AppBaseActivity extends Activity
         // Connect the buttons in the top ActionBar
         final EditText searchinput = (EditText)this.findViewById(R.id.searchfield);
         searchButton = (ImageButton) this.findViewById(R.id.action_search);
+        sortButton = (ImageButton) this.findViewById(R.id.action_sort);
 		pMenu = new PopupMenu(this, searchButton);
 		pMenu.getMenuInflater().inflate(R.menu.app_base_sort, pMenu.getMenu());
 		pMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
@@ -73,7 +75,7 @@ public class AppBaseActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				AppBaseActivity.this.pMenu.show();
+				
 				//ArrayList<Question>results = pdm.searchQuestions();// we need to somehow grab the input user provided 
 				Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
 				intent.putExtra(searchinput.getText().toString(), "searchstring");
@@ -93,6 +95,16 @@ public class AppBaseActivity extends Activity
 				startActivity(intent);
 			}
 		});
+        sortButton.setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v)
+			{
+				// TODO Auto-generated method stub
+				AppBaseActivity.this.pMenu.show();
+			}
+        	
+        });
 	}
 
 	@Override

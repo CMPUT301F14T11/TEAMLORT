@@ -244,5 +244,32 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 		
 		
 	}
+	@Override
+	protected boolean onSortMenuItemSelect(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId())
+		{
+		case (R.id.action_sort_by_date):
+			qlc.sortQuestions("date");
+			adapter.updatelist(qlc.getQuestionlist().getModellist());
+			return true;
+		
+		case (R.id.action_sort_by_score):
+			qlc.sortQuestions("upvote");
+			adapter.updatelist(qlc.getQuestionlist().getModellist());
+			return true;
+		
+		case (R.id.action_sort_by_pictures):
+			qlc.sortQuestions("image");
+			adapter.updatelist(qlc.getQuestionlist().getModellist());
+			return true;
+		
+		default:
+			return true;
+			
+		}
+	}
+	
+	
 }
 

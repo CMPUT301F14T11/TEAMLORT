@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Custom {@link Adapter} for an {@link ExpandableListView} containing {@link Answer} groups each with 
@@ -147,6 +148,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_comment_count.setText(String.valueOf(answer.getReplyList().size()) + " comments");
 			answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
 			answerViewHolder.upvoteButton.setBackgroundColor(Color.GRAY);
+			
 			answerViewHolder.upvoteButton.setOnClickListener( new View.OnClickListener() {
 				
 				@Override
@@ -162,6 +164,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 						answerViewHolder.upvoteButton.setBackgroundColor(Color.GREEN);
 
 					}
+					notifyDataSetChanged();
 				}
 			});
 				

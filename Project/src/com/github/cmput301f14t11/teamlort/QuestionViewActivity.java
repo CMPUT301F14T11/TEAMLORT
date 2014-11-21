@@ -42,6 +42,7 @@ extends AppBaseActivity
 	ObjectFactory dt = new ObjectFactory();
 	ReplyAdapter replyAdapter;
 	AnswerAdapter answerAdapter;
+	String username;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{

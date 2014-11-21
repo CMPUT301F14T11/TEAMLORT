@@ -3,11 +3,14 @@ package com.github.cmput301f14t11.teamlort;
 import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 import com.github.cmput301f14t11.teamlort.R.color;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.EditText;
 
 /**
  * Custom {@link Adapter} for an {@link ExpandableListView} containing {@link Answer} groups each with 
@@ -121,7 +125,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			//Inflate the view
 			LayoutInflater layoutInflater = LayoutInflater.from(context);
 			convertView = layoutInflater.inflate(R.layout.question_view_answer_item, parent, false);
-			
+
 			//Put views in viewHolder
 			answerViewHolder = new AnswerViewHolder();
 			answerViewHolder.answer1 = (TextView) convertView.findViewById(R.id.answer1);
@@ -173,28 +177,40 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 				
 		}
 		
-		/*//These appear to be broken right now
-		answerViewHolder.answer_action_reply.setOnClickListener(new OnClickListener(){
+			answerViewHolder.answer_action_reply.setOnClickListener(new View.OnClickListener(){
+	
+				@Override
+				public void onClick(View v) {
+					//Build a dialogue for entering a new reply.
+					AlertDialog.Builder alertDialogueBuilder = new AlertDialog.Builder(context);
+					alertDialogueBuilder.setCancelable(true);
+					alertDialogueBuilder.setTitle("Enter a reply:");
+					
+					//Text view for user to enter reply into
+					final EditText body = new EditText(context);
+					alertDialogueBuilder.setView(body);
+					final QuestionViewActivity parentActivity = (QuestionViewActivity) context;
+					
+					alertDialogueBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							Reply reply = ObjectFactory.initReply(body.getText().toString(), parentActivity.username);
+							answer.addReply(reply);
+						}
+					});
+					alertDialogueBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+						}	
+						
+					});
+					
+					alertDialogueBuilder.show();
+					
+				}
 				
-			}
-			
-		});
-		
-		answerViewHolder.answer_action_overflow.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
-		*/
-		
+			});	
 		
 		return convertView;
 	}

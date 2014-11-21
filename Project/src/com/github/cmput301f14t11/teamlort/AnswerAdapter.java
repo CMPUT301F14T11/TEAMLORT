@@ -131,6 +131,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_stats_1 = (TextView) convertView.findViewById(R.id.answer_stats_1);
 			answerViewHolder.answer_comment_count = (TextView) convertView.findViewById(R.id.answer_comment_count_textview);
 			answerViewHolder.upvoteButton = (Button) convertView.findViewById(R.id.upvoteButton);
+			answerViewHolder.upvoteButton.setBackgroundColor(Color.GRAY);
 			
 			convertView.setTag(answerViewHolder);
 			
@@ -147,22 +148,24 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_stats_1.setText(answer.getTime().toString());
 			answerViewHolder.answer_comment_count.setText(String.valueOf(answer.getReplyList().size()) + " comments");
 			answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
-			answerViewHolder.upvoteButton.setBackgroundColor(Color.GRAY);
 			
+			final View finalConvertView = convertView;
 			answerViewHolder.upvoteButton.setOnClickListener( new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
+					/* Note: the upvoteButton in answerViewHolder appears to have the correct reference to it's textfield
+					 * but a reference to the most recent view rather than to the clicked one, so currentUpvoteButton is used */
+					Button currentUpvoteButton = (Button) finalConvertView.findViewById(R.id.upvoteButton);
 					if(answer.getVoterSet().contains(answer.getAuthor())){
 						answer.unVote(answer.getAuthor());
 						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
-						answerViewHolder.upvoteButton.setBackgroundColor(Color.GRAY);
+						currentUpvoteButton.setBackgroundColor(Color.GRAY);
 					}
 					else {
 						answer.upVote(answer.getAuthor());
 						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
-						answerViewHolder.upvoteButton.setBackgroundColor(Color.GREEN);
-
+						currentUpvoteButton.setBackgroundColor(Color.GREEN);
 					}
 					notifyDataSetChanged();
 				}

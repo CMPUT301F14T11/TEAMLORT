@@ -195,7 +195,8 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 						@Override
 						public void onClick(DialogInterface arg0, int arg1) {
 							Reply reply = ObjectFactory.initReply(body.getText().toString(), parentActivity.username);
-							answer.addReply(reply);
+							answer.addReplyToStart(reply);
+							notifyDataSetChanged();
 						}
 					});
 					alertDialogueBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){

@@ -105,6 +105,9 @@ public class RepliableText extends TextPrimitive{
 	public void addReply(Reply reply) {
 		replyList.add(reply);
 	}
+	public void addReplyToStart(Reply reply){
+		replyList.add(0, reply);
+	}
 	public void deleteReply(Reply reply) {
 		replyList.remove(reply);
 	}

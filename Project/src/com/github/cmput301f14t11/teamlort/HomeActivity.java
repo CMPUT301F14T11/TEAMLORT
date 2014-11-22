@@ -60,6 +60,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	ProfileController pc = new ProfileController();
 	AppCache appCache = new AppCache();
 	boolean loadingMore = false;
+	boolean clicked = false;
 	ArrayList<Question> getmoar = new ArrayList<Question>();
 	   //Runnable to load the items
 	private Runnable doUpdateGUIList = new Runnable() {
@@ -250,17 +251,44 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 		switch (item.getItemId())
 		{
 		case (R.id.action_sort_by_date):
-			qlc.sortQuestions("date");
+			if(clicked == false)
+			{
+				qlc.sortQuestions("date");
+				clicked = true;
+			}
+			else if (clicked == true)
+			{
+				qlc.reverselist();
+				clicked = false;
+			}
 			adapter.updatelist(qlc.getQuestionlist().getModellist());
 			return true;
 		
 		case (R.id.action_sort_by_score):
-			qlc.sortQuestions("upvote");
+			if(clicked == false)
+			{
+				qlc.sortQuestions("upvote");
+				clicked = true;
+			}
+			else if (clicked == true)
+			{
+				qlc.reverselist();
+				clicked = false;
+			}
 			adapter.updatelist(qlc.getQuestionlist().getModellist());
 			return true;
 		
 		case (R.id.action_sort_by_pictures):
-			qlc.sortQuestions("image");
+			if(clicked == false)
+			{
+				qlc.sortQuestions("image");
+				clicked = true;
+			}
+			else if (clicked == true)
+			{
+				qlc.reverselist();
+				clicked = false;
+			}
 			adapter.updatelist(qlc.getQuestionlist().getModellist());
 			return true;
 		

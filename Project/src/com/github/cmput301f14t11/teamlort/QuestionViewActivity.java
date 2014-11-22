@@ -11,11 +11,13 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -98,7 +100,9 @@ extends AppBaseActivity
 		TextView questionTimeTextView = (TextView) header.findViewById(R.id.QuestionTimeTextView);
 		questionTimeTextView.setText(question.getTime().toString());
 		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
+		final Button upVoteButton = (Button) header.findViewById(R.id.questionUpvoteButton);
 		
+		upVoteButton.setText(String.valueOf(question.getScore()));
 		replyAdapter = new ReplyAdapter(questionReplyList, this);
 		QuestionReplyListView.setAdapter(replyAdapter);
 		
@@ -155,6 +159,23 @@ extends AppBaseActivity
 				answerText.setText("");
 				answerAdapter.notifyDataSetChanged();
 				//Toast.makeText(getBaseContext(), "Added Question", Toast.LENGTH_SHORT).show();
+			}
+		});
+		upVoteButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(question.getVoterSet().contains(question.getAuthor())){
+					question.unVote(question.getAuthor());
+					upVoteButton.setText(String.valueOf(question.getScore()));
+					upVoteButton.setBackgroundColor(Color.GRAY);
+				}
+				else {
+					question.upVote(question.getAuthor());
+					upVoteButton.setText(String.valueOf(question.getScore()));
+					upVoteButton.setBackgroundColor(Color.GREEN);
+				}
 			}
 		});
 

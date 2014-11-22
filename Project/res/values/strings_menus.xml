@@ -20,5 +20,6 @@
     <string name="action_sort_by_date">Sort by Date</string>
     <string name="action_sort_by_score">Sort by Score</string>
     <string name="action_sort_by_pictures">Sort by Pictures</string>
+    <string name="action_post_answer">Post Answer</string>
     
 </resources>

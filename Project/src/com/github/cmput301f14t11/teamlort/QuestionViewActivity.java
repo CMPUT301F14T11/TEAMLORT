@@ -11,13 +11,19 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -98,7 +104,10 @@ extends AppBaseActivity
 		TextView questionTimeTextView = (TextView) header.findViewById(R.id.QuestionTimeTextView);
 		questionTimeTextView.setText(question.getTime().toString());
 		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
+		Button postAnswerButton = (Button) header.findViewById(R.id.post_answer_button);
+		final Button upVoteButton = (Button) header.findViewById(R.id.questionUpvoteButton);
 		
+		upVoteButton.setText(String.valueOf(question.getScore()));
 		replyAdapter = new ReplyAdapter(questionReplyList, this);
 		QuestionReplyListView.setAdapter(replyAdapter);
 		
@@ -138,7 +147,7 @@ extends AppBaseActivity
 		 * current date. It also makes sure the textfield is not
 		 * before posting a new answer.
 		 * */
-		replyButton.setOnClickListener(new OnClickListener() {
+		postAnswerButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -157,6 +166,63 @@ extends AppBaseActivity
 				//Toast.makeText(getBaseContext(), "Added Question", Toast.LENGTH_SHORT).show();
 			}
 		});
+		replyButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//Build a dialogue for entering a new reply.
+				AlertDialog.Builder alertDialogueBuilder = new AlertDialog.Builder(QuestionViewActivity.this);
+				alertDialogueBuilder.setCancelable(true);
+				alertDialogueBuilder.setTitle("Enter a reply:");
+				
+				//Text view for user to enter reply into
+				final EditText body = new EditText(QuestionViewActivity.this);
+				alertDialogueBuilder.setView(body);
+				
+				alertDialogueBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						Reply reply = ObjectFactory.initReply(body.getText().toString(), username);
+						question.addReplyToStart(reply);
+						setListViewHeightBasedOnChildren(QuestionReplyListView);
+						replyAdapter.notifyDataSetChanged();
+						//Refresh the comment counter.
+						if (QuestionReplyListView.getVisibility() == View.GONE){
+							questionCommentIndicator.setText("[ + ] " + QuestionReplyListView.getCount() + " comments");
+						} else {
+							questionCommentIndicator.setText("[ - ] " + QuestionReplyListView.getCount() + " comments");
+						}
+					}
+				});
+				alertDialogueBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+
+					}	
+					
+				});
+				
+				alertDialogueBuilder.show();
+				
+			}
+		});
+		upVoteButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(question.getVoterSet().contains(question.getAuthor())){
+					question.unVote(question.getAuthor());
+					upVoteButton.setText(String.valueOf(question.getScore()));
+					upVoteButton.setBackgroundColor(Color.GRAY);
+				}
+				else {
+					question.upVote(question.getAuthor());
+					upVoteButton.setText(String.valueOf(question.getScore()));
+					upVoteButton.setBackgroundColor(Color.GREEN);
+				}
+			}
+		});
 
 	}
 	
@@ -167,5 +233,32 @@ extends AppBaseActivity
 	public AnswerAdapter getAnswerAdapter(){
 		return answerAdapter;
 	}
+	
+	/**
+	 * Used for getting listviews that are inside of another scrolling view to be the correct height after changes.
+	 * 
+	 * @Credit to DougW at:
+	 * http://stackoverflow.com/questions/3495890/how-can-i-put-a-listview-into-a-scrollview-without-it-collapsing
+	 * 
+	 * @param listView
+	 */
+	public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter(); 
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight = totalHeight + listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams layoutParams = listView.getLayoutParams();
+        layoutParams.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(layoutParams);
+        listView.requestLayout();
+    }
 	
 }

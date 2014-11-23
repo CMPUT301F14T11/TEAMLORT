@@ -37,6 +37,7 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	ArrayList<Question> displayQuestionList = new ArrayList<Question>();
 	ListView lv;
     AlertDialog alertDialog = null;
+    //
     
     
 
@@ -99,21 +100,28 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 		lv.setAdapter(adapter);
 		
 		TextView tv = (TextView) findViewById(R.id.UsernameTitleTextView);
-		if(pc.getProfile().getUsername()==null){
+		if(appCache.getInstance().getProfile().getUsername()==null){
 			tv.setText("Guest");
 		}
 		else{
-		tv.setText(pc.getProfile().getUsername());
+		tv.setText(appCache.getInstance().getProfile().getUsername());
 		}
 		
 	}
 
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.profile, menu);
 		return true;
+	}
+
+	@Override
+	protected Builder buildlogin() {
+		// TODO Auto-generated method stub
+	
+		return super.buildlogin();
 	}
 
 	/**

@@ -41,6 +41,7 @@ public class AppBaseActivity extends Activity
 	protected ProfileController pc;
 	protected NetworkListener nc;
 	private ImageButton sortButton;
+	AppCache appCache;
 	AlertDialog alertDialog = null;
 	
 	@SuppressLint("InflateParams")
@@ -171,6 +172,11 @@ public class AppBaseActivity extends Activity
 				String username = input.getText().toString();
 				//Log.i("r1231231",username);
 				pc.getP().setUsername(username);
+				appCache = AppCache.getInstance();
+				appCache.setProfile(pc.getP());
+				Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+				intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
 				
 			}
 		});

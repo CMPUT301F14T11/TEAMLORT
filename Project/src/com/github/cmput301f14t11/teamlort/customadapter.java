@@ -8,6 +8,7 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,7 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 		{
 			holder = (Single_Home_Question) row.getTag();
 		}
+		final View finalView = row;
 		holder.thisquestion = da_list.get(position);
 		holder.title.setText(da_list.get(position).getTitle());
 		holder.content.setText(da_list.get(position).getBody());
@@ -88,7 +90,16 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 			@Override
 			public void onClick(View v) {
 				ProfileController pc = new ProfileController();
-				pc.addSavedQuestion(da_list.get(position));
+				Question chosenQ = da_list.get(position);
+				ImageButton saveButton = (ImageButton) finalView.findViewById(R.id.listitem_question_save_button);
+				if(pc.getProfile().getSavedQuestionList().contains(chosenQ)){
+					pc.removeSavedQuestion(chosenQ);
+					saveButton.setBackgroundResource(R.drawable.ic_action_save_dark);
+				}
+				else{
+					pc.addSavedQuestion(chosenQ);
+					saveButton.setBackgroundColor(Color.GREEN);
+				}
 			}
 			
 		});
@@ -98,7 +109,17 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 			@Override
 			public void onClick(View v) {
 				ProfileController pc = new ProfileController();
-				pc.addFavedQuestion(da_list.get(position));
+				Question chosenQ = da_list.get(position);
+				ImageButton faveButton = (ImageButton) finalView.findViewById(R.id.listitem_question_favorite_button);
+				if(pc.getProfile().getFavedQuestionList().contains(chosenQ)){
+					pc.removeFavedQuestion(chosenQ);
+					faveButton.setBackgroundResource(R.drawable.ic_action_favorite);
+					
+				}
+				else{
+					pc.addFavedQuestion(chosenQ);
+					faveButton.setBackgroundColor(Color.GREEN);
+				}	
 			}
 			
 		});

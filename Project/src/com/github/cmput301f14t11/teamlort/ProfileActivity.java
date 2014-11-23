@@ -1,6 +1,8 @@
 package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
@@ -27,12 +29,18 @@ import android.widget.TextView;
  * go to profile layout from the home and retrieve profile data from the local files.
  *
  */
-public class ProfileActivity extends AppBaseActivity {
+public class ProfileActivity extends AppBaseActivity implements Observer {
 	static customadapter adapter; 
 	ArrayList<Question> displayQuestionList = new ArrayList<Question>();
 	ListView lv;
     AlertDialog alertDialog = null;
+    ProfileController pc = new ProfileController();
+    
 
+    static final int FAVORITE_QUESTION_VIEW = 1;
+    static final int SAVE_QUESTION_VIEW = 2;
+    
+    int currentView = FAVORITE_QUESTION_VIEW;
 	/**
 	 * Instantiate the controllers and models
 	 */
@@ -53,6 +61,13 @@ public class ProfileActivity extends AppBaseActivity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
+		pc.addObserver(this);
+		
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
 		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 		lv = (ListView) findViewById(R.id.ProfileQuestionListView);
 		lv.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
@@ -111,6 +126,7 @@ public class ProfileActivity extends AppBaseActivity {
 	public void savedListButtonPressed(View view){
 		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getSavedQuestionList());
 		lv.setAdapter(adapter);
+		currentView = SAVE_QUESTION_VIEW;
 		
 	}
 	/**
@@ -121,6 +137,7 @@ public class ProfileActivity extends AppBaseActivity {
 	public void favedListButtonPressed(View view){
 		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 		lv.setAdapter(adapter);
+		currentView = FAVORITE_QUESTION_VIEW;
 	}
 	/**
 	 * when editUsername button is pressed, a pop-up window will show up 
@@ -143,5 +160,25 @@ public class ProfileActivity extends AppBaseActivity {
 	 */
 	public Profile getProfile(){
 		return ProfileController.getP();
+	}
+
+	@Override
+	public void update(Observable observable, Object data) {
+		setNewAdapter();
+	}
+
+	private void setNewAdapter() {
+		if(currentView == SAVE_QUESTION_VIEW){
+			adapter = new customadapter(getApplicationContext(),ProfileController.getP().getSavedQuestionList());
+			lv.setAdapter(adapter);
+		}
+		else if (currentView == FAVORITE_QUESTION_VIEW){
+			adapter = new customadapter(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
+			lv.setAdapter(adapter);
+		}
+		else{
+			
+		}
+		
 	}
 }

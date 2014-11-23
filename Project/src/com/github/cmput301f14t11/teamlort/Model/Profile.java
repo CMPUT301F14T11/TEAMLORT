@@ -2,6 +2,7 @@ package com.github.cmput301f14t11.teamlort.Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Observable;
 
 /** 
  *  Profile class implements attributes and methods for an author to 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  *
  */
 
-public class Profile
+public class Profile extends Observable
 implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -85,6 +86,8 @@ implements Serializable
 		return myQuestionList;
 		//return localManager.loadProfile().getMyQuestionList();
 	}
+	
+	
 	
 	/**
 	 * UI test method and returning question list token.

@@ -1,5 +1,7 @@
 package com.github.cmput301f14t11.teamlort.Controller;
 
+import java.util.Observable;
+
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.Question;
@@ -9,7 +11,7 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
  * Profile controller will modify the profile class 
  * @author Hang_Peng
  */
-public class ProfileController {
+public class ProfileController extends Observable{
 	private static Profile p = new Profile();
 	
 	
@@ -37,6 +39,7 @@ public class ProfileController {
 		
 			if(!getP().getFavedQuestionList().contains(q1)){
 				getP().getFavedQuestionList().add(q1);
+				triggleObservers();
 				return true;}
 			else{
 				return false;
@@ -48,10 +51,10 @@ public class ProfileController {
 	/**
 	 * remove favorite question from the favorite question list in the profile
 	 * @param q1 question that will be removed
-	 * @return boolean indicated whether the operation it is success or not
 	 */
-	public boolean removeFavedQuestion(Question q1) {
-			return getP().getFavedQuestionList().remove(q1);
+	public void removeFavedQuestion(Question q1) {
+			getP().getFavedQuestionList().remove(q1);
+			triggleObservers();
 		
 	}
 	/**
@@ -62,6 +65,7 @@ public class ProfileController {
 	public boolean addSavedQuestion(Question q1) {
 			if(!getP().getSavedQuestionList().contains(q1)){
 				getP().getSavedQuestionList().add(q1);
+				triggleObservers();
 				return true;}
 			else{
 				return false;
@@ -71,11 +75,11 @@ public class ProfileController {
 	/**
 	 * remove a question from the local file (saved question list) in the profile
 	 * @param q1 question that will be removed
-	 * @return boolean indicated whether the operation it is success or not
 	 */
-	public boolean removeSavedQuestion(Question q1) {
+	public void removeSavedQuestion(Question q1) {
 
-			return getP().getSavedQuestionList().remove(q1);
+			getP().getSavedQuestionList().remove(q1);
+			triggleObservers();
 
 	}
 
@@ -86,21 +90,25 @@ public class ProfileController {
 	 */
 	public boolean addCreatedQuestion(Question q1) {
 
-			return getP().getMyQuestionList().add(q1);
+		if(!getP().getMyQuestionList().contains(q1)){
+			getP().getMyQuestionList().add(q1);
+			triggleObservers();
+			return true;}
+		else{
+			return false;
+		}
+			
 		
 	}
 
 	/**
 	 * remove the authors' question from the local file (my question list) in the profile
 	 * @param q1 question that will be removed
-	 * @return boolean indicated whether the operation it is success or not
 	 */
-	public boolean removeCreatedQuestion(Question q1) {
+	public void removeCreatedQuestion(Question q1) {
 
-			if(getP().getMyQuestionList().contains(q1)){
-				return getP().getMyQuestionList().remove(q1);
-			}
-			return false;
+			getP().getMyQuestionList().remove(q1);
+			triggleObservers();
 	}
 
 	public static Profile getP() {
@@ -109,6 +117,11 @@ public class ProfileController {
 
 	public static void setP(Profile p) {
 		ProfileController.p = p;
+	}
+	
+	private void triggleObservers(){
+		setChanged();
+		notifyObservers();
 	}
 
 }

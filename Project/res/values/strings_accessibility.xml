@@ -13,5 +13,6 @@
     <string name="accessibility_save_ico">Save</string>
     <string name="accessibility_favorite_ico">Favorite</string>
     <string name="accessibility_thumbnail">Thumbnail</string>
-
+	<string name="accessibility_mylist_ico">MyList</string>
+	<string name="accessibility_mytemp_ico">MyTemp</string>
 </resources>

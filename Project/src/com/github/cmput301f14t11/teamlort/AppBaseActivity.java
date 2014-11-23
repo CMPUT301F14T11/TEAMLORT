@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.Controller.NetworkController;
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.NetworkListener;
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 
 import android.annotation.SuppressLint;
@@ -36,7 +37,7 @@ public class AppBaseActivity extends Activity
 	private ImageButton searchButton;
 	private PopupMenu pMenu;
 	protected ProfileController pc;
-	protected NetworkController nc;
+	protected NetworkListener nc;
 	private ImageButton sortButton;
 	AlertDialog alertDialog = null;
 	

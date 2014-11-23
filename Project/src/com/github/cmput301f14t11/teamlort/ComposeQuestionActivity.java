@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.NetworkListener;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.Question;
@@ -278,7 +279,7 @@ extends AppBaseActivity
 		//qController.addQuestion(testing);
 		Toast.makeText(getApplicationContext(), "question id is "+testing.getID(), Toast.LENGTH_SHORT).show();
 		Thread thread = new AddThread(testing);
-		if(nc.checkConnection(getApplicationContext())==true)
+		if(NetworkListener.checkConnection(getApplicationContext())==true)
 		{
 			Toast.makeText(getApplicationContext(), "wifi on", Toast.LENGTH_SHORT).show();
 			thread.start();

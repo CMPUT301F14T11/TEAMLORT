@@ -159,7 +159,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	                if(loadingMore == false)
 	                {
 	                	loadingMore = true;
-	                	qlc.getMore(qlc.getQuestionlist().getModellist().get(qlc.getQuestionlist().getModellist().size()-1).getID(), 10);
+	                	//qlc.getMore(qlc.getQuestionlist().getModellist().get(qlc.getQuestionlist().getModellist().size()-1).getID(), 10);
 	                	Toast.makeText(getApplicationContext(), "get More called", Toast.LENGTH_SHORT).show();
 	                	adapter.updatelist(qlc.getQuestionlist().getModellist());
 	                }

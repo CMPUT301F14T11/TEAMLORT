@@ -3,6 +3,7 @@ package com.github.cmput301f14t11.teamlort;
 import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.Question;
@@ -52,7 +53,7 @@ public class ProfileActivity extends AppBaseActivity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		adapter = new customadapter(getApplicationContext(),pc.getP().getTestQuestionList(1));
+		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 		lv = (ListView) findViewById(R.id.ProfileQuestionListView);
 		lv.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
 			{
@@ -63,9 +64,11 @@ public class ProfileActivity extends AppBaseActivity {
 					// TODO Auto-generated method stub
 					//JUMP TO QUESTION VIEW,FILLING DATA ACCORDING TO QUESTION ID - NEED MORE DISCUSSION
 					Intent intent = new Intent(getApplicationContext(),QuestionViewActivity.class);
-					Single_Home_Question holder = (Single_Home_Question) view.getTag();
-					Question temp = (Question) holder.title.getTag();
-					intent.putExtra("position", position);
+					AppCache appCache = AppCache.getInstance();
+					appCache.setQuestion((Question) adapter.getItem(position));
+					//Single_Home_Question holder = (Single_Home_Question) view.getTag();
+					//Question temp = (Question) holder.title.getTag();
+					//intent.putExtra("position", position);
 					//intent.putExtra("id", 0);// corrected the id confusion as requested - Sam
 					startActivity(intent);
 					
@@ -97,13 +100,16 @@ public class ProfileActivity extends AppBaseActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+
+	
 	/**
 	 *  when save button is pressed, the method will return the saved list from 
 	 *  the local manager
 	 *  @issue not implemented
 	 */
 	public void savedListButtonPressed(View view){
-		adapter = new customadapter(getApplicationContext(),pc.getP().getTestQuestionList(2));
+		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getSavedQuestionList());
 		lv.setAdapter(adapter);
 		
 	}
@@ -113,7 +119,7 @@ public class ProfileActivity extends AppBaseActivity {
 	 *  @issue not implemented
 	 */
 	public void favedListButtonPressed(View view){
-		adapter = new customadapter(getApplicationContext(),pc.getP().getFavedQuestionList());
+		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 		lv.setAdapter(adapter);
 	}
 	/**
@@ -136,6 +142,6 @@ public class ProfileActivity extends AppBaseActivity {
 	 * @return profile hold by profile activity
 	 */
 	public Profile getProfile(){
-		return pc.getP();
+		return ProfileController.getP();
 	}
 }

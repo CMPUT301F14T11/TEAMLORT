@@ -16,6 +16,7 @@ implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	private String username = "";
+	private LocalManager localManager = LocalManager.getManager();
 	
 	protected ArrayList<Question> savedQuestionList = new ArrayList<Question>();
 	protected ArrayList<Question> favedQuestionList = new ArrayList<Question>();
@@ -57,11 +58,11 @@ implements Serializable
 	/**
 	 * Used to return the cache question list saved locally 
 	 * from the local manager
-	 * @issue not implemented
 	 * @return a question list that is saved locally.
 	 */
 	public ArrayList<Question> getSavedQuestionList(){
-		return savedQuestionList;
+		 return savedQuestionList;
+		 //return localManager.loadProfile().getSavedQuestionList();
 	}
 	
 	/**
@@ -72,16 +73,17 @@ implements Serializable
 	 */
 	public ArrayList<Question> getFavedQuestionList(){
 		return favedQuestionList;
+		//return localManager.loadProfile().getFavedQuestionList();
 	}
 	
 	/**
 	 * Used to return the author question list from the local manager
-	 * @issue not implemented
 	 * @return a question list that is composed by current user.
 	 */
 	
 	public ArrayList<Question> getMyQuestionList(){
 		return myQuestionList;
+		//return localManager.loadProfile().getMyQuestionList();
 	}
 	
 	/**

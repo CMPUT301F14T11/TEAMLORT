@@ -3,6 +3,7 @@ package com.github.cmput301f14t11.teamlort;
 import java.util.ArrayList;
 
 
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
 
@@ -61,10 +62,10 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		View row = convertView;
-		Single_Home_Question holder = null;
+	    Single_Home_Question holder = null;
 		if(row == null)
 		{
 			
@@ -81,7 +82,26 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 		holder.thisquestion = da_list.get(position);
 		holder.title.setText(da_list.get(position).getTitle());
 		holder.content.setText(da_list.get(position).getBody());
-		holder.count.setText("posted on "+holder.thisquestion.getTime().toString()+", "+holder.thisquestion.getAnswerList().size()+" answers");
+		holder.count.setText("posted on "+holder.thisquestion.getTime().toString()+", "+holder.thisquestion.getAnswerList().size()+" answers");	
+		holder.save.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ProfileController pc = new ProfileController();
+				pc.addSavedQuestion(da_list.get(position));
+			}
+			
+		});
+		
+		holder.favorite.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ProfileController pc = new ProfileController();
+				pc.addFavedQuestion(da_list.get(position));
+			}
+			
+		});
 		
 		return row;
 	}

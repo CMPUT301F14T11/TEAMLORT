@@ -85,7 +85,7 @@ extends AppBaseActivity
 				}
 				else if(v.getId() == R.id.save_button);
 				{
-					//cache
+					pc.addSavedQuestion(question);
 					finish();
 				}
 			}

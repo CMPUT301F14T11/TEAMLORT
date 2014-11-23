@@ -195,21 +195,25 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	 * Adds the {@link Question} to the FavedQuestionList in ProfileController
 	 * @param v
 	 */
-	public void Favorite(View v)
-    {
-    	//gets the question from list
-		
-		Single_Home_Question holder = (Single_Home_Question) v.getTag();
-		Question temp = (Question) holder.title.getTag();
-		
-		pc.addFavedQuestion(temp);
-    }
-	public void Save(View v)
-	{
-		Single_Home_Question holder = (Single_Home_Question) v.getTag();
-		Question temp = (Question) holder.title.getTag();
-		usecontrol.addCache(temp);
-	}
+// move method into the customadatper class
+//	public void Favorite(View v)
+//    {
+//    	//gets the question from list
+//		Single_Home_Question holder = (Single_Home_Question) v.getTag();
+//		if(holder == null){
+//			Toast.makeText(this, "holder is null", Toast.LENGTH_SHORT).show();
+//		}
+//		//Question temp = holder.thisquestion;
+//		
+//		//pc.addFavedQuestion(temp);
+//    }
+//	public void Save(View v)
+//	{
+//		Single_Home_Question holder = (Single_Home_Question) v.getTag();
+//		Question temp = holder.thisquestion;
+//		
+//		pc.addSavedQuestion(temp);
+//	}
 	
     @Override
     public boolean onOptionsItemSelected(MenuItem item)

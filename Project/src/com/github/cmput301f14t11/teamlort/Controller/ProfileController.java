@@ -34,17 +34,14 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean addFavedQuestion(Question q1) {
-		if(getP().isLogin()){
+		
 			if(!getP().getFavedQuestionList().contains(q1)){
 				getP().getFavedQuestionList().add(q1);
 				return true;}
 			else{
 				return false;
 			}
-		}
-		else{
-			return false;
-		}
+		
 		
 	}
 	
@@ -54,12 +51,8 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean removeFavedQuestion(Question q1) {
-		if(getP().isLogin()){
 			return getP().getFavedQuestionList().remove(q1);
-		}
-		else{
-			return false;
-		}
+		
 	}
 	/**
 	 * add a question into the local file (saved question list) in the profile
@@ -67,17 +60,12 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean addSavedQuestion(Question q1) {
-		if(getP().isLogin()){
 			if(!getP().getSavedQuestionList().contains(q1)){
 				getP().getSavedQuestionList().add(q1);
 				return true;}
 			else{
 				return false;
 			}
-		}
-		else{
-			return false;
-		}
 		
 	}
 	/**
@@ -86,12 +74,9 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean removeSavedQuestion(Question q1) {
-		if(getP().isLogin()){
+
 			return getP().getSavedQuestionList().remove(q1);
-		}
-		else{
-			return false;
-		}
+
 	}
 
 	/**
@@ -100,12 +85,9 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean addCreatedQuestion(Question q1) {
-		if(getP().isLogin()){
+
 			return getP().getMyQuestionList().add(q1);
-		}
-		else{
-		return false;
-		}
+		
 	}
 
 	/**
@@ -114,13 +96,11 @@ public class ProfileController {
 	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public boolean removeCreatedQuestion(Question q1) {
-		if(getP().isLogin()){
+
 			if(getP().getMyQuestionList().contains(q1)){
 				return getP().getMyQuestionList().remove(q1);
 			}
 			return false;
-		}
-		return false;
 	}
 
 	public static Profile getP() {

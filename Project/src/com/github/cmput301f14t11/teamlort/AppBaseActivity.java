@@ -120,6 +120,8 @@ public class AppBaseActivity extends Activity
 		switch (item.getItemId())
 		{
 		case (R.id.action_favorites):
+			Intent favoriteQuestionintent = new Intent(this, ProfileActivity.class);
+			startActivity(favoriteQuestionintent);
 			return true;
 		
 		case (R.id.action_new_question):
@@ -150,7 +152,7 @@ public class AppBaseActivity extends Activity
 
 	protected AlertDialog.Builder buildlogin() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setTitle("UserName");
+		alert.setTitle("Username");
 		alert.setMessage("Please type your username: ");
 		final EditText input = new EditText(this);
 		alert.setView(input);

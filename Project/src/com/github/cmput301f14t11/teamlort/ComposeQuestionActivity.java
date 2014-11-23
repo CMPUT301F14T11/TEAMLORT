@@ -214,7 +214,8 @@ extends AppBaseActivity
 
 		@Override
 		public void run() {
-			qController.addQuestion(question);;
+			
+			qController.addQuestion(question);
 			
 			// Give some time to get updated info
 			try {
@@ -274,10 +275,18 @@ extends AppBaseActivity
 				"Sam"
 				);
 		qController.providecontext(getApplicationContext());
-		qController.addQuestion(testing);
+		//qController.addQuestion(testing);
 		Toast.makeText(getApplicationContext(), "question id is "+testing.getID(), Toast.LENGTH_SHORT).show();
 		Thread thread = new AddThread(testing);
-		thread.start();
+		if(nc.checkConnection(getApplicationContext())==true)
+		{
+			Toast.makeText(getApplicationContext(), "wifi on", Toast.LENGTH_SHORT).show();
+			thread.start();
+		}
+		else
+		{
+			Toast.makeText(getApplicationContext(), "no wifi", Toast.LENGTH_SHORT).show();
+		}
 		// jumps back to home screen
 		//Intent intent = new Intent(ComposeQuestionActivity.this,HomeActivity.class);
 		//startActivity(intent);

@@ -12,6 +12,7 @@ import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,11 +37,13 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	ArrayList<Question> displayQuestionList = new ArrayList<Question>();
 	ListView lv;
     AlertDialog alertDialog = null;
-    ProfileController pc = new ProfileController();
+    
     
 
     static final int FAVORITE_QUESTION_VIEW = 1;
     static final int SAVE_QUESTION_VIEW = 2;
+    static final int MY_QUESTION_VIEW = 3;
+    static final int TEMP_QUESTION_VIEW = 4;
     
     int currentView = FAVORITE_QUESTION_VIEW;
 	/**
@@ -63,7 +66,7 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		pc.addObserver(this);
+		//pc.addObserver(this);
 		
 		
 	}
@@ -94,6 +97,15 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 				
 			});
 		lv.setAdapter(adapter);
+		
+		TextView tv = (TextView) findViewById(R.id.UsernameTitleTextView);
+		if(pc.getProfile().getUsername()==null){
+			tv.setText("Guest");
+		}
+		else{
+		tv.setText(pc.getProfile().getUsername());
+		}
+		
 	}
 
 
@@ -142,6 +154,18 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 		lv.setAdapter(adapter);
 		currentView = FAVORITE_QUESTION_VIEW;
 	}
+	
+	public void myListButtonPressed(View view){
+		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getMyQuestionList());
+		lv.setAdapter(adapter);
+		currentView = MY_QUESTION_VIEW;
+	}
+	
+	public void tempListButtonPressed(View view){
+		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getMyQuestionList());
+		lv.setAdapter(adapter);
+		currentView = TEMP_QUESTION_VIEW;
+	}
 	/**
 	 * when editUsername button is pressed, a pop-up window will show up 
 	 * and enable user to type their username to log in;
@@ -150,12 +174,11 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	 * 		  and local manager.
 	 */
 	public void editUsernameButtomPressed(View view){
+		
 		AlertDialog.Builder alert = buildlogin();
 		alertDialog = alert.show();
-		//alertDialog.show();
 		
 	}
-	
 	
 	/**
 	 * Used to get current profile 
@@ -164,6 +187,7 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	public Profile getProfile(){
 		return ProfileController.getP();
 	}
+
 
 	@Override
 	public void update(Observable observable, Object data) {

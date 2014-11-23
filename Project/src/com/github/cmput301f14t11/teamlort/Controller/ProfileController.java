@@ -110,6 +110,27 @@ public class ProfileController extends Observable{
 			getP().getMyQuestionList().remove(q1);
 			triggleObservers();
 	}
+	
+	
+	public boolean addTempQuestion(Question q1) {
+
+		if(!getP().getTempQuestionList().contains(q1)){
+			getP().getTempQuestionList().add(q1);
+			triggleObservers();
+			return true;}
+		else{
+			return false;
+		}
+			
+		
+	}
+
+	public void removeTempQuestion(Question q1) {
+
+			getP().getTempQuestionList().remove(q1);
+			triggleObservers();
+	}
+	
 
 	public static Profile getP() {
 		return p;

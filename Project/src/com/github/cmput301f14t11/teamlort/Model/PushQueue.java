@@ -1,5 +1,6 @@
 package com.github.cmput301f14t11.teamlort.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -13,7 +14,7 @@ import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 public class PushQueue {
 
 	private static PushQueue pushQueue = null;
-	private List<Question> pushList;
+	private ArrayList<Question> pushList;
 	private static Profile profile;
 	private static ProfileController pc;
 	private ElasticManager em = ElasticManager.getInstance();
@@ -42,15 +43,16 @@ public class PushQueue {
 	 * @param addMe
 	 */
 	public void addQuestionToQueue(Question addMe, Context c) {
+		pc.addCreatedQuestion(addMe);
+		pc.addTempQuestion(addMe);
 		if (!pushList.contains(addMe)){
-			pushList.add(addMe);
-			pc.addCreatedQuestion(addMe);
+			pushList.add(addMe);	
 		}
 		
 		if (NetworkListener.checkConnection(c)){
-			//push question to em
+			em.addlist(pushList);
+			pc.removeTempQuestion(addMe);
 		}
-		
 		
 	}
 	

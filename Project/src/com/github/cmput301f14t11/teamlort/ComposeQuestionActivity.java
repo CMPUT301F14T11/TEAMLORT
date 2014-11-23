@@ -17,6 +17,7 @@ import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.NetworkListener;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
 /**
@@ -216,7 +217,7 @@ extends AppBaseActivity
 		@Override
 		public void run() {
 			
-			qController.addQuestion(question);
+			PushQueue.getInstance(usrProfile).addQuestionToQueue(question, getApplicationContext());
 			
 			// Give some time to get updated info
 			try {
@@ -287,6 +288,7 @@ extends AppBaseActivity
 		else
 		{
 			Toast.makeText(getApplicationContext(), "no wifi", Toast.LENGTH_SHORT).show();
+			
 		}
 		// jumps back to home screen
 		//Intent intent = new Intent(ComposeQuestionActivity.this,HomeActivity.class);

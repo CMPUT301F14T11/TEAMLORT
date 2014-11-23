@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.Controller.NetworkController;
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.NetworkListener;
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 
@@ -15,6 +16,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -167,9 +169,9 @@ public class AppBaseActivity extends Activity
 			public void onClick(DialogInterface dialog, int which) 
 			{
 				String username = input.getText().toString();
+				//Log.i("r1231231",username);
 				pc.getP().setUsername(username);
-				TextView tv = (TextView) findViewById(R.id.UsernameTitleTextView);
-				tv.setText(username);
+				
 			}
 		});
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -93,26 +93,32 @@
 			    android:layout_width="1dp"
 			    android:layout_height="match_parent"
 			    android:background="@color/default_divider" />
-			<ImageButton 
-			    android:id = "@+id/mylist_button"
+
+			<ImageButton
+			    android:id="@+id/mylist_button"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:layout_weight="1"
 			    android:background="?android:attr/selectableItemBackground"
 			    android:contentDescription="@string/accessibility_mylist_ico"
-            	android:src="@drawable/ic_action_important_dark" />
+			    android:onClick="myListButtonPressed"
+			    android:src="@drawable/ic_action_important_dark" />
+
 			<View
 			    android:layout_width="1dp"
 			    android:layout_height="match_parent"
 			    android:background="@color/default_divider" />
-			<ImageButton 
-			    android:id = "@+id/mytemp_button"
+
+			<ImageButton
+			    android:id="@+id/mytemp_button"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:layout_weight="1"
 			    android:background="?android:attr/selectableItemBackground"
 			    android:contentDescription="@string/accessibility_mytemp_ico"
-            	android:src="@drawable/ic_action_templist" />
+			    android:onClick="tempListButtonPressed"
+			    android:src="@drawable/ic_action_templist" />
+
         </LinearLayout>
 
     </RelativeLayout>

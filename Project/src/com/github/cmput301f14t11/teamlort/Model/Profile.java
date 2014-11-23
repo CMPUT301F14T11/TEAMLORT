@@ -22,6 +22,7 @@ implements Serializable
 	protected ArrayList<Question> savedQuestionList = new ArrayList<Question>();
 	protected ArrayList<Question> favedQuestionList = new ArrayList<Question>();
 	protected ArrayList<Question> myQuestionList = new ArrayList<Question>();
+	protected ArrayList<Question> tempQuestionList = new ArrayList<Question>();
 	//protected LocalManager = new LocalManager();
 
 	
@@ -87,6 +88,9 @@ implements Serializable
 		//return localManager.loadProfile().getMyQuestionList();
 	}
 	
+	public ArrayList<Question> getTempQuestionList(){
+		return tempQuestionList;
+	}
 	
 	
 	/**

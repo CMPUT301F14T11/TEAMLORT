@@ -96,6 +96,8 @@ extends AppBaseActivity
 		ViewGroup header = (ViewGroup) layoutInflater.inflate(R.layout.question_view_header, answerListView, false);
 		
 		final ListView QuestionReplyListView = (ListView) header.findViewById(R.id.question_reply_listview);
+		TextView author = (TextView)header.findViewById(R.id.question_author);
+		author.setText("Author: "+question.getAuthor());
 		
 		TextView questionTitleTextView = (TextView) header.findViewById(R.id.UsernameTitleTextView);
 		questionTitleTextView.setText(question.getTitle());

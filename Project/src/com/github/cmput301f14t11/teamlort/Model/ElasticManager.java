@@ -141,6 +141,32 @@ public class ElasticManager {
 			e.printStackTrace();
 		}
 	}
+	public void addlist(ArrayList<Question> provided)
+	{
+		HttpClient httpClient = new DefaultHttpClient();
+		//Toast.makeText(context, "attempting add question, id = "+deliveritem.getID(),Toast.LENGTH_SHORT).show();
+		try 
+		{
+			for(int i = 0; i< provided.size(); i ++)
+			{
+				HttpPost addRequest = new HttpPost(serverAddress + provided.get(i).getID());
+
+				StringEntity stringEntity = new StringEntity(gson.toJson(provided.get(i)));
+				addRequest.setEntity(stringEntity);
+				addRequest.setHeader("Accept", "application/json");
+
+				HttpResponse response = httpClient.execute(addRequest);
+				//Toast.makeText(context, "add successfully completed",Toast.LENGTH_SHORT).show();
+				String status = response.getStatusLine().toString();
+				Log.i(TAG, "additem "+status);
+
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * deletes question from server based on id
 	 * @param Id

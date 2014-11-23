@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.NetworkListener;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.Question;
@@ -22,6 +23,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -62,6 +64,7 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
 		pc.addObserver(this);
+		
 		
 	}
 	

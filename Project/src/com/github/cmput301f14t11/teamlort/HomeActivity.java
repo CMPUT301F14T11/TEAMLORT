@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
@@ -41,7 +42,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	
 	
 	ListView questionlistview;
-	private int page = 0;
+	private int page = 15;
 	private LinearLayout footerLayout;
 	private String searchstring;
 	static customadapter adapter; // since we are displaying question objects, the normal ArrayAdapter will not cut it, for right now I've modified the customer adapter I used for my assignment 1 and sticked it in here
@@ -128,43 +129,16 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 			
 		});
         //http://mobile.dzone.com/news/android-tutorial-dynamicaly
-        questionlistview.setOnScrollListener(new OnScrollListener()
-        {
+
+        view.setOnClickListener(new OnClickListener(){
 
 			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) 
-			{
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,int visibleItemCount, int totalItemCount)
-			{
-				 //TODO Auto-generated method stub
-				//what is the bottom iten that is visible
-				
-				
-				if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
-	            {
-	                if(loadingMore == false)
-	                {
-	                	loadingMore = true;
-	                	//qlc.getMore(qlc.getQuestionlist().getModellist().get(qlc.getQuestionlist().getModellist().size()-1).getID(), 10);
-	                	
-	                	page+=5;
-	                	SearchThread search = new SearchThread(searchstring,page);
-	               	   	search.start();
-	                	//qlc.getQuestionlist().getModellist().subList(0, 10).clear();
-	                	//Toast.makeText(getApplicationContext(), "get More called", Toast.LENGTH_SHORT).show();
-	                	//adapter.updatelist(qlc.getQuestionlist().getModellist());
-	                }
-	            }
-
-
-			}
-        });
-        
+				page+=5;
+            	SearchThread search = new SearchThread(searchstring,page);
+           	   	search.start();
+			}});
         questionlistview.setAdapter(adapter);
         Log.i("LORTANSWERS","WE GRABBED :"+qlc.getQuestionlist().getModellist().size());
         //questionlistview.removeFooterView(footerLayout);

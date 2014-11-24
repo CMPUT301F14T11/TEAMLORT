@@ -14,7 +14,7 @@ import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 public class PushQueue {
 
 	private static PushQueue pushQueue = null;
-	private ArrayList<Question> pushList;
+	private ArrayList<Question> pushList = new ArrayList<Question>();
 	private static Profile profile;
 	private static ProfileController pc;
 	private ElasticManager em = ElasticManager.getInstance();
@@ -26,7 +26,7 @@ public class PushQueue {
 			pushQueue = new PushQueue();
 		}
 		profile = p;
-		ProfileController.setP(profile);
+		pc.setP(profile);
 		return pushQueue;
 	}
 	
@@ -43,15 +43,18 @@ public class PushQueue {
 	 * @param addMe
 	 */
 	public void addQuestionToQueue(Question addMe, Context c) {
-		pc.addCreatedQuestion(addMe);
-		pc.addTempQuestion(addMe);
-		if (!pushList.contains(addMe)){
+		//pc.addCreatedQuestion(addMe);
+		//pc.addTempQuestion(addMe);
+		//if (!pushList.contains(addMe)){
 			pushList.add(addMe);	
-		}
+		//}
 		
+		for (int i = 0; i< pushList.size(); i++){
+			em.addItem(pushList.get(i));
+		}
 		if (NetworkListener.checkConnection(c)){
-			em.addlist(pushList);
-			pc.removeTempQuestion(addMe);
+			
+			//ProfileController.getP().removeTempQuestion(addMe);
 		}
 		
 	}

@@ -42,7 +42,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	
 	
 	ListView questionlistview;
-	private int page = 15;
+	private int page = 0;
 	private LinearLayout footerLayout;
 	private String searchstring;
 	static customadapter adapter; // since we are displaying question objects, the normal ArrayAdapter will not cut it, for right now I've modified the customer adapter I used for my assignment 1 and sticked it in here
@@ -77,6 +77,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
         //View footer = (TextView)findViewById(R.id.endoflist);
         questionlistview = (ListView)findViewById(R.id.expandableListView1);
         //questionlistview.addFooterView(footer);
+        qlc.getQuestionlist().getModellist().clear();
         adapter = new customadapter(getApplicationContext(), qlc.getQuestionlist().getModellist());
         
 //        for(int i = 0; i<=19; i++)
@@ -193,7 +194,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			qlc.getQuestionlist().getModellist().clear();
+			//
 			qlc.getQuestionlist().getModellist().addAll(qlc.getElc().search(search, null,from));
 			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
 				runOnUiThread(doUpdateGUIList);

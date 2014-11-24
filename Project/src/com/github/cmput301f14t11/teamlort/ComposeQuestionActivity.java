@@ -211,9 +211,9 @@ extends AppBaseActivity
 		public void run() {
 			Log.i("LORTANSWERS",usrProfile.getUsername());
 			
-			PushQueue.getInstance().addQuestionToQueue(question, getApplicationContext());
+			//PushQueue.getInstance().addQuestionToQueue(question, getApplicationContext());
 
-			//qController.addQuestion(question);
+			qController.addQuestion(question);
 			// Give some time to get updated info
 			try {
 				Thread.sleep(500);
@@ -240,7 +240,9 @@ extends AppBaseActivity
 				usrProfile.getUsername()
 				);
 		
-		qController.addQuestion(question);
+		//qController.addQuestion(question);
+		Thread thread = new AddThread(question);
+		thread.start();
 		
 		this.setResult(RESULT_OK);
 		this.finish();

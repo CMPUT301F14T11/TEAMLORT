@@ -34,6 +34,8 @@ extends AppBaseActivity
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
 	private static final String TAGS_BUNDLE_KEY = "COMPOSE_TAGS";
 	
+	private String title, detail, tags;
+	
 	private Profile usrProfile;
 	private QuestionController qController;
 	
@@ -163,17 +165,6 @@ extends AppBaseActivity
 			}
 		});
 		
-		/* Probably don't need this one.
-		tagEntry.setOnEditorActionListener(new OnEditorActionListener()
-		{
-			@Override
-			public boolean onEditorAction(TextView arg0, int arg1, KeyEvent arg2)
-			{
-				
-				return false;
-			}
-		});//*/
-		
 		addImageButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -203,6 +194,7 @@ extends AppBaseActivity
 			}
 		});
 	}
+	
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
@@ -219,7 +211,7 @@ extends AppBaseActivity
 		public void run() {
 			Log.i("LORTANSWERS",usrProfile.getUsername());
 			
-			PushQueue.getInstance(usrProfile).addQuestionToQueue(question, getApplicationContext());
+			PushQueue.getInstance().addQuestionToQueue(question, getApplicationContext());
 
 			//qController.addQuestion(question);
 			// Give some time to get updated info
@@ -238,16 +230,47 @@ extends AppBaseActivity
 	 */
 	protected void onAcceptButtonClicked()
 	{
-		// Get all the information from the views.
-		String title, detail, tags;
+		getInputFields();
 		
+		if(!isInputValid()) return;
+		
+		Question question = ObjectFactory.initQuestion(
+				title,
+				detail,
+				usrProfile.getUsername()
+				);
+		
+		qController.addQuestion(question);
+		
+		this.setResult(RESULT_OK);
+		this.finish();
+		
+		/*
+		Toast.makeText(getApplicationContext(), "question id is "+question.getID(), Toast.LENGTH_SHORT).show();
+		Thread thread = new AddThread(question);
+		if(NetworkListener.checkConnection(getApplicationContext())==true)
+		{
+			Toast.makeText(getApplicationContext(), "wifi on", Toast.LENGTH_SHORT).show();
+			thread.start();
+		}
+		else
+		{
+			Toast.makeText(getApplicationContext(), "no wifi", Toast.LENGTH_SHORT).show();
+		}*/
+	}
+	
+	private void getInputFields()
+	{
 		title = ((EditText) findViewById(R.id.compose_title_entry))
 				.getText().toString();
 		detail = ((EditText) findViewById(R.id.compose_desc_entry))
 				.getText().toString();
 		tags = ((EditText) findViewById(R.id.compose_tags_entry))
 				.getText().toString();
-		
+	}
+	
+	private boolean isInputValid()
+	{
 		// Make sure the user has at least entered a title.
 		if(title.isEmpty() || title == null)
 		{
@@ -256,7 +279,7 @@ extends AppBaseActivity
 					Toast.LENGTH_SHORT).show();
 			
 			titleEntry.requestFocus();
-			return;
+			return false;
 		}
 		
 		// Make sure the user has entered some body text.
@@ -267,34 +290,9 @@ extends AppBaseActivity
 					Toast.LENGTH_SHORT).show();
 			
 			detailEntry.requestFocus();
-			return;
+			return false;
 		}
 		
-		
-		
-		
-		Question testing = ObjectFactory.initQuestion(
-				title,
-				detail,
-				//usrProfile.getUsername()
-				"Sam"
-				);
-		//qController.providecontext(getApplicationContext());
-		//qController.addQuestion(testing);
-		Toast.makeText(getApplicationContext(), "question id is "+testing.getID(), Toast.LENGTH_SHORT).show();
-		Thread thread = new AddThread(testing);
-		if(NetworkListener.checkConnection(getApplicationContext())==true)
-		{
-			Toast.makeText(getApplicationContext(), "wifi on", Toast.LENGTH_SHORT).show();
-			thread.start();
-		}
-		else
-		{
-			Toast.makeText(getApplicationContext(), "no wifi", Toast.LENGTH_SHORT).show();
-			
-		}
-		// jumps back to home screen
-		//Intent intent = new Intent(ComposeQuestionActivity.this,HomeActivity.class);
-		//startActivity(intent);
+		return true;
 	}
 }

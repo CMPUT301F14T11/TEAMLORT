@@ -81,22 +81,7 @@ public class ElasticManager {
 
 		return null;
 	}
-	
-	private Elasticitem<Question> parseItem(HttpResponse response) {
-		
-		try {
-			String json = getEntityContent(response);
-			Type searchHitType = new TypeToken<Elasticitem<Question>>() {}.getType();
-			
-			Elasticitem<Question> sr = gson.fromJson(json, searchHitType);
-			return sr;
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
+
 	/**
 	 * Gets content from an HTTP response
 	 */
@@ -122,10 +107,12 @@ public class ElasticManager {
 	 * adds a single question to the server
 	 * @param deliveritem
 	 */
-	public void addItem(Question deliveritem) {
+	public void addItem(Question deliveritem)
+	{
 		HttpClient httpClient = new DefaultHttpClient();
 		//Toast.makeText(context, "attempting add question, id = "+deliveritem.getID(),Toast.LENGTH_SHORT).show();
-		try {
+		try
+		{
 			HttpPost addRequest = new HttpPost(serverAddress + deliveritem.getID());
 
 			StringEntity stringEntity = new StringEntity(gson.toJson(deliveritem));
@@ -133,11 +120,18 @@ public class ElasticManager {
 			addRequest.setHeader("Accept", "application/json");
 
 			HttpResponse response = httpClient.execute(addRequest);
+			if (!analyzeResponse(response))
+			{
+				Toast.makeText(context, "HTTP response was not OK.", Toast.LENGTH_LONG).show();
+			}
+			
 			//Toast.makeText(context, "add successfully completed",Toast.LENGTH_SHORT).show();
 			String status = response.getStatusLine().toString();
 			Log.i(TAG, "additem "+status);
 
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -304,4 +298,36 @@ public class ElasticManager {
 		return searchRequest;
 	}
 	
+	private Elasticitem<Question> parseItem(HttpResponse response) {
+		
+		try {
+			String json = getEntityContent(response);
+			Type searchHitType = new TypeToken<Elasticitem<Question>>() {}.getType();
+			
+			Elasticitem<Question> sr = gson.fromJson(json, searchHitType);
+			return sr;
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Returns true if the HttpResponse indicates a success and false otherwise.
+	 * 
+	 */
+	private boolean analyzeResponse(HttpResponse response)
+	{
+		int responseCode = response.getStatusLine().getStatusCode();
+		int responseCategory = responseCode / 100;
+		
+		if (responseCategory == 2)
+		{
+			return true;
+		}
+		
+		return false;
+	}
 }

@@ -15,18 +15,18 @@ public class PushQueue {
 
 	private static PushQueue pushQueue = null;
 	private ArrayList<Question> pushList = new ArrayList<Question>();
-	private static Profile profile;
+	//private static Profile profile;
 	private static ProfileController pc = new ProfileController();
 	private ElasticManager em = ElasticManager.getInstance();
 	/**
 	 * @return The {@link PushQueue} singleton instance.
 	 */
-	public static PushQueue getInstance(Profile p) {
+	public static PushQueue getInstance() {
 		if (pushQueue == null){
 			pushQueue = new PushQueue();
 		}
-		profile = p;
-		pc.setP(profile);
+		//profile = p;
+		//pc.setP(profile);
 		return pushQueue;
 	}
 	
@@ -49,20 +49,29 @@ public class PushQueue {
 		}
 		
 		
-		if (NetworkListener.checkConnection(c)){
-			
-			for (int i = 0; i< pushList.size(); i++){
+		if (NetworkListener.checkConnection(c))
+		{
+			for (int i = 0; i< pushList.size(); i++)
+			{
 				em.addItem(pushList.get(i));
 			}
 			pushList.clear();
 		}
 		
-		else{
+		else
+		{
 			//LocalManager.getManager().saveQuestions(pushList);
 			pc.addTempQuestion(addMe);
 		}
 	}
 	
-	
-
+	public void pushQuestions()
+	{
+		for (Question q : pushList)
+		{
+			em.addItem(q);
+		}
+		
+		pushList.clear();
+	}
 }

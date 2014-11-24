@@ -7,14 +7,18 @@ import android.widget.Toast;
 
 //http://viralpatel.net/blogs/android-internet-connection
 //-status-network-change/
-public class NetWorkChangeReceiver extends BroadcastReceiver{
-
+public class NetWorkChangeReceiver
+extends BroadcastReceiver
+{
 	@Override
-	public void onReceive(Context context, Intent intent) {
-		if (NetworkListener.checkConnection(context)){
+	public void onReceive(Context context, Intent intent)
+	{
+		if (NetworkListener.checkConnection(context))
+		{
 			Toast.makeText(context, "Network is on", Toast.LENGTH_LONG).show();
 		}
-		else{
+		else
+		{
 			Toast.makeText(context, "Network is off", Toast.LENGTH_LONG).show();
 		}
 		

@@ -1,7 +1,5 @@
 package com.github.cmput301f14t11.teamlort;
 
-
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,14 +15,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.NetworkController;
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Controller.UserController;
-import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
@@ -36,7 +32,6 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
  * and refine search results on this activity
  * 
  * covers usecases 1,14,15
- * 
  * 
  * @author sbao
  * @issues: search functionality requires other parts to be completed and coordination with other team members 

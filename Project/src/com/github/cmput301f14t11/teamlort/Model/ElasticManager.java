@@ -218,7 +218,7 @@ public class ElasticManager {
 	 * @param string
 	 * @return
 	 */
-	public ArrayList<Question> search(String string,String field) {
+	public ArrayList<Question> search(String string,String field,int from) {
 		// TODO Auto-generated method stub
 		ArrayList<Question> result = new ArrayList<Question>();
 
@@ -231,7 +231,7 @@ public class ElasticManager {
 		HttpClient httpClient = new DefaultHttpClient();
 		
 		try{
-			HttpPost searchRequest = createSearchRequest(string,field);
+			HttpPost searchRequest = createSearchRequest(string,field,from);
 			HttpResponse response = httpClient.execute(searchRequest);
 			String status = response.getStatusLine().toString();
 			Log.i(TAG, status);
@@ -274,9 +274,9 @@ public class ElasticManager {
 
 		return esResponse;
 	}
-	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
-		
-		HttpPost searchRequest = new HttpPost(serverAddress+"_search?size=5000");
+	private HttpPost createSearchRequest(String searchString, String field,int from)	throws UnsupportedEncodingException {
+		//http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/pagination.html
+		HttpPost searchRequest = new HttpPost(serverAddress+"_search?size=11&from="+from);
 
 		String[] fields = null;
 		if (field != null) {

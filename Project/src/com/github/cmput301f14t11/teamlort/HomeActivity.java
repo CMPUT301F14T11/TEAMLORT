@@ -41,7 +41,9 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	
 	
 	ListView questionlistview;
+	private int page = 0;
 	private LinearLayout footerLayout;
+	private String searchstring;
 	static customadapter adapter; // since we are displaying question objects, the normal ArrayAdapter will not cut it, for right now I've modified the customer adapter I used for my assignment 1 and sticked it in here
 								  // should anyone think something else should be used instead,feel free to bring it up in group discussion
 	// I will manually write down some questions to help implement the display for right now
@@ -92,9 +94,9 @@ public class HomeActivity extends AppBaseActivity implements Observer {
          * screw locally generated question, we be grabbin shit online like real Gs
          */
        Intent intent = getIntent();
-       String searchstring = intent.getStringExtra("searchstring");
+       searchstring = intent.getStringExtra("searchstring");
        //String searchstring = "*";
-       SearchThread search = new SearchThread(searchstring);
+       SearchThread search = new SearchThread(searchstring,page);
 	   search.start();
 	   
 	  
@@ -141,13 +143,8 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 			{
 				 //TODO Auto-generated method stub
 				//what is the bottom iten that is visible
-				int lastInScreen = firstVisibleItem + visibleItemCount;
-				//is the bottom item visible & not loading more already ? Load more !
-//				if((lastInScreen == totalItemCount) && !(loadingMore))
-//				{
-//					Thread thread =  new Thread(null, loadMoreListItems);
-//					thread.start();
-//				}
+				
+				
 				if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
 	            {
 	                if(loadingMore == false)
@@ -155,9 +152,12 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	                	loadingMore = true;
 	                	//qlc.getMore(qlc.getQuestionlist().getModellist().get(qlc.getQuestionlist().getModellist().size()-1).getID(), 10);
 	                	
+	                	page+=5;
+	                	SearchThread search = new SearchThread(searchstring,page);
+	               	   	search.start();
 	                	//qlc.getQuestionlist().getModellist().subList(0, 10).clear();
-	                	Toast.makeText(getApplicationContext(), "get More called", Toast.LENGTH_SHORT).show();
-	                	adapter.updatelist(qlc.getQuestionlist().getModellist());
+	                	//Toast.makeText(getApplicationContext(), "get More called", Toast.LENGTH_SHORT).show();
+	                	//adapter.updatelist(qlc.getQuestionlist().getModellist());
 	                }
 	            }
 
@@ -167,7 +167,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
         
         questionlistview.setAdapter(adapter);
         Log.i("LORTANSWERS","WE GRABBED :"+qlc.getQuestionlist().getModellist().size());
-        questionlistview.removeFooterView(footerLayout);
+        //questionlistview.removeFooterView(footerLayout);
     }
     
     
@@ -182,38 +182,14 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 		 * we have some code here that were supposed to refresh the question list on start/every restart of the app
 		 * however that doesn't work right now
 		 */
-		/*if (ne.checkConnection(getApplicationContext()) == true)
-		{
-			ne.notifyAll();
-			pdm.getMore();
-			listofquestions = pdm.getQuestion();
-		}*/
-		
+
 	}
 
 	/**
 	 * Adds the {@link Question} to the FavedQuestionList in ProfileController
 	 * @param v
 	 */
-// move method into the customadatper class
-//	public void Favorite(View v)
-//    {
-//    	//gets the question from list
-//		Single_Home_Question holder = (Single_Home_Question) v.getTag();
-//		if(holder == null){
-//			Toast.makeText(this, "holder is null", Toast.LENGTH_SHORT).show();
-//		}
-//		//Question temp = holder.thisquestion;
-//		
-//		//pc.addFavedQuestion(temp);
-//    }
-//	public void Save(View v)
-//	{
-//		Single_Home_Question holder = (Single_Home_Question) v.getTag();
-//		Question temp = holder.thisquestion;
-//		
-//		pc.addSavedQuestion(temp);
-//	}
+
 	
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -234,21 +210,24 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	class SearchThread extends Thread {
 		// TODO: Implement search thread
 		private String search;
-		public SearchThread(String s)
+		private int from;
+		public SearchThread(String s,int f)
 		{
 			search = s;
+			from = f;
 		}
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
 			qlc.getQuestionlist().getModellist().clear();
-			qlc.getQuestionlist().getModellist().addAll(qlc.getElc().search(search, null));
+			qlc.getQuestionlist().getModellist().addAll(qlc.getElc().search(search, null,from));
 			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
 				runOnUiThread(doUpdateGUIList);
 			}
 		
 		
 	}
+	
 	@Override
 	protected boolean onSortMenuItemSelect(MenuItem item) {
 		// TODO Auto-generated method stub

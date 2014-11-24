@@ -42,6 +42,7 @@ public class ReplyAdapter extends BaseAdapter {
 		TextView reply1;
 		TextView reply_author;
 		TextView reply_time;
+		TextView geolocation;
 	}
 	
 	/**
@@ -82,6 +83,7 @@ public class ReplyAdapter extends BaseAdapter {
 			replyViewHolder.reply1 = (TextView) convertView.findViewById(R.id.reply1);
 			replyViewHolder.reply_author = (TextView) convertView.findViewById(R.id.reply_author);
 			replyViewHolder.reply_time = (TextView) convertView.findViewById(R.id.reply_time);
+			replyViewHolder.geolocation = (TextView) convertView.findViewById(R.id.location_text_view_reply);
 			
 			convertView.setTag(replyViewHolder);
 			

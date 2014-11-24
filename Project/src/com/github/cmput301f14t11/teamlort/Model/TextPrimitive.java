@@ -2,8 +2,6 @@ package com.github.cmput301f14t11.teamlort.Model;
 
 import java.util.Date;
 
-import com.github.cmput301f14t11.teamlort.Coordinate;
-
 /**
  * @author  eunderhi
  */

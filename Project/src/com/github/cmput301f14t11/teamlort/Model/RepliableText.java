@@ -27,7 +27,7 @@ public class RepliableText extends TextPrimitive{
 	
 	private HashSet<String> voterSet = new HashSet<String>(); 
 	
-	private Listener listener;
+	private transient Listener listener;
 	
 	/**
 	 * @return Returns the score of the question/answer

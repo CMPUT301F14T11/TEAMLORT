@@ -45,16 +45,17 @@ public class PushQueue {
 	public void addQuestionToQueue(Question addMe, Context c) {
 		//pc.addCreatedQuestion(addMe);
 		//pc.addTempQuestion(addMe);
-		//if (!pushList.contains(addMe)){
+		if (!pushList.contains(addMe)){
 			pushList.add(addMe);	
-		//}
-		
-		for (int i = 0; i< pushList.size(); i++){
-			em.addItem(pushList.get(i));
 		}
+		
+		
 		if (NetworkListener.checkConnection(c)){
 			
-			//ProfileController.getP().removeTempQuestion(addMe);
+			for (int i = 0; i< pushList.size(); i++){
+				em.addItem(pushList.get(i));
+			}
+			pushList.clear();
 		}
 		
 	}

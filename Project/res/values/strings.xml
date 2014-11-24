@@ -18,5 +18,6 @@
     <string name="title_activity_reply">ReplyActivity</string>
     <string name="compose_reply">Write Reply:</string>
     <string name="question_view_comment_indicator">[ + ] 0 comments</string>
+    <string name="answer_hint">Enter answer</string>
 
 </resources>

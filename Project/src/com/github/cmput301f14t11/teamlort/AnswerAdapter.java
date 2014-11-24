@@ -3,6 +3,7 @@ package com.github.cmput301f14t11.teamlort;
 import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 import com.github.cmput301f14t11.teamlort.R.color;
@@ -194,7 +195,8 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 					alertDialogueBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
 						@Override
 						public void onClick(DialogInterface arg0, int arg1) {
-							Reply reply = ObjectFactory.initReply(body.getText().toString(), parentActivity.username);
+							AppCache appCache = AppCache.getInstance();
+							Reply reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername());
 							answer.addReplyToStart(reply);
 							notifyDataSetChanged();
 						}

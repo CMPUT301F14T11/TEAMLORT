@@ -64,8 +64,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/answer_comment_count_textview"
+            android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/answer_comment_count_textview"
-            android:layout_toLeftOf="@+id/listitem_question_button_bar"
+            android:layout_marginRight="@dimen/activity_margin"
+            android:layout_toRightOf="@+id/location_text_view_answer"
             android:text="@string/listitem_answer_author"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 

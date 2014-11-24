@@ -58,8 +58,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/reply_time"
-            android:layout_alignBottom="@+id/reply_time"
-            android:layout_toLeftOf="@+id/listitem_question_button_bar"
+            android:layout_alignParentRight="true"
+            android:paddingRight="20dp"
             android:text="@string/listitem_answer_author"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 

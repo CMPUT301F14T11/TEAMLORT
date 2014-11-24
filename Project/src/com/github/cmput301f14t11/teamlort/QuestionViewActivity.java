@@ -36,7 +36,7 @@ import android.widget.Toast;
  * 
  * @author Elvis Lo
  * 
- * @issues Currently missing a button for entering replies and missing an author textfield in header.
+ * 
  */
 public class QuestionViewActivity
 extends AppBaseActivity
@@ -48,7 +48,6 @@ extends AppBaseActivity
 	ObjectFactory dt = new ObjectFactory();
 	ReplyAdapter replyAdapter;
 	AnswerAdapter answerAdapter;
-	String username;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -59,9 +58,8 @@ extends AppBaseActivity
 		//question = pdm.get(questionID);
 		//TODO These are just temporary test question/answers/replies
 		//question = dt.initQuestion("testing", "testing", "sdfasfds");
-		AppCache appCache = AppCache.getInstance();
+		final AppCache appCache = AppCache.getInstance();
 		question = appCache.getQuestion();
-		final String username = appCache.getProfile().getUsername();
 		
 		answerList = question.getAnswerList();
 		questionReplyList = question.getReplyList();
@@ -109,6 +107,7 @@ extends AppBaseActivity
 		Button postAnswerButton = (Button) header.findViewById(R.id.post_answer_button);
 		final Button upVoteButton = (Button) header.findViewById(R.id.questionUpvoteButton);
 		
+		upVoteButton.setBackgroundColor(Color.GRAY);
 		upVoteButton.setText(String.valueOf(question.getScore()));
 		replyAdapter = new ReplyAdapter(questionReplyList, this);
 		QuestionReplyListView.setAdapter(replyAdapter);
@@ -142,7 +141,7 @@ extends AppBaseActivity
 			}
 		}  );
 		/*
-		 * Listens to the question reply button
+		 * Listens to the post answer button
 		 * When the user clicks the reply button this method
 		 * takes whatever is in the answerEditText field and 
 		 * makes a new answer with the user's username and 
@@ -161,7 +160,7 @@ extends AppBaseActivity
 				}
 				Answer answer = new Answer();
 				answer.setBody(answerText.getText().toString());
-				answer.setAuthor(username);
+				answer.setAuthor(appCache.getProfile().getUsername());
 				question.addAnswer(answer); 
 				answerText.setText("");
 				answerAdapter.notifyDataSetChanged();
@@ -184,7 +183,7 @@ extends AppBaseActivity
 				alertDialogueBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
-						Reply reply = ObjectFactory.initReply(body.getText().toString(), username);
+						Reply reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername());
 						question.addReplyToStart(reply);
 						setListViewHeightBasedOnChildren(QuestionReplyListView);
 						replyAdapter.notifyDataSetChanged();

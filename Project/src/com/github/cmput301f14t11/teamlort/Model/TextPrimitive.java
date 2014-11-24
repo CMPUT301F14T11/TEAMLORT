@@ -2,6 +2,8 @@ package com.github.cmput301f14t11.teamlort.Model;
 
 import java.util.Date;
 
+import com.github.cmput301f14t11.teamlort.Coordinate;
+
 /**
  * @author  eunderhi
  */
@@ -17,6 +19,9 @@ implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String body;
+	
+	private Coordinate geolocation;
+	
 	/**
 	 * @uml.property  name="author"
 	 */

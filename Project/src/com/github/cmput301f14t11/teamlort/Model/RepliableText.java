@@ -3,6 +3,8 @@ package com.github.cmput301f14t11.teamlort.Model;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.github.cmput301f14t11.teamlort.Listener;
+
 import android.graphics.drawable.Drawable;
 
 /**
@@ -24,6 +26,8 @@ public class RepliableText extends TextPrimitive{
 	//to keep track of who's voted what (hashed for quick lookup)
 	
 	private HashSet<String> voterSet = new HashSet<String>(); 
+	
+	private Listener listener;
 	
 	/**
 	 * @return Returns the score of the question/answer

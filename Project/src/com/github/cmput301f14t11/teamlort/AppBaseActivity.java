@@ -91,14 +91,15 @@ public class AppBaseActivity extends Activity
 				if(searchinput.getText().toString() == null || searchinput.getText().toString() == "")
 				{
 					//pass a *
-					intent.putExtra("*", "searchstring");
+					intent.putExtra("searchstring","*");
 				}
 				else
 				{
 					//pass this searchstring to homeactivity
 					//we will do the searching in homeactivity
-					intent.putExtra(searchinput.getText().toString(), "searchstring");
+					intent.putExtra("searchstring",searchinput.getText().toString());
 				}
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 			}
 		});

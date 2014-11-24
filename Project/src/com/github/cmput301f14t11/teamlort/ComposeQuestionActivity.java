@@ -2,6 +2,7 @@ package com.github.cmput301f14t11.teamlort;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -216,9 +217,11 @@ extends AppBaseActivity
 
 		@Override
 		public void run() {
+			Log.i("LORTANSWERS",usrProfile.getUsername());
 			
 			PushQueue.getInstance(usrProfile).addQuestionToQueue(question, getApplicationContext());
-			
+
+			//qController.addQuestion(question);
 			// Give some time to get updated info
 			try {
 				Thread.sleep(500);
@@ -276,7 +279,7 @@ extends AppBaseActivity
 				//usrProfile.getUsername()
 				"Sam"
 				);
-		qController.providecontext(getApplicationContext());
+		//qController.providecontext(getApplicationContext());
 		//qController.addQuestion(testing);
 		Toast.makeText(getApplicationContext(), "question id is "+testing.getID(), Toast.LENGTH_SHORT).show();
 		Thread thread = new AddThread(testing);

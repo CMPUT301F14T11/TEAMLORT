@@ -16,7 +16,7 @@ public class PushQueue {
 	private static PushQueue pushQueue = null;
 	private ArrayList<Question> pushList = new ArrayList<Question>();
 	private static Profile profile;
-	private static ProfileController pc;
+	private static ProfileController pc = new ProfileController();
 	private ElasticManager em = ElasticManager.getInstance();
 	/**
 	 * @return The {@link PushQueue} singleton instance.
@@ -43,8 +43,7 @@ public class PushQueue {
 	 * @param addMe
 	 */
 	public void addQuestionToQueue(Question addMe, Context c) {
-		//pc.addCreatedQuestion(addMe);
-		//pc.addTempQuestion(addMe);
+		pc.addCreatedQuestion(addMe);
 		if (!pushList.contains(addMe)){
 			pushList.add(addMe);	
 		}
@@ -58,6 +57,10 @@ public class PushQueue {
 			pushList.clear();
 		}
 		
+		else{
+			//LocalManager.getManager().saveQuestions(pushList);
+			pc.addTempQuestion(addMe);
+		}
 	}
 	
 	

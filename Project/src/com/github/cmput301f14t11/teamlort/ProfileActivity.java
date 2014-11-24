@@ -170,7 +170,7 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	}
 	
 	public void tempListButtonPressed(View view){
-		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getMyQuestionList());
+		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getTempQuestionList());
 		lv.setAdapter(adapter);
 		currentView = TEMP_QUESTION_VIEW;
 	}

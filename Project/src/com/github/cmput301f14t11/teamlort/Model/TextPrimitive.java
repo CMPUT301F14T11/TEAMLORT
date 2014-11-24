@@ -20,7 +20,23 @@ implements java.io.Serializable {
 	
 	private String body;
 	
-	private Coordinate geolocation;
+	private float X;
+	
+	private float Y;
+	
+	public float getX() {
+		return X;
+	}
+	public void setX(float x) {
+		X = x;
+	}
+	public float getY() {
+		return Y;
+	}
+	public void setY(float y) {
+		Y = y;
+	}
+	
 	
 	/**
 	 * @uml.property  name="author"

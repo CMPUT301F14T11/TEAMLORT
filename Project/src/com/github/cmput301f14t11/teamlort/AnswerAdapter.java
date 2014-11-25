@@ -6,6 +6,7 @@ import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
+import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 import com.github.cmput301f14t11.teamlort.R.color;
 
@@ -39,6 +40,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	private ReplyViewHolder replyViewHolder;
 	
 	private int questionID;
+	private Question question;
 	private ArrayList<Answer> answerList;
 	private Context context;
 	
@@ -81,10 +83,11 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	 * @param answerList The {@link ArrayList}<{@link Answer}> the adapter will adapt views for.
 	 * @param context The {@link Activity} {@link Context}.
 	 */
-	public AnswerAdapter(ArrayList<Answer> answerList, Context context, int questionID) {
+	public AnswerAdapter(ArrayList<Answer> answerList, Context context, int questionID, Question question) {
 		this.answerList = answerList;
 		this.context = context;
 		this.questionID = questionID;
+		this.question = question;
 	}
 
 	@Override
@@ -206,7 +209,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 							answer.addReplyToStart(reply);
 							notifyDataSetChanged();
 							
-							PushQueue.getInstance().pushAnswerReply(questionID, answer.getID(), reply, context);
+							PushQueue.getInstance().pushAnswerReply(questionID, question,answer.getID(), answer, reply, context);
 						}
 					});
 					alertDialogueBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){

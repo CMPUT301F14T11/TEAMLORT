@@ -5,9 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.widget.Toast;
-import android.util.Log;
 
-//import com.github.cmput301f14t11.teamlort.AddThread;
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 
 /**
@@ -52,26 +50,15 @@ public class PushQueue {
 	 * 
 	 * @param addMe
 	 */
-	public void addQuestionToQueue(Question addMe, Context c) {
-		pc.addCreatedQuestion(addMe);
-		if (!pushList.contains(addMe)){
-			pushList.add(addMe);	
-		}
+	public void addQuestionToQueue(Question addMe) {
 		
+		pushList.add(addMe);
 		
-		if (NetworkListener.checkConnection(c))
-		{
-			for (int i = 0; i< pushList.size(); i++)
-			{
-				em.addItem(pushList.get(i));
-			}
-			pushList.clear();
-		}
-		
-		else
-		{
-			pc.addTempQuestion(addMe);
-		}
+	}
+	
+	public void pushQuestions(){
+		Thread thread = new AddThread(pushList); 
+		thread.start();
 	}
 	
 	public void pushQuestion(Question question, Context c){
@@ -80,39 +67,45 @@ public class PushQueue {
 			thread.start();
 		}
 		else{
-			ProfileController pc = new ProfileController();
-			pc.addTempQuestion(question);
-			Toast.makeText(c, "Sorry, no network connection!", Toast.LENGTH_SHORT).show();
+			addQuestionToQueue(question);
+			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
+			
 		}
 	}
 	
-	public void pushAnswer(int questionID, Answer answer, Context c)
+	public void pushAnswer(int questionID, Question question, Answer answer, Context c)
 	{
 		if(NetworkListener.checkConnection(c)){
 			Thread thread = new AddThread(questionID,answer); 
 			thread.start();
 		}
 		else{
-			Toast.makeText(c, "Sorry, no network connection!", Toast.LENGTH_SHORT).show();
+			question.getAnswerList().add(answer);
+			addQuestionToQueue(question);
+			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
+			
 		}
 	}
 	
-	public void pushQuestionReply(int questionID, Reply r, Context c){
+	public void pushQuestionReply(int questionID, Question question, Reply r, Context c){
 		if(NetworkListener.checkConnection(c)){
 			Thread thread = new AddThread(questionID,r); 
 			thread.start();
 		}
 		else{
+			question.getReplyList().add(r);
+			addQuestionToQueue(question);
 			Toast.makeText(c, "Sorry, no network connection!", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
-	public void pushAnswerReply(int questionID, int answerID, Reply r, Context c){
+	public void pushAnswerReply(int questionID, Question question, int answerID, Answer answer, Reply r, Context c){
 		if(NetworkListener.checkConnection(c)){
 			Thread thread = new AddThread(questionID,answerID,r); 
 			thread.start();
 		}
 		else{
+			
 			Toast.makeText(c, "Sorry, no network connection!", Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -125,56 +118,63 @@ class AddThread extends Thread {
 	private Answer _answer;
 	private Reply _questionReply;
 	private Reply _answerReply;
-	private int state;
+	private int currentRequest;
+	private ArrayList<Question> _questions;
 	
 	static final int PUSH_QUESTION = 1;
 	static final int PUSH_ANSWER = 2;
 	static final int PUSH_QUESTION_REPLY = 3;
 	static final int PUSH_ANSWER_REPLY = 4;
+	static final int PUSH_QUESTION_LIST = 5;
 
 	public AddThread(Question question) {
 		_question = question;
-		state = PUSH_QUESTION;
+		currentRequest = PUSH_QUESTION;
 	}
 	
 	public AddThread(int questionID, Answer answer) {
 		_questionID = questionID;
 		_answer = answer;
-		state = PUSH_ANSWER;
+		currentRequest = PUSH_ANSWER;
 	}
 	
 	public AddThread(int questionID, Reply questionReply){
 		_questionID = questionID;
 		_questionReply = questionReply;
-		state = PUSH_QUESTION_REPLY;
+		currentRequest = PUSH_QUESTION_REPLY;
 	}
 	
 	public AddThread(int questionID, int answerID, Reply answerReply){
 		_questionID = questionID;
 		_answerID = answerID;
 		_answerReply = answerReply;
-		state = PUSH_ANSWER_REPLY;
+		currentRequest = PUSH_ANSWER_REPLY;
+	}
+	
+	public AddThread(ArrayList<Question> questions){
+		_questions = questions;
+		currentRequest = PUSH_QUESTION_LIST;
 	}
 
 	@Override
 	public void run() {
-		if (state == PUSH_QUESTION){
+		if (currentRequest == PUSH_QUESTION){
 			ElasticManager.getInstance().addItem(_question);
 		}
 		
-		else if (state == PUSH_ANSWER){
+		else if (currentRequest == PUSH_ANSWER){
 			_question = ElasticManager.getInstance().getItem(_questionID);
 			_question.getAnswerList().add(_answer);
 			ElasticManager.getInstance().addItem(_question);
 		}
 		
-		else if (state == PUSH_QUESTION_REPLY){
+		else if (currentRequest == PUSH_QUESTION_REPLY){
 			_question = ElasticManager.getInstance().getItem(_questionID);
 			_question.getReplyList().add(_questionReply);
 			ElasticManager.getInstance().addItem(_question);
 		}
 		
-		else if (state == PUSH_ANSWER_REPLY){
+		else if (currentRequest == PUSH_ANSWER_REPLY){
 			_question = ElasticManager.getInstance().getItem(_questionID);
 			for(Answer a: _question.getAnswerList()){
 				if (a.getID() == _answerID){
@@ -183,7 +183,14 @@ class AddThread extends Thread {
 			}
 			ElasticManager.getInstance().addItem(_question);
 		}
-		else {
+		else if(currentRequest == PUSH_QUESTION_LIST){
+			
+			for (Question q: _questions){
+				ElasticManager.getInstance().addItem(q);
+			}
+			
+		}
+		else{
 			
 		}
 

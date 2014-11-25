@@ -104,7 +104,7 @@ extends AppBaseActivity
 		//Add the header top top of listview
 		answerListView.addHeaderView(header, null, false);
 		
-		final AnswerAdapter answerAdapter = new AnswerAdapter(answerList, this, question.getID());
+		final AnswerAdapter answerAdapter = new AnswerAdapter(answerList, this, question.getID(),question);
 		answerListView.setAdapter(answerAdapter);		
 
 		final TextView questionCommentIndicator = (TextView) header.findViewById(R.id.commentIndicatorTextView);
@@ -151,7 +151,7 @@ extends AppBaseActivity
 				answerText.setText("");
 				answerAdapter.notifyDataSetChanged();
 
-				PushQueue.getInstance().pushAnswer(question.getID(), answer, getApplicationContext());
+				PushQueue.getInstance().pushAnswer(question.getID(), question, answer, getApplicationContext());
 
 				//Toast.makeText(getBaseContext(), "Added Question", Toast.LENGTH_SHORT).show();
 				//Thread thread = new AddThread(question);
@@ -180,7 +180,7 @@ extends AppBaseActivity
 						question.addReplyToStart(reply);
 						setListViewHeightBasedOnChildren(QuestionReplyListView);
 						replyAdapter.notifyDataSetChanged();
-						PushQueue.getInstance().pushQuestionReply(question.getID(), reply, getApplicationContext());
+						PushQueue.getInstance().pushQuestionReply(question.getID(), question, reply, getApplicationContext());
 						//Refresh the comment counter.
 						if (QuestionReplyListView.getVisibility() == View.GONE){
 							questionCommentIndicator.setText("[ + ] " + QuestionReplyListView.getCount() + " comments");

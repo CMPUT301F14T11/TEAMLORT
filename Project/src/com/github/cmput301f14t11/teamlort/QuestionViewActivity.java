@@ -7,6 +7,7 @@ import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 
@@ -15,6 +16,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -158,12 +160,20 @@ extends AppBaseActivity
 					Toast.makeText(getBaseContext(), "No empty questions", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				Answer answer = new Answer();
-				answer.setBody(answerText.getText().toString());
-				answer.setAuthor(appCache.getProfile().getUsername());
+				
+				Answer answer = ObjectFactory.initAnswer(answerText.getText().toString(), appCache.getProfile().getUsername());
+				//answer.setBody(answerText.getText().toString());
+				//answer.setAuthor(appCache.getProfile().getUsername());
 				question.addAnswer(answer); 
 				answerText.setText("");
 				answerAdapter.notifyDataSetChanged();
+				//
+					Log.v("IMPORTANT", "" + question.getID());
+					Log.v("IMPORTANT", "" + answer.getID());
+					Log.v("IMPORTANT", "" + getApplicationContext().toString());
+					PushQueue.getInstance().pushAnswer(question.getID(), answer, getApplicationContext());
+				//
+				
 				//Toast.makeText(getBaseContext(), "Added Question", Toast.LENGTH_SHORT).show();
 			}
 		});

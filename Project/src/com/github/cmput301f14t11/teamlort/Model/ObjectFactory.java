@@ -25,6 +25,7 @@ public class ObjectFactory {
 		question.setBody(body);
 		question.setAuthor(author);
 		question.setID();
+		question.setAnswerList(new ArrayList<Answer>());
 		return question;
 	}
 	

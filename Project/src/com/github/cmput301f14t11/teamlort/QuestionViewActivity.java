@@ -104,7 +104,7 @@ extends AppBaseActivity
 		//Add the header top top of listview
 		answerListView.addHeaderView(header, null, false);
 		
-		final AnswerAdapter answerAdapter = new AnswerAdapter(answerList, this);
+		final AnswerAdapter answerAdapter = new AnswerAdapter(answerList, this, question.getID());
 		answerListView.setAdapter(answerAdapter);		
 
 		final TextView questionCommentIndicator = (TextView) header.findViewById(R.id.commentIndicatorTextView);

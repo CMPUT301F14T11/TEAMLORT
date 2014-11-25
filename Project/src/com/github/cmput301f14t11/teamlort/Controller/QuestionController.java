@@ -26,7 +26,7 @@ public class QuestionController {
 	public void addQuestion(Question question){
 		//TODO stub
 		//
-		elc.providecontext(ctx);
+		//elc.providecontext(ctx);
 		elc.addItem(question);
 	}
 	

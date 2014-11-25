@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 import com.github.cmput301f14t11.teamlort.R.color;
 
@@ -202,6 +203,9 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 							Reply reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername());
 							answer.addReplyToStart(reply);
 							notifyDataSetChanged();
+							
+							//Can't pass in the questionID into this function. Wait to fixed  -Hang
+							//PushQueue.getInstance().pushAnswerReply(QuestionID, answer.getID(), reply, context);
 						}
 					});
 					alertDialogueBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){

@@ -3,10 +3,14 @@ package com.github.cmput301f14t11.teamlort;
 import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
+import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.ElasticManager;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 
@@ -15,6 +19,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,6 +53,7 @@ extends AppBaseActivity
 	ObjectFactory dt = new ObjectFactory();
 	ReplyAdapter replyAdapter;
 	AnswerAdapter answerAdapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -142,7 +148,12 @@ extends AppBaseActivity
 				question.addAnswer(answer); 
 				answerText.setText("");
 				answerAdapter.notifyDataSetChanged();
+				PushQueue.getInstance().pushAnswer(question.getID(), answer, getApplicationContext());
 				//Toast.makeText(getBaseContext(), "Added Question", Toast.LENGTH_SHORT).show();
+				//Thread thread = new AddThread(question);
+				//thread.start();
+				//ElasticManager.getInstance().addItem(question);
+				
 			}
 		});
 		replyButton.setOnClickListener(new OnClickListener() {
@@ -165,6 +176,7 @@ extends AppBaseActivity
 						question.addReplyToStart(reply);
 						setListViewHeightBasedOnChildren(QuestionReplyListView);
 						replyAdapter.notifyDataSetChanged();
+						PushQueue.getInstance().pushQuestionReply(question.getID(), reply, getApplicationContext());
 						//Refresh the comment counter.
 						if (QuestionReplyListView.getVisibility() == View.GONE){
 							questionCommentIndicator.setText("[ + ] " + QuestionReplyListView.getCount() + " comments");
@@ -260,3 +272,30 @@ extends AppBaseActivity
     }
 	
 }
+
+// already move the thread into the pushqueue.class
+
+//class AddThread extends Thread {
+//	private Question question;
+//	QuestionController qc = new QuestionController();
+//
+//	public AddThread(Question question) {
+//		this.question = question;
+//	}
+//
+//	@Override
+//	public void run() {
+//		//Log.i("LORTANSWERS",usrProfile.getUsername());
+//		
+//		//PushQueue.getInstance().addQuestionToQueue(question, getApplicationContext());
+//
+//		qc.addQuestion(question);
+//		// Give some time to get updated info
+//		try {
+//			Thread.sleep(500);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
+//}

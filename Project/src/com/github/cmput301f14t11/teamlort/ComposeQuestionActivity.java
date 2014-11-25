@@ -243,8 +243,10 @@ extends AppBaseActivity
 		
 		//qController.addQuestion(question);
 		Log.i("LORTANSWERS",""+question.getAnswerList().size());
-		Thread thread = new AddThread(question);
-		thread.start();
+		
+		PushQueue.getInstance().pushQuestion(question, getApplicationContext());
+		//Thread thread = new AddThread(question);
+		//thread.start();
 		
 		this.setResult(RESULT_OK);
 		this.finish();

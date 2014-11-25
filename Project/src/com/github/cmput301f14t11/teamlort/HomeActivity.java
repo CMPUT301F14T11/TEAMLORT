@@ -196,14 +196,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 			// TODO Auto-generated method stub
 			//
 			qlc.getQuestionlist().getModellist().addAll(qlc.getElc().search(search, null,from));
-			if(qlc.getQuestionlist().getModellist().size()<1)
-			{
-				questionlistview.removeFooterView(footerLayout);
-				View view = getLayoutInflater().inflate(R.layout.noconnection,questionlistview , false);
-				footerLayout = (LinearLayout) view.findViewById(R.id.noconnection);
-				questionlistview.addFooterView(footerLayout);
-				
-			}
+			
 			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
 				runOnUiThread(doUpdateGUIList);
 			}

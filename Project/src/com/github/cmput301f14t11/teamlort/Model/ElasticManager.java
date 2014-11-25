@@ -39,11 +39,11 @@ import com.google.gson.reflect.TypeToken;
 public class ElasticManager {
 	private static ElasticManager instance = null;
 	private static final String TAG = "LORTANSWERS";
-	private static final String serverAddress = "http://cmput301.softwareprocess.es:8080/cmput301f14t11/";
+	private static final String serverAddress = "http://cmput301.softwareprocess.es:8080/cmput301f14t11/question/";
 	private static Gson gson;
 
 	protected ElasticManager() {
-		
+		gson = new Gson();
 	}
 	Context context;
 	public void providecontext(Context ctx)

@@ -1,7 +1,14 @@
 package com.github.cmput301f14t11.teamlort;
 
 
+import java.io.File;
+
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -9,16 +16,15 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
-import com.github.cmput301f14t11.teamlort.Model.NetworkListener;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
-import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
 /**
@@ -29,23 +35,24 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
 public class ComposeQuestionActivity
 extends AppBaseActivity
 {
+	private static final int IMAGE_REQUEST_CODE = 1;
 	
 	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
-	private static final String TAGS_BUNDLE_KEY = "COMPOSE_TAGS";
 	
-	private String title, detail, tags;
+	private String title, detail;
+	private Uri imageFileUri;
 	
 	private Profile usrProfile;
 	private QuestionController qController;
 	
 	private EditText titleEntry;
 	private EditText detailEntry;
-	private EditText tagEntry;
 	
 	private ImageButton addImageButton;
 	private ImageButton acceptButton;
 	private ImageButton cancelButton;
+	private ImageView imgView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -66,7 +73,6 @@ extends AppBaseActivity
 		
 		outState.putString(TITLE_BUNDLE_KEY, titleEntry.getText().toString());
 		outState.putString(DETAIL_BUNDLE_KEY, detailEntry.getText().toString());
-		outState.putString(TAGS_BUNDLE_KEY, tagEntry.getText().toString());
 	}
 	
 	@Override
@@ -76,11 +82,9 @@ extends AppBaseActivity
 		
 		String title = inState.getString(TITLE_BUNDLE_KEY);
 		String detail = inState.getString(DETAIL_BUNDLE_KEY);
-		String tags = inState.getString(TAGS_BUNDLE_KEY);
 		
 		if (title != null) titleEntry.setText(title);
 		if (detail != null) detailEntry.setText(detail);
-		if (tags != null) tagEntry.setText(tags);
 	}
 	
 	@Override
@@ -95,6 +99,25 @@ extends AppBaseActivity
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		switch (requestCode)
+		{
+		case (ComposeQuestionActivity.IMAGE_REQUEST_CODE):
+			if (resultCode == RESULT_OK)
+			{
+				imgView = (ImageView) this.findViewById(R.id.compose_img_preview);
+				imgView.setImageDrawable(Drawable.createFromPath(imageFileUri.getPath()));
+			}
+			break;
+			
+		default:
+			super.onActivityResult(requestCode, resultCode, data);
+			break;
+		}		
 	}
 
 	/**
@@ -124,7 +147,6 @@ extends AppBaseActivity
 	{
 		titleEntry  = (EditText) this.findViewById(R.id.compose_title_entry);
 		detailEntry = (EditText) this.findViewById(R.id.compose_desc_entry);
-		tagEntry    = (EditText) this.findViewById(R.id.compose_tags_entry);
 		
 		addImageButton = (ImageButton) this.findViewById(R.id.compose_add_img_button);
 		acceptButton   = (ImageButton) this.findViewById(R.id.compose_accept_button);
@@ -151,6 +173,7 @@ extends AppBaseActivity
 			}
 		});
 		
+		/*
 		detailEntry.setOnEditorActionListener(new TextView.OnEditorActionListener()
 		{			
 			@Override
@@ -163,14 +186,18 @@ extends AppBaseActivity
 				}
 				return false;
 			}
-		});
+		});//*/
 		
 		addImageButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
 			{
-				// TODO: Send intent for content.
+				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+		        intent.setAction(Intent.ACTION_GET_CONTENT);
+		        intent.addCategory(Intent.CATEGORY_OPENABLE);
+		        startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
 			}
 		});
 		
@@ -269,8 +296,6 @@ extends AppBaseActivity
 				.getText().toString();
 		detail = ((EditText) findViewById(R.id.compose_desc_entry))
 				.getText().toString();
-		tags = ((EditText) findViewById(R.id.compose_tags_entry))
-				.getText().toString();
 	}
 	
 	private boolean isInputValid()
@@ -298,5 +323,27 @@ extends AppBaseActivity
 		}
 		
 		return true;
+	}
+	
+	private void getPhoto()
+	{
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+		String folder = Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/tmp";
+		File folderF = new File(folder);
+		if (!folderF.exists())
+		{
+			folderF.mkdir();
+		}
+
+		String imageFilePath = folder + "/"
+				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
+		File imageFile = new File(imageFilePath);
+		imageFileUri = Uri.fromFile(imageFile);
+
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+		
+		startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
 	}
 }

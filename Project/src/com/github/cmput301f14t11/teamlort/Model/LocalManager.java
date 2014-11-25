@@ -75,7 +75,7 @@ public class LocalManager
 	 */
 	public void saveProfile(Profile saveMe)
 	{
-		saveObject(saveMe, FILE_PATH + PROFILE_FILE + FILE_EXT);
+		saveObject(saveMe, FILE_PATH + PROFILE_FILE + saveMe.getUsername() + FILE_EXT);
 	}
 
 	/**
@@ -97,9 +97,9 @@ public class LocalManager
 	 * Loads the profile saved on the device.
 	 * @return The loaded profile.
 	 */
-	public Profile loadProfile()
+	public Profile loadProfile(String username)
 	{
-		Profile prof = (Profile) loadObject(FILE_PATH + PROFILE_FILE + FILE_EXT);
+		Profile prof = (Profile) loadObject(FILE_PATH + PROFILE_FILE + username + FILE_EXT);
 		if (prof == null) prof = new Profile();
 		
 		return prof;

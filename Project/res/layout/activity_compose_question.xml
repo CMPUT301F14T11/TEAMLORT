@@ -69,7 +69,7 @@
             android:gravity="center" >
 
             <ImageView
-                android:id="@+id/imageView1"
+                android:id="@+id/compose_img_preview"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
                 android:layout_margin="@dimen/activity_margin"

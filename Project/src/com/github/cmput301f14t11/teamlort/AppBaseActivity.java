@@ -94,11 +94,12 @@ public class AppBaseActivity extends Activity
 		
 		case (R.id.action_geolocation):
 			Intent settingsintent = new Intent(this,SettingsActivity.class);
-			
 			startActivity(settingsintent);
 			return true;
 		
 		case (R.id.action_about):
+			AlertDialog.Builder about = buildabout();
+			alertDialog = about.show();
 			return true;
 		
 		default:
@@ -168,7 +169,22 @@ public class AppBaseActivity extends Activity
 		});
 		return alert;
 	}
-	
+	protected AlertDialog.Builder buildabout() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("About this App");
+		alert.setMessage("Beta 1.0 - Team LORT, Nov/2014");
+		alert.setPositiveButton("Got it", new DialogInterface.OnClickListener() 
+		{
+		
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				
+				
+			}
+		});
+		return alert;
+	}
 	/**
 	 * Auxiliary method that retrieves layout resources. Used on activity
 	 * creation.

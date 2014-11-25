@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 
@@ -72,21 +73,40 @@ public class PushQueue {
 	}
 	
 	private void pushQuestion(Question question) {
+		em.deleteItem(question.getID());
 		em.addItem(question);
 		
 	}
 		
 	public void pushAnswer(int questionID,Answer answer, Context c)
 	{
+		
 		if (NetworkListener.checkConnection(c))
-		{
-			chosenQuestion =  em.getItem(questionID);
-			chosenAnswerList = chosenQuestion.getAnswerList();
-			if (!chosenAnswerList.contains(answer))
-			{
-				chosenAnswerList.add(answer);
-				chosenQuestion.setAnswerList(chosenAnswerList);
+		{	
+			Log.i("LORTANSWERS","ANSWER ADDED1111111");
+			
+			SearchThread search = new SearchThread("*",em);
+			search.start();
+			search.run();
+			chosenQuestion =  search.returnquestion();
+			
+			if (chosenQuestion == null){
+				Log.i("LORTANSWERS","QUESTION IS NULL");
 			}
+			if (chosenQuestion != null){
+				Log.i("LORTANSWERS","QUESTION IS not NULL");
+			}
+			chosenQuestion.setAnswerList();
+			chosenQuestion.getAnswerList().add(answer);
+			//Log.i("LORTANSWERS","SIZE OF ANSWERLIST: "+.size());
+			Log.i("LORTANSWERS","ANSWER");
+			//chosenAnswerList.add(answer);
+			
+			//chosenQuestion.setAnswerList(chosenAnswerList);
+//			if (!chosenAnswerList.contains(answer))
+//			{
+//				
+//			}
 			pushQuestion(chosenQuestion);
 		}
 		else
@@ -147,6 +167,29 @@ public class PushQueue {
 //		
 //		pushList.clear();
 //	}
+	class SearchThread extends Thread
+	{
+		String string;
+		ElasticManager e;
+		Question q;
+		public SearchThread(String s,ElasticManager em)
+		{
+			string = s;
+			e= em;
+		}
+		public void run() 
+		{
+			// TODO Auto-generated method stub
+			//
+			Log.i("LORTANSWERS","BEFORESEARCH");
+			q = e.search(string, "ID",50).get(0);
+			Log.i("LORTANSWERS","AFTERSEARCH");
 
+		}
+		public Question returnquestion()
+		{
+			return q;
+		}
+	}
 	
 }

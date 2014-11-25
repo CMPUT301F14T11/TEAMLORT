@@ -42,6 +42,7 @@ extends AppBaseActivity
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
 	
 	private String title, detail;
+	private Drawable pic = null;
 	private Uri imageFileUri;
 	
 	private Profile usrProfile;
@@ -219,35 +220,7 @@ extends AppBaseActivity
 		});
 	}
 	
-	private Runnable doFinishAdd = new Runnable() {
-		public void run() {
-			finish();
-		}
-	};
-	class AddThread extends Thread {
-		private Question question;
 
-		public AddThread(Question question) {
-			this.question = question;
-		}
-
-		@Override
-		public void run() {
-			Log.i("LORTANSWERS",usrProfile.getUsername());
-			
-			//PushQueue.getInstance().addQuestionToQueue(question, getApplicationContext());
-
-			qController.addQuestion(question);
-			// Give some time to get updated info
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			runOnUiThread(doFinishAdd);
-		}
-	}
 	/**
 	 * Auxiliary method.
 	 * When the user clicks Accept, put everything together and send it to the controller.
@@ -264,6 +237,9 @@ extends AppBaseActivity
 				usrProfile.getUsername(),
 				usrProfile.getLocation()
 				);
+		
+		if (pic != null)
+			question.addPicture(pic);
 		
 		//qController.addQuestion(question);
 		Log.i("LORTANSWERS",""+question.getAnswerList().size());
@@ -295,6 +271,8 @@ extends AppBaseActivity
 				.getText().toString();
 		detail = ((EditText) findViewById(R.id.compose_desc_entry))
 				.getText().toString();
+		
+		pic = ((ImageView) findViewById(R.id.compose_img_preview)).getDrawable();
 	}
 	
 	private boolean isInputValid()
@@ -344,5 +322,36 @@ extends AppBaseActivity
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
 		
 		startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
+	}
+	
+	private Runnable doFinishAdd = new Runnable() {
+		public void run() {
+			finish();
+		}
+	};
+	class AddThread
+	extends Thread {
+		private Question question;
+
+		public AddThread(Question question) {
+			this.question = question;
+		}
+
+		@Override
+		public void run() {
+			Log.i("LORTANSWERS",usrProfile.getUsername());
+			
+			//PushQueue.getInstance().addQuestionToQueue(question, getApplicationContext());
+
+			qController.addQuestion(question);
+			// Give some time to get updated info
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			runOnUiThread(doFinishAdd);
+		}
 	}
 }

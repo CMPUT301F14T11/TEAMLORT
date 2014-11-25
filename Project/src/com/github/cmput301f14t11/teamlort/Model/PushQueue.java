@@ -16,6 +16,9 @@ public class PushQueue {
 	private static PushQueue pushQueue = null;
 	private ArrayList<Question> pushList = new ArrayList<Question>();
 	//private static Profile profile;
+	private ArrayList<PushItem> answerList = new ArrayList<PushItem>();
+	private ArrayList<PushItem> answerReplyList = new ArrayList<PushItem>();
+	private ArrayList<PushItem> questionReplyList = new ArrayList<PushItem>();
 	private static ProfileController pc = new ProfileController();
 	private ElasticManager em = ElasticManager.getInstance();
 	/**

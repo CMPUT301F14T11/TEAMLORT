@@ -88,12 +88,13 @@ public class AppBaseActivity extends Activity
 			return true;
 		
 		case (R.id.action_login):
-		AlertDialog.Builder alert = buildlogin();
-		alertDialog = alert.show();
+			AlertDialog.Builder alert = buildlogin();
+			alertDialog = alert.show();
 			return true;
 		
-		case (R.id.action_settings):
+		case (R.id.action_geolocation):
 			Intent settingsintent = new Intent(this,SettingsActivity.class);
+			
 			startActivity(settingsintent);
 			return true;
 		

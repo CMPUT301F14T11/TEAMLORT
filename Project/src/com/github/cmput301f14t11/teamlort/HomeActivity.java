@@ -196,7 +196,6 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 			// TODO Auto-generated method stub
 			//
 			qlc.getQuestionlist().getModellist().addAll(qlc.getElc().search(search, null,from));
-			
 			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
 				runOnUiThread(doUpdateGUIList);
 			}

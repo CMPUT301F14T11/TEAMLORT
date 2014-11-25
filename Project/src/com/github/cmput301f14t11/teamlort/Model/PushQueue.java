@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.widget.Toast;
+import android.util.Log;
 
 //import com.github.cmput301f14t11.teamlort.AddThread;
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
@@ -23,6 +24,10 @@ public class PushQueue {
 	private ArrayList<PushItemReply> questionReplyList = new ArrayList<PushItemReply>();
 	private static ProfileController pc = new ProfileController();
 	private ElasticManager em = ElasticManager.getInstance();
+	private Question chosenQuestion = null;
+	private ArrayList<Answer> chosenAnswerList = null; 
+	private ArrayList<Reply> chosenAnswerReplyList = null;
+	private ArrayList<Reply> chosenQuestionRelayList = null;
 	/**
 	 * @return The {@link PushQueue} singleton instance.
 	 */
@@ -65,7 +70,6 @@ public class PushQueue {
 		
 		else
 		{
-			//LocalManager.getManager().saveQuestions(pushList);
 			pc.addTempQuestion(addMe);
 		}
 	}

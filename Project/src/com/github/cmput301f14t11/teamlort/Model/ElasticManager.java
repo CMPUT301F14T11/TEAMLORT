@@ -64,21 +64,23 @@ public class ElasticManager {
 	 * @return
 	 */
 	public Question getItem(int id) {
-
+		Log.i("LORTANSWERS","ID: "+id);
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(serverAddress + id);
 
 		HttpResponse response;
-
+		Log.i("LORTANSWERS", "BEFORE TRY");
 		try {
+			Log.i("LORTANSWERS","in try");
 			response = httpClient.execute(httpGet);
 			Elasticitem<Question> sr = parseItem(response);
+			Log.i("LORTANSWERS","sr = "+sr.toString());
 			return sr.getSource();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-
+		
 		return null;
 	}
 
@@ -300,11 +302,18 @@ public class ElasticManager {
 	
 	private Elasticitem<Question> parseItem(HttpResponse response) {
 		
+		Log.i("LORTANSWERS"," TRY PARSEITEM");
 		try {
+			Log.i("LORTANSWERS","IN TRY PARSEITEM");
 			String json = getEntityContent(response);
 			Type searchHitType = new TypeToken<Elasticitem<Question>>() {}.getType();
 			
 			Elasticitem<Question> sr = gson.fromJson(json, searchHitType);
+			if(sr == null)
+			{
+				Log.i("LORTANSWERS","sr is null");
+			
+			}
 			return sr;
 		} 
 		catch (IOException e) {

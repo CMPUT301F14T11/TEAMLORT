@@ -17,9 +17,9 @@ implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	private String username = "";
-	private Location location = null;
-	private LocalManager localManager = LocalManager.getManager();
-	private boolean locationService = true;
+	private transient Location location = null;
+	private transient LocalManager localManager = LocalManager.getManager();
+	private transient boolean locationService = true;
 	
 	protected ArrayList<Question> savedQuestionList = new ArrayList<Question>();
 	protected ArrayList<Question> favedQuestionList = new ArrayList<Question>();

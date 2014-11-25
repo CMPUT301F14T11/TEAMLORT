@@ -89,8 +89,8 @@ extends AppBaseActivity
 		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
 		Button postAnswerButton = (Button) header.findViewById(R.id.post_answer_button);
 		final Button upVoteButton = (Button) header.findViewById(R.id.questionUpvoteButton);
-		ImageButton saveButton = (ImageButton) header.findViewById(R.id.save_button);
-		ImageButton favoriteButton = (ImageButton) header.findViewById(R.id.favorite_button);
+		final ImageButton saveButton = (ImageButton) header.findViewById(R.id.save_button);
+		final ImageButton favoriteButton = (ImageButton) header.findViewById(R.id.favorite_button);
 		
 		upVoteButton.setBackgroundColor(Color.GRAY);
 		upVoteButton.setText(String.valueOf(question.getScore()));
@@ -223,8 +223,13 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View v) {
 				// Adds to saved List
-				pc.addSavedQuestion(question);
-				Toast.makeText(getApplicationContext(), "Saved question.", Toast.LENGTH_SHORT).show();
+				if(pc.getProfile().getSavedQuestionList().contains(question)){
+					pc.removeSavedQuestion(question);
+					saveButton.setBackgroundResource(R.drawable.ic_action_favorite);
+				} else {
+					pc.addSavedQuestion(question);
+					saveButton.setBackgroundColor(Color.GREEN);
+				}
 			}
 			
 		});
@@ -233,8 +238,13 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View v) {
 				// Adds to favorite List
-				pc.addFavedQuestion(question);
-				Toast.makeText(getApplicationContext(), "Added question to favorites.", Toast.LENGTH_SHORT).show();
+				if(pc.getProfile().getFavedQuestionList().contains(question)){
+					pc.removeFavedQuestion(question);
+					favoriteButton.setBackgroundResource(R.drawable.ic_action_favorite);					
+				} else{
+					pc.addFavedQuestion(question);
+					favoriteButton.setBackgroundColor(Color.GREEN);
+				}	
 			}
 			
 		});

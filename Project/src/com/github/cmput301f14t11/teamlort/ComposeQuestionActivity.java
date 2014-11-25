@@ -194,11 +194,7 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View arg0)
 			{
-				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-		        intent.setAction(Intent.ACTION_GET_CONTENT);
-		        intent.addCategory(Intent.CATEGORY_OPENABLE);
-		        startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
+				ComposeQuestionActivity.this.getPhoto();
 			}
 		});
 		

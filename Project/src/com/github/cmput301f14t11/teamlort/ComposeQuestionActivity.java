@@ -237,7 +237,8 @@ extends AppBaseActivity
 		Question question = ObjectFactory.initQuestion(
 				title,
 				detail,
-				usrProfile.getUsername()
+				usrProfile.getUsername(),
+				usrProfile.getLocation()
 				);
 		
 		//qController.addQuestion(question);

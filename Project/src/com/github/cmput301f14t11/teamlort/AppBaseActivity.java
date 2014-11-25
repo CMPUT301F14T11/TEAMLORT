@@ -93,6 +93,8 @@ public class AppBaseActivity extends Activity
 			return true;
 		
 		case (R.id.action_settings):
+			Intent settingsintent = new Intent(this,SettingsActivity.class);
+			startActivity(settingsintent);
 			return true;
 		
 		case (R.id.action_about):

@@ -29,6 +29,8 @@ public class RepliableText extends TextPrimitive{
 	
 	private transient Listener listener;
 	
+	private Location location = null;
+	
 	/**
 	 * @return Returns the score of the question/answer
 	 */
@@ -122,4 +124,13 @@ public class RepliableText extends TextPrimitive{
 	public Reply getReply(int index) {
 		return replyList.get(index);
 	}
+	
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+	
+	public Location getLocation() {
+		return location;
+	}
+	
 }

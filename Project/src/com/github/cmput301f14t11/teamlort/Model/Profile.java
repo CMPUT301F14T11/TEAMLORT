@@ -17,7 +17,9 @@ implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	private String username = "";
+	private Location location = null;
 	private LocalManager localManager = LocalManager.getManager();
+	private boolean locationService = true;
 	
 	protected ArrayList<Question> savedQuestionList = new ArrayList<Question>();
 	protected ArrayList<Question> favedQuestionList = new ArrayList<Question>();
@@ -55,6 +57,27 @@ implements Serializable
 		else{			
 			return true;
 		}
+	}
+	
+	public void setLocation(double latitude, double longitude) {
+		if(getLocationService()) {
+			this.location = new Location(latitude, longitude);
+		}
+		else {
+			this.location = null;
+		}
+	}
+	
+	public Location getLocation() {
+		return location;
+	}
+	
+	public void setLocationServices(boolean status) {
+		this.locationService = status;
+	}
+	
+	public boolean getLocationService() {
+		return locationService;
 	}
 	
 	/**
@@ -100,7 +123,7 @@ implements Serializable
 	public ArrayList<Question> getTestQuestionList(int index){
 		ArrayList<Question> testQuestionList = new ArrayList<Question>();
 		for (int i = 0; i<5; i++){
-			testQuestionList.add(ObjectFactory.initQuestion("Title" + index, "Body"+ index, "author"+ index));
+			testQuestionList.add(ObjectFactory.initQuestion("Title" + index, "Body"+ index, "author"+ index, location));
 		}
 		return testQuestionList;
 	}

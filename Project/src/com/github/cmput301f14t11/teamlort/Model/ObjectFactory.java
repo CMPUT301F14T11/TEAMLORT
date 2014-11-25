@@ -18,17 +18,18 @@ public class ObjectFactory {
 		
 	}
 	
-	public static Question initQuestion(String title, String body, String author){
+	public static Question initQuestion(String title, String body, String author, Location location){
 		Question question = new Question();
 		
 		question.setTitle(title);
 		question.setBody(body);
 		question.setAuthor(author);
 		question.setID();
+		question.setLocation(location);
 		return question;
 	}
 	
-	public static Question initQuestion(String title, String body, String author, Drawable image){
+	public static Question initQuestion(String title, String body, String author, Location location, Drawable image){
 		//An overload that takes in an image
 		Question question = new Question();
 		

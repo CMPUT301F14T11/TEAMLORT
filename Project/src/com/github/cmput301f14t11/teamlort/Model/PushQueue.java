@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 
@@ -21,6 +22,10 @@ public class PushQueue {
 	private ArrayList<PushItemReply> questionReplyList = new ArrayList<PushItemReply>();
 	private static ProfileController pc = new ProfileController();
 	private ElasticManager em = ElasticManager.getInstance();
+	private Question chosenQuestion = null;
+	private ArrayList<Answer> chosenAnswerList = null; 
+	private ArrayList<Reply> chosenAnswerReplyList = null;
+	private ArrayList<Reply> chosenQuestionRelayList = null;
 	/**
 	 * @return The {@link PushQueue} singleton instance.
 	 */
@@ -63,18 +68,100 @@ public class PushQueue {
 		
 		else
 		{
-			//LocalManager.getManager().saveQuestions(pushList);
 			pc.addTempQuestion(addMe);
 		}
 	}
 	
-	public void pushQuestions()
+	private void pushQuestion(Question question) {
+		em.deleteItem(question.getID());
+		em.addItem(question);
+		
+	}
+		
+	public void pushAnswer(int questionID,Answer answer, Context c)
 	{
-		for (Question q : pushList)
+		
+		if (NetworkListener.checkConnection(c))
+		{	
+			Log.i("LORTANSWERS","ANSWER ADDED1111111");
+			Location l= new Location(0,0);
+			//chosenQuestion = ObjectFactory.initQuestion(em.getItem(questionID).getTitle(), em.getItem(questionID).getBody(), em.getItem(questionID).getAuthor(),l);
+			
+			if (chosenQuestion == null){
+				Log.i("LORTANSWERS","QUESTION IS NULL");
+			}
+			if (chosenQuestion != null){
+				Log.i("LORTANSWERS","QUESTION IS not NULL");
+			}
+			chosenQuestion.setAnswerList(new ArrayList<Answer>());
+			chosenQuestion.getAnswerList().add(answer);
+			//Log.i("LORTANSWERS","SIZE OF ANSWERLIST: "+.size());
+			Log.i("LORTANSWERS","ANSWER");
+			//chosenAnswerList.add(answer);
+			
+			//chosenQuestion.setAnswerList(chosenAnswerList);
+//			if (!chosenAnswerList.contains(answer))
+//			{
+//				
+//			}
+			pushQuestion(chosenQuestion);
+		}
+		else
 		{
-			em.addItem(q);
+			pc.addTempQuestion(chosenQuestion);
+		}
+	}
+	
+	public void pushQuestionReplyList(int questionID, Reply reply, Context c)
+	{
+		if (NetworkListener.checkConnection(c))
+		{
+			chosenQuestion = em.getItem(questionID);
+			chosenQuestionRelayList = chosenQuestion.getReplyList();
+			if (!chosenQuestionRelayList.contains(reply))
+			{
+				chosenAnswerReplyList.add(reply);
+			}
+		
+			pushQuestion(chosenQuestion);
+		}
+		else
+		{
+			pc.addTempQuestion(chosenQuestion);
+		}
+	}
+	
+	public void pushAnswerReplyList(int questionID, int answerID, Reply reply, Context c)
+	{
+		if (NetworkListener.checkConnection(c))
+		{		
+			chosenQuestion = em.getItem(questionID);
+			for(Answer a: chosenQuestion.getAnswerList())
+			{
+				if(a.getID() == answerID)
+				{
+					if (!a.getReplyList().contains(reply))
+					{
+						a.getReplyList().add(reply);
+					}
+				}
+			}
+			pushQuestion(chosenQuestion);
 		}
 		
-		pushList.clear();
+		else
+		{
+			pc.addTempQuestion(chosenQuestion);
+		}
 	}
 }
+	
+//	public void pushQuestions()
+//	{
+//		for (Question q : pushList)
+//		{
+//			em.addItem(q);
+//		}
+//		
+//		pushList.clear();
+//	}

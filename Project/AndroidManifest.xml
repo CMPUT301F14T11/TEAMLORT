@@ -78,7 +78,12 @@
 
         <activity
             android:name=".SettingsActivity"
+            android:parentActivityName=".HomeActivity"
             android:label="@string/title_activity_settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.cmput301f14t11.teamlort.HomeActivity" />
+       
         </activity>
     </application>
 

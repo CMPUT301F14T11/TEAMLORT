@@ -7,6 +7,7 @@ import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 
@@ -15,6 +16,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -54,6 +56,10 @@ extends AppBaseActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_view);
 		
+		//Set question title and description on GUI.
+		//question = pdm.get(questionID);
+		//TODO These are just temporary test question/answers/replies
+		//question = dt.initQuestion("testing", "testing", "sdfasfds");
 		final AppCache appCache = AppCache.getInstance();
 		question = appCache.getQuestion();
 		
@@ -66,6 +72,25 @@ extends AppBaseActivity
 				
 		ExpandableListView answerListView = (ExpandableListView) findViewById(R.id.answer_list_view);
 		LayoutInflater layoutInflater = getLayoutInflater();
+		
+		OnClickListener onClickListener = new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// Adds to favorite List
+				if(v.getId() == R.id.favorite_button)
+				{
+					pc.addFavedQuestion(question);
+					finish();
+				}
+				else if(v.getId() == R.id.save_button);
+				{
+					pc.addSavedQuestion(question);
+					finish();
+				}
+			}
+			
+		};
 		
 		//Setup the header
 		ViewGroup header = (ViewGroup) layoutInflater.inflate(R.layout.question_view_header, answerListView, false);
@@ -83,8 +108,6 @@ extends AppBaseActivity
 		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
 		Button postAnswerButton = (Button) header.findViewById(R.id.post_answer_button);
 		final Button upVoteButton = (Button) header.findViewById(R.id.questionUpvoteButton);
-		ImageButton saveButton = (ImageButton) header.findViewById(R.id.save_button);
-		ImageButton favoriteButton = (ImageButton) header.findViewById(R.id.favorite_button);
 		
 		upVoteButton.setBackgroundColor(Color.GRAY);
 		upVoteButton.setText(String.valueOf(question.getScore()));
@@ -131,17 +154,24 @@ extends AppBaseActivity
 			
 			@Override
 			public void onClick(View v) {
+				// TODO Auto-generated method stub
 				TextView answerText = (TextView) findViewById(R.id.answerEditText);
 				if (answerText.getText().length() == 0) {
 					Toast.makeText(getBaseContext(), "No empty questions", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				Answer answer = new Answer();
-				answer.setBody(answerText.getText().toString());
-				answer.setAuthor(appCache.getProfile().getUsername());
+				
+				Answer answer = ObjectFactory.initAnswer(answerText.getText().toString(), appCache.getProfile().getUsername());
+				//answer.setBody(answerText.getText().toString());
+				//answer.setAuthor(appCache.getProfile().getUsername());
 				question.addAnswer(answer); 
 				answerText.setText("");
 				answerAdapter.notifyDataSetChanged();
+				//
+					
+					PushQueue.getInstance().pushAnswer(question.getID(), answer, getApplicationContext());
+				//
+				
 				//Toast.makeText(getBaseContext(), "Added Question", Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -189,6 +219,7 @@ extends AppBaseActivity
 			
 			@Override
 			public void onClick(View v) {
+				// TODO Auto-generated method stub
 				if(question.getVoterSet().contains(question.getAuthor())){
 					question.unVote(question.getAuthor());
 					upVoteButton.setText(String.valueOf(question.getScore()));
@@ -200,26 +231,6 @@ extends AppBaseActivity
 					upVoteButton.setBackgroundColor(Color.GREEN);
 				}
 			}
-		});
-		saveButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// Adds to saved List
-				pc.addSavedQuestion(question);
-				Toast.makeText(getApplicationContext(), "Saved question.", Toast.LENGTH_SHORT).show();
-			}
-			
-		});
-		favoriteButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// Adds to favorite List
-				pc.addFavedQuestion(question);
-				Toast.makeText(getApplicationContext(), "Added question to favorites.", Toast.LENGTH_SHORT).show();
-			}
-			
 		});
 
 	}

@@ -60,4 +60,8 @@ public class Question extends RepliableText{
 	public void deleteAnswer(Answer answer) {
 		answerList.remove(answer);
 	}
+	public void setAnswerList(ArrayList<Answer> arrayList) {
+		// TODO Auto-generated method stub
+		this.answerList= arrayList;
+	}
 }

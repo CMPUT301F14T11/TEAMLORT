@@ -52,16 +52,6 @@
             android:text="@string/listitem_question_stats"
             android:textColor="@color/light_text"
             android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/reply_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/reply_time"
-            android:layout_alignParentRight="true"
-            android:paddingRight="20dp"
-            android:text="@string/listitem_answer_author"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
         
         <TextView
             android:id="@+id/location_text_view_reply"
@@ -70,6 +60,16 @@
             android:layout_below="@+id/reply_time"
             android:layout_marginLeft="14dp"
             android:text="@string/location_placeholder" />
+
+        <TextView
+            android:id="@+id/reply_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/reply_time"
+            android:paddingRight="20dp"
+            android:text="@string/listitem_answer_author"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
 

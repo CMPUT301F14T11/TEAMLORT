@@ -85,6 +85,7 @@ public class PushQueue {
 			if (!chosenAnswerList.contains(answer))
 			{
 				chosenAnswerList.add(answer);
+				chosenQuestion.setAnswerList(chosenAnswerList);
 			}
 			pushQuestion(chosenQuestion);
 		}

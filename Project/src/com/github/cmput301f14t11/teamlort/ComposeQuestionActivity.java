@@ -6,6 +6,7 @@ import java.io.File;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -241,28 +242,11 @@ extends AppBaseActivity
 		if (pic != null)
 			question.addPicture(pic);
 		
-		//qController.addQuestion(question);
-		Log.i("LORTANSWERS",""+question.getAnswerList().size());
-		
-		PushQueue.getInstance().pushQuestion(question, getApplicationContext());
-		//Thread thread = new AddThread(question);
-		//thread.start();
+		//PushQueue.getInstance().pushQuestion(question, getApplicationContext());
+		//new SubmitNewQuestion().execute(question);
 		
 		this.setResult(RESULT_OK);
 		this.finish();
-		
-		/*
-		Toast.makeText(getApplicationContext(), "question id is "+question.getID(), Toast.LENGTH_SHORT).show();
-		Thread thread = new AddThread(question);
-		if(NetworkListener.checkConnection(getApplicationContext())==true)
-		{
-			Toast.makeText(getApplicationContext(), "wifi on", Toast.LENGTH_SHORT).show();
-			thread.start();
-		}
-		else
-		{
-			Toast.makeText(getApplicationContext(), "no wifi", Toast.LENGTH_SHORT).show();
-		}*/
 	}
 	
 	private void getInputFields()
@@ -324,34 +308,14 @@ extends AppBaseActivity
 		startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
 	}
 	
-	private Runnable doFinishAdd = new Runnable() {
-		public void run() {
-			finish();
-		}
-	};
-	class AddThread
-	extends Thread {
-		private Question question;
-
-		public AddThread(Question question) {
-			this.question = question;
-		}
-
+	private class SubmitNewQuestion
+	extends AsyncTask<Question, Void, Void>
+	{
 		@Override
-		public void run() {
-			Log.i("LORTANSWERS",usrProfile.getUsername());
-			
-			//PushQueue.getInstance().addQuestionToQueue(question, getApplicationContext());
-
-			qController.addQuestion(question);
-			// Give some time to get updated info
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			runOnUiThread(doFinishAdd);
+		protected Void doInBackground(Question... args)
+		{
+			qController.addQuestion(args[0]);
+			return null;
 		}
 	}
 }

@@ -3,14 +3,6 @@ package com.github.cmput301f14t11.teamlort;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.github.cmput301f14t11.teamlort.ComposeQuestionActivity.AddThread;
-import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
-import com.github.cmput301f14t11.teamlort.Model.AppCache;
-import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
-import com.github.cmput301f14t11.teamlort.Model.Profile;
-import com.github.cmput301f14t11.teamlort.Model.Question;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,9 +11,11 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.Profile;
 
 public class SettingsActivity extends AppBaseActivity implements Observer {
 

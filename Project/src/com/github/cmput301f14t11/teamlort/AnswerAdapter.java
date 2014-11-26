@@ -161,6 +161,14 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_comment_count.setText(String.valueOf(answer.getReplyList().size()) + " comments");
 			answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
 			
+			if(answer.getVoterSet().contains(answer.getAuthor())){
+				answerViewHolder.upvoteButton.setBackgroundColor(Color.GREEN);
+			}
+			else {
+				answerViewHolder.upvoteButton.setBackgroundColor(Color.GRAY);
+
+			}
+			
 			final View finalConvertView = convertView;
 			answerViewHolder.upvoteButton.setOnClickListener( new View.OnClickListener() {
 				

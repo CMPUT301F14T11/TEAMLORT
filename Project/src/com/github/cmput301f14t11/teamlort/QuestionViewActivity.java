@@ -1,6 +1,8 @@
 package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
@@ -92,7 +94,15 @@ extends AppBaseActivity
 		final ImageButton saveButton = (ImageButton) header.findViewById(R.id.save_button);
 		final ImageButton favoriteButton = (ImageButton) header.findViewById(R.id.favorite_button);
 		
-		upVoteButton.setBackgroundColor(Color.GRAY);
+		Collections.sort(answerList, new AnswerComparator());
+		
+		if(question.getVoterSet().contains(question.getAuthor())){
+			upVoteButton.setBackgroundColor(Color.GREEN);
+		}
+		else {
+			upVoteButton.setBackgroundColor(Color.GRAY);
+		}
+			
 		upVoteButton.setText(String.valueOf(question.getScore()));
 		replyAdapter = new ReplyAdapter(questionReplyList, this);
 		QuestionReplyListView.setAdapter(replyAdapter);
@@ -285,6 +295,15 @@ extends AppBaseActivity
         listView.setLayoutParams(layoutParams);
         listView.requestLayout();
     }
+	//custom sorting method for answer scores
+	public class AnswerComparator implements Comparator<Answer> {
+
+		@Override
+		public int compare(Answer b, Answer a) {
+			// TODO Auto-generated method stub
+			return a.getScore() - b.getScore();
+		}
+	}
 	
 }
 

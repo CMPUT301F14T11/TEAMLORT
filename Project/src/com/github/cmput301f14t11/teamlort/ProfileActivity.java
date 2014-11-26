@@ -4,16 +4,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
-import com.github.cmput301f14t11.teamlort.Model.AppCache;
-import com.github.cmput301f14t11.teamlort.Model.NetworkListener;
-import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
-import com.github.cmput301f14t11.teamlort.Model.Profile;
-import com.github.cmput301f14t11.teamlort.Model.Question;
-
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,10 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.Question;
 
 
 /**
@@ -37,9 +33,6 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	ArrayList<Question> displayQuestionList = new ArrayList<Question>();
 	ListView lv;
     AlertDialog alertDialog = null;
-    //
-    
-    
 
     static final int FAVORITE_QUESTION_VIEW = 1;
     static final int SAVE_QUESTION_VIEW = 2;
@@ -78,33 +71,32 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 		adapter = new customadapter(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 		lv = (ListView) findViewById(R.id.ProfileQuestionListView);
 		lv.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
-			{
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					// TODO Auto-generated method stub
-					//JUMP TO QUESTION VIEW,FILLING DATA ACCORDING TO QUESTION ID - NEED MORE DISCUSSION
-					Intent intent = new Intent(getApplicationContext(),QuestionViewActivity.class);
-					AppCache appCache = AppCache.getInstance();
-					appCache.setQuestion((Question) adapter.getItem(position));
-					//Single_Home_Question holder = (Single_Home_Question) view.getTag();
-					//Question temp = (Question) holder.title.getTag();
-					//intent.putExtra("position", position);
-					//intent.putExtra("id", 0);// corrected the id confusion as requested - Sam
-					startActivity(intent);
-					
-				}
+		{
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				//JUMP TO QUESTION VIEW,FILLING DATA ACCORDING TO QUESTION ID - NEED MORE DISCUSSION
+				Intent intent = new Intent(getApplicationContext(),QuestionViewActivity.class);
+				AppCache appCache = AppCache.getInstance();
+				appCache.setQuestion((Question) adapter.getItem(position));
+				//Single_Home_Question holder = (Single_Home_Question) view.getTag();
+				//Question temp = (Question) holder.title.getTag();
+				//intent.putExtra("position", position);
+				//intent.putExtra("id", 0);// corrected the id confusion as requested - Sam
+				startActivity(intent);
 				
-			});
+			}
+			
+		});
 		lv.setAdapter(adapter);
 		
 		TextView tv = (TextView) findViewById(R.id.UsernameTitleTextView);
-		if(appCache.getInstance().getProfile().getUsername()==null){
+		if(AppCache.getInstance().getProfile().getUsername()==null){
 			tv.setText("Guest");
 		}
 		else{
-		tv.setText(appCache.getInstance().getProfile().getUsername());
+		tv.setText(AppCache.getInstance().getProfile().getUsername());
 		}
 		
 	}

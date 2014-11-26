@@ -18,7 +18,7 @@ implements Serializable
 
 	private String username = "";
 	private transient Location location = null;
-	private transient LocalManager localManager = LocalManager.getManager();
+	//private transient LocalManager localManager = LocalManager.getManager();
 	private transient boolean locationService = true;
 	
 	protected ArrayList<Question> savedQuestionList = new ArrayList<Question>();
@@ -97,8 +97,8 @@ implements Serializable
 	 * @return a question list that is added favorite by current user.
 	 */
 	public ArrayList<Question> getFavedQuestionList(){
-		//return favedQuestionList;
-		return localManager.loadProfile(AppCache.getInstance().getProfile().getUsername()).getFavedQuestionList();
+		return favedQuestionList;
+		//return localManager.loadProfile(AppCache.getInstance().getProfile().getUsername()).getFavedQuestionList();
 	}
 	
 	/**
@@ -127,6 +127,4 @@ implements Serializable
 		}
 		return testQuestionList;
 	}
-	
-
 }

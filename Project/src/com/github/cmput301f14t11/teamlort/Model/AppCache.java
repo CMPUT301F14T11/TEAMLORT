@@ -1,5 +1,7 @@
 package com.github.cmput301f14t11.teamlort.Model;
 
+import java.util.Date;
+
 /**
  * Singleton for passing around one {@link Question} and one {@link Profile}.
  * 
@@ -14,7 +16,8 @@ public class AppCache {
 	/**
 	 * @return The {@link AppCache} singleton instance.
 	 */
-	public static AppCache getInstance(){
+	public static AppCache getInstance()
+	{
 		if (appCache == null){
 			appCache = new AppCache();
 		}
@@ -56,4 +59,22 @@ public class AppCache {
 		return profile;
 	}
 	
+	/**
+	 * Loads the last used profile on the device. If no such profile exists,
+	 * creates a new Profile with username Guest plus a random number.
+	 * @author Brandon Yue
+	 */
+	public void InitProfile()
+	{
+		Profile p = LocalManager.getManager().loadProfile();
+		
+		if (p == null)
+		{
+			p = new Profile();
+			p.setUsername("Guest" + (new Date()).hashCode());
+			LocalManager.getManager().saveProfileToDefault(p);
+		}
+		
+		this.profile = p;
+	}
 }

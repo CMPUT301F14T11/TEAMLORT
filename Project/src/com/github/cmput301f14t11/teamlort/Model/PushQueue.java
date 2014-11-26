@@ -6,8 +6,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
-
 /**
  * Singleton for creating a list of questions that were made without network access to the app to be pushed
  * 
@@ -19,8 +17,8 @@ public class PushQueue {
 	private ArrayList<PushItemAnswer> answerList = new ArrayList<PushItemAnswer>();
 	private ArrayList<PushItemReply> answerReplyList = new ArrayList<PushItemReply>();
 	private ArrayList<PushItemReply> questionReplyList = new ArrayList<PushItemReply>();
-	private static ProfileController pc = new ProfileController();
-	private ElasticManager em = ElasticManager.getInstance();
+//	private static ProfileController pc = new ProfileController();
+//	private ElasticManager em = ElasticManager.getInstance();
 
 	/**
 	 * @return The {@link PushQueue} singleton instance.
@@ -32,10 +30,11 @@ public class PushQueue {
 		return pushQueue;
 	}
 	
-	public void pushQuestion(Question question, Context c){
-		if(NetworkListener.checkConnection(c)){
-			Thread thread = new AddThread(question); 
-			thread.start();
+	public void pushQuestion(Question question, Context c)
+	{
+		if(NetworkListener.checkConnection(c))
+		{
+			new PushQuestions().execute(question);
 		}
 		else{
 			questionList.add(question);
@@ -46,9 +45,9 @@ public class PushQueue {
 	
 	public void pushAnswer(int questionID, Answer answer, Context c)
 	{
-		if(NetworkListener.checkConnection(c)){
-			Thread thread = new AddThread(questionID,answer); 
-			thread.start();
+		if(NetworkListener.checkConnection(c))
+		{
+			new PushAnswers().execute(new PushItemAnswer(answer, questionID));
 		}
 		else{
 			answerList.add(new PushItemAnswer(answer,questionID));
@@ -56,44 +55,38 @@ public class PushQueue {
 		}
 	}
 	
-	public void pushQuestionReply(int questionID, Reply r, Context c){
-		if(NetworkListener.checkConnection(c)){
-			Thread thread = new AddThread(questionID,r); 
-			thread.start();
+	public void pushQuestionReply(int questionID, Reply reply, Context c){
+		if(NetworkListener.checkConnection(c))
+		{
+			new PushQuestionReplies().execute(new PushItemReply(reply, questionID));
 		}
 		else{
-			questionReplyList.add(new PushItemReply(r, questionID));
+			questionReplyList.add(new PushItemReply(reply, questionID));
 			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
-	public void pushAnswerReply(int questionID, int answerID, Reply r, Context c){
-		if(NetworkListener.checkConnection(c)){
-			Thread thread = new AddThread(questionID,answerID,r); 
-			thread.start();
+	public void pushAnswerReply(int questionID, int answerID, Reply reply, Context c){
+		if(NetworkListener.checkConnection(c))
+		{
+			new PushAnswerReplies().execute(new PushItemReply(reply, questionID, answerID));
 		}
 		else{
-			answerReplyList.add(new PushItemReply(r, questionID, answerID));
+			answerReplyList.add(new PushItemReply(reply, questionID, answerID));
 			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	public void pushAll()
 	{
-		// Ensure thread safety
-		ArrayList<Question> qListCopy =       (ArrayList<Question>) questionList.clone(); 
-		ArrayList<PushItemAnswer> aListCopy = (ArrayList<PushItemAnswer>) answerList.clone();
-		ArrayList<PushItemReply> qrListCopy = (ArrayList<PushItemReply>) questionReplyList.clone();
-		ArrayList<PushItemReply> arListCopy = (ArrayList<PushItemReply>) answerReplyList.clone();
-		
-		new PushQuestions().execute(qListCopy);
-		new PushAnswers().execute(aListCopy);
-		new PushQuestionReplies().execute(arListCopy);
-		new PushAnswerReplies().execute(qrListCopy);
+		new PushQuestions().execute(questionList.toArray(new Question[questionList.size()]));
+		new PushAnswers().execute(answerList.toArray(new PushItemAnswer[answerList.size()]));
+		new PushQuestionReplies().execute(questionReplyList.toArray(new PushItemReply[questionReplyList.size()]));
+		new PushAnswerReplies().execute(answerReplyList.toArray(new PushItemReply[answerReplyList.size()]));
 	}
 	
 	private class PushQuestions
-	extends AsyncTask<ArrayList<Question>, Void, Void>
+	extends AsyncTask<Question, Void, Void>
 	{	
 		@Override
 		protected void onPreExecute()
@@ -103,9 +96,9 @@ public class PushQueue {
 		}
 		
 		@Override
-		protected Void doInBackground(ArrayList<Question>... params)
+		protected Void doInBackground(Question... params)
 		{
-			for (Question question : params[0])
+			for (Question question : params)
 			{
 				ElasticManager.getInstance().addItem(question);
 			}
@@ -113,7 +106,7 @@ public class PushQueue {
 		}
 	}
 	private class PushAnswers
-	extends AsyncTask<ArrayList<PushItemAnswer>, Void, Void>
+	extends AsyncTask<PushItemAnswer, Void, Void>
 	{
 		@Override
 		protected void onPreExecute()
@@ -123,17 +116,19 @@ public class PushQueue {
 		}
 		
 		@Override
-		protected Void doInBackground(ArrayList<PushItemAnswer>... params)
+		protected Void doInBackground(PushItemAnswer... params)
 		{
-			for (PushItemAnswer answer : params[0])
+			for (PushItemAnswer answer : params)
 			{
-				// Do something with each answer
+				Question question = ElasticManager.getInstance().getItem(answer.getQuestionID());
+				question.getAnswerList().add(answer.getPushItem());
+				ElasticManager.getInstance().addItem(question);
 			}
 			return null;
 		}
 	}
 	private class PushQuestionReplies
-	extends AsyncTask<ArrayList<PushItemReply>, Void, Void>
+	extends AsyncTask<PushItemReply, Void, Void>
 	{
 		@Override
 		protected void onPreExecute()
@@ -143,17 +138,19 @@ public class PushQueue {
 		}
 		
 		@Override
-		protected Void doInBackground(ArrayList<PushItemReply>... params)
+		protected Void doInBackground(PushItemReply... params)
 		{
-			for (PushItemReply reply : params[0])
+			for (PushItemReply reply : params)
 			{
-				// Do something with each reply
+				Question question = ElasticManager.getInstance().getItem(reply.getQuestionID());
+				question.getReplyList().add(reply.getPushItem());
+				ElasticManager.getInstance().addItem(question);
 			}
 			return null;
 		}
 	}
 	private class PushAnswerReplies
-	extends AsyncTask<ArrayList<PushItemReply>, Void, Void>
+	extends AsyncTask<PushItemReply, Void, Void>
 	{
 		@Override
 		protected void onPreExecute()
@@ -163,18 +160,24 @@ public class PushQueue {
 		}
 		
 		@Override
-		protected Void doInBackground(ArrayList<PushItemReply>... params)
+		protected Void doInBackground(PushItemReply... params)
 		{
-			for (PushItemReply reply : params[0])
+			for (PushItemReply reply : params)
 			{
-				// Do something with each reply
+				Question question = ElasticManager.getInstance().getItem(reply.getQuestionID());
+				for(Answer a : question.getAnswerList()){
+					if (a.getID() == reply.getQuestionID()){
+						a.getReplyList().add(reply.getPushItem());
+					}
+				}
+				ElasticManager.getInstance().addItem(question);
 			}
 			return null;
 		}
 	}
 }
 
-
+/*
 class AddThread extends Thread {
 	private int _questionID;
 	private int _answerID;
@@ -265,4 +268,4 @@ class AddThread extends Thread {
 		}
 		
 	}
-}
+}*/

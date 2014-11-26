@@ -40,7 +40,6 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	private ReplyViewHolder replyViewHolder;
 	
 	private int questionID;
-	private Question question;
 	private ArrayList<Answer> answerList;
 	private Context context;
 	
@@ -83,11 +82,10 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	 * @param answerList The {@link ArrayList}<{@link Answer}> the adapter will adapt views for.
 	 * @param context The {@link Activity} {@link Context}.
 	 */
-	public AnswerAdapter(ArrayList<Answer> answerList, Context context, int questionID, Question question) {
+	public AnswerAdapter(ArrayList<Answer> answerList, Context context, int questionID) {
 		this.answerList = answerList;
 		this.context = context;
 		this.questionID = questionID;
-		this.question = question;
 	}
 
 	@Override
@@ -209,7 +207,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 							answer.addReplyToStart(reply);
 							notifyDataSetChanged();
 							
-							PushQueue.getInstance().pushAnswerReply(questionID, question,answer.getID(), answer, reply, context);
+							PushQueue.getInstance().pushAnswerReply(questionID, answer.getID(), reply, context);
 						}
 					});
 					alertDialogueBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){

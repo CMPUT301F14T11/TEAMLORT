@@ -15,17 +15,13 @@ import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 public class PushQueue {
 
 	private static PushQueue pushQueue = null;
-	private ArrayList<Question> pushList = new ArrayList<Question>();
-	//private static Profile profile;
+	private ArrayList<Question> questionList = new ArrayList<Question>();
 	private ArrayList<PushItemAnswer> answerList = new ArrayList<PushItemAnswer>();
 	private ArrayList<PushItemReply> answerReplyList = new ArrayList<PushItemReply>();
 	private ArrayList<PushItemReply> questionReplyList = new ArrayList<PushItemReply>();
 	private static ProfileController pc = new ProfileController();
 	private ElasticManager em = ElasticManager.getInstance();
-	private Question chosenQuestion = null;
-	private ArrayList<Answer> chosenAnswerList = null; 
-	private ArrayList<Reply> chosenAnswerReplyList = null;
-	private ArrayList<Reply> chosenQuestionRelayList = null;
+
 	/**
 	 * @return The {@link PushQueue} singleton instance.
 	 */
@@ -33,32 +29,7 @@ public class PushQueue {
 		if (pushQueue == null){
 			pushQueue = new PushQueue();
 		}
-		//profile = p;
-		//pc.setP(profile);
 		return pushQueue;
-	}
-	
-	/**
-	 * @return The {@link pushList} currently held in pushQueue.
-	 */
-	public List<Question> getPushList() {
-		return pushList;
-	}
-	
-	/**
-	 * Adds the {@link Question} to the {@link pushList}
-	 * 
-	 * @param addMe
-	 */
-	public void addQuestionToQueue(Question addMe) {
-		
-		pushList.add(addMe);
-		
-	}
-	
-	public void pushQuestions(){
-		Thread thread = new AddThread(pushList); 
-		thread.start();
 	}
 	
 	public void pushQuestion(Question question, Context c){
@@ -67,49 +38,81 @@ public class PushQueue {
 			thread.start();
 		}
 		else{
-			addQuestionToQueue(question);
+			questionList.add(question);
 			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
 			
 		}
 	}
 	
-	public void pushAnswer(int questionID, Question question, Answer answer, Context c)
+	public void pushAnswer(int questionID, Answer answer, Context c)
 	{
 		if(NetworkListener.checkConnection(c)){
 			Thread thread = new AddThread(questionID,answer); 
 			thread.start();
 		}
 		else{
-			question.getAnswerList().add(answer);
-			addQuestionToQueue(question);
+			answerList.add(new PushItemAnswer(answer,questionID));
 			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
-			
 		}
 	}
 	
-	public void pushQuestionReply(int questionID, Question question, Reply r, Context c){
+	public void pushQuestionReply(int questionID, Reply r, Context c){
 		if(NetworkListener.checkConnection(c)){
 			Thread thread = new AddThread(questionID,r); 
 			thread.start();
 		}
 		else{
-			question.getReplyList().add(r);
-			addQuestionToQueue(question);
-			Toast.makeText(c, "Sorry, no network connection!", Toast.LENGTH_SHORT).show();
+			questionReplyList.add(new PushItemReply(r, questionID));
+			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
-	public void pushAnswerReply(int questionID, Question question, int answerID, Answer answer, Reply r, Context c){
+	public void pushAnswerReply(int questionID, int answerID, Reply r, Context c){
 		if(NetworkListener.checkConnection(c)){
 			Thread thread = new AddThread(questionID,answerID,r); 
 			thread.start();
 		}
 		else{
+			answerReplyList.add(new PushItemReply(r, questionID, answerID));
+			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	public void pushAll(){
+		
+		if (!questionList.isEmpty()){
+			Thread thread = new AddThread(questionList); 
+			thread.start();
+			questionList.clear();
+			}
+		
+		if (!answerList.isEmpty()){
+			for (PushItemAnswer a: answerList){
+				Thread thread = new AddThread(a.getQuestionID(),a.getPushItem());
+				thread.start();
+			}
+			answerList.clear();
+		}
+		
+		if (!questionReplyList.isEmpty()){
+			for (PushItemReply r: questionReplyList){
+				Thread thread = new AddThread(r.getQuestionID(),r.getPushItem());
+				thread.start();
+			}
+			questionReplyList.clear();
 			
-			Toast.makeText(c, "Sorry, no network connection!", Toast.LENGTH_SHORT).show();
+		}
+		
+		if (!answerReplyList.isEmpty()){
+			for (PushItemReply r: answerReplyList){
+				Thread thread = new AddThread(r.getQuestionID(),r.getAnswerID(),r.getPushItem());
+				thread.start();
+			}
+			answerReplyList.clear();
 		}
 	}
 }
+
 
 class AddThread extends Thread {
 	private int _questionID;

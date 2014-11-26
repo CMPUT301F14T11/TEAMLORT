@@ -21,7 +21,7 @@ public class PushItemReply {
 		return reply;
 	}
 
-	public int getQuestionID(int questionID) {
+	public int getQuestionID() {
 		return questionID;
 	}
 

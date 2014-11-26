@@ -97,8 +97,8 @@ implements Serializable
 	 * @return a question list that is added favorite by current user.
 	 */
 	public ArrayList<Question> getFavedQuestionList(){
-		return favedQuestionList;
-		//return localManager.loadProfile().getFavedQuestionList();
+		//return favedQuestionList;
+		return localManager.loadProfile(AppCache.getInstance().getProfile().getUsername()).getFavedQuestionList();
 	}
 	
 	/**
@@ -108,7 +108,7 @@ implements Serializable
 	
 	public ArrayList<Question> getMyQuestionList(){
 		return myQuestionList;
-		//return localManager.loadProfile().getMyQuestionList();
+		//return localManager.loadProfile(AppCache.getInstance().getProfile().getUsername()).getMyQuestionList();
 	}
 	
 	public ArrayList<Question> getTempQuestionList(){

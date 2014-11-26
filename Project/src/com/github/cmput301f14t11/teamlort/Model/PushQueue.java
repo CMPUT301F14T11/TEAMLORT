@@ -1,9 +1,9 @@
 package com.github.cmput301f14t11.teamlort.Model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
@@ -78,37 +78,98 @@ public class PushQueue {
 		}
 	}
 
-	public void pushAll(){
+	public void pushAll()
+	{
+		// Ensure thread safety
+		ArrayList<Question> qListCopy =       (ArrayList<Question>) questionList.clone(); 
+		ArrayList<PushItemAnswer> aListCopy = (ArrayList<PushItemAnswer>) answerList.clone();
+		ArrayList<PushItemReply> qrListCopy = (ArrayList<PushItemReply>) questionReplyList.clone();
+		ArrayList<PushItemReply> arListCopy = (ArrayList<PushItemReply>) answerReplyList.clone();
 		
-		if (!questionList.isEmpty()){
-			Thread thread = new AddThread(questionList); 
-			thread.start();
-			questionList.clear();
-			}
-		
-		if (!answerList.isEmpty()){
-			for (PushItemAnswer a: answerList){
-				Thread thread = new AddThread(a.getQuestionID(),a.getPushItem());
-				thread.start();
-			}
-			answerList.clear();
+		new PushQuestions().execute(qListCopy);
+		new PushAnswers().execute(aListCopy);
+		new PushQuestionReplies().execute(arListCopy);
+		new PushAnswerReplies().execute(qrListCopy);
+	}
+	
+	private class PushQuestions
+	extends AsyncTask<ArrayList<Question>, Void, Void>
+	{	
+		@Override
+		protected void onPreExecute()
+		{
+			PushQueue.this.questionList.clear();
+			super.onPreExecute();
 		}
 		
-		if (!questionReplyList.isEmpty()){
-			for (PushItemReply r: questionReplyList){
-				Thread thread = new AddThread(r.getQuestionID(),r.getPushItem());
-				thread.start();
+		@Override
+		protected Void doInBackground(ArrayList<Question>... params)
+		{
+			for (Question question : params[0])
+			{
+				ElasticManager.getInstance().addItem(question);
 			}
-			questionReplyList.clear();
-			
+			return null;
+		}
+	}
+	private class PushAnswers
+	extends AsyncTask<ArrayList<PushItemAnswer>, Void, Void>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			PushQueue.this.answerList.clear();
+			super.onPreExecute();
 		}
 		
-		if (!answerReplyList.isEmpty()){
-			for (PushItemReply r: answerReplyList){
-				Thread thread = new AddThread(r.getQuestionID(),r.getAnswerID(),r.getPushItem());
-				thread.start();
+		@Override
+		protected Void doInBackground(ArrayList<PushItemAnswer>... params)
+		{
+			for (PushItemAnswer answer : params[0])
+			{
+				// Do something with each answer
 			}
-			answerReplyList.clear();
+			return null;
+		}
+	}
+	private class PushQuestionReplies
+	extends AsyncTask<ArrayList<PushItemReply>, Void, Void>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			PushQueue.this.questionReplyList.clear();
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected Void doInBackground(ArrayList<PushItemReply>... params)
+		{
+			for (PushItemReply reply : params[0])
+			{
+				// Do something with each reply
+			}
+			return null;
+		}
+	}
+	private class PushAnswerReplies
+	extends AsyncTask<ArrayList<PushItemReply>, Void, Void>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			PushQueue.this.answerReplyList.clear();
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected Void doInBackground(ArrayList<PushItemReply>... params)
+		{
+			for (PushItemReply reply : params[0])
+			{
+				// Do something with each reply
+			}
+			return null;
 		}
 	}
 }

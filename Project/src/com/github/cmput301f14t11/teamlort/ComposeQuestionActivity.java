@@ -242,8 +242,8 @@ extends AppBaseActivity
 		if (pic != null)
 			question.addPicture(pic);
 		
-		//PushQueue.getInstance().pushQuestion(question, getApplicationContext());
-		//new SubmitNewQuestion().execute(question);
+		PushQueue.getInstance().pushQuestion(question, getApplicationContext());
+		new SubmitNewQuestion().execute(question);
 		
 		this.setResult(RESULT_OK);
 		this.finish();

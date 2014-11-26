@@ -121,7 +121,7 @@ public class PushQueue {
 			for (PushItemAnswer answer : params)
 			{
 				Question question = ElasticManager.getInstance().getItem(answer.getQuestionID());
-				question.getAnswerList().add(answer.getPushItem());
+				question.addAnswer(answer.getPushItem());
 				ElasticManager.getInstance().addItem(question);
 			}
 			return null;
@@ -143,7 +143,7 @@ public class PushQueue {
 			for (PushItemReply reply : params)
 			{
 				Question question = ElasticManager.getInstance().getItem(reply.getQuestionID());
-				question.getReplyList().add(reply.getPushItem());
+				question.addReplyToStart(reply.getPushItem());
 				ElasticManager.getInstance().addItem(question);
 			}
 			return null;
@@ -167,7 +167,7 @@ public class PushQueue {
 				Question question = ElasticManager.getInstance().getItem(reply.getQuestionID());
 				for(Answer a : question.getAnswerList()){
 					if (a.getID() == reply.getQuestionID()){
-						a.getReplyList().add(reply.getPushItem());
+						a.addReplyToStart(reply.getPushItem());
 					}
 				}
 				ElasticManager.getInstance().addItem(question);

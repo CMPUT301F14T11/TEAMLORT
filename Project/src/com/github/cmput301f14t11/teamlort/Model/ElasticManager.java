@@ -111,6 +111,7 @@ public class ElasticManager {
 	 */
 	public void addItem(Question deliveritem)
 	{
+		//Log.i("add","what does my question look like?: "+ deliveritem.);
 		HttpClient httpClient = new DefaultHttpClient();
 		//Toast.makeText(context, "attempting add question, id = "+deliveritem.getID(),Toast.LENGTH_SHORT).show();
 		try

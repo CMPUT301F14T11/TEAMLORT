@@ -254,6 +254,7 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			return true;
 		
 		case(R.id.action_sort_by_location):
+			qlc.setprofile(AppCache.getInstance().getProfile());
 			if(clicked == false)
 			{
 				qlc.sortQuestions("location");
@@ -266,7 +267,21 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			}
 			adapter.updatelist(qlc.getQuestionlist().getModellist());
 			return true;
-			
+		case(R.id.action_sort_by_replies):
+		{
+			if(clicked == false)
+			{
+				qlc.sortQuestions("replies");
+				clicked = true;
+			}
+			else if (clicked == true)
+			{
+				qlc.reverselist();
+				clicked = false;
+			}
+			adapter.updatelist(qlc.getQuestionlist().getModellist());
+			return true;
+		}
 		
 		default:
 			return true;

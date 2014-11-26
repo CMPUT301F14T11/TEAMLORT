@@ -102,6 +102,10 @@ public class Qlistcontroller implements Observer{
 			lc.setlocation(p.getLocation());
 			Collections.sort(getQuestionlist().getModellist(), lc);
 		}
+		else if (command == "replies")
+		{
+			Collections.sort(getQuestionlist().getModellist(), new RepliesComparator());
+		}
 		
 	}
 	/**
@@ -200,6 +204,17 @@ public class Qlistcontroller implements Observer{
 			// TODO Auto-generated method stub
 			return arg0.getTime().compareTo(arg1.getTime());
 		}
+	}
+	public class RepliesComparator implements Comparator<Question>
+	{
+
+		@Override
+		public int compare(Question lhs, Question rhs) {
+			// TODO Auto-generated method stub
+			
+			return lhs.getReplyList().size()-rhs.getReplyList().size();
+		}
+		
 	}
 	public class ScoreComparator implements Comparator<Question> {
 

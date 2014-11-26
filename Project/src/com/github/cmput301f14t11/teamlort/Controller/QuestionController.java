@@ -6,6 +6,7 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 import android.content.Context;
+import android.util.Log;
 
 /**
  * Controller for modifying a {@link Question} and it's contents ({@link Answer} and {@link Reply} objects) and related 
@@ -27,7 +28,10 @@ public class QuestionController {
 		//TODO stub
 		//
 		//elc.providecontext(ctx);
+		
+		Log.i("add","did additem run?");
 		elc.addItem(question);
+		Log.i("add","looks like it did");
 	}
 	
 	public void addReply(Reply reply, int questionID){

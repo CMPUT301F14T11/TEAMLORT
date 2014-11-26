@@ -135,7 +135,11 @@ public class AppBaseActivity extends Activity
 		
 		case (R.id.action_sort_by_pictures):
 			return true;
+		
 		case (R.id.action_sort_by_location):
+			return true;
+		
+		case (R.id.action_sort_by_replies):
 			return true;
 		default:
 			return false;
@@ -168,11 +172,11 @@ public class AppBaseActivity extends Activity
 			{
 				String username = input.getText().toString();
 				//Log.i("r1231231",username);
-				ProfileController.getP().setUsername(username);
-				appCache = AppCache.getInstance();
-				appCache.setProfile(ProfileController.getP());
+				mProfileController.getP().setUsername(username);
+				appCache = AppCache.getInstance();	
+				mProfileController.getP().setLocation(0, 0);
+				appCache.setProfile(mProfileController.getP());
 				Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				
 			}

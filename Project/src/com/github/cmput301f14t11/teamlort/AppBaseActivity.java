@@ -15,9 +15,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.LocalManager;
 import com.github.cmput301f14t11.teamlort.Model.NetworkListener;
 
 /**
@@ -39,7 +41,7 @@ public class AppBaseActivity extends Activity
 	
 	protected ProfileController mProfileController;
 	protected NetworkListener mNetworkListener;
-	protected AppCache appCache;
+	protected AppCache appCache = AppCache.getInstance();
 	protected AlertDialog alertDialog = null;
 	
 	@SuppressLint("InflateParams")
@@ -58,6 +60,20 @@ public class AppBaseActivity extends Activity
         // Connect the buttons in the top ActionBar
         getLayoutResources();
 		attachListeners();
+	}
+	
+	@Override
+	protected void onStart()
+	{
+		super.onStart();
+		appCache.InitProfile();
+	}
+	
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		LocalManager.getManager().saveProfileToDefault(appCache.getProfile());
 	}
 
 	@Override
@@ -152,11 +168,11 @@ public class AppBaseActivity extends Activity
 			{
 				String username = input.getText().toString();
 				//Log.i("r1231231",username);
-				mProfileController.getP().setUsername(username);
+				ProfileController.getP().setUsername(username);
 				appCache = AppCache.getInstance();
-				appCache.setProfile(mProfileController.getP());
+				appCache.setProfile(ProfileController.getP());
 				Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-				intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				
 			}
@@ -197,6 +213,7 @@ public class AppBaseActivity extends Activity
         sortButton = (ImageButton) this.findViewById(R.id.action_sort);
 		mPopupMenu = new PopupMenu(this, searchButton);
 		mPopupMenu.getMenuInflater().inflate(R.menu.app_base_sort, mPopupMenu.getMenu());
+		LocalManager.getManager().SetContext(getApplicationContext());
 	}
 	
 	/**

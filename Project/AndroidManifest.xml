@@ -71,7 +71,7 @@
         </activity>
 
         <receiver
-            android:name=".NetworkChangeReceiver"
+            android:name=".NetWorkChangeReceiver"
             android:enabled="true"
             android:label="NetworkChangeReceiver" >
             <intent-filter>

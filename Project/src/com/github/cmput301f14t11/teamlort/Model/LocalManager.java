@@ -8,7 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
+import android.content.Context;
 import android.util.Log;
 
 /**
@@ -20,17 +22,26 @@ public class LocalManager
 {
 	private static LocalManager manager = new LocalManager();
 	
-	private static final String FILE_PATH = "sav/";
+	private static final String FILE_PATH = "sav_";
 	private static final String FILE_EXT = ".ser";
 	private static final String QUESTIONS_FILE = "questions";
 	private static final String PROFILE_FILE   = "profile";
+	private static final String DEFAULT_PROFILE= "defaultProfile";
+
+	private Context appContext = null;
 	
 	/**
-	 * Singleton instance getter.
+	 * Singleton instance getter. This is used in place of new LocalManager()
+	 * to ensure that there's only one object performing file IO. 
 	 */
 	public static LocalManager getManager()
 	{
 		return manager;
+	}
+	
+	public void SetContext(Context context)
+	{
+		this.appContext = context;
 	}
 	
 	/**
@@ -77,6 +88,11 @@ public class LocalManager
 	{
 		saveObject(saveMe, FILE_PATH + PROFILE_FILE + saveMe.getUsername() + FILE_EXT);
 	}
+	
+	public void saveProfileToDefault(Profile saveMe)
+	{
+		saveObject(saveMe, FILE_PATH + DEFAULT_PROFILE + FILE_EXT);
+	}
 
 	/**
 	 * Loads any Question objects saved to the device in an ArrayList. The saved files are cleared afterwards.
@@ -101,6 +117,17 @@ public class LocalManager
 	{
 		Profile prof = (Profile) loadObject(FILE_PATH + PROFILE_FILE + username + FILE_EXT);
 		if (prof == null) prof = new Profile();
+		prof.setUsername("Guest" + (new Date()).hashCode());
+		
+		return prof;
+	}
+	
+	/**
+	 * Like loadProfile(Sring username), but loads the default profile (last used on the device).
+	 */
+	public Profile loadProfile()
+	{
+		Profile prof = (Profile) loadObject(FILE_PATH + DEFAULT_PROFILE + FILE_EXT);
 		
 		return prof;
 	}
@@ -116,18 +143,25 @@ public class LocalManager
 		ObjectOutputStream oos;
 		try
 		{
-			fos = new FileOutputStream(FILE_PATH + filename);
+			fos = appContext.openFileOutput(filename, Context.MODE_PRIVATE);
 			oos = new ObjectOutputStream(fos);
 			
 			oos.writeObject(saveMe);
 			
 			oos.close();
 			fos.close();
+			
+			Log.d("com.github.cmput301f14t11.teamlort.LocalManager.saveObject(Serializable, String)",
+					"Successfully saved an object to " + filename);
 		}
 		catch (IOException e)
 		{
 			Log.e("com.github.cmput301f14t11.teamlort.LocalManager.saveObject(Serializable, String)",
 			      "Failed to save object: " + e.getMessage());
+		}
+		finally
+		{
+			
 		}
 	}
 	
@@ -144,7 +178,7 @@ public class LocalManager
 		ObjectInputStream ois;
 		try
 		{
-			fis = new FileInputStream(FILE_PATH + filename);
+			fis = appContext.openFileInput(filename);
 			ois = new ObjectInputStream(fis);
 			
 			result = ois.readObject();
@@ -155,16 +189,17 @@ public class LocalManager
 		catch (FileNotFoundException e)
 		{
 			Log.e("com.github.cmput301f14t11.teamlort.LocalManager.loadObject(String)",
-					"Failed to save object (FileNotFoundException): " + e.getMessage());
+					"Failed to load object (FileNotFoundException): " + e.getMessage());
 		}
 		catch (ClassNotFoundException e)
 		{
 			Log.e("com.github.cmput301f14t11.teamlort.LocalManager.loadObject(String)",
-					"Failed to save object (ClassNotFoundException): " + e.getMessage());		}
+					"Failed to load object (ClassNotFoundException): " + e.getMessage());
+		}
 		catch (IOException e)
 		{
 			Log.e("com.github.cmput301f14t11.teamlort.LocalManager.loadObject(String)",
-					"Failed to save object (IOException): " + e.getMessage());
+					"Failed to load object (IOException): " + e.getMessage());
 		}
 		
 		return result;

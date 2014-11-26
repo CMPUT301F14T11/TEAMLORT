@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -20,17 +21,18 @@ class Single_Home_Question
 	public TextView title;
 	public TextView content;
 	public TextView count;
+	public Button upvote;
 	public ImageButton save;
 	public ImageButton favorite;
 	public Question thisquestion;
 	Single_Home_Question(View feed)
 	{
-		title = (TextView) feed.findViewById(R.id.listitem_question_title);
-		content = (TextView) feed.findViewById(R.id.listitem_question_desc);
-		count = (TextView) feed.findViewById(R.id.listitem_question_stats);
-		save = (ImageButton) feed.findViewById(R.id.listitem_question_save_button);
-		favorite = (ImageButton) feed.findViewById(R.id.listitem_question_favorite_button);
-		
+		title = (TextView) feed.findViewById(R.id.homeactivity_question_title);
+		content = (TextView) feed.findViewById(R.id.homeactivity_question_desc);
+		count = (TextView) feed.findViewById(R.id.homeactivity_question_stats);
+		save = (ImageButton) feed.findViewById(R.id.homeactivity_question_save_button);
+		favorite = (ImageButton) feed.findViewById(R.id.homeactivity_question_favorite_button);
+		upvote = (Button)feed.findViewById(R.id.homeactivity_displayupvote);
 	}
 }
 //this adapter was inspired by the extended baseadapter example on android developer website
@@ -66,7 +68,7 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 		if(row == null)
 		{
 			
-			row = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_question, parent,false);
+			row = LayoutInflater.from(parent.getContext()).inflate(R.layout.homeactivity_question, parent,false);
 			
 			holder = new Single_Home_Question(row);
 			
@@ -80,6 +82,7 @@ class customadapter extends BaseAdapter// the adapter used for displaying items 
 		holder.thisquestion = da_list.get(position);
 		holder.title.setText(da_list.get(position).getTitle());
 		holder.content.setText(da_list.get(position).getBody());
+		holder.upvote.setText(""+da_list.get(position).getScore());
 		holder.count.setText("posted on "+holder.thisquestion.getTime().toString()+", "+holder.thisquestion.getAnswerList().size()+" answers");	
 		holder.save.setOnClickListener(new View.OnClickListener() {
 			

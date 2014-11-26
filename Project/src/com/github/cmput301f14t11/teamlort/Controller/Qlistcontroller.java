@@ -5,8 +5,15 @@ import java.util.Comparator;
 import java.util.Observable;
 import java.util.Observer;
 
+
+
+
+import android.util.Log;
+
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.ElasticManager;
+import com.github.cmput301f14t11.teamlort.Model.Location;
+import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.QuestionList;
 
@@ -20,7 +27,7 @@ public class Qlistcontroller implements Observer{
 	
 	private ElasticManager elc = ElasticManager.getInstance();
 	private QuestionList questionlist = new QuestionList();
-
+	private Profile p = new Profile();
 	/**
 	 * pulls more question from the server
 	 */
@@ -30,6 +37,10 @@ public class Qlistcontroller implements Observer{
 		getQuestionlist().getModellist().addAll(getElc().get(providedid, amount));
 		return getElc().get(providedid, amount);
 		// updateview
+	}
+	public void setprofile(Profile provided)
+	{
+		p = provided;
 	}
 
 	/**
@@ -80,6 +91,16 @@ public class Qlistcontroller implements Observer{
 		else if (command =="image")
 		{
 			Collections.sort(getQuestionlist().getModellist(), new ImageComparator());
+		}
+		else if (command == "location")
+		{
+			Locationcomparator lc = new Locationcomparator();
+			if(p.getLocation() == null)
+			{
+				Log.i("LOCATION","PROFILE HAS NULL LOCATION");
+			}
+			lc.setlocation(p.getLocation());
+			Collections.sort(getQuestionlist().getModellist(), lc);
 		}
 		
 	}
@@ -212,6 +233,30 @@ public class Qlistcontroller implements Observer{
 			}
 			return 0;
 		}
+		
+	}
+	public class Locationcomparator implements Comparator<Question>
+	{
+		
+		Location l = null;
+		int direct_dist(Question c)//calculate manhatten distance between two coordinates
+		{
+			
+			int dist = (int)(Math.pow((int)(l.getLongtitude() - c.getX()),2) +Math.pow((int)(l.getLatitude() - c.getY()),2));
+			return (int) Math.pow(dist, 0.5);
+			
+		}
+		public void setlocation(Location provided)
+		{
+			l = provided;
+		}
+		@Override
+		public int compare(Question lhs, Question rhs) {
+			// TODO Auto-generated method stub
+			return direct_dist(lhs) - direct_dist(rhs);
+			
+		}
+		
 		
 	}
 	

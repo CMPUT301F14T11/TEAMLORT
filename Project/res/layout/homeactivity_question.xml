@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/default_bg"
+    android:padding="@dimen/activity_less_margin" >
+
+    <RelativeLayout
+        android:id="@+id/homeactivity_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/default_fg"
+        android:descendantFocusability="blocksDescendants" >
+
+        <TextView
+            android:id="@+id/homeactivity_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_less_vertical_margin"
+            android:layout_toLeftOf="@+id/homeactivity_question_button_bar"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/listitem_question_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:id="@+id/homeactivity_question_thumbnail"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/homeactivity_question_title"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_less_horizontal_margin"
+            android:contentDescription="@string/accessibility_thumbnail"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/homeactivity_question_title"
+            android:layout_toLeftOf="@+id/homeactivity_question_button_bar"
+            android:layout_toRightOf="@+id/homeactivity_question_thumbnail"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/homeactivity_question_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/listitem_question_desc" />
+
+            <TextView
+                android:id="@+id/homeactivity_question_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_less_margin"
+                android:text="@string/listitem_question_stats"
+                android:textColor="@color/light_text"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/homeactivity_question_button_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_less_horizontal_margin"
+            android:paddingRight="@dimen/activity_less_horizontal_margin" >
+
+            <ImageButton
+                android:id="@+id/homeactivity_question_favorite_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/accessibility_favorite_ico"
+                android:onClick="Favorite"
+                android:src="@drawable/ic_action_favorite_dark" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/activity_less_vertical_margin"
+                android:layout_marginTop="@dimen/activity_less_vertical_margin"
+                android:background="@color/default_divider" />
+
+            <ImageButton
+                android:id="@+id/homeactivity_question_save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/accessibility_save_ico"
+                android:onClick="Save"
+                android:src="@drawable/ic_action_save_dark" />
+
+            <Button
+                android:id="@+id/homeactivity_displayupvote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upvote_placeholder" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

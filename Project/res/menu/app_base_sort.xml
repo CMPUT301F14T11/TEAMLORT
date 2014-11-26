@@ -13,5 +13,8 @@
         android:id="@+id/action_sort_by_pictures"
         android:orderInCategory="1"
         android:title="@string/action_sort_by_pictures"/>
+    <item android:id="@+id/action_sort_by_location" 
+        android:orderInCategory="1" 
+        android:title="@string/sort_by_location"></item>
 
 </menu>

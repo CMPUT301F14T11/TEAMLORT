@@ -5,6 +5,7 @@
     <string name="sort_by_date"   >Sort by date</string>
     <string name="sort_by_score"  >Sort by score</string>
     <string name="sort_by_pics"   >Sort by date</string>
+    <string name="sort_by_location">Sort by location</string>
     <string name="sort_by_replies">Sort by replies</string>
     
     <!-- AppBaseActivity -->

@@ -11,5 +11,5 @@
     <string name="listitem_reply_desc">This is a reply to an answer.</string>
     <string name="listitem_answer_reply_count">0 comments</string>
     <string name="location_placeholder">Edmonton, AB</string>
-    
+    <string name="upvote_placeholder">0</string>
 </resources>

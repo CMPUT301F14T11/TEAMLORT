@@ -37,7 +37,8 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
  * @author sbao
  * @issues: search functionality requires other parts to be completed and coordination with other team members 
  */
-public class HomeActivity extends AppBaseActivity implements Observer {
+public class HomeActivity extends AppBaseActivity implements Observer 
+{
 	
 	
 	
@@ -47,7 +48,7 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	private String searchstring;
 	static customadapter adapter; // since we are displaying question objects, the normal ArrayAdapter will not cut it, for right now I've modified the customer adapter I used for my assignment 1 and sticked it in here
 								  // should anyone think something else should be used instead,feel free to bring it up in group discussion
-	// I will manually write down some questions to help implement the display for right now
+								  // I will manually write down some questions to help implement the display for right now
 	
 	
     //initialize controllers
@@ -180,6 +181,8 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 	@Override
 	public void update(Observable observable, Object data) {
 		// TODO Auto-generated method stub
+		Thread searchthread = new SearchThread(searchstring,page);
+		searchthread.start();
 		adapter.updatelist(qlc.getQuestionlist().getModellist());
 	}
 	class SearchThread extends Thread {
@@ -249,6 +252,21 @@ public class HomeActivity extends AppBaseActivity implements Observer {
 			}
 			adapter.updatelist(qlc.getQuestionlist().getModellist());
 			return true;
+		
+		case(R.id.action_sort_by_location):
+			if(clicked == false)
+			{
+				qlc.sortQuestions("location");
+				clicked = true;
+			}
+			else if (clicked == true)
+			{
+				qlc.reverselist();
+				clicked = false;
+			}
+			adapter.updatelist(qlc.getQuestionlist().getModellist());
+			return true;
+			
 		
 		default:
 			return true;

@@ -119,7 +119,8 @@ public class AppBaseActivity extends Activity
 		
 		case (R.id.action_sort_by_pictures):
 			return true;
-		
+		case (R.id.action_sort_by_location):
+			return true;
 		default:
 			return false;
 		}

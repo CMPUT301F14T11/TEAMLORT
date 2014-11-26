@@ -9,7 +9,22 @@ public class Location {
 		this.latitude = 0;
 		this.longitude = 0; 
 	}
-	
+	public double getLongtitude()
+	{
+		return longitude;
+	}
+	public double getLatitude()
+	{
+		return latitude;
+	}
+	public void setLongtitude(int provided)
+	{
+		longitude = provided;
+	}
+	public void setLatitude(int provided)
+	{
+		latitude = provided;
+	}
 	
 
 

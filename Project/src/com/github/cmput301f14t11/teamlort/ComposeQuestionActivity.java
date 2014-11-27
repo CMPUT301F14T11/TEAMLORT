@@ -41,8 +41,9 @@ extends AppBaseActivity
 	
 	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
+	private static final String TAGS_BUNDLE_KEY = "COMPOSE_TAGS";
 	
-	private String title, detail;
+	private String title, detail, tags;
 	private Drawable pic = null;
 	private Uri imageFileUri;
 	
@@ -51,6 +52,7 @@ extends AppBaseActivity
 	
 	private EditText titleEntry;
 	private EditText detailEntry;
+	private EditText tagEntry;
 	
 	private ImageButton addImageButton;
 	private ImageButton acceptButton;
@@ -76,6 +78,7 @@ extends AppBaseActivity
 		
 		outState.putString(TITLE_BUNDLE_KEY, titleEntry.getText().toString());
 		outState.putString(DETAIL_BUNDLE_KEY, detailEntry.getText().toString());
+		outState.putString(TAGS_BUNDLE_KEY, tagEntry.getText().toString());
 	}
 	
 	@Override
@@ -85,9 +88,11 @@ extends AppBaseActivity
 		
 		String title = inState.getString(TITLE_BUNDLE_KEY);
 		String detail = inState.getString(DETAIL_BUNDLE_KEY);
+		String tags = inState.getString(TAGS_BUNDLE_KEY);
 		
 		if (title != null) titleEntry.setText(title);
 		if (detail != null) detailEntry.setText(detail);
+		if (tags != null) tagEntry.setText(tags);
 	}
 	
 	@Override
@@ -150,6 +155,7 @@ extends AppBaseActivity
 	{
 		titleEntry  = (EditText) this.findViewById(R.id.compose_title_entry);
 		detailEntry = (EditText) this.findViewById(R.id.compose_desc_entry);
+		tagEntry    = (EditText) this.findViewById(R.id.compose_tags_entry);
 		
 		addImageButton = (ImageButton) this.findViewById(R.id.compose_add_img_button);
 		acceptButton   = (ImageButton) this.findViewById(R.id.compose_accept_button);
@@ -263,6 +269,8 @@ extends AppBaseActivity
 		title = ((EditText) findViewById(R.id.compose_title_entry))
 				.getText().toString();
 		detail = ((EditText) findViewById(R.id.compose_desc_entry))
+				.getText().toString();
+		tags = ((EditText) findViewById(R.id.compose_tags_entry))
 				.getText().toString();
 		
 		pic = ((ImageView) findViewById(R.id.compose_img_preview)).getDrawable();

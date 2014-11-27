@@ -102,11 +102,19 @@
                 android:contentDescription="@string/accessibility_save_ico"
                 android:onClick="Save"
                 android:src="@drawable/ic_action_save_dark" />
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/activity_less_vertical_margin"
+                android:layout_marginTop="@dimen/activity_less_vertical_margin"
+                android:background="@color/default_divider" />
 
             <Button
                 android:id="@+id/homeactivity_displayupvote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:text="@string/upvote_placeholder" />
 
         </LinearLayout>

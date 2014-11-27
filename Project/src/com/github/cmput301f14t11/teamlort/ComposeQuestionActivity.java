@@ -231,7 +231,7 @@ extends AppBaseActivity
 		getInputFields();
 		
 		if(!isInputValid()) return;
-		
+
 		Question question = ObjectFactory.initQuestion(
 				title,
 				detail,
@@ -240,7 +240,16 @@ extends AppBaseActivity
 				);
 		
 //		if (pic != null)
-//			question.addPicture(pic);
+//		{
+//			question = ObjectFactory.initQuestion(
+//					title,
+//					detail,
+//					usrProfile.getUsername(),
+//					usrProfile.getLocation(),
+//					pic
+//					);
+//			
+//		}
 		
 		PushQueue.getInstance().pushQuestion(question, getApplicationContext());
 		new SubmitNewQuestion().execute(question);

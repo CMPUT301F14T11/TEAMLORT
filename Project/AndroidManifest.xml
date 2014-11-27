@@ -24,7 +24,8 @@
         android:uiOptions="splitActionBarWhenNarrow" >
         <activity 
             android:name=".Splashscreen" 
-           	android:theme="@android:style/Theme.NoTitleBar.Fullscreen">>
+           	android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+           	android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -48,7 +49,8 @@
         <activity
             android:name=".ComposeQuestionActivity"
             android:label="@string/title_activity_compose_question"
-            android:parentActivityName=".HomeActivity" >
+            android:parentActivityName=".HomeActivity" 
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.cmput301f14t11.teamlort.HomeActivity" />
@@ -56,7 +58,8 @@
         <activity
             android:name=".QuestionViewActivity"
             android:label="@string/title_activity_question_view"
-            android:parentActivityName=".HomeActivity" >
+            android:parentActivityName=".HomeActivity" 
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.cmput301f14t11.teamlort.HomeActivity" />
@@ -64,7 +67,8 @@
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:parentActivityName=".HomeActivity" >
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.cmput301f14t11.teamlort.HomeActivity" />
@@ -73,7 +77,8 @@
             android:name=".ReplyActivity"
             android:label="@string/title_activity_reply"
             android:parentActivityName=".HomeActivity"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.cmput301f14t11.teamlort.HomeActivity" />

@@ -91,8 +91,6 @@ public class AppBaseActivity extends Activity
 		{
 		case (R.id.actionbar_app_icon):
 	        NavUtils.navigateUpFromSameTask(this);
-//			Intent homeintent = new Intent(this,HomeActivity.class);
-//			startActivity(homeintent);
 	        return true;
 		case (R.id.action_favorites):
 			Intent favoriteQuestionintent = new Intent(this, ProfileActivity.class);

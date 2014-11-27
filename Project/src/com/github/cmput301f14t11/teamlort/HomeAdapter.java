@@ -90,14 +90,14 @@ class HomeAdapter extends BaseAdapter// the adapter used for displaying items in
 			public void onClick(View v) {
 				ProfileController pc = new ProfileController();
 				Question chosenQ = da_list.get(position);
-				ImageButton saveButton = (ImageButton) finalView.findViewById(R.id.listitem_question_save_button);
+				
 				if(pc.getProfile().getSavedQuestionList().contains(chosenQ)){
 					pc.removeSavedQuestion(chosenQ);
-					saveButton.setBackgroundResource(R.drawable.ic_action_save_dark);
+					v.setBackgroundResource(R.drawable.ic_action_save_dark);
 				}
 				else{
 					pc.addSavedQuestion(chosenQ);
-					saveButton.setBackgroundColor(Color.GREEN);
+					v.setBackgroundColor(Color.GREEN);
 				}
 			}
 			
@@ -109,15 +109,14 @@ class HomeAdapter extends BaseAdapter// the adapter used for displaying items in
 			public void onClick(View v) {
 				ProfileController pc = new ProfileController();
 				Question chosenQ = da_list.get(position);
-				ImageButton faveButton = (ImageButton) finalView.findViewById(R.id.listitem_question_favorite_button);
 				if(pc.getProfile().getFavedQuestionList().contains(chosenQ)){
 					pc.removeFavedQuestion(chosenQ);
-					faveButton.setBackgroundResource(R.drawable.ic_action_favorite);
+					v.setBackgroundResource(R.drawable.ic_action_favorite);
 					
 				}
 				else{
 					pc.addFavedQuestion(chosenQ);
-					faveButton.setBackgroundColor(Color.GREEN);
+					v.setBackgroundColor(Color.GREEN);
 				}	
 			}
 			

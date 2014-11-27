@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,12 +51,12 @@ public class AppBaseActivity extends Activity
 	{
 		super.onCreate(inState);
 		this.setContentView(R.layout.activity_app_base);
-		
 		// Set the top ActionBar to a custom view.
         this.inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ActionBar ab = this.getActionBar();
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         ab.setCustomView(inflater.inflate(R.layout.actionbar_top_layout, null));
+        ab.setDisplayHomeAsUpEnabled(true);
         
         // Connect the buttons in the top ActionBar
         getLayoutResources();
@@ -88,6 +89,11 @@ public class AppBaseActivity extends Activity
 	{
 		switch (item.getItemId())
 		{
+		case (R.id.actionbar_app_icon):
+	        NavUtils.navigateUpFromSameTask(this);
+//			Intent homeintent = new Intent(this,HomeActivity.class);
+//			startActivity(homeintent);
+	        return true;
 		case (R.id.action_favorites):
 			Intent favoriteQuestionintent = new Intent(this, ProfileActivity.class);
 			startActivity(favoriteQuestionintent);

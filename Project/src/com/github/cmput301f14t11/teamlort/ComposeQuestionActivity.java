@@ -239,8 +239,8 @@ extends AppBaseActivity
 				usrProfile.getLocation()
 				);
 		
-		if (pic != null)
-			question.addPicture(pic);
+//		if (pic != null)
+//			question.addPicture(pic);
 		
 		PushQueue.getInstance().pushQuestion(question, getApplicationContext());
 		new SubmitNewQuestion().execute(question);
@@ -319,4 +319,3 @@ extends AppBaseActivity
 		}
 	}
 }
-

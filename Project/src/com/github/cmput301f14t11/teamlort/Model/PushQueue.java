@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -100,6 +101,7 @@ public class PushQueue {
 		{
 			for (Question question : params)
 			{
+				Log.i("Pushque","did this run?");
 				ElasticManager.getInstance().addItem(question);
 			}
 			return null;

@@ -190,29 +190,6 @@ public class ElasticManager {
 	 * @param amount
 	 * @return
 	 */
-	public ArrayList<Question>get(int id,int amount)
-	{
-		HttpClient httpClient = new DefaultHttpClient();
-		ArrayList<Question> result = new ArrayList<Question>();
-		HttpResponse response;
-
-		try {
-			for(int i = 1;i<=amount+1; i++)
-			{
-				HttpGet httpGet = new HttpGet(serverAddress + id+i);
-				response = httpClient.execute(httpGet);
-				Elasticitem<Question> sr = parseItem(response);
-				result.add(sr.getSource());
-			}
-			
-			return result;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		// if all else fails, return a brand new Array list to avoid null pointer errors
-		return new ArrayList<Question>();
-	}
 	
 
 	
@@ -279,7 +256,7 @@ public class ElasticManager {
 	}
 	private HttpPost createSearchRequest(String searchString, String field,int from)	throws UnsupportedEncodingException {
 		//http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/pagination.html
-		HttpPost searchRequest = new HttpPost(serverAddress+"_search?size=11&from="+from);
+		HttpPost searchRequest = new HttpPost(serverAddress+"_search?size="+from+"&from=0");
 
 		String[] fields = null;
 		if (field != null) {

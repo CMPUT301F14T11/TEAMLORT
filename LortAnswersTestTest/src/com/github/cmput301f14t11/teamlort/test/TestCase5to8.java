@@ -14,7 +14,7 @@ import com.github.cmput301f14t11.teamlort.Controller.AnswerController;
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
-import com.github.cmput301f14t11.teamlort.Model.Location;
+import com.github.cmput301f14t11.teamlort.Model.GpsLocation;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
@@ -48,7 +48,7 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		String title = "I have a question about things.";
 		String detail = "My thing with the stuff isn't working properly. Help? (See pic).";
 		
-		Location loc = new Location(0, 0);
+		GpsLocation loc = new GpsLocation(0, 0);
 		
 		Question q1 = ObjectFactory.initQuestion(title, detail, author1, loc);
 		
@@ -114,7 +114,7 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		String detail = "My thing with the stuff isn't working properly. Help? (See pic).";
 		String answer1 = "Elaborate please? (Also you don't have a pic).";
 		String answer2 = "tl;dr";
-		Location loc = new Location(0, 0);
+		GpsLocation loc = new GpsLocation(0, 0);
 		
 		Question q1 = ObjectFactory.initQuestion(title, detail, author1, loc);
 		qController.addQuestion(q1);
@@ -201,7 +201,7 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		String answer1 = "Elaborate please? (Also you don't have a pic).";
 		String answer2 = "tl;dr";
 		Drawable img1 = null;
-		Location loc = new Location(0, 0);
+		GpsLocation loc = new GpsLocation(0, 0);
 		
 		Question q1 = ObjectFactory.initQuestion(title, detail, author1, loc, img1);
 		qController.addQuestion(q1);
@@ -248,7 +248,7 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		String answer2 = "tl;dr";
 		Drawable img1 = null;
 		
-		Location loc = new Location(0, 0);
+		GpsLocation loc = new GpsLocation(0, 0);
 		
 		Question q1 = ObjectFactory.initQuestion(title, detail, author1, loc, img1);
 		qController.addQuestion(q1);

@@ -43,10 +43,10 @@ public class HomeActivity extends AppBaseActivity implements Observer
 	
 	
 	ListView questionlistview;
-	private int page = 0;
+	private int page = 11;
 	private LinearLayout footerLayout;
 	private String searchstring;
-	static customadapter adapter; // since we are displaying question objects, the normal ArrayAdapter will not cut it, for right now I've modified the customer adapter I used for my assignment 1 and sticked it in here
+	static HomeAdapter adapter; // since we are displaying question objects, the normal ArrayAdapter will not cut it, for right now I've modified the customer adapter I used for my assignment 1 and sticked it in here
 								  // should anyone think something else should be used instead,feel free to bring it up in group discussion
 								  // I will manually write down some questions to help implement the display for right now
 	
@@ -79,8 +79,8 @@ public class HomeActivity extends AppBaseActivity implements Observer
         questionlistview = (ListView)findViewById(R.id.expandableListView1);
         //questionlistview.addFooterView(footer);
         qlc.getQuestionlist().getModellist().clear();
-        adapter = new customadapter(getApplicationContext(), qlc.getQuestionlist().getModellist());
-        
+        adapter = new HomeAdapter(getApplicationContext(), qlc.getQuestionlist().getModellist());
+        appCache.InitProfile();
 //        for(int i = 0; i<=19; i++)
 //        {
 //        	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
@@ -138,6 +138,7 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				page+=5;
+				qlc.getQuestionlist().getModellist().clear();
             	SearchThread search = new SearchThread(searchstring,page);
            	   	search.start();
 			}});
@@ -181,8 +182,6 @@ public class HomeActivity extends AppBaseActivity implements Observer
 	@Override
 	public void update(Observable observable, Object data) {
 		// TODO Auto-generated method stub
-		Thread searchthread = new SearchThread(searchstring,page);
-		searchthread.start();
 		adapter.updatelist(qlc.getQuestionlist().getModellist());
 	}
 	class SearchThread extends Thread {
@@ -197,7 +196,6 @@ public class HomeActivity extends AppBaseActivity implements Observer
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			//
 			qlc.getQuestionlist().getModellist().addAll(qlc.getElc().search(search, "title",from));
 			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
 				runOnUiThread(doUpdateGUIList);

@@ -2,6 +2,8 @@ package com.github.cmput301f14t11.teamlort.Model;
 
 import java.util.Date;
 
+import android.util.Log;
+
 /**
  * Singleton for passing around one {@link Question} and one {@link Profile}.
  * 
@@ -72,6 +74,8 @@ public class AppCache {
 		{
 			p = new Profile();
 			p.setUsername("Guest" + (new Date()).hashCode());
+			p.setLocation(0, 0);
+			Log.i("LOCATION","location set");
 			LocalManager.getManager().saveProfileToDefault(p);
 		}
 		

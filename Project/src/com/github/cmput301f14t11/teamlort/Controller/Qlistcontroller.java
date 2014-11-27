@@ -12,7 +12,7 @@ import android.util.Log;
 
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.ElasticManager;
-import com.github.cmput301f14t11.teamlort.Model.Location;
+import com.github.cmput301f14t11.teamlort.Model.GpsLocation;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.QuestionList;
@@ -28,16 +28,8 @@ public class Qlistcontroller implements Observer{
 	private ElasticManager elc = ElasticManager.getInstance();
 	private QuestionList questionlist = new QuestionList();
 	private Profile p = new Profile();
-	/**
-	 * pulls more question from the server
-	 */
-	public ArrayList<Question> getMore(int providedid,int amount)
-	{
-		// TODO: how to trigger getmroe
-		getQuestionlist().getModellist().addAll(getElc().get(providedid, amount));
-		return getElc().get(providedid, amount);
-		// updateview
-	}
+
+
 	public void setprofile(Profile provided)
 	{
 		p = provided;
@@ -253,7 +245,7 @@ public class Qlistcontroller implements Observer{
 	public class Locationcomparator implements Comparator<Question>
 	{
 		
-		Location l = null;
+		GpsLocation l = null;
 		int direct_dist(Question c)//calculate manhatten distance between two coordinates
 		{
 			
@@ -261,7 +253,7 @@ public class Qlistcontroller implements Observer{
 			return (int) Math.pow(dist, 0.5);
 			
 		}
-		public void setlocation(Location provided)
+		public void setlocation(GpsLocation provided)
 		{
 			l = provided;
 		}

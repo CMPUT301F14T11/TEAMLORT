@@ -66,7 +66,7 @@ public class AppBaseActivity extends Activity
 	protected void onStart()
 	{
 		super.onStart();
-		appCache.InitProfile();
+		
 	}
 	
 	@Override
@@ -174,7 +174,6 @@ public class AppBaseActivity extends Activity
 				//Log.i("r1231231",username);
 				mProfileController.getP().setUsername(username);
 				appCache = AppCache.getInstance();	
-				mProfileController.getP().setLocation(0, 0);
 				appCache.setProfile(mProfileController.getP());
 				Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
 				startActivity(intent);

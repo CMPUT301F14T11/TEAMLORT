@@ -17,7 +17,7 @@ implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	private String username = "";
-	private transient Location location = null;
+	private transient GpsLocation gpsLocation = null;
 	//private transient LocalManager localManager = LocalManager.getManager();
 	private transient boolean locationService = true;
 	
@@ -61,15 +61,20 @@ implements Serializable
 	
 	public void setLocation(double latitude, double longitude) {
 		if(getLocationService()) {
-			this.location = new Location(latitude, longitude);
+			this.gpsLocation = new GpsLocation(latitude, longitude);
 		}
 		else {
-			this.location = null;
+			this.gpsLocation = new GpsLocation(latitude, longitude);
 		}
 	}
 	
-	public Location getLocation() {
-		return location;
+	public GpsLocation getLocation() {
+		if(gpsLocation !=null)
+		{
+			
+			return gpsLocation;
+		}
+		return new GpsLocation(0,0);
 	}
 	
 	public void setLocationServices(boolean status) {
@@ -123,7 +128,7 @@ implements Serializable
 	public ArrayList<Question> getTestQuestionList(int index){
 		ArrayList<Question> testQuestionList = new ArrayList<Question>();
 		for (int i = 0; i<5; i++){
-			testQuestionList.add(ObjectFactory.initQuestion("Title" + index, "Body"+ index, "author"+ index, location));
+			testQuestionList.add(ObjectFactory.initQuestion("Title" + index, "Body"+ index, "author"+ index, gpsLocation));
 		}
 		return testQuestionList;
 	}

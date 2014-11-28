@@ -257,7 +257,7 @@ extends AppBaseActivity
 //			
 //		}
 		
-		PushQueue.getInstance().pushQuestion(question, getApplicationContext());
+		
 		new SubmitNewQuestion().execute(question);
 		
 		this.setResult(RESULT_OK);
@@ -331,6 +331,7 @@ extends AppBaseActivity
 		@Override
 		protected Void doInBackground(Question... args)
 		{
+			PushQueue.getInstance().pushQuestion(args[0], getApplicationContext());
 			qController.addQuestion(args[0]);
 			return null;
 		}

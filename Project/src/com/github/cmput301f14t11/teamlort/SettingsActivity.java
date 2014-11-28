@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -133,8 +134,8 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 		if (!isInputValid())
 			return;
 
-		usrProfile.setLocation(latitude, longitude);
-
+		AppCache.getInstance().getProfile().setLocation(latitude, longitude);
+		Log.i("distance","we just sat the locatiom, there better be some coordinates! :  "+AppCache.getInstance().getProfile().getLocation().toString());
 		this.setResult(RESULT_OK);
 		this.finish();
 

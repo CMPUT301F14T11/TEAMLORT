@@ -246,11 +246,12 @@ public class Qlistcontroller implements Observer{
 	{
 		
 		GpsLocation l = null;
-		int direct_dist(Question c)//calculate manhatten distance between two coordinates
+		double direct_dist(Question c)//calculate manhatten distance between two coordinates
 		{
-			
-			int dist = (int)(Math.pow((int)(l.getLongtitude() - c.getX()),2) +Math.pow((int)(l.getLatitude() - c.getY()),2));
-			return (int) Math.pow(dist, 0.5);
+			double x = l.getLongtitude() - c.getLocation().getLongtitude();
+			double y = l.getLatitude() - c.getLocation().getLatitude();
+			double dist = Math.pow(x,2) +Math.pow(y,2);
+			return Math.pow(dist, 0.5);
 			
 		}
 		public void setlocation(GpsLocation provided)
@@ -260,7 +261,8 @@ public class Qlistcontroller implements Observer{
 		@Override
 		public int compare(Question lhs, Question rhs) {
 			// TODO Auto-generated method stub
-			return direct_dist(lhs) - direct_dist(rhs);
+			Log.i("distance","lhs: "+direct_dist(lhs)+"rhs: "+direct_dist(rhs));
+			return (int)(direct_dist(lhs) - direct_dist(rhs));
 			
 		}
 		

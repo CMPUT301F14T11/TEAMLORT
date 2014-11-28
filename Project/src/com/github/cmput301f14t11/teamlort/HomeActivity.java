@@ -80,7 +80,7 @@ public class HomeActivity extends AppBaseActivity implements Observer
         //questionlistview.addFooterView(footer);
         qlc.getQuestionlist().getModellist().clear();
         adapter = new HomeAdapter(getApplicationContext(), qlc.getQuestionlist().getModellist());
-        appCache.InitProfile();
+        AppCache.getInstance().InitProfile();
 //        for(int i = 0; i<=19; i++)
 //        {
 //        	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");

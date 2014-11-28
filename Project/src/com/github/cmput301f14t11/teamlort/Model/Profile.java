@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import android.util.Log;
+
 /** 
  *  Profile class implements attributes and methods for an author to 
  *  log in and retrieve his or her data from server
@@ -64,16 +66,17 @@ implements Serializable
 			this.gpsLocation = new GpsLocation(latitude, longitude);
 		}
 		else {
-			this.gpsLocation = new GpsLocation(latitude, longitude);
+			this.gpsLocation = null;
 		}
 	}
 	
 	public GpsLocation getLocation() {
 		if(gpsLocation !=null)
 		{
-			
+			Log.i("returngps","actual gps sent");
 			return gpsLocation;
 		}
+		Log.i("returngps","blank gps sent");
 		return new GpsLocation(0,0);
 	}
 	

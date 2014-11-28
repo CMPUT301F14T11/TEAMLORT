@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.github.cmput301f14t11.teamlort.Controller.LocationController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 
@@ -28,6 +29,7 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 	private EditText edit_longitude;
 
 	private Button setLocationBtn;
+	private Button setByGPSBtn;
 
 	private Switch locationSwitch;
 
@@ -79,6 +81,7 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 		edit_longitude = (EditText) this.findViewById(R.id.longitude);
 
 		setLocationBtn = (Button) this.findViewById(R.id.set_location_btn);
+		setByGPSBtn = (Button) this.findViewById(R.id.setByGPS_btn);
 
 		locationSwitch = (Switch) this.findViewById(R.id.locationSwitch);
 
@@ -93,6 +96,13 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 			@Override
 			public void onClick(View arg0) {
 				SettingsActivity.this.onSetLocationButtonClicked();
+			}
+		});
+		
+		setByGPSBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				SettingsActivity.this.onSetByGPSButtonClicked();
 			}
 		});
 
@@ -131,14 +141,19 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 	protected void onSetLocationButtonClicked() {
 		getInputFields();
 
-		if (!isInputValid())
+		if (!isInputValid()) {
 			return;
-
-		AppCache.getInstance().getProfile().setLocation(latitude, longitude);
-		Log.i("distance","we just sat the locatiom, there better be some coordinates! :  "+AppCache.getInstance().getProfile().getLocation().toString());
-		this.setResult(RESULT_OK);
-		this.finish();
-
+		} else {
+			usrProfile.setLocation(latitude, longitude);
+			usrProfile.locationSetManually(true);
+			this.setResult(RESULT_OK);
+			this.finish();
+		}
+	}
+	
+	protected void onSetByGPSButtonClicked() {
+		getInputFields();
+		usrProfile.locationSetManually(false);
 	}
 
 	private void getInputFields() {
@@ -147,6 +162,7 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 		longitude = Double
 				.parseDouble(((EditText) findViewById(R.id.longitude))
 						.getText().toString());
+		GetProfile();
 
 	}
 

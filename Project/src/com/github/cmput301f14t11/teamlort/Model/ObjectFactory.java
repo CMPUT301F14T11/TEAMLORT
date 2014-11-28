@@ -42,6 +42,17 @@ public class ObjectFactory {
 		return question;
 	}
 	
+	public static Answer initAnswer(String body, String author, GpsLocation GpsLocation){
+		Answer answer = new Answer();
+		
+		answer.setBody(body);
+		answer.setAuthor(author);
+		answer.setID();
+		answer.setLocation(GpsLocation);
+		
+		return answer;
+	}
+	
 	public static Answer initAnswer(String body, String author){
 		Answer answer = new Answer();
 		
@@ -50,6 +61,18 @@ public class ObjectFactory {
 		answer.setID();
 		
 		return answer;
+	}
+	
+	public static Reply initReply(String body, String author, GpsLocation GpsLocation)
+	{
+		Reply reply = new Reply();
+		
+		reply.setBody(body);
+		reply.setAuthor(author);
+		reply.setID();
+		reply.setLocation(GpsLocation);
+		
+		return reply;
 	}
 	
 	public static Reply initReply(String body, String author)

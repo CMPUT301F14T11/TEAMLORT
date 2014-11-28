@@ -22,9 +22,10 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="longitude">Longitude</string>
     <string name="latitude">Latitude</string>
-    <string name="set_location">Set Location</string>
+    <string name="set_location">Set Manually</string>
     <string name="set_location_man">Set Location Manually</string>
     <string name="attach_location">Attach Location</string>
+    <string name="set_byGPS">Set By GPS</string>
 	
 
 </resources>

@@ -160,6 +160,13 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			        
 			}
 		});
+        view.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}});
         questionlistview.setAdapter(adapter);
         Log.i("LORTANSWERS","WE GRABBED :"+qlc.getQuestionlist().getModellist().size());
         //questionlistview.removeFooterView(footerLayout);

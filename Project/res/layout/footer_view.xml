@@ -6,7 +6,7 @@
     android:background="@color/lortpurple"
     android:id="@+id/footer_layout">
  
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Load More"/>

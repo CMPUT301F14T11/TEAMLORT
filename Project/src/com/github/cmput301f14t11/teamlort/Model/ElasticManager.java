@@ -256,7 +256,7 @@ public class ElasticManager {
 	}
 	private HttpPost createSearchRequest(String searchString, String field,int from)	throws UnsupportedEncodingException {
 		//http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/pagination.html
-		HttpPost searchRequest = new HttpPost(serverAddress+"_search?size="+from+"&from=0");
+		HttpPost searchRequest = new HttpPost(serverAddress+"_search?size=5&from="+from);
 
 		String[] fields = null;
 		if (field != null) {

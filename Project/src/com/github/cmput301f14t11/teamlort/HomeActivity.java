@@ -14,6 +14,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class HomeActivity extends AppBaseActivity implements Observer
 	
 	
 	ListView questionlistview;
-	private int page = 11;
+	private int page = 0;
 	private LinearLayout footerLayout;
 	private String searchstring;
 	static HomeAdapter adapter; // since we are displaying question objects, the normal ArrayAdapter will not cut it, for right now I've modified the customer adapter I used for my assignment 1 and sticked it in here
@@ -96,10 +97,10 @@ public class HomeActivity extends AppBaseActivity implements Observer
         /**
          * screw locally generated question, we be grabbin shit online like real Gs
          */
+       
        Intent intent = getIntent();
        searchstring = intent.getStringExtra("searchstring");
-       //String searchstring = "*";
-       SearchThread search = new SearchThread(searchstring,page);
+       SearchThread search = new SearchThread(searchstring,0);
 	   search.start();
 	   
 	  
@@ -131,17 +132,29 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			
 		});
         //http://mobile.dzone.com/news/android-tutorial-dynamicaly
-
-        view.setOnClickListener(new OnClickListener(){
-
+        questionlistview.setOnScrollListener(new OnScrollListener() {
+			
 			@Override
-			public void onClick(View v) {
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
 				// TODO Auto-generated method stub
-				page+=5;
-				qlc.getQuestionlist().getModellist().clear();
-            	SearchThread search = new SearchThread(searchstring,page);
-           	   	search.start();
-			}});
+				
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+				boolean loadMore = /* maybe add a padding */
+			            firstVisibleItem + visibleItemCount >= totalItemCount;
+			            //http://stackoverflow.com/questions/1080811/android-endless-list
+			        if(loadMore) {
+			            // or any other amount
+			        	page += adapter.getCount()-1;
+		            	SearchThread search = new SearchThread(searchstring,page);
+		           	   	search.start();
+			        }
+			}
+		});
         questionlistview.setAdapter(adapter);
         Log.i("LORTANSWERS","WE GRABBED :"+qlc.getQuestionlist().getModellist().size());
         //questionlistview.removeFooterView(footerLayout);

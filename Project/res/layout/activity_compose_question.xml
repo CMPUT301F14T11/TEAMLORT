@@ -1,9 +1,16 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/default_bg"
-    tools:context="com.github.cmput301f14t11.teamlort.ComposeQuestionActivity" >
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+	tools:context="com.github.cmput301f14t11.teamlort.ComposeQuestionActivity" >
+    
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/default_bg" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -142,4 +149,8 @@
         
     </LinearLayout>
 
+
+
 </RelativeLayout>
+
+</ScrollView>

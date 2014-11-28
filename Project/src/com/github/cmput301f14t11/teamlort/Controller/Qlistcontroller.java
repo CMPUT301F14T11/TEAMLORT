@@ -8,6 +8,8 @@ import java.util.Observer;
 
 
 
+import android.content.Context;
+import android.location.LocationManager;
 import android.util.Log;
 
 import com.github.cmput301f14t11.teamlort.Model.Answer;
@@ -28,11 +30,12 @@ public class Qlistcontroller implements Observer{
 	private ElasticManager elc = ElasticManager.getInstance();
 	private QuestionList questionlist = new QuestionList();
 	private Profile p = new Profile();
+	private Context context;
 
-
-	public void setprofile(Profile provided)
+	public void setprofile(Profile provided, Context context)
 	{
 		p = provided;
+		this.context = context;
 	}
 
 	/**
@@ -87,11 +90,11 @@ public class Qlistcontroller implements Observer{
 		else if (command == "location")
 		{
 			Locationcomparator lc = new Locationcomparator();
-			if(p.getLocation() == null)
+			if(p.getLocation((LocationManager) context.getSystemService(Context.LOCATION_SERVICE)) == null)
 			{
 				Log.i("LOCATION","PROFILE HAS NULL LOCATION");
 			}
-			lc.setlocation(p.getLocation());
+			lc.setlocation(p.getLocation((LocationManager) context.getSystemService(Context.LOCATION_SERVICE)));
 			Collections.sort(getQuestionlist().getModellist(), lc);
 		}
 		else if (command == "replies")

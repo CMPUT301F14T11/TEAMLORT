@@ -14,18 +14,14 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.github.cmput301f14t11.teamlort.Controller.NetworkController;
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
-import com.github.cmput301f14t11.teamlort.Controller.UserController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
-import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
 /**
@@ -53,12 +49,9 @@ public class HomeActivity extends AppBaseActivity implements Observer
 	
 	
     //initialize controllers
-	PersistentDataManager pdm = PersistentDataManager.getInstance();//why isn't the contructor usable?
 	Qlistcontroller qlc = new Qlistcontroller();
-	UserController usecontrol = new UserController();//initialize user controller to use its functions
 	//ScoreController sc = new ScoreController();
 	ObjectFactory dt = new ObjectFactory();
-	NetworkController ne = new NetworkController();
 	ProfileController pc = new ProfileController();
 	AppCache appCache = new AppCache();
 	boolean loadingMore = false;
@@ -277,7 +270,7 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			return true;
 		
 		case(R.id.action_sort_by_location):
-			qlc.setprofile(AppCache.getInstance().getProfile());
+			qlc.setprofile(AppCache.getInstance().getProfile(), null);
 			if(clicked == false)
 			{
 				qlc.sortQuestions("location");

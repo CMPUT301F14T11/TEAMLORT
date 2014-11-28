@@ -42,7 +42,7 @@ extends AppBaseActivity
 {
 	private static final int IMAGE_REQUEST_CODE = 1;
 	
-	private LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	private LocationManager locationManager;
 	
 	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
@@ -70,6 +70,8 @@ extends AppBaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compose_question);
+		
+		locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 		
 		GetProfile();
 		GetControllers();

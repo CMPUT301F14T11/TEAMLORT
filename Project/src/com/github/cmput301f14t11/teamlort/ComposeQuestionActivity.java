@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.GpsLocation;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
@@ -41,6 +42,8 @@ extends AppBaseActivity
 {
 	private static final int IMAGE_REQUEST_CODE = 1;
 	
+	private LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	
 	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
 	private static final String TAGS_BUNDLE_KEY = "COMPOSE_TAGS";
@@ -51,6 +54,7 @@ extends AppBaseActivity
 	
 	private Profile usrProfile;
 	private QuestionController qController;
+	private GpsLocation location;
 	
 	private EditText titleEntry;
 	private EditText detailEntry;
@@ -237,17 +241,26 @@ extends AppBaseActivity
 	protected void onAcceptButtonClicked()
 	{
 		getInputFields();
+		Question question;
 		
 		if(!isInputValid()) return;
 		
-		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-		Question question = ObjectFactory.initQuestion(
+		
+		if (getLocation()) {
+			question = ObjectFactory.initQuestion(
 				title,
 				detail,
 				usrProfile.getUsername(),
-				usrProfile.getLocation(locationManager)
+				location
 				);
+		} else {
+			question = ObjectFactory.initQuestion(
+					title,
+					detail,
+					usrProfile.getUsername()
+					);
+		}
+		
 		
 //		if (pic != null)
 //		{
@@ -278,6 +291,8 @@ extends AppBaseActivity
 				.getText().toString();
 		
 		pic = ((ImageView) findViewById(R.id.compose_img_preview)).getDrawable();
+		
+		
 	}
 	
 	private boolean isInputValid()
@@ -329,6 +344,17 @@ extends AppBaseActivity
 		startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
 	}
 	
+	private boolean getLocation() {
+		
+		location = usrProfile.getLocation(locationManager);
+		if (location == new GpsLocation(0,0)) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
 	private class SubmitNewQuestion
 	extends AsyncTask<Question, Void, Void>
 	{
@@ -340,4 +366,5 @@ extends AppBaseActivity
 			return null;
 		}
 	}
+	
 }

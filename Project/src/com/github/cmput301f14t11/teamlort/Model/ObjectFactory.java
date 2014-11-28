@@ -38,6 +38,30 @@ public class ObjectFactory {
 		question.setAuthor(author);
 		question.addPicture(image);
 		question.setID();
+		question.setLocation(GpsLocation);
+		
+		return question;
+	}
+	
+	public static Question initQuestion(String title, String body, String author){
+		Question question = new Question();
+		
+		question.setTitle(title);
+		question.setBody(body);
+		question.setAuthor(author);
+		question.setID();
+		return question;
+	}
+	
+	public static Question initQuestion(String title, String body, String author, Drawable image){
+		//An overload that takes in an image
+		Question question = new Question();
+		
+		question.setTitle(title);
+		question.setBody(body);
+		question.setAuthor(author);
+		question.addPicture(image);
+		question.setID();
 		
 		return question;
 	}

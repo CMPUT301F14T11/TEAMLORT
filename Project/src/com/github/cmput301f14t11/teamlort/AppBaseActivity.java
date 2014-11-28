@@ -7,6 +7,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
@@ -51,12 +53,14 @@ public class AppBaseActivity extends Activity
 	{
 		super.onCreate(inState);
 		this.setContentView(R.layout.activity_app_base);
+		getWindow().getDecorView().setBackgroundColor(0xbbcc67);
 		// Set the top ActionBar to a custom view.
         this.inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ActionBar ab = this.getActionBar();
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         ab.setCustomView(inflater.inflate(R.layout.actionbar_top_layout, null));
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setSplitBackgroundDrawable(new ColorDrawable(Color.parseColor("#958dba")));
         
         // Connect the buttons in the top ActionBar
         getLayoutResources();

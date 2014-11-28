@@ -152,6 +152,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder = (AnswerViewHolder) convertView.getTag();
 		}
 		final Answer answer = answerList.get(groupPosition);
+		final String username = AppCache.getInstance().getProfile().getUsername();
 		
 		//Set the text for the view if answer isn't null
 		if (answer != null){
@@ -161,7 +162,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_comment_count.setText(String.valueOf(answer.getReplyList().size()) + " comments");
 			answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
 			
-			if(answer.getVoterSet().contains(answer.getAuthor())){
+			if(answer.getVoterSet().contains(username)){
 				answerViewHolder.upvoteButton.setBackgroundColor(Color.GREEN);
 			}
 			else {
@@ -177,13 +178,13 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 					/* Note: the upvoteButton in answerViewHolder appears to have the correct reference to it's textfield
 					 * but a reference to the most recent view rather than to the clicked one, so currentUpvoteButton is used */
 					Button currentUpvoteButton = (Button) finalConvertView.findViewById(R.id.upvoteButton);
-					if(answer.getVoterSet().contains(answer.getAuthor())){
-						answer.unVote(answer.getAuthor());
+					if(answer.getVoterSet().contains(username)){
+						answer.unVote(username);
 						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
 						currentUpvoteButton.setBackgroundColor(Color.GRAY);
 					}
 					else {
-						answer.upVote(answer.getAuthor());
+						answer.upVote(username);
 						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
 						currentUpvoteButton.setBackgroundColor(Color.GREEN);
 					}

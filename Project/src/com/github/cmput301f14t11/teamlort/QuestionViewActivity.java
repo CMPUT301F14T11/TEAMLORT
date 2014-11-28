@@ -63,6 +63,7 @@ extends AppBaseActivity
 		setContentView(R.layout.activity_question_view);
 		
 		final AppCache appCache = AppCache.getInstance();
+		final String username = appCache.getProfile().getUsername();
 		question = appCache.getQuestion();
 		
 		answerList = question.getAnswerList();
@@ -96,7 +97,7 @@ extends AppBaseActivity
 		
 		Collections.sort(answerList, new AnswerComparator());
 		
-		if(question.getVoterSet().contains(question.getAuthor())){
+		if(question.getVoterSet().contains(username)){
 			upVoteButton.setBackgroundColor(Color.GREEN);
 		}
 		else {
@@ -216,13 +217,13 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(question.getVoterSet().contains(question.getAuthor())){
-					question.unVote(question.getAuthor());
+				if(question.getVoterSet().contains(username)){
+					question.unVote(username);
 					upVoteButton.setText(""+question.getScore());
 					upVoteButton.setBackgroundColor(Color.GRAY);
 				}
 				else {
-					question.upVote(question.getAuthor());
+					question.upVote(username);
 					upVoteButton.setText(""+question.getScore());
 					upVoteButton.setBackgroundColor(Color.GREEN);
 				}

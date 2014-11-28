@@ -48,6 +48,7 @@ public class PushQueue {
 	{
 		if(NetworkListener.checkConnection(c))
 		{
+			Log.i("PushQue","pushanswer being called");
 			new PushAnswers().execute(new PushItemAnswer(answer, questionID));
 		}
 		else{

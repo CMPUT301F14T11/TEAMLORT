@@ -218,14 +218,16 @@ extends AppBaseActivity
 				// TODO Auto-generated method stub
 				if(question.getVoterSet().contains(question.getAuthor())){
 					question.unVote(question.getAuthor());
-					upVoteButton.setText(String.valueOf(question.getScore()));
+					upVoteButton.setText(""+question.getScore());
 					upVoteButton.setBackgroundColor(Color.GRAY);
 				}
 				else {
 					question.upVote(question.getAuthor());
-					upVoteButton.setText(String.valueOf(question.getScore()));
+					upVoteButton.setText(""+question.getScore());
 					upVoteButton.setBackgroundColor(Color.GREEN);
 				}
+				PushQueue.getInstance().pushQuestion(question,getApplicationContext());
+
 			}
 		});
 		saveButton.setOnClickListener(new OnClickListener() {

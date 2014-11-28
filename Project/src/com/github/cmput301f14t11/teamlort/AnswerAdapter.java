@@ -187,6 +187,8 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
 						currentUpvoteButton.setBackgroundColor(Color.GREEN);
 					}
+					
+
 					notifyDataSetChanged();
 				}
 			});

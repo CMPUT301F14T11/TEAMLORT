@@ -17,6 +17,8 @@ implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String body;
+	
+	private GpsLocation GpsLocation = null;
 
 	
 	/**
@@ -69,5 +71,13 @@ implements java.io.Serializable {
 	 * */
 	public void setID() {
 		ID = this.hashCode();
+	}
+	
+	public void setLocation(GpsLocation GpsLocation) {
+		this.GpsLocation = GpsLocation;
+	}
+	
+	public GpsLocation getLocation() {
+		return GpsLocation;
 	}
 }

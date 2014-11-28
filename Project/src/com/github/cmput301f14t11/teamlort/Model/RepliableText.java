@@ -29,7 +29,7 @@ public class RepliableText extends TextPrimitive{
 	
 	private transient Listener listener;
 	
-	private GpsLocation GpsLocation = null;
+
 	
 	/**
 	 * @return Returns the score of the question/answer
@@ -125,12 +125,6 @@ public class RepliableText extends TextPrimitive{
 		return replyList.get(index);
 	}
 	
-	public void setLocation(GpsLocation GpsLocation) {
-		this.GpsLocation = GpsLocation;
-	}
-	
-	public GpsLocation getLocation() {
-		return GpsLocation;
-	}
+
 	
 }

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import com.github.cmput301f14t11.teamlort.Controller.LocationController;
+
+import android.location.LocationManager;
 import android.util.Log;
 
 /** 
@@ -22,6 +25,7 @@ implements Serializable
 	private transient GpsLocation gpsLocation = null;
 	//private transient LocalManager localManager = LocalManager.getManager();
 	private transient boolean locationService = true;
+	private transient boolean manuallySetStatus = false;
 	
 	protected ArrayList<Question> savedQuestionList = new ArrayList<Question>();
 	protected ArrayList<Question> favedQuestionList = new ArrayList<Question>();
@@ -70,14 +74,26 @@ implements Serializable
 		}
 	}
 	
-	public GpsLocation getLocation() {
-		if(gpsLocation !=null)
-		{
-			Log.i("returngps","actual gps sent");
-			return gpsLocation;
+	public GpsLocation getLocation(LocationManager locationManager) {
+		if (getLocationService()) {
+			if(getManuallySetStatus() == true) {
+				Log.i("returngps","manually set gps sent");
+				return gpsLocation;
+			} else {
+				LocationController loc = new LocationController();
+				gpsLocation = loc.getGPSLocation(locationManager);
+				if (gpsLocation != null) {
+					Log.i("returngps","actual gps sent");
+					return gpsLocation;
+				} else {
+					Log.i("returngps","blank gps sent");
+					return new GpsLocation(0,0);
+				}
+			}
+		} else {
+			Log.i("returngps","blank gps sent");
+			return new GpsLocation(0,0);
 		}
-		Log.i("returngps","blank gps sent");
-		return new GpsLocation(0,0);
 	}
 	
 	public void setLocationServices(boolean status) {
@@ -86,6 +102,14 @@ implements Serializable
 	
 	public boolean getLocationService() {
 		return locationService;
+	}
+	
+	public void locationSetManually(boolean status) {
+		this.manuallySetStatus = status;
+	}
+	
+	public boolean getManuallySetStatus() {
+		return manuallySetStatus;
 	}
 	
 	/**

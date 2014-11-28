@@ -3,8 +3,10 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.io.File;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -237,12 +239,14 @@ extends AppBaseActivity
 		getInputFields();
 		
 		if(!isInputValid()) return;
+		
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		Question question = ObjectFactory.initQuestion(
 				title,
 				detail,
 				usrProfile.getUsername(),
-				usrProfile.getLocation()
+				usrProfile.getLocation(locationManager)
 				);
 		
 //		if (pic != null)

@@ -147,12 +147,17 @@ public class HomeActivity extends AppBaseActivity implements Observer
 				boolean loadMore = /* maybe add a padding */
 			            firstVisibleItem + visibleItemCount >= totalItemCount;
 			            //http://stackoverflow.com/questions/1080811/android-endless-list
-			        if(loadMore) {
-			            // or any other amount
-			        	page += adapter.getCount()-1;
-		            	SearchThread search = new SearchThread(searchstring,page);
-		           	   	search.start();
+			        if(totalItemCount>5)
+			        {
+			        	if(loadMore) {
+				            // or any other amount
+				        	
+				        	page += adapter.getCount();
+			            	SearchThread search = new SearchThread(searchstring,page);
+			           	   	search.start();
+				        }
 			        }
+			        
 			}
 		});
         questionlistview.setAdapter(adapter);

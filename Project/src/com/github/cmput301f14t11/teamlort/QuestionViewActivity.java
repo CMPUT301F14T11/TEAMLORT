@@ -69,6 +69,9 @@ extends AppBaseActivity
 		answerList = question.getAnswerList();
 		questionReplyList = question.getReplyList();
 		
+		final QuestionController questionController = new QuestionController(getApplicationContext());
+		questionController.setQuestion(question);
+		
 		final ProfileController pc = new ProfileController();
 		Profile profile = new Profile();
 		//pc.setProfile(profile);
@@ -110,6 +113,7 @@ extends AppBaseActivity
 		else {
 			upVoteButton.setBackgroundColor(Color.GRAY);
 		}
+		upVoteButton.setText(String.valueOf(question.getScore()));
 			
 		upVoteButton.setText(String.valueOf(question.getScore()));
 		replyAdapter = new ReplyAdapter(questionReplyList, this);
@@ -122,7 +126,7 @@ extends AppBaseActivity
 		//Add the header top top of listview
 		answerListView.addHeaderView(header, null, false);
 		
-		final AnswerAdapter answerAdapter = new AnswerAdapter(answerList, this, question.getID());
+		final AnswerAdapter answerAdapter = new AnswerAdapter(answerList, this, question);
 		answerListView.setAdapter(answerAdapter);		
 
 		final TextView questionCommentIndicator = (TextView) header.findViewById(R.id.commentIndicatorTextView);
@@ -197,10 +201,8 @@ extends AppBaseActivity
 				Answer answer = ObjectFactory.initAnswer(answerText.getText().toString(), appCache.getProfile().getUsername());
 				//answer.setBody(answerText.getText().toString());
 				//answer.setAuthor(appCache.getProfile().getUsername());
-				question.addAnswer(answer); 
+				questionController.addAnswer(answer); 
 				answerText.setText("");
-
-				PushQueue.getInstance().pushAnswer(question.getID(), answer, getApplicationContext());
 
 				//Toast.makeText(getBaseContext(), "Added Question", Toast.LENGTH_SHORT).show();
 				//Thread thread = new AddThread(question);
@@ -226,8 +228,7 @@ extends AppBaseActivity
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
 						Reply reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername());
-						question.addReplyToStart(reply);
-						PushQueue.getInstance().pushQuestionReply(question.getID(), reply, getApplicationContext());
+						questionController.addQuestionReply(reply);
 						//Refresh the comment counter.
 						if (QuestionReplyListView.getVisibility() == View.GONE){
 							questionCommentIndicator.setText("[ + ] " + QuestionReplyListView.getCount() + " comments");
@@ -253,10 +254,10 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View v) {
 				if(question.getVoterSet().contains(username)){
-					question.unVote(username);
+					questionController.unVoteQuestion(username);
 				}
 				else {
-					question.upVote(username);
+					questionController.upVoteQuestion(username);
 				}
 				PushQueue.getInstance().pushQuestion(question,getApplicationContext());
 

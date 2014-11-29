@@ -128,7 +128,7 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		Reply r2 = ObjectFactory.initReply("This answer sucks. Doesn't answer the question.", author1);
 		Reply r3 = ObjectFactory.initReply("lol", author2);
 		
-		qController.addReply(r1, q1.getID());
+		qController.addQuestionReply(r1, q1.getID());
 		aController.addReply(r2, q1.getID(), a1.getID());
 		aController.addReply(r3, q1.getID(), a2.getID());
 		

@@ -97,6 +97,13 @@ extends AppBaseActivity
 		
 		Collections.sort(answerList, new AnswerComparator());
 		
+		if(pc.getProfile().getFavedQuestionList().contains(question)){
+			favoriteButton.setBackgroundColor(Color.GREEN);
+		}
+		if(pc.getProfile().getSavedQuestionList().contains(question)){
+			saveButton.setBackgroundColor(Color.GREEN);
+		}
+		
 		if(question.getVoterSet().contains(username)){
 			upVoteButton.setBackgroundColor(Color.GREEN);
 		}
@@ -123,6 +130,38 @@ extends AppBaseActivity
 		//Set the initial question comment indicator.
 		questionCommentIndicator.setText("[ + ] " + QuestionReplyListView.getCount() + " comments");
 		
+		//Set model listeners
+		question.setListener(new Listener(){
+
+			@Override
+			public void update() {
+				replyAdapter.notifyDataSetChanged();	
+				if(question.getVoterSet().contains(username)){
+					upVoteButton.setBackgroundColor(Color.GREEN);
+				}
+				else {
+					upVoteButton.setBackgroundColor(Color.GRAY);
+				}
+				upVoteButton.setText(String.valueOf(question.getScore()));
+				setListViewHeightBasedOnChildren(QuestionReplyListView);
+			}
+			
+		});
+		
+		for (Answer answer : answerList){
+		
+			answer.setListener(new Listener(){
+
+				@Override
+				public void update() {
+					answerAdapter.notifyDataSetChanged();				
+				}
+			
+			});
+		
+		}
+		
+		//Set view listeners
 		header.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -160,7 +199,6 @@ extends AppBaseActivity
 				//answer.setAuthor(appCache.getProfile().getUsername());
 				question.addAnswer(answer); 
 				answerText.setText("");
-				answerAdapter.notifyDataSetChanged();
 
 				PushQueue.getInstance().pushAnswer(question.getID(), answer, getApplicationContext());
 
@@ -189,8 +227,6 @@ extends AppBaseActivity
 					public void onClick(DialogInterface arg0, int arg1) {
 						Reply reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername());
 						question.addReplyToStart(reply);
-						setListViewHeightBasedOnChildren(QuestionReplyListView);
-						replyAdapter.notifyDataSetChanged();
 						PushQueue.getInstance().pushQuestionReply(question.getID(), reply, getApplicationContext());
 						//Refresh the comment counter.
 						if (QuestionReplyListView.getVisibility() == View.GONE){
@@ -216,16 +252,11 @@ extends AppBaseActivity
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				if(question.getVoterSet().contains(username)){
 					question.unVote(username);
-					upVoteButton.setText(""+question.getScore());
-					upVoteButton.setBackgroundColor(Color.GRAY);
 				}
 				else {
 					question.upVote(username);
-					upVoteButton.setText(""+question.getScore());
-					upVoteButton.setBackgroundColor(Color.GREEN);
 				}
 				PushQueue.getInstance().pushQuestion(question,getApplicationContext());
 

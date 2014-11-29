@@ -6,7 +6,6 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.github.cmput301f14t11.teamlort.HomeActivity;
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
-import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.ElasticManager;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Question;
@@ -27,28 +26,19 @@ public class UseCase15Test extends ActivityInstrumentationTestCase2<HomeActivity
 			Question question1 = ObjectFactory.initQuestion("Cat", "B1", "A1");
 			Question question2 = ObjectFactory.initQuestion("Dog", "B2", "A2");
 			Question question3 = ObjectFactory.initQuestion("Horse", "B3", "A3");
-			Answer answer1 =  ObjectFactory.initAnswer("mew", "A1");
-			Answer answer2 =  ObjectFactory.initAnswer("bark", "A1");
-			Answer answer3 =  ObjectFactory.initAnswer("neigh", "A1");
-			Answer answer4 =  ObjectFactory.initAnswer("bbar", "A1");
 
-			question1.addAnswer(answer1);
-			question2.addAnswer(answer2);
-			question3.addAnswer(answer3);
 			ql.add(question1);
 			ql.add(question2);
 			ql.add(question3);
-			
+
+			em.addItem(question1);
+			em.addItem(question2);
+			em.addItem(question3);
 			
 			//Search "cat" and question1 should append to the result list
-			result = em.search("cat");
+			result = em.search("cat", null, 5);
 			assertTrue("cat search is not expected", result.size() == 1 &&
 					result.get(0) == question1);
-			//When user search "bar", it should return the answer bark and bbar
-			result = em.search("bar");
-			assertTrue("bark search is not expected", result.size() == 2 &&
-					result.contains(answer2) && result.contains(answer4));
-		
 		}
 
 }

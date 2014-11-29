@@ -151,7 +151,7 @@ extends AppBaseActivity
 	 */
 	private void GetControllers()
 	{
-		qController = new QuestionController();
+		qController = new QuestionController(getApplicationContext());
 	}
 	
 	/**

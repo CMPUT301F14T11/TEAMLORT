@@ -169,7 +169,7 @@ public class PushQueue {
 			{
 				Question question = ElasticManager.getInstance().getItem(reply.getQuestionID());
 				for(Answer a : question.getAnswerList()){
-					if (a.getID() == reply.getQuestionID()){
+					if (a.getID() == reply.getAnswerID()){
 						a.addReplyToStart(reply.getPushItem());
 					}
 				}

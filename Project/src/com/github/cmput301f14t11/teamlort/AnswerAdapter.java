@@ -216,7 +216,6 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 							AppCache appCache = AppCache.getInstance();
 							Reply reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername());
 							answer.addReplyToStart(reply);
-							notifyDataSetChanged();
 							
 							PushQueue.getInstance().pushAnswerReply(questionID, answer.getID(), reply, context);
 						}

@@ -51,6 +51,7 @@ public class Question extends RepliableText{
 	 */
 	public void addAnswer(Answer answer) {
 		answerList.add(answer);
+		notifyListener();
 	}
 	
 	/**
@@ -59,6 +60,7 @@ public class Question extends RepliableText{
 	 */
 	public void deleteAnswer(Answer answer) {
 		answerList.remove(answer);
+		notifyListener();
 	}
 	public void setAnswerList(ArrayList<Answer> arrayList) {
 		// TODO Auto-generated method stub

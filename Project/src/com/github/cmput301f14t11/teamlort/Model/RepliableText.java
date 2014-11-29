@@ -27,7 +27,14 @@ public class RepliableText extends TextPrimitive{
 	
 	private HashSet<String> voterSet = new HashSet<String>(); 
 	
-	private transient Listener listener;
+	private transient Listener listener = new Listener(){
+
+		@Override
+		public void update() {
+			// Default listener that does nothing.
+		}
+		
+	};
 	
 
 	
@@ -107,15 +114,19 @@ public class RepliableText extends TextPrimitive{
 	 */
 	public void deletePicture() {
 		picture = null;
+		notifyListener();
 	}
 	public void addReply(Reply reply) {
 		replyList.add(reply);
+		notifyListener();
 	}
 	public void addReplyToStart(Reply reply){
 		replyList.add(0, reply);
+		notifyListener();
 	}
 	public void deleteReply(Reply reply) {
 		replyList.remove(reply);
+		notifyListener();
 	}
 	/**
 	 * @param index
@@ -123,6 +134,14 @@ public class RepliableText extends TextPrimitive{
 	 */
 	public Reply getReply(int index) {
 		return replyList.get(index);
+	}
+	
+	public void setListener(Listener listener) {
+		this.listener = listener;
+	}
+	
+	public void notifyListener(){
+		listener.update();
 	}
 	
 

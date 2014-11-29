@@ -2,6 +2,7 @@ package com.github.cmput301f14t11.teamlort.Controller;
 
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.ElasticManager;
+import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 
@@ -15,25 +16,38 @@ import android.util.Log;
  * @author Elvis Lo
  */
 public class QuestionController {
+	
+
 	Context context;
-	public void providecontext(Context context)
-	{
+	Question question;
+	PushQueue pushQueue = PushQueue.getInstance();
+	
+	public QuestionController(Context context) {
+		super();
 		this.context = context;
 	}
 	
 	public void addQuestion(Question question){
-		
+		pushQueue.pushQuestion(question, context);
 	}
 	
 	public void addAnswer(Answer answer){
 		
 	}
 	
-	public void addQuestionReply(Reply reply, int questionID){
+	public void addReply(Reply reply, int questionID){
 
 	}
 	
 	public void addAnswerReply(){
+		
+	}
+	
+	public void upvoteQuestion(){
+		
+	}
+	
+	public void upvoteAnswer(){
 		
 	}
 

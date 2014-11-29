@@ -29,7 +29,7 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
  *
  */
 public class ProfileActivity extends AppBaseActivity implements Observer {
-	static HomeAdapter adapter; 
+	static ProfileAdatper adapter; 
 	ArrayList<Question> displayQuestionList = new ArrayList<Question>();
 	ListView lv;
     AlertDialog alertDialog = null;
@@ -68,7 +68,7 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		adapter = new HomeAdapter(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
+		adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 		lv = (ListView) findViewById(R.id.ProfileQuestionListView);
 		lv.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
 		{
@@ -140,7 +140,7 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	 *  @issue not implemented
 	 */
 	public void savedListButtonPressed(View view){
-		adapter = new HomeAdapter(getApplicationContext(),ProfileController.getP().getSavedQuestionList());
+		adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getSavedQuestionList());
 		lv.setAdapter(adapter);
 		currentView = SAVE_QUESTION_VIEW;
 		
@@ -151,19 +151,19 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	 *  @issue not implemented
 	 */
 	public void favedListButtonPressed(View view){
-		adapter = new HomeAdapter(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
+		adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 		lv.setAdapter(adapter);
 		currentView = FAVORITE_QUESTION_VIEW;
 	}
 	
 	public void myListButtonPressed(View view){
-		adapter = new HomeAdapter(getApplicationContext(),ProfileController.getP().getMyQuestionList());
+		adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getMyQuestionList());
 		lv.setAdapter(adapter);
 		currentView = MY_QUESTION_VIEW;
 	}
 	
 	public void tempListButtonPressed(View view){
-		adapter = new HomeAdapter(getApplicationContext(),ProfileController.getP().getTempQuestionList());
+		adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getTempQuestionList());
 		lv.setAdapter(adapter);
 		currentView = TEMP_QUESTION_VIEW;
 	}
@@ -197,11 +197,11 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 
 	private void setNewAdapter() {
 		if(currentView == SAVE_QUESTION_VIEW){
-			adapter = new HomeAdapter(getApplicationContext(),ProfileController.getP().getSavedQuestionList());
+			adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getSavedQuestionList());
 			lv.setAdapter(adapter);
 		}
 		else if (currentView == FAVORITE_QUESTION_VIEW){
-			adapter = new HomeAdapter(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
+			adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 			lv.setAdapter(adapter);
 		}
 		else{

@@ -27,9 +27,9 @@ class Single_Home_Question
 	public Question thisquestion;
 	Single_Home_Question(View feed)
 	{
-		title = (TextView) feed.findViewById(R.id.homeactivity_question_title);
-		content = (TextView) feed.findViewById(R.id.homeactivity_question_desc);
-		count = (TextView) feed.findViewById(R.id.homeactivity_question_stats);
+		title = (TextView) feed.findViewById(R.id.p_qtitle);
+		content = (TextView) feed.findViewById(R.id.p_qcontent);
+		count = (TextView) feed.findViewById(R.id.p_qstats);
 		save = (ImageButton) feed.findViewById(R.id.homeactivity_question_save_button);
 		favorite = (ImageButton) feed.findViewById(R.id.homeactivity_question_favorite_button);
 		upvote = (Button)feed.findViewById(R.id.homeactivity_displayupvote);

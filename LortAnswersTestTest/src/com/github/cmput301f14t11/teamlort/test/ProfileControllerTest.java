@@ -39,11 +39,9 @@ public class ProfileControllerTest extends TestCase {
 		Question q2 = ObjectFactory.initQuestion("D", "E", "C");
 		pc.addFavedQuestion(q1);
 		pc.addFavedQuestion(q2);
-		assertTrue("remove faved q1 should be ture", pc.removeFavedQuestion(q1));
-		assertTrue("remove faved q2 should be ture", pc.removeFavedQuestion(q2));
+		pc.removeCreatedQuestion(q1);
+		pc.removeCreatedQuestion(q2);
 		assertTrue("nothing should be in the list now", p.getFavedQuestionList().size() == 0);
-		pc.removeFavedQuestion(q1);
-		assertFalse("remove faved q1 should be false", pc.removeFavedQuestion(q1));
 	}
 	
 	public void testSavedQuestion() {
@@ -60,16 +58,15 @@ public class ProfileControllerTest extends TestCase {
 	}
 	
 	public void testRemoveSavedQuestion(){
-		assertTrue("nothing should be in the list now", p.getFavedQuestionList()== new ArrayList<Question>());
+		assertTrue("nothing should be in the list now", p.getSavedQuestionList()== new ArrayList<Question>());
 		Question q1 = ObjectFactory.initQuestion("A", "B", "C");
 		Question q2 = ObjectFactory.initQuestion("D", "E", "C");
 		pc.addSavedQuestion(q1);
 		pc.addSavedQuestion(q2);
-		assertTrue("remove faved q1 should be ture", pc.removeSavedQuestion(q1));
-		assertTrue("remove faved q2 should be ture", pc.removeSavedQuestion(q2));
+		pc.removeSavedQuestion(q1);
+		pc.removeSavedQuestion(q2);
 		assertTrue("nothing should be in the list now", p.getSavedQuestionList().size() == 0);
 		pc.removeSavedQuestion(q1);
-		assertFalse("remove faved q1 should be false", pc.removeSavedQuestion(q1));
 	}
 	
 	public void testCreatedQuestion() {
@@ -91,11 +88,9 @@ public class ProfileControllerTest extends TestCase {
 		Question q2 = ObjectFactory.initQuestion("D", "E", "C");
 		pc.addSavedQuestion(q1);
 		pc.addSavedQuestion(q2);
-		assertTrue("remove faved q1 should be ture", pc.removeCreatedQuestion(q1));
-		assertTrue("remove faved q2 should be ture", pc.removeCreatedQuestion(q2));
-		assertTrue("nothing should be in the list now", p.getMyQuestionList().size() == 0);
 		pc.removeCreatedQuestion(q1);
-		assertFalse("remove faved q1 should be false", pc.removeCreatedQuestion(q1));
+		pc.removeCreatedQuestion(q2);
+		assertTrue("nothing should be in the list now", p.getMyQuestionList().size() == 0);
 	}
 
 }

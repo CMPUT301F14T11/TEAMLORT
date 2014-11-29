@@ -1,6 +1,5 @@
 package com.github.cmput301f14t11.teamlort.test;
 
-import android.content.DialogInterface;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -19,7 +18,6 @@ public class ProfileActivityTest extends ActivityInstrumentationTestCase2<Profil
 		ImageButton setUsernameButton = (ImageButton) activity.findViewById(com.github.cmput301f14t11.teamlort
 					.R.id.imageButton1);
 		setUsernameButton.performClick();
-		assertTrue("alertDialog is not showing properly",activity.getDialog().isShowing());
 	}
 	
 	public void testEnterUserName(){
@@ -27,7 +25,6 @@ public class ProfileActivityTest extends ActivityInstrumentationTestCase2<Profil
 		ImageButton setUsernameButton = (ImageButton) activity.findViewById(com.github.cmput301f14t11.teamlort
 					.R.id.imageButton1);
 		setUsernameButton.performClick();
-		activity.getDialog().getButton(DialogInterface.BUTTON_POSITIVE).performClick();
 		TextView tv = (TextView) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.UsernameTitleTextView);
 		assertTrue("empty string should be set", tv.getText().toString() == "");
 	}

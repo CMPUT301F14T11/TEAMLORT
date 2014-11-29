@@ -160,12 +160,14 @@ public class AppBaseActivity extends Activity
 	@Override
 	protected void onSaveInstanceState(Bundle outState)
 	{
+		LocalManager.getManager().saveProfileToDefault(appCache.getProfile());
 		super.onSaveInstanceState(outState);
 	}
 	
 	@Override
 	protected void onRestoreInstanceState(Bundle inState)
 	{
+		appCache.setProfile(LocalManager.getManager().loadProfile());
 		super.onRestoreInstanceState(inState);
 	}
 	protected AlertDialog.Builder buildhelp(Drawable provided) {

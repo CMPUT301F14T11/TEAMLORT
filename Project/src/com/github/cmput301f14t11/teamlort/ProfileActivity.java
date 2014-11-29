@@ -34,6 +34,8 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	ArrayList<Question> displayQuestionList = new ArrayList<Question>();
 	ListView lv;
     AlertDialog alertDialog = null;
+    
+    private TextView usernameTV;
 
     static final int FAVORITE_QUESTION_VIEW = 1;
     static final int SAVE_QUESTION_VIEW = 2;
@@ -71,20 +73,15 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 		super.onStart();
 		adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 		lv = (ListView) findViewById(R.id.ProfileQuestionListView);
-		lv.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
+		lv.setOnItemClickListener(new OnItemClickListener()
 		{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				//JUMP TO QUESTION VIEW,FILLING DATA ACCORDING TO QUESTION ID - NEED MORE DISCUSSION
+					int position, long id)
+			{
 				Intent intent = new Intent(getApplicationContext(),QuestionViewActivity.class);
 				AppCache appCache = AppCache.getInstance();
 				appCache.setQuestion((Question) adapter.getItem(position));
-				//Single_Home_Question holder = (Single_Home_Question) view.getTag();
-				//Question temp = (Question) holder.title.getTag();
-				//intent.putExtra("position", position);
-				//intent.putExtra("id", 0);// corrected the id confusion as requested - Sam
 				startActivity(intent);
 				
 			}
@@ -92,14 +89,21 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 		});
 		lv.setAdapter(adapter);
 		
-		TextView tv = (TextView) findViewById(R.id.UsernameTitleTextView);
+		usernameTV = (TextView) findViewById(R.id.UsernameTitleTextView);
 		if(AppCache.getInstance().getProfile().getUsername()==null){
-			tv.setText("Guest");
+			usernameTV.setText("Guest");
 		}
 		else{
-		tv.setText(AppCache.getInstance().getProfile().getUsername());
+		usernameTV.setText(AppCache.getInstance().getProfile().getUsername());
 		}
 		
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		usernameTV.setText(AppCache.getInstance().getProfile().getUsername());
+		super.onResume();
 	}
 
 	

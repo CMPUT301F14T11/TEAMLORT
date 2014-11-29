@@ -2,6 +2,8 @@ package com.github.cmput301f14t11.teamlort.Model;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -36,12 +38,14 @@ public class PushQueue {
 		if(NetworkListener.checkConnection(c))
 		{
 			new PushQuestions().execute(question);
+			AppCache.getInstance().getProfile().myQuestionList.add(question);
 		}
 		else{
 			questionList.add(question);
 			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
-			
 		}
+	
+		
 	}
 	
 	public void pushAnswer(int questionID, Answer answer, Context c)
@@ -177,6 +181,10 @@ public class PushQueue {
 			}
 			return null;
 		}
+	}
+	public ArrayList<Question> returntemplist()
+	{
+		return questionList;
 	}
 }
 

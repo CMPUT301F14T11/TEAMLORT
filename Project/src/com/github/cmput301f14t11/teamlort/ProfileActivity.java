@@ -20,6 +20,7 @@ import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
 
@@ -204,7 +205,17 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 			adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 			lv.setAdapter(adapter);
 		}
-		else{
+		else if (currentView == MY_QUESTION_VIEW)
+		{
+			adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getMyQuestionList());
+			lv.setAdapter(adapter);
+			
+		}
+		else if (currentView == TEMP_QUESTION_VIEW)
+		{
+			
+			adapter = new ProfileAdatper(getApplicationContext(),PushQueue.getInstance().returntemplist());
+			lv.setAdapter(adapter);
 			
 		}
 		

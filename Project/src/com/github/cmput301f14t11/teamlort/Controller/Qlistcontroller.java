@@ -207,7 +207,7 @@ public class Qlistcontroller implements Observer{
 		public int compare(Question lhs, Question rhs) {
 			// TODO Auto-generated method stub
 			
-			return lhs.getReplyList().size()-rhs.getReplyList().size();
+			return lhs.getAnswerList().size()-rhs.getAnswerList().size();
 		}
 		
 	}

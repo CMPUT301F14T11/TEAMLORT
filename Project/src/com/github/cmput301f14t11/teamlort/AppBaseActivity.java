@@ -206,8 +206,7 @@ public class AppBaseActivity extends Activity
 				mProfileController.getP().setUsername(username);
 				appCache = AppCache.getInstance();	
 				appCache.setProfile(mProfileController.getP());
-				Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-				startActivity(intent);
+				Toast.makeText(getApplicationContext(), "Logged in as: " + 	AppCache.getInstance().getProfile().getUsername(), Toast.LENGTH_SHORT).show();
 				
 			}
 		});

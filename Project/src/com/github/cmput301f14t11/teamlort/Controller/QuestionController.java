@@ -15,26 +15,26 @@ import android.util.Log;
  * @author Elvis Lo
  */
 public class QuestionController {
-	// for testing purposes, I will be skipping the pushque procedure and directly sending questions to elastic manager
-	ElasticManager elc = ElasticManager.getInstance();
-	Context ctx;
-	public void providecontext(Context provided)
+	Context context;
+	public void providecontext(Context context)
 	{
-		ctx = provided;
+		this.context = context;
 	}
 	
 	public void addQuestion(Question question){
-		//TODO stub
-		//
-		//elc.providecontext(ctx);
 		
-		Log.i("add","did additem run?");
-		elc.addItem(question);
-		Log.i("add","looks like it did");
 	}
 	
-	public void addReply(Reply reply, int questionID){
-		//TODO stub
+	public void addAnswer(Answer answer){
+		
+	}
+	
+	public void addQuestionReply(Reply reply, int questionID){
+
+	}
+	
+	public void addAnswerReply(){
+		
 	}
 
 }

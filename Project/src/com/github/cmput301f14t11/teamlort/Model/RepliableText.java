@@ -84,6 +84,7 @@ public class RepliableText extends TextPrimitive{
 	public void upVote(String username) {
 		score++;
 		voterSet.add(username);
+		notifyListener();
 	}
 	/**
 	 * @param username
@@ -92,6 +93,7 @@ public class RepliableText extends TextPrimitive{
 	public void unVote(String username) {
 		score--;
 		voterSet.remove(username);
+		notifyListener();
 	}
 	/**
 	 * @param newPicture sets the drawable to the picture

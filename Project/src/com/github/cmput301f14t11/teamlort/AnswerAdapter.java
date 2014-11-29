@@ -180,13 +180,9 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 					Button currentUpvoteButton = (Button) finalConvertView.findViewById(R.id.upvoteButton);
 					if(answer.getVoterSet().contains(username)){
 						answer.unVote(username);
-						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
-						currentUpvoteButton.setBackgroundColor(Color.GRAY);
 					}
 					else {
 						answer.upVote(username);
-						answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
-						currentUpvoteButton.setBackgroundColor(Color.GREEN);
 					}
 					
 

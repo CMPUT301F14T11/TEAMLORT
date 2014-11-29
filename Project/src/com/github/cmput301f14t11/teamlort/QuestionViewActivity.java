@@ -136,6 +136,13 @@ extends AppBaseActivity
 			@Override
 			public void update() {
 				replyAdapter.notifyDataSetChanged();	
+				if(question.getVoterSet().contains(username)){
+					upVoteButton.setBackgroundColor(Color.GREEN);
+				}
+				else {
+					upVoteButton.setBackgroundColor(Color.GRAY);
+				}
+				upVoteButton.setText(String.valueOf(question.getScore()));
 				setListViewHeightBasedOnChildren(QuestionReplyListView);
 			}
 			
@@ -245,16 +252,11 @@ extends AppBaseActivity
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				if(question.getVoterSet().contains(username)){
 					question.unVote(username);
-					upVoteButton.setText(""+question.getScore());
-					upVoteButton.setBackgroundColor(Color.GRAY);
 				}
 				else {
 					question.upVote(username);
-					upVoteButton.setText(""+question.getScore());
-					upVoteButton.setBackgroundColor(Color.GREEN);
 				}
 				PushQueue.getInstance().pushQuestion(question,getApplicationContext());
 

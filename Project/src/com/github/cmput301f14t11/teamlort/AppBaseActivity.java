@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -46,6 +48,7 @@ public class AppBaseActivity extends Activity
 	protected NetworkListener mNetworkListener;
 	protected AppCache appCache = AppCache.getInstance();
 	protected AlertDialog alertDialog = null;
+	private ImageView helpimage;
 	
 	@SuppressLint("InflateParams")
 	@Override
@@ -100,12 +103,12 @@ public class AppBaseActivity extends Activity
 			Intent favoriteQuestionintent = new Intent(this, ProfileActivity.class);
 			startActivity(favoriteQuestionintent);
 			return true;
-		
 		case (R.id.action_new_question):
 			Intent intent = new Intent(this,ComposeQuestionActivity.class);
 			startActivity(intent);
 			return true;
-		
+		case (R.id.action_help):
+			return true;
 		case (R.id.action_profile):
 			Intent profileintent = new Intent(this,ProfileActivity.class);
 			startActivity(profileintent);
@@ -164,6 +167,26 @@ public class AppBaseActivity extends Activity
 	protected void onRestoreInstanceState(Bundle inState)
 	{
 		super.onRestoreInstanceState(inState);
+	}
+	protected AlertDialog.Builder buildhelp(Drawable provided) {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Help");
+		
+		//alert.setMessage("Please type your username: ");
+		
+		helpimage = (ImageView) this.findViewById(R.id.compose_img_preview);
+		helpimage.setImageDrawable(provided);
+		alert.setView(helpimage);
+		alert.setPositiveButton("Got it", new DialogInterface.OnClickListener() 
+		{
+		
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				
+			}
+		});
+		return alert;
 	}
 	
 	protected AlertDialog.Builder buildlogin() {

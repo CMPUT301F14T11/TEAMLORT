@@ -125,6 +125,7 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			
 		});
         //http://mobile.dzone.com/news/android-tutorial-dynamicaly
+        
         questionlistview.setOnScrollListener(new OnScrollListener() {
 			
 			@Override
@@ -190,7 +191,7 @@ public class HomeActivity extends AppBaseActivity implements Observer
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_help) {
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -97,6 +97,13 @@ extends AppBaseActivity
 		
 		Collections.sort(answerList, new AnswerComparator());
 		
+		if(pc.getProfile().getFavedQuestionList().contains(question)){
+			favoriteButton.setBackgroundColor(Color.GREEN);
+		}
+		if(pc.getProfile().getSavedQuestionList().contains(question)){
+			saveButton.setBackgroundColor(Color.GREEN);
+		}
+		
 		if(question.getVoterSet().contains(username)){
 			upVoteButton.setBackgroundColor(Color.GREEN);
 		}

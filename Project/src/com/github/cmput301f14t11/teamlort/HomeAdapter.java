@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
 
@@ -107,9 +108,10 @@ class HomeAdapter extends BaseAdapter// the adapter used for displaying items in
 			
 			@Override
 			public void onClick(View v) {
-				ProfileController pc = new ProfileController();
 				Question chosenQ = da_list.get(position);
-				if(pc.getProfile().getFavedQuestionList().contains(chosenQ)){
+				ProfileController pc = new ProfileController();
+				ArrayList<Question> temp = AppCache.getInstance().getProfile().getFavedQuestionList();
+				if(temp.contains(chosenQ)){
 					pc.removeFavedQuestion(chosenQ);
 					v.setBackgroundResource(R.drawable.ic_action_favorite);
 					

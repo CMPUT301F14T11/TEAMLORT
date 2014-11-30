@@ -71,7 +71,7 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
+		adapter = new ProfileAdatper(getApplicationContext(),AppCache.getInstance().getProfile().getFavedQuestionList());
 		lv = (ListView) findViewById(R.id.ProfileQuestionListView);
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{

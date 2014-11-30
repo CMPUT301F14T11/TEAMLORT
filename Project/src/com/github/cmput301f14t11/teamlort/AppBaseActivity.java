@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.LocalManager;
 import com.github.cmput301f14t11.teamlort.Model.NetworkListener;
+import com.github.cmput301f14t11.teamlort.Model.Profile;
 
 /**
  * A base activity used to maintain consistency of the menu bars throughout
@@ -75,6 +77,13 @@ public class AppBaseActivity extends Activity
 	{
 		super.onStart();
 		
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		LocalManager.getManager().saveProfileToDefault(appCache.getProfile());
 	}
 	
 	@Override
@@ -204,10 +213,8 @@ public class AppBaseActivity extends Activity
 			public void onClick(DialogInterface dialog, int which) 
 			{
 				String username = input.getText().toString();
-				//Log.i("r1231231",username);
-				mProfileController.getP().setUsername(username);
-				appCache = AppCache.getInstance();	
-				appCache.setProfile(mProfileController.getP());
+				Profile p = LocalManager.getManager().loadProfile(username);
+				AppCache.getInstance().setProfile(p);
 				Toast.makeText(getApplicationContext(), "Logged in as: " + 	AppCache.getInstance().getProfile().getUsername(), Toast.LENGTH_SHORT).show();
 				
 			}

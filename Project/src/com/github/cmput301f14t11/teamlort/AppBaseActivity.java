@@ -47,13 +47,14 @@ public class AppBaseActivity extends Activity
 	private EditText mSearchInput;
 	private ImageButton sortButton;
 	private TextView usernameTV;
+	protected Drawable helpscreen;
 
 	
 	protected ProfileController mProfileController;
 	protected NetworkListener mNetworkListener;
 	protected AppCache appCache = AppCache.getInstance();
 	protected AlertDialog alertDialog = null;
-	private ImageView helpimage;
+	protected ImageView helpimage;
 	
 	@SuppressLint("InflateParams")
 	@Override

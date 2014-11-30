@@ -4,6 +4,7 @@ package com.github.cmput301f14t11.teamlort;
 import java.io.File;
 import java.io.IOException;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -99,16 +100,22 @@ extends AppBaseActivity
 		if (title != null) titleEntry.setText(title);
 		if (detail != null) detailEntry.setText(detail);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch (item.getItemId())
 		{
-		case R.id.action_new_question:
-			// Do nothing!
+			case R.id.action_new_question:
+				// Do nothing!
 			return true;
-		
+			case R.id.action_help :
+	        	helpscreen = getResources().getDrawable(R.drawable.helpscreen_ask);
+	        	AlertDialog.Builder alert = buildhelp(helpscreen);
+				alertDialog = alert.show();
+	            return true;
+	        
+	        
 		default:
 			return super.onOptionsItemSelected(item);
 		}

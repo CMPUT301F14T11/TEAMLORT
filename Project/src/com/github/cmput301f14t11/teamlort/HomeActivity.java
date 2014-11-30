@@ -214,7 +214,7 @@ public class HomeActivity extends AppBaseActivity implements Observer
     {
         int id = item.getItemId();
         if (id == R.id.action_help) {
-        	Drawable helpscreen = getResources().getDrawable(R.drawable.helpscreen_home);
+        	helpscreen = getResources().getDrawable(R.drawable.helpscreen_home);
         	AlertDialog.Builder alert = buildhelp(helpscreen);
 			alertDialog = alert.show();
             return true;

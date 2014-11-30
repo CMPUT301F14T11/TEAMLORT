@@ -73,7 +73,7 @@ public class SettingsActivity extends AppBaseActivity implements Observer, Locat
 	private void updateLocationString() {
 		latitude = usrProfile.getLocation(locationManager).getLatitude();
 		longitude = usrProfile.getLocation(locationManager).getLongitude();
-		locationString.setText(latitude + "¡, " + longitude + "¡");
+		locationString.setText(latitude + "ï¿½ " + longitude + "ï¿½");
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public class SettingsActivity extends AppBaseActivity implements Observer, Locat
 		if (isChecked) {
 			usrProfile.setLocationServices(true);
 			updateLocationString();
-			locationString.setText(latitude + "¡, " + longitude + "¡");
+			locationString.setText(latitude + "ï¿½ " + longitude + "ï¿½");
 		} else {
 			usrProfile.setLocationServices(false);
 			locationString.setText("Location Services Off");

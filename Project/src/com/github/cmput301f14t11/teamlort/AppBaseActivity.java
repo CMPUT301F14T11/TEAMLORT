@@ -60,6 +60,7 @@ public class AppBaseActivity extends Activity
 		// Set the top ActionBar to a custom view.
         this.inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ActionBar ab = this.getActionBar();
+        
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         ab.setCustomView(inflater.inflate(R.layout.actionbar_top_layout, null));
         ab.setDisplayHomeAsUpEnabled(true);
@@ -235,6 +236,8 @@ public class AppBaseActivity extends Activity
 		});
 		return alert;
 	}
+	
+	
 	/**
 	 * Auxiliary method that retrieves layout resources. Used on activity
 	 * creation.

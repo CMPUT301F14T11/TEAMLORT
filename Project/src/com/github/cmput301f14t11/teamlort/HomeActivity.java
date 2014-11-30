@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -50,10 +53,10 @@ public class HomeActivity extends AppBaseActivity implements Observer
 	
     //initialize controllers
 	Qlistcontroller qlc = new Qlistcontroller();
-	//ScoreController sc = new ScoreController();
 	ObjectFactory dt = new ObjectFactory();
 	ProfileController pc = new ProfileController();
 	AppCache appCache = new AppCache();
+	
 	boolean loadingMore = false;
 	boolean clicked = false;
 	ArrayList<Question> getmoar = new ArrayList<Question>();
@@ -93,15 +96,17 @@ public class HomeActivity extends AppBaseActivity implements Observer
        
        Intent intent = getIntent();
        searchstring = intent.getStringExtra("searchstring");
-       SearchThread search = new SearchThread(searchstring,0);
-	   search.start();
+       if (searchstring!=null)
+       {
+    	   SearchThread search = new SearchThread(searchstring,0);
+    	   search.start();
+       }
 	   
 	  
 	   View view = getLayoutInflater().inflate(R.layout.footer_view,questionlistview , false);
 	   footerLayout = (LinearLayout) view.findViewById(R.id.footer_layout);
 	   
 	   questionlistview.addFooterView(footerLayout);
-       //qlc.questionlist.modellist = qlc.questionlist.elasticmanager.search(searchstring, null)
         questionlistview.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
 		{
 
@@ -131,7 +136,6 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			@Override
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
 				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
@@ -153,6 +157,23 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			        }
 			        
 			}
+		});
+        questionlistview.setOnItemLongClickListener(new OnItemLongClickListener()//did the user press any questions?
+		{
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				Single_Home_Question holder = (Single_Home_Question) view.getTag();
+				Question temp = holder.thisquestion;
+				AlertDialog.Builder delete = builddelete(temp.getID());
+				alertDialog = delete.show();
+				return true;
+			}
+
+	
+			
 		});
         view.setOnClickListener(new OnClickListener(){
 
@@ -213,13 +234,56 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			from = f;
 		}
 		@Override
-		public void run() {
+		public void run() 
+		{
 			// TODO Auto-generated method stub
 			qlc.getQuestionlist().getModellist().addAll(qlc.getElc().search(search, "title",from));
 			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
 				runOnUiThread(doUpdateGUIList);
-			}
+		}
+	}
+	class DeleteThread extends Thread {
+		// TODO: Implement search thread
+		private int id;
+		public DeleteThread(int provided)
+		{
+			id = provided;
+		}
+		@Override
+		public void run() 
+		{
+			// TODO Auto-generated method stub
+			qlc.getElc().deleteItem(id);
+			
+			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
+				runOnUiThread(doUpdateGUIList);
+		}
+	}
+	
+	protected AlertDialog.Builder builddelete(int qid){
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Delete This Question");
+		alert.setMessage("Are you sure?");
+		final int id = qid;
+		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() 
+		{
 		
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				
+				DeleteThread delete = new DeleteThread(id);
+				delete.start();
+			}
+		});
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		return alert;
 		
 	}
 	

@@ -5,8 +5,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,10 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;

@@ -117,7 +117,7 @@ public class LocalManager
 	{
 		Profile prof = (Profile) loadObject(FILE_PATH + PROFILE_FILE + username + FILE_EXT);
 		if (prof == null) prof = new Profile();
-		prof.setUsername("Guest" + (new Date()).hashCode());
+		prof.setUsername(username);
 		
 		return prof;
 	}

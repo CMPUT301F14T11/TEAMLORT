@@ -3,6 +3,7 @@ package com.github.cmput301f14t11.teamlort.Controller;
 import java.util.Observable;
 
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.LocalManager;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
@@ -35,16 +36,15 @@ public class ProfileController extends Observable{
 	 * @param q1 question that will be added
 	 * @return boolean indicated whether the operation it is success or not
 	 */
-	public boolean addFavedQuestion(Question q1) {
+	 public void addFavedQuestion(Question q1) {
 		
-			if(!getP().getFavedQuestionList().contains(q1)){
-				getP().getFavedQuestionList().add(q1);
+			if(!AppCache.getInstance().getProfile().getFavedQuestionList().contains(q1)){
+				
+				AppCache.getInstance().getProfile().getFavedQuestionList().add(q1);
+				save();
 				triggleObservers();
-				return true;}
-			else{
-				return false;
+				
 			}
-		
 		
 	}
 	
@@ -53,7 +53,8 @@ public class ProfileController extends Observable{
 	 * @param q1 question that will be removed
 	 */
 	public void removeFavedQuestion(Question q1) {
-			getP().getFavedQuestionList().remove(q1);
+			AppCache.getInstance().getProfile().getFavedQuestionList().remove(q1);
+			save();
 			triggleObservers();
 		
 	}
@@ -62,14 +63,13 @@ public class ProfileController extends Observable{
 	 * @param q1 question that will be added
 	 * @return boolean indicated whether the operation it is success or not
 	 */
-	public boolean addSavedQuestion(Question q1) {
-			if(!getP().getSavedQuestionList().contains(q1)){
-				getP().getSavedQuestionList().add(q1);
-				triggleObservers();
-				return true;}
-			else{
-				return false;
-			}
+	public void addSavedQuestion(Question q1) {
+		if(!AppCache.getInstance().getProfile().getSavedQuestionList().contains(q1)){
+			AppCache.getInstance().getProfile().getSavedQuestionList().add(q1);
+			save();
+			triggleObservers();
+		}
+		
 		
 	}
 	/**
@@ -78,8 +78,9 @@ public class ProfileController extends Observable{
 	 */
 	public void removeSavedQuestion(Question q1) {
 
-			getP().getSavedQuestionList().remove(q1);
-			triggleObservers();
+		AppCache.getInstance().getProfile().getSavedQuestionList().remove(q1);
+		save();
+		triggleObservers();
 
 	}
 
@@ -88,14 +89,13 @@ public class ProfileController extends Observable{
 	 * @param q1 question that will be added
 	 * @return boolean indicated whether the operation it is success or not
 	 */
-	public boolean addCreatedQuestion(Question q1) {
+	public void addCreatedQuestion(Question q1) {
 
-		if(!getP().getMyQuestionList().contains(q1)){
-			getP().getMyQuestionList().add(q1);
+		if(!AppCache.getInstance().getProfile().getMyQuestionList().contains(q1)){
+			AppCache.getInstance().getProfile().getMyQuestionList().add(q1);
+			save();
 			triggleObservers();
-			return true;}
-		else{
-			return false;
+			
 		}
 			
 		
@@ -107,28 +107,28 @@ public class ProfileController extends Observable{
 	 */
 	public void removeCreatedQuestion(Question q1) {
 
-			getP().getMyQuestionList().remove(q1);
-			triggleObservers();
+		AppCache.getInstance().getProfile().getMyQuestionList().remove(q1);
+		save();
+		triggleObservers();
 	}
 	
 	
-	public boolean addTempQuestion(Question q1) {
+	public void addTempQuestion(Question q1) {
 
-		if(!getP().getTempQuestionList().contains(q1)){
-			getP().getTempQuestionList().add(q1);
+		if(!AppCache.getInstance().getProfile().getTempQuestionList().contains(q1)){
+			AppCache.getInstance().getProfile().getTempQuestionList().add(q1);
+			save();
 			triggleObservers();
-			return true;}
-		else{
-			return false;
-		}
 			
+		}
 		
 	}
 
 	public void removeTempQuestion(Question q1) {
 
-			getP().getTempQuestionList().remove(q1);
-			triggleObservers();
+		AppCache.getInstance().getProfile().getTempQuestionList().remove(q1);
+		save();
+		triggleObservers();
 	}
 	
 
@@ -143,6 +143,10 @@ public class ProfileController extends Observable{
 	private void triggleObservers(){
 		setChanged();
 		notifyObservers();
+	}
+	
+	private void save(){
+		LocalManager.getManager().saveProfile(AppCache.getInstance().getProfile());
 	}
 
 }

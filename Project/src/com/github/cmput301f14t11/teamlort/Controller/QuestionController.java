@@ -27,28 +27,42 @@ public class QuestionController {
 		this.context = context;
 	}
 	
+	public void setQuestion(Question question){
+		this.question = question;
+	}
+	
 	public void addQuestion(Question question){
 		pushQueue.pushQuestion(question, context);
 	}
 	
 	public void addAnswer(Answer answer){
-		
+		question.addAnswer(answer);
+		pushQueue.pushAnswer(question.getID(), answer, context);
 	}
 	
-	public void addReply(Reply reply, int questionID){
-
+	public void addQuestionReply(Reply reply){
+		question.addReplyToStart(reply);
+		pushQueue.pushQuestionReply(question.getID(), reply, context);
 	}
 	
-	public void addAnswerReply(){
-		
+	public void addAnswerReply(Reply reply, int answerPosition){
+		question.getAnswer(answerPosition).addReplyToStart(reply);
 	}
 	
-	public void upvoteQuestion(){
-		
+	public void upVoteQuestion(String username){
+		question.upVote(username);
 	}
 	
-	public void upvoteAnswer(){
-		
+	public void unVoteQuestion(String username){
+		question.unVote(username);
+	}
+	
+	public void upVoteAnswer(String username, int answerPosition){
+		question.getAnswer(answerPosition).upVote(username);
+	}
+	
+	public void unVoteAnswer(String username, int answerPosition){
+		question.getAnswer(answerPosition).unVote(username);
 	}
 
 }

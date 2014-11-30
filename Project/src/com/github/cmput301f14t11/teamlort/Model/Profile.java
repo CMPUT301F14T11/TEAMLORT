@@ -27,10 +27,10 @@ implements Serializable
 	private transient boolean locationService = true;
 	private transient boolean manuallySetStatus = false;
 	
-	protected ArrayList<Question> savedQuestionList = new ArrayList<Question>();
-	protected ArrayList<Question> favedQuestionList = new ArrayList<Question>();
-	protected ArrayList<Question> myQuestionList = new ArrayList<Question>();
-	protected ArrayList<Question> tempQuestionList = new ArrayList<Question>();
+	protected ArrayList<Question> savedQuestionList = null;
+	protected ArrayList<Question> favedQuestionList = null;
+	protected ArrayList<Question> myQuestionList = null;
+	protected ArrayList<Question> tempQuestionList = null;
 	//protected LocalManager = new LocalManager();
 
 	
@@ -118,8 +118,13 @@ implements Serializable
 	 * @return a question list that is saved locally.
 	 */
 	public ArrayList<Question> getSavedQuestionList(){
-		 return savedQuestionList;
-		 //return localManager.loadProfile().getSavedQuestionList();
+		if(AppCache.getInstance().getProfile().savedQuestionList == null){
+			AppCache.getInstance().getProfile().savedQuestionList = new ArrayList<Question>();
+			return AppCache.getInstance().getProfile().savedQuestionList;
+		}
+		else{
+			return AppCache.getInstance().getProfile().savedQuestionList;
+		}
 	}
 	
 	/**
@@ -129,8 +134,14 @@ implements Serializable
 	 * @return a question list that is added favorite by current user.
 	 */
 	public ArrayList<Question> getFavedQuestionList(){
-		return favedQuestionList;
-		//return localManager.loadProfile(AppCache.getInstance().getProfile().getUsername()).getFavedQuestionList();
+
+		if(AppCache.getInstance().getProfile().favedQuestionList == null){
+			AppCache.getInstance().getProfile().favedQuestionList = new ArrayList<Question>();
+			return AppCache.getInstance().getProfile().favedQuestionList;
+		}
+		else{
+			return AppCache.getInstance().getProfile().favedQuestionList;
+		}
 	}
 	
 	/**
@@ -139,12 +150,23 @@ implements Serializable
 	 */
 	
 	public ArrayList<Question> getMyQuestionList(){
-		return myQuestionList;
-		//return localManager.loadProfile(AppCache.getInstance().getProfile().getUsername()).getMyQuestionList();
+		if(AppCache.getInstance().getProfile().myQuestionList == null){
+			AppCache.getInstance().getProfile().myQuestionList = new ArrayList<Question>();
+			return AppCache.getInstance().getProfile().myQuestionList;
+		}
+		else{
+			return AppCache.getInstance().getProfile().myQuestionList;
+		}
 	}
 	
 	public ArrayList<Question> getTempQuestionList(){
-		return tempQuestionList;
+		if(AppCache.getInstance().getProfile().tempQuestionList == null){
+			AppCache.getInstance().getProfile().tempQuestionList = new ArrayList<Question>();
+			return AppCache.getInstance().getProfile().tempQuestionList;
+		}
+		else{
+			return AppCache.getInstance().getProfile().tempQuestionList;
+		}
 	}
 	
 	

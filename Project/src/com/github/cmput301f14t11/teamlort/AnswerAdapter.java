@@ -2,12 +2,14 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
+import com.github.cmput301f14t11.teamlort.Model.Vote;
 import com.github.cmput301f14t11.teamlort.R.color;
 
 import android.app.Activity;
@@ -39,9 +41,10 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	private AnswerViewHolder answerViewHolder;
 	private ReplyViewHolder replyViewHolder;
 	
-	private int questionID;
+	private Question question;
 	private ArrayList<Answer> answerList;
 	private Context context;
+	private QuestionController questionController;
 	
 	/**
 	 * ViewHolder for {@link Answer} view elements.
@@ -82,10 +85,12 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	 * @param answerList The {@link ArrayList}<{@link Answer}> the adapter will adapt views for.
 	 * @param context The {@link Activity} {@link Context}.
 	 */
-	public AnswerAdapter(ArrayList<Answer> answerList, Context context, int questionID) {
+	public AnswerAdapter(ArrayList<Answer> answerList, Context context, Question question) {
 		this.answerList = answerList;
 		this.context = context;
-		this.questionID = questionID;
+		this.question = question;
+		questionController = new QuestionController(context);
+		questionController.setQuestion(question);
 	}
 
 	@Override
@@ -153,6 +158,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 		}
 		final Answer answer = answerList.get(groupPosition);
 		final String username = AppCache.getInstance().getProfile().getUsername();
+		final int finalGroupPosition = groupPosition;
 		
 		//Set the text for the view if answer isn't null
 		if (answer != null){
@@ -171,18 +177,20 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			}
 			
 			final View finalConvertView = convertView;
+			final QuestionViewActivity parentActivity = (QuestionViewActivity) context;
 			answerViewHolder.upvoteButton.setOnClickListener( new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					/* Note: the upvoteButton in answerViewHolder appears to have the correct reference to it's textfield
 					 * but a reference to the most recent view rather than to the clicked one, so currentUpvoteButton is used */
-					Button currentUpvoteButton = (Button) finalConvertView.findViewById(R.id.upvoteButton);
+					//Button currentUpvoteButton = (Button) finalConvertView.findViewById(R.id.upvoteButton);
 					if(answer.getVoterSet().contains(username)){
-						answer.unVote(username);
+						questionController.unVoteAnswer(username, finalGroupPosition);
+						Vote.sendVote(parentActivity.question, context);
 					}
 					else {
-						answer.upVote(username);
+						questionController.upVoteAnswer(username, finalGroupPosition);
 					}
 					
 
@@ -211,9 +219,9 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 						public void onClick(DialogInterface arg0, int arg1) {
 							AppCache appCache = AppCache.getInstance();
 							Reply reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername());
-							answer.addReplyToStart(reply);
+							questionController.addAnswerReply(reply, finalGroupPosition);
 							
-							PushQueue.getInstance().pushAnswerReply(questionID, answer.getID(), reply, context);
+							PushQueue.getInstance().pushAnswerReply(question.getID(), answer.getID(), reply, context);
 						}
 					});
 					alertDialogueBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){

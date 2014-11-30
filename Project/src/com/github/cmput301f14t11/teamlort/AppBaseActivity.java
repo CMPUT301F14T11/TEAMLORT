@@ -233,7 +233,7 @@ public class AppBaseActivity extends Activity
 					usernameTV.setText(AppCache.getInstance().getProfile().getUsername());
 				}
 				Toast.makeText(getApplicationContext(), "Logged in as: " + 	AppCache.getInstance().getProfile().getUsername(), Toast.LENGTH_SHORT).show();
-				
+				recreate();
 			}
 		});
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

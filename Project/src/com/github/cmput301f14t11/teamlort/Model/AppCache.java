@@ -77,9 +77,9 @@ public class AppCache {
 			p.setLocation(0, 0);
 			Log.i("LOCATION","location set");
 			LocalManager.getManager().saveProfileToDefault(p);
+		} else {
+			p = LocalManager.getManager().loadProfile(p.getUsername());		
 		}
-		
-		p = LocalManager.getManager().loadProfile(p.getUsername());
 		
 		this.profile = p;
 	}

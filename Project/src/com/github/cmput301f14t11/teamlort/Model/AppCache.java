@@ -69,8 +69,7 @@ public class AppCache {
 	public void InitProfile()
 	{
 		Profile p = LocalManager.getManager().loadProfile();
-		p = LocalManager.getManager().loadProfile(p.getUsername());
-		
+			
 		if (p == null)
 		{
 			p = new Profile();
@@ -79,6 +78,8 @@ public class AppCache {
 			Log.i("LOCATION","location set");
 			LocalManager.getManager().saveProfileToDefault(p);
 		}
+		
+		p = LocalManager.getManager().loadProfile(p.getUsername());
 		
 		this.profile = p;
 	}

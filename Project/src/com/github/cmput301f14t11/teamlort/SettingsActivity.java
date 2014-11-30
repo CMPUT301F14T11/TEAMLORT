@@ -4,6 +4,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,7 +23,7 @@ import android.widget.Toast;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 
-public class SettingsActivity extends AppBaseActivity implements Observer {
+public class SettingsActivity extends AppBaseActivity implements Observer, LocationListener {
 
 	private double latitude, longitude;
 
@@ -37,6 +40,8 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 	private TextView locationString;
 	
 	private LocationManager locationManager;
+	
+	private String provider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +49,24 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 		setContentView(R.layout.activity_settings);
 		
 		locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		Criteria criteria = new Criteria();
+		provider = locationManager.getBestProvider(criteria, true);
+		Location location = locationManager.getLastKnownLocation(provider);
 
+		// Initialize the location fields
+		if (location != null) {
+			System.out.println("Provider " + provider + " has been selected.");
 
+		}
 		GetProfile();
 		GetLayoutElements();
 		AttachListeners();
 		
 		updateLocationString();
+
+
+
+
 
 	}
 
@@ -87,6 +103,7 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 
 	private void GetProfile() {
 		usrProfile = AppCache.getInstance().getProfile();
+		usrProfile.setLocationServices(true);
 	}
 
 	/**
@@ -209,5 +226,30 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 		}
 
 		return true;
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Toast.makeText(this, "Enabled new provider " + provider,
+				Toast.LENGTH_SHORT).show();
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		Toast.makeText(this, "Disabled provider " + provider,
+				Toast.LENGTH_SHORT).show();
 	}
 }

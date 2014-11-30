@@ -1,6 +1,5 @@
 package com.github.cmput301f14t11.teamlort.Controller;
 
-import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;

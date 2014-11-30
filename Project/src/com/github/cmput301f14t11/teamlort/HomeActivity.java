@@ -76,8 +76,9 @@ public class HomeActivity extends AppBaseActivity implements Observer
         questionlistview = (ListView)findViewById(R.id.expandableListView1);
         //questionlistview.addFooterView(footer);
         qlc.getQuestionlist().getModellist().clear();
-        adapter = new HomeAdapter(getApplicationContext(), qlc.getQuestionlist().getModellist());
         AppCache.getInstance().InitProfile();
+        adapter = new HomeAdapter(getApplicationContext(), qlc.getQuestionlist().getModellist());
+        
 //        for(int i = 0; i<=19; i++)
 //        {
 //        	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
@@ -201,6 +202,12 @@ public class HomeActivity extends AppBaseActivity implements Observer
 
 	}
 
+	@Override
+	protected void onResume(){
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
+	
 	/**
 	 * Adds the {@link Question} to the FavedQuestionList in ProfileController
 	 * @param v

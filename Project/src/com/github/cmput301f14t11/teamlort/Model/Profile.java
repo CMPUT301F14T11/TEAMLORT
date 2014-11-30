@@ -181,4 +181,45 @@ implements Serializable
 		}
 		return testQuestionList;
 	}
+	
+	public boolean containsFavedQuestion(int questionID){
+		ArrayList<Question> favedQuestions = getFavedQuestionList();
+		for (Question question : favedQuestions){
+			if(question.getID() == questionID){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean containsSavedQuestion(int questionID){
+		ArrayList<Question> savedQuestions = getSavedQuestionList();
+		for (Question question : savedQuestions){
+			if(question.getID() == questionID){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void removeFavedQuestion(int questionID){
+		ArrayList<Question> favedQuestions = getFavedQuestionList();
+		for (Question question : favedQuestions){
+			if(question.getID() == questionID){
+				this.favedQuestionList.remove(question);
+				return;
+			}
+		}
+	}
+	
+	public void removeSavedQuestion(int questionID){
+		ArrayList<Question> savedQuestions = getSavedQuestionList();
+		for (Question question : savedQuestions){
+			if(question.getID() == questionID){
+				this.savedQuestionList.remove(question);
+				return;
+			}
+		}
+	}
+	
 }

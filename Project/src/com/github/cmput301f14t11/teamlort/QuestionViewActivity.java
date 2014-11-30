@@ -98,10 +98,10 @@ extends AppBaseActivity
 		
 		Collections.sort(answerList, new AnswerComparator());
 		
-		if(profileController.getProfile().getFavedQuestionList().contains(question)){
+		if(profileController.getProfile().containsFavedQuestion(question.getID())){
 			favoriteButton.setBackgroundColor(Color.GREEN);
 		}
-		if(profileController.getProfile().getSavedQuestionList().contains(question)){
+		if(profileController.getProfile().containsSavedQuestion(question.getID())){
 			saveButton.setBackgroundColor(Color.GREEN);
 		}
 		
@@ -266,7 +266,7 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View v) {
 				// Adds to saved List
-				if(profileController.getProfile().getSavedQuestionList().contains(question)){
+				if(appCache.getProfile().containsSavedQuestion(question.getID())){
 					profileController.removeSavedQuestion(question);
 					saveButton.setBackgroundResource(R.drawable.ic_action_favorite);
 				} else {
@@ -281,7 +281,7 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View v) {
 				// Adds to favorite List
-				if(profileController.getProfile().getFavedQuestionList().contains(question)){
+				if(appCache.getProfile().containsFavedQuestion(question.getID())){
 					profileController.removeFavedQuestion(question);
 					favoriteButton.setBackgroundResource(R.drawable.ic_action_favorite);					
 				} else{

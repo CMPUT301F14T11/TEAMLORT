@@ -87,10 +87,10 @@ class HomeAdapter extends BaseAdapter// the adapter used for displaying items in
 		holder.count.setText("posted on "+holder.thisquestion.getTime().toString()+", "+holder.thisquestion.getAnswerList().size()+" answers");	
 		
 		ProfileController profileController = new ProfileController();
-		if(profileController.getProfile().getSavedQuestionList().contains(holder.thisquestion)){
+		if(profileController.getProfile().containsSavedQuestion(holder.thisquestion.getID())){
 			holder.save.setBackgroundColor(Color.GREEN);
 		}
-		if(profileController.getProfile().getFavedQuestionList().contains(holder.thisquestion)){
+		if(profileController.getProfile().containsFavedQuestion(holder.thisquestion.getID())){
 			holder.favorite.setBackgroundColor(Color.GREEN);
 		}
 		
@@ -101,7 +101,7 @@ class HomeAdapter extends BaseAdapter// the adapter used for displaying items in
 				ProfileController pc = new ProfileController();
 				Question chosenQ = da_list.get(position);
 				
-				if(pc.getProfile().getSavedQuestionList().contains(chosenQ)){
+				if(pc.getProfile().containsSavedQuestion(chosenQ.getID())){
 					pc.removeSavedQuestion(chosenQ);
 					v.setBackgroundResource(R.drawable.ic_action_save_dark);
 				}
@@ -119,8 +119,8 @@ class HomeAdapter extends BaseAdapter// the adapter used for displaying items in
 			public void onClick(View v) {
 				Question chosenQ = da_list.get(position);
 				ProfileController pc = new ProfileController();
-				ArrayList<Question> temp = AppCache.getInstance().getProfile().getFavedQuestionList();
-				if(temp.contains(chosenQ)){
+
+				if(pc.getProfile().containsFavedQuestion(chosenQ.getID())){
 					pc.removeFavedQuestion(chosenQ);
 					v.setBackgroundResource(R.drawable.ic_action_favorite);
 					

@@ -69,6 +69,7 @@ public class AppCache {
 	public void InitProfile()
 	{
 		Profile p = LocalManager.getManager().loadProfile();
+		p = LocalManager.getManager().loadProfile(p.getUsername());
 		
 		if (p == null)
 		{

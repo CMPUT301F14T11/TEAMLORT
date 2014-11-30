@@ -53,7 +53,7 @@ public class ProfileController extends Observable{
 	 * @param q1 question that will be removed
 	 */
 	public void removeFavedQuestion(Question q1) {
-			AppCache.getInstance().getProfile().getFavedQuestionList().remove(q1);
+			AppCache.getInstance().getProfile().removeFavedQuestion(q1.getID());
 			save();
 			triggleObservers();
 		
@@ -78,7 +78,7 @@ public class ProfileController extends Observable{
 	 */
 	public void removeSavedQuestion(Question q1) {
 
-		AppCache.getInstance().getProfile().getSavedQuestionList().remove(q1);
+		AppCache.getInstance().getProfile().removeSavedQuestion(q1.getID());
 		save();
 		triggleObservers();
 

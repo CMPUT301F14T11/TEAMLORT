@@ -85,6 +85,15 @@ class HomeAdapter extends BaseAdapter// the adapter used for displaying items in
 		holder.content.setText(da_list.get(position).getBody());
 		holder.upvote.setText("⇧: "+da_list.get(position).getScore());
 		holder.count.setText("posted on "+holder.thisquestion.getTime().toString()+", "+holder.thisquestion.getAnswerList().size()+" answers");	
+		
+		ProfileController profileController = new ProfileController();
+		if(profileController.getProfile().getSavedQuestionList().contains(holder.thisquestion)){
+			holder.save.setBackgroundColor(Color.GREEN);
+		}
+		if(profileController.getProfile().getFavedQuestionList().contains(holder.thisquestion)){
+			holder.favorite.setBackgroundColor(Color.GREEN);
+		}
+		
 		holder.save.setOnClickListener(new View.OnClickListener() {
 			
 			@Override

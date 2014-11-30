@@ -72,9 +72,7 @@ extends AppBaseActivity
 		final QuestionController questionController = new QuestionController(getApplicationContext());
 		questionController.setQuestion(question);
 		
-		final ProfileController pc = new ProfileController();
-		Profile profile = new Profile();
-		//pc.setProfile(profile);
+		final ProfileController profileController = new ProfileController();
 				
 		ExpandableListView answerListView = (ExpandableListView) findViewById(R.id.answer_list_view);
 		LayoutInflater layoutInflater = getLayoutInflater();
@@ -100,10 +98,10 @@ extends AppBaseActivity
 		
 		Collections.sort(answerList, new AnswerComparator());
 		
-		if(pc.getProfile().getFavedQuestionList().contains(question)){
+		if(profileController.getProfile().getFavedQuestionList().contains(question)){
 			favoriteButton.setBackgroundColor(Color.GREEN);
 		}
-		if(pc.getProfile().getSavedQuestionList().contains(question)){
+		if(profileController.getProfile().getSavedQuestionList().contains(question)){
 			saveButton.setBackgroundColor(Color.GREEN);
 		}
 		
@@ -268,11 +266,11 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View v) {
 				// Adds to saved List
-				if(pc.getProfile().getSavedQuestionList().contains(question)){
-					pc.removeSavedQuestion(question);
+				if(profileController.getProfile().getSavedQuestionList().contains(question)){
+					profileController.removeSavedQuestion(question);
 					saveButton.setBackgroundResource(R.drawable.ic_action_favorite);
 				} else {
-					pc.addSavedQuestion(question);
+					profileController.addSavedQuestion(question);
 					saveButton.setBackgroundColor(Color.GREEN);
 				}
 			}
@@ -283,11 +281,11 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View v) {
 				// Adds to favorite List
-				if(pc.getProfile().getFavedQuestionList().contains(question)){
-					pc.removeFavedQuestion(question);
+				if(profileController.getProfile().getFavedQuestionList().contains(question)){
+					profileController.removeFavedQuestion(question);
 					favoriteButton.setBackgroundResource(R.drawable.ic_action_favorite);					
 				} else{
-					pc.addFavedQuestion(question);
+					profileController.addFavedQuestion(question);
 					favoriteButton.setBackgroundColor(Color.GREEN);
 				}	
 			}

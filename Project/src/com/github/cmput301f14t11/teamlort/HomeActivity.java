@@ -7,6 +7,7 @@ import java.util.Observer;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -64,6 +65,10 @@ public class HomeActivity extends AppBaseActivity implements Observer
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.updatelist(qlc.getQuestionlist().getModellist());
+			if(adapter.getCount() <1)
+		    {
+				Toast.makeText(getApplicationContext(), "Sorry, No Result Found", Toast.LENGTH_SHORT).show();
+			}
 		}
 	};
 
@@ -71,47 +76,40 @@ public class HomeActivity extends AppBaseActivity implements Observer
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);     
-        //View footer = (TextView)findViewById(R.id.endoflist);
+        setContentView(R.layout.activity_home); 
+        
+        
         questionlistview = (ListView)findViewById(R.id.expandableListView1);
-        //questionlistview.addFooterView(footer);
+        
         qlc.getQuestionlist().getModellist().clear();
         adapter = new HomeAdapter(getApplicationContext(), qlc.getQuestionlist().getModellist());
+        
+        
         AppCache.getInstance().InitProfile();
-//        for(int i = 0; i<=19; i++)
-//        {
-//        	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
-//        	t.setID();
-//        	Answer answer = new Answer();
-//        	answer.setBody("dsadasd");
-//    		answer.setAuthor("asdsadas");
-//    		
-//    		t.addAnswer(answer);
-//        	qlc.add(t);
-//        	//dt.addQuestions(listofquestions);
-//        }
-        /**
-         * screw locally generated question, we be grabbin shit online like real Gs
-         */
+
+        //
+        // screw locally generated question, we be grabbin shit online like real Gs
+        //
        
        Intent intent = getIntent();
        searchstring = intent.getStringExtra("searchstring");
       
        SearchThread search = new SearchThread(searchstring,0);
        search.start();
-  
+       
 	   
 	  
 	   View view = getLayoutInflater().inflate(R.layout.footer_view,questionlistview , false);
 	   footerLayout = (LinearLayout) view.findViewById(R.id.footer_layout);
 	   
 	   questionlistview.addFooterView(footerLayout);
-        questionlistview.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
-		{
+       questionlistview.setOnItemClickListener(new OnItemClickListener()//did the user press any questions?
+       {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+					int position, long id) 
+			{
 				// TODO Auto-generated method stub
 				/**
 				 * once question is clicked, we extract the question from our question list 
@@ -130,10 +128,12 @@ public class HomeActivity extends AppBaseActivity implements Observer
 		});
         //http://mobile.dzone.com/news/android-tutorial-dynamicaly
         
-        questionlistview.setOnScrollListener(new OnScrollListener() {
+        questionlistview.setOnScrollListener(new OnScrollListener() 
+        {
 			
 			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
+			public void onScrollStateChanged(AbsListView view, int scrollState) 
+			{
 				// TODO Auto-generated method stub
 			}
 			
@@ -164,26 +164,22 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
+				
 				Single_Home_Question holder = (Single_Home_Question) view.getTag();
 				Question temp = holder.thisquestion;
-				AlertDialog.Builder delete = builddelete(temp.getID());
+				AlertDialog.Builder delete = builddelete(temp.getID(),position);
 				alertDialog = delete.show();
 				return true;
 			}
-
-	
-			
 		});
         view.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
 			}});
         questionlistview.setAdapter(adapter);
         Log.i("LORTANSWERS","WE GRABBED :"+qlc.getQuestionlist().getModellist().size());
-        //questionlistview.removeFooterView(footerLayout);
     }
     
     
@@ -191,8 +187,8 @@ public class HomeActivity extends AppBaseActivity implements Observer
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		 Log.i("LORTANSWERS","WE GRABBED :"+qlc.getQuestionlist().getModellist().size());
 		adapter.updatelist(qlc.getQuestionlist().getModellist());
+		
 		// getlist of questions
 		/**
 		 * we have some code here that were supposed to refresh the question list on start/every restart of the app
@@ -212,6 +208,9 @@ public class HomeActivity extends AppBaseActivity implements Observer
     {
         int id = item.getItemId();
         if (id == R.id.action_help) {
+        	Drawable helpscreen = getResources().getDrawable(R.drawable.helpscreen_home);
+        	AlertDialog.Builder alert = buildhelp(helpscreen);
+			alertDialog = alert.show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -236,34 +235,34 @@ public class HomeActivity extends AppBaseActivity implements Observer
 		public void run() 
 		{
 			// TODO Auto-generated method stub
-			qlc.getQuestionlist().getModellist().addAll(qlc.getElc().search(search, "title",from));
-			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
-				runOnUiThread(doUpdateGUIList);
+			qlc.getQuestionlist().getModellist().addAll(qlc.getElc().search(search, "title",from));	
+			runOnUiThread(doUpdateGUIList);
 		}
 	}
 	class DeleteThread extends Thread {
 		// TODO: Implement search thread
 		private int id;
-		public DeleteThread(int provided)
+		private int local_id;
+		public DeleteThread(int provided,int local_provided)
 		{
 			id = provided;
+			local_id = local_provided;
 		}
 		@Override
 		public void run() 
 		{
 			// TODO Auto-generated method stub
 			qlc.getElc().deleteItem(id);
-			
+			qlc.getQuestionlist().getModellist().remove(local_id);
 			//Toast.makeText(getApplicationContext(), "search result in "+ qlc.questionlist.modellist.size()+" finds", Toast.LENGTH_SHORT).show();	
-				runOnUiThread(doUpdateGUIList);
+			runOnUiThread(doUpdateGUIList);
 		}
 	}
 	
-	protected AlertDialog.Builder builddelete(int qid){
+	protected AlertDialog.Builder builddelete(final int qid,final int local_qid){
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("Delete This Question");
 		alert.setMessage("Are you sure?");
-		final int id = qid;
 		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() 
 		{
 		
@@ -271,7 +270,7 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			public void onClick(DialogInterface dialog, int which) 
 			{
 				
-				DeleteThread delete = new DeleteThread(id);
+				DeleteThread delete = new DeleteThread(qid,local_qid);
 				delete.start();
 			}
 		});

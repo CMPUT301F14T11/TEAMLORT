@@ -189,7 +189,7 @@ public class AppBaseActivity extends Activity
 		
 		//alert.setMessage("Please type your username: ");
 		
-		helpimage = (ImageView) this.findViewById(R.id.compose_img_preview);
+		helpimage = new ImageView(getApplicationContext());
 		helpimage.setImageDrawable(provided);
 		alert.setView(helpimage);
 		alert.setPositiveButton("Got it", new DialogInterface.OnClickListener() 

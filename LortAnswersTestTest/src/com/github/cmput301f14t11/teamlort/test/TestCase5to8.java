@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import junit.framework.Assert;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -35,7 +36,8 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 	
 	public void testCaseFive()
 	{
-		QuestionController qController = new QuestionController();
+		Activity activity = getActivity();
+		QuestionController qController = new QuestionController(activity.getApplicationContext());
 		AnswerController   aController = new AnswerController();
 		
 		// The user creates a question. Here the views (EditTexts) should have
@@ -102,7 +104,8 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 	
 	public void testCaseSix()
 	{
-		QuestionController qController = new QuestionController();
+		Activity activity = getActivity();
+		QuestionController qController = new QuestionController(activity.getApplicationContext());
 		AnswerController   aController = new AnswerController();
 		
 		// This part is just like test case 5.
@@ -128,7 +131,8 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		Reply r2 = ObjectFactory.initReply("This answer sucks. Doesn't answer the question.", author1);
 		Reply r3 = ObjectFactory.initReply("lol", author2);
 		
-		qController.addQuestionReply(r1, q1.getID());
+		//TODO Add this back after Elvis finishes with the qController
+		//qController.addQuestionReply(r1, q1.getID());
 		aController.addReply(r2, q1.getID(), a1.getID());
 		aController.addReply(r3, q1.getID(), a2.getID());
 		
@@ -188,7 +192,8 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 	
 	public void testCaseSeven()
 	{
-		QuestionController qController = new QuestionController();
+		Activity activity = getActivity();
+		QuestionController qController = new QuestionController(activity.getApplicationContext());
 		AnswerController   aController = new AnswerController();
 		
 		// This part is just like test case 5.
@@ -234,7 +239,8 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 	
 	public void testCaseEight()
 	{
-		QuestionController qController = new QuestionController();
+		Activity activity = getActivity();
+		QuestionController qController = new QuestionController(activity.getApplicationContext());
 		AnswerController   aController = new AnswerController();
 		
 		// This part is just like test case 5.

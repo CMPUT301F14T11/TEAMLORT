@@ -47,7 +47,7 @@ extends AppBaseActivity
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
 	private static final String TAGS_BUNDLE_KEY = "COMPOSE_TAGS";
 	
-	private String title, detail, tags;
+	private String title, detail;
 	private Drawable pic = null;
 	private Uri imageFileUri;
 	
@@ -288,12 +288,8 @@ extends AppBaseActivity
 				.getText().toString();
 		detail = ((EditText) findViewById(R.id.compose_desc_entry))
 				.getText().toString();
-		tags = ((EditText) findViewById(R.id.compose_tags_entry))
-				.getText().toString();
-		
-		pic = ((ImageView) findViewById(R.id.compose_img_preview)).getDrawable();
-		
-		
+		pic = ((ImageView) findViewById(R.id.compose_img_preview))
+				.getDrawable();
 	}
 	
 	private boolean isInputValid()
@@ -363,7 +359,7 @@ extends AppBaseActivity
 		protected Void doInBackground(Question... args)
 		{
 			PushQueue.getInstance().pushQuestion(args[0], getApplicationContext());
-			//qController.addQuestion(args[0]);
+			qController.addQuestion(args[0]);
 			return null;
 		}
 	}

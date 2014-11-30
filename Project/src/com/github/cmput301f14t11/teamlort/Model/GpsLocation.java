@@ -1,7 +1,11 @@
 package com.github.cmput301f14t11.teamlort.Model;
 
-public class GpsLocation {
-	
+import java.io.Serializable;
+
+public class GpsLocation
+implements Serializable
+{
+	private static final long serialVersionUID = 1L;
 	private double latitude;
 	private double longitude;
 
@@ -25,7 +29,4 @@ public class GpsLocation {
 	{
 		latitude = provided;
 	}
-	
-
-
 }

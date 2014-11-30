@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
@@ -26,6 +27,7 @@ class Single_Home_Question
 	public ImageButton save;
 	public ImageButton favorite;
 	public Question thisquestion;
+	public ImageView thumbnail;
 	Single_Home_Question(View feed)
 	{
 		title = (TextView) feed.findViewById(R.id.p_qtitle);
@@ -34,6 +36,7 @@ class Single_Home_Question
 		save = (ImageButton) feed.findViewById(R.id.homeactivity_question_save_button);
 		favorite = (ImageButton) feed.findViewById(R.id.homeactivity_question_favorite_button);
 		upvote = (Button)feed.findViewById(R.id.homeactivity_displayupvote);
+		thumbnail = (ImageView)feed.findViewById(R.id.homeactivity_question_thumbnail);
 	}
 }
 //this adapter was inspired by the extended baseadapter example on android developer website
@@ -85,7 +88,7 @@ class HomeAdapter extends BaseAdapter// the adapter used for displaying items in
 		holder.content.setText(da_list.get(position).getBody());
 		holder.upvote.setText("⇧: "+da_list.get(position).getScore());
 		holder.count.setText("posted on "+holder.thisquestion.getTime().toString()+", "+holder.thisquestion.getAnswerList().size()+" answers");	
-		
+		holder.thumbnail.setImageDrawable(da_list.get(position).getPicture());
 		ProfileController profileController = new ProfileController();
 		if(profileController.getProfile().containsSavedQuestion(holder.thisquestion.getID())){
 			holder.save.setBackgroundColor(Color.GREEN);

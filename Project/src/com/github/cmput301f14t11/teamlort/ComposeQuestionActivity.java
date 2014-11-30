@@ -357,8 +357,8 @@ extends AppBaseActivity
 			
 			Log.d("com.github.cmput301f14t11.teamlort.ComposeQuestionActivity.SubmitNewQuestion.doInBackground(Question...)",
 					msg);
-			PushQueue.getInstance().pushQuestion(args[0], getApplicationContext());
-			qController.addQuestion(args[0]);
+			//PushQueue.getInstance().pushQuestion(args[0], getApplicationContext());
+			//qController.addQuestion(args[0]);
 			return null;
 		}
 	}

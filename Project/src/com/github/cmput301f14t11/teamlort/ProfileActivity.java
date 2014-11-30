@@ -118,31 +118,7 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 		return true;
 	}
 
-	@Override
-	protected Builder buildlogin() {
-		Builder alert = super.buildlogin();
-		final EditText input = new EditText(this);
-		alert.setView(input);
-		alert.setPositiveButton("Log in", new DialogInterface.OnClickListener() 
-		{
-		
-			@Override
-			public void onClick(DialogInterface dialog, int which) 
-			{
-				String username = input.getText().toString();
-				//Log.i("r1231231",username);
-				mProfileController.getP().setUsername(username);
-				appCache = AppCache.getInstance();	
-				appCache.setProfile(mProfileController.getP());
-				Toast.makeText(getApplicationContext(), "Logged in as: " + 	AppCache.getInstance().getProfile().getUsername(), Toast.LENGTH_SHORT).show();
-				TextView UsernameTitleTextView = (TextView) findViewById(R.id.UsernameTitleTextView);
-				UsernameTitleTextView.setText(mProfileController.getP().getUsername());
-				
-			}
-		});
-		
-		return alert;
-	}
+	
 
 	/**
 	 *  Handle action bar item clicks here. The action bar will 

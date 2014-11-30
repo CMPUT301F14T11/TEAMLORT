@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,8 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
@@ -71,7 +74,7 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		adapter = new ProfileAdatper(getApplicationContext(),AppCache.getInstance().getProfile().getFavedQuestionList());
+		adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 		lv = (ListView) findViewById(R.id.ProfileQuestionListView);
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{
@@ -117,9 +120,28 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 
 	@Override
 	protected Builder buildlogin() {
-		// TODO Auto-generated method stub
-	
-		return super.buildlogin();
+		Builder alert = super.buildlogin();
+		final EditText input = new EditText(this);
+		alert.setView(input);
+		alert.setPositiveButton("Log in", new DialogInterface.OnClickListener() 
+		{
+		
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				String username = input.getText().toString();
+				//Log.i("r1231231",username);
+				mProfileController.getP().setUsername(username);
+				appCache = AppCache.getInstance();	
+				appCache.setProfile(mProfileController.getP());
+				Toast.makeText(getApplicationContext(), "Logged in as: " + 	AppCache.getInstance().getProfile().getUsername(), Toast.LENGTH_SHORT).show();
+				TextView UsernameTitleTextView = (TextView) findViewById(R.id.UsernameTitleTextView);
+				UsernameTitleTextView.setText(mProfileController.getP().getUsername());
+				
+			}
+		});
+		
+		return alert;
 	}
 
 	/**

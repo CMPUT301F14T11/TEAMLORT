@@ -97,7 +97,8 @@ public class ReplyAdapter extends BaseAdapter {
 		if (reply != null){
 			replyViewHolder.reply1.setText(reply.getBody());
 			replyViewHolder.reply_author.setText(reply.getAuthor());
-			replyViewHolder.reply_time.setText(reply.getTime().toString());
+			//replyViewHolder.geolocation.setText(reply.getLocation().getLatitude() + "¡, "+ reply.getLocation().getLongitude() + "¡");
+
 		}
 		
 		return convertView;

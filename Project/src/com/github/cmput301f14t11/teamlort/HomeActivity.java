@@ -8,6 +8,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -38,7 +40,7 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
  * @author sbao
  * @issues: search functionality requires other parts to be completed and coordination with other team members 
  */
-public class HomeActivity extends AppBaseActivity implements Observer 
+public class HomeActivity extends AppBaseActivity implements Observer, LocationListener
 {
 	
 	
@@ -372,6 +374,34 @@ public class HomeActivity extends AppBaseActivity implements Observer
 			return true;
 			
 		}
+	}
+
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Toast.makeText(this, "Enabled new provider " + provider,
+				Toast.LENGTH_SHORT).show();
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		Toast.makeText(this, "Disabled provider " + provider,
+				Toast.LENGTH_SHORT).show();
 	}
 	
 	

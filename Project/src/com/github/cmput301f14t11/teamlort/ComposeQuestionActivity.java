@@ -359,7 +359,7 @@ extends AppBaseActivity
 		protected Void doInBackground(Question... args)
 		{
 			PushQueue.getInstance().pushQuestion(args[0], getApplicationContext());
-			qController.addQuestion(args[0]);
+			//qController.addQuestion(args[0]);
 			return null;
 		}
 	}

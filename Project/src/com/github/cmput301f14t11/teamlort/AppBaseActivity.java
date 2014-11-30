@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
@@ -45,6 +46,8 @@ public class AppBaseActivity extends Activity
 	private PopupMenu mPopupMenu;
 	private EditText mSearchInput;
 	private ImageButton sortButton;
+	private TextView usernameTV;
+
 	
 	protected ProfileController mProfileController;
 	protected NetworkListener mNetworkListener;
@@ -215,6 +218,10 @@ public class AppBaseActivity extends Activity
 				String username = input.getText().toString();
 				Profile p = LocalManager.getManager().loadProfile(username);
 				AppCache.getInstance().setProfile(p);
+				usernameTV = (TextView) findViewById(R.id.UsernameTitleTextView);
+				if (usernameTV != null){
+					usernameTV.setText(AppCache.getInstance().getProfile().getUsername());
+				}
 				Toast.makeText(getApplicationContext(), "Logged in as: " + 	AppCache.getInstance().getProfile().getUsername(), Toast.LENGTH_SHORT).show();
 				
 			}

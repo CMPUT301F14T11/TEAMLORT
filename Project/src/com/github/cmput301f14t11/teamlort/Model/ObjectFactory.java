@@ -1,10 +1,6 @@
 package com.github.cmput301f14t11.teamlort.Model;
 
-import java.util.ArrayList;
-
 import android.graphics.drawable.Drawable;
-
-import com.github.cmput301f14t11.teamlort.Model.Question;
 
 /**
  * Allows building of {@link Question}, {@link Answer} and {@link Reply} objects.
@@ -24,8 +20,9 @@ public class ObjectFactory {
 		question.setTitle(title);
 		question.setBody(body);
 		question.setAuthor(author);
-		question.setID();
 		question.setLocation(GpsLocation);
+		
+		question.setID();
 		return question;
 	}
 	
@@ -37,9 +34,9 @@ public class ObjectFactory {
 		question.setBody(body);
 		question.setAuthor(author);
 		question.addPicture(image);
-		question.setID();
 		question.setLocation(GpsLocation);
 		
+		question.setID();
 		return question;
 	}
 	
@@ -49,6 +46,7 @@ public class ObjectFactory {
 		question.setTitle(title);
 		question.setBody(body);
 		question.setAuthor(author);
+		
 		question.setID();
 		return question;
 	}
@@ -61,8 +59,8 @@ public class ObjectFactory {
 		question.setBody(body);
 		question.setAuthor(author);
 		question.addPicture(image);
-		question.setID();
 		
+		question.setID();
 		return question;
 	}
 	
@@ -71,9 +69,9 @@ public class ObjectFactory {
 		
 		answer.setBody(body);
 		answer.setAuthor(author);
-		answer.setID();
 		answer.setLocation(GpsLocation);
-		
+
+		answer.setID();
 		return answer;
 	}
 	
@@ -82,8 +80,8 @@ public class ObjectFactory {
 		
 		answer.setBody(body);
 		answer.setAuthor(author);
-		answer.setID();
 		
+		answer.setID();
 		return answer;
 	}
 	
@@ -93,9 +91,9 @@ public class ObjectFactory {
 		
 		reply.setBody(body);
 		reply.setAuthor(author);
-		reply.setID();
 		reply.setLocation(GpsLocation);
 		
+		reply.setID();
 		return reply;
 	}
 	
@@ -105,8 +103,8 @@ public class ObjectFactory {
 		
 		reply.setBody(body);
 		reply.setAuthor(author);
-		reply.setID();
 		
+		reply.setID();		
 		return reply;
 	}
 }

@@ -22,7 +22,7 @@ public class LocalManager
 {
 	private static LocalManager manager = new LocalManager();
 	
-	private static final String FILE_PATH = "sav_";
+	private static final String FILE_PREFIX = "sav_";
 	private static final String FILE_EXT = ".ser";
 	private static final String QUESTIONS_FILE = "questions";
 	private static final String PROFILE_FILE   = "profile";
@@ -58,12 +58,12 @@ public class LocalManager
 	 */
 	public void saveQuestion(Question saveMe)
 	{
-		ArrayList<Question> qList = (ArrayList<Question>) loadObject(FILE_PATH + QUESTIONS_FILE + FILE_EXT);
+		ArrayList<Question> qList = (ArrayList<Question>) loadObject(FILE_PREFIX + QUESTIONS_FILE + FILE_EXT);
 		if (qList == null) qList = new ArrayList<Question>();
 		
 		qList.add(saveMe);
 		
-		saveObject(qList, FILE_PATH + QUESTIONS_FILE + FILE_EXT);
+		saveObject(qList, FILE_PREFIX + QUESTIONS_FILE + FILE_EXT);
 	}
 	
 	/**
@@ -72,12 +72,12 @@ public class LocalManager
 	 */
 	public void saveQuestions(ArrayList<Question> saveUs)
 	{
-		ArrayList<Question> qList = (ArrayList<Question>) loadObject(FILE_PATH + QUESTIONS_FILE + FILE_EXT);
+		ArrayList<Question> qList = (ArrayList<Question>) loadObject(FILE_PREFIX + QUESTIONS_FILE + FILE_EXT);
 		if (qList == null) qList = new ArrayList<Question>();
 		
 		qList.addAll(saveUs);
 		
-		saveObject(qList, FILE_PATH + QUESTIONS_FILE + FILE_EXT);
+		saveObject(qList, FILE_PREFIX + QUESTIONS_FILE + FILE_EXT);
 	}
 	
 	/**
@@ -86,12 +86,12 @@ public class LocalManager
 	 */
 	public void saveProfile(Profile saveMe)
 	{
-		saveObject(saveMe, FILE_PATH + PROFILE_FILE + saveMe.getUsername() + FILE_EXT);
+		saveObject(saveMe, FILE_PREFIX + PROFILE_FILE + saveMe.getUsername() + FILE_EXT);
 	}
 	
 	public void saveProfileToDefault(Profile saveMe)
 	{
-		saveObject(saveMe, FILE_PATH + DEFAULT_PROFILE + FILE_EXT);
+		saveObject(saveMe, DEFAULT_PROFILE + FILE_EXT);
 	}
 
 	/**
@@ -100,11 +100,11 @@ public class LocalManager
 	 */
 	public ArrayList<Question> loadQuestions() 
 	{
-		ArrayList<Question> qList = (ArrayList<Question>) loadObject(FILE_PATH + QUESTIONS_FILE + FILE_EXT);
+		ArrayList<Question> qList = (ArrayList<Question>) loadObject(FILE_PREFIX + QUESTIONS_FILE + FILE_EXT);
 		if (qList == null) qList = new ArrayList<Question>();
 		
 		// Clear the saved file.
-		saveObject(new ArrayList<Question>(), FILE_PATH + QUESTIONS_FILE + FILE_EXT);
+		saveObject(new ArrayList<Question>(), FILE_PREFIX + QUESTIONS_FILE + FILE_EXT);
 		
 		return qList;
 	}
@@ -115,9 +115,13 @@ public class LocalManager
 	 */
 	public Profile loadProfile(String username)
 	{
-		Profile prof = (Profile) loadObject(FILE_PATH + PROFILE_FILE + username + FILE_EXT);
-		if (prof == null) prof = new Profile();
-		prof.setUsername(username);
+		Profile prof = (Profile) loadObject(FILE_PREFIX + PROFILE_FILE + username + FILE_EXT);
+		if (prof == null)
+		{
+			prof = new Profile();
+			prof.setUsername(username);
+			saveProfile(prof);
+		}
 		
 		return prof;
 	}
@@ -127,8 +131,7 @@ public class LocalManager
 	 */
 	public Profile loadProfile()
 	{
-		Profile prof = (Profile) loadObject(FILE_PATH + DEFAULT_PROFILE + FILE_EXT);
-		
+		Profile prof = (Profile) loadObject(DEFAULT_PROFILE + FILE_EXT);		
 		return prof;
 	}
 	

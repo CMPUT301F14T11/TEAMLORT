@@ -59,7 +59,8 @@
             android:layout_marginRight="@dimen/activity_less_horizontal_margin"
             android:ems="10"
             android:hint="@string/compose_desc_hint"
-            android:inputType="textCapSentences" />
+            android:inputType="textCapSentences"
+            android:imeOptions="actionDone" />
 
         <TextView
             android:id="@+id/compose_camera_label"
@@ -96,25 +97,7 @@
                 android:src="@drawable/ic_action_camera_dark" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/compose_tags_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_less_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_less_vertical_margin"
-            android:labelFor="@+id/compose_tags_entry"
-            android:text="@string/compose_tags" />
 
-        <EditText
-            android:id="@+id/compose_tags_entry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_less_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_less_horizontal_margin"
-            android:ems="10"
-            android:hint="@string/compose_tags_hint"
-            android:inputType="textCapSentences" />
 
         <LinearLayout
             android:layout_width="match_parent"

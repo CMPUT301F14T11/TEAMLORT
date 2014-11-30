@@ -1,11 +1,15 @@
 package com.github.cmput301f14t11.teamlort.Model;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.github.cmput301f14t11.teamlort.Listener;
-
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+
+import com.github.cmput301f14t11.teamlort.Listener;
 
 /**
  * @author  eunderhi
@@ -20,7 +24,8 @@ public class RepliableText extends TextPrimitive{
 	
 	private int score = 0;
 	
-	private Drawable picture = null;
+	private transient Drawable picture = null;
+	private byte[] pictureData = new byte[0];
 	
 	private ArrayList<Reply> replyList = new ArrayList<Reply>();
 	//to keep track of who's voted what (hashed for quick lookup)
@@ -48,6 +53,10 @@ public class RepliableText extends TextPrimitive{
 	 * @return Returns the picture/null if there isn't one
 	 */
 	public Drawable getPicture() {
+		if (picture == null && (pictureData.length != 0))
+		{
+			picture = new BitmapDrawable(BitmapFactory.decodeByteArray(pictureData, 0, pictureData.length));
+		}
 		return picture;
 	}
 	/**
@@ -100,6 +109,19 @@ public class RepliableText extends TextPrimitive{
 	 */
 	public void addPicture(Drawable newPicture) {
 		picture = newPicture;
+		
+		if (newPicture != null)
+		{
+			Bitmap bitmap = ((BitmapDrawable) newPicture).getBitmap();
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+			
+			pictureData = stream.toByteArray();
+		}
+		else
+		{
+			pictureData = new byte[0];
+		}
 	}
 	/**
 	 * @return returns a boolean based on whether or not

@@ -218,6 +218,14 @@ public class AppBaseActivity extends Activity
 			{
 				String username = input.getText().toString();
 				Profile p = LocalManager.getManager().loadProfile(username);
+				
+				if (p == null) 
+				{
+					p = new Profile();
+					p.setUsername(username);
+					LocalManager.getManager().saveProfile(p);
+				}
+				
 				AppCache.getInstance().setProfile(p);
 				usernameTV = (TextView) findViewById(R.id.UsernameTitleTextView);
 				if (usernameTV != null){

@@ -9,6 +9,7 @@ import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
+import com.github.cmput301f14t11.teamlort.Model.Vote;
 import com.github.cmput301f14t11.teamlort.R.color;
 
 import android.app.Activity;
@@ -176,15 +177,17 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			}
 			
 			final View finalConvertView = convertView;
+			final QuestionViewActivity parentActivity = (QuestionViewActivity) context;
 			answerViewHolder.upvoteButton.setOnClickListener( new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					/* Note: the upvoteButton in answerViewHolder appears to have the correct reference to it's textfield
 					 * but a reference to the most recent view rather than to the clicked one, so currentUpvoteButton is used */
-					Button currentUpvoteButton = (Button) finalConvertView.findViewById(R.id.upvoteButton);
+					//Button currentUpvoteButton = (Button) finalConvertView.findViewById(R.id.upvoteButton);
 					if(answer.getVoterSet().contains(username)){
 						questionController.unVoteAnswer(username, finalGroupPosition);
+						Vote.sendVote(parentActivity.question, context);
 					}
 					else {
 						questionController.upVoteAnswer(username, finalGroupPosition);

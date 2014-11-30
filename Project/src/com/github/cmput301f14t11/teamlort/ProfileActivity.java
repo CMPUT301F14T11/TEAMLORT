@@ -125,9 +125,12 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+		if (id == R.id.action_help) {
+        	helpscreen = getResources().getDrawable(R.drawable.helpscreen_profile);
+        	AlertDialog.Builder alert = buildhelp(helpscreen);
+			alertDialog = alert.show();
+            return true;
+        }
 		return super.onOptionsItemSelected(item);
 	}
 	

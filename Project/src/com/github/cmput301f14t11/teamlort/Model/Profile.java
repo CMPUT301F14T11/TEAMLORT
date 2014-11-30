@@ -6,6 +6,9 @@ import java.util.Observable;
 
 import com.github.cmput301f14t11.teamlort.Controller.LocationController;
 
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
 
@@ -70,11 +73,15 @@ implements Serializable
 			this.gpsLocation = new GpsLocation(latitude, longitude);
 		}
 		else {
-			this.gpsLocation = null;
+			this.gpsLocation = new GpsLocation(0,0);
 		}
 	}
 	
 	public GpsLocation getLocation(LocationManager locationManager) {
+		Criteria criteria = new Criteria();
+		String provider = locationManager.getBestProvider(criteria, false);
+		Location location = locationManager.getLastKnownLocation(provider);
+
 		if (getLocationService()) {
 			if(getManuallySetStatus() == true) {
 				Log.i("returngps","manually set gps sent");

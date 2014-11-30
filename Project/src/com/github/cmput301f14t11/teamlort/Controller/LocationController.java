@@ -1,5 +1,6 @@
 package com.github.cmput301f14t11.teamlort.Controller;
 
+import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -12,25 +13,31 @@ public class LocationController {
 	public GpsLocation getGPSLocation(LocationManager locationManager) {
 
 		double latitude, longitude;
-		GpsLocation GpsLocation;
 
 		// Define the criteria how to select the locatioin provider -> use
 		// default
+		
 		Criteria criteria = new Criteria();
 		String provider = locationManager.getBestProvider(criteria, false);
 		Location location = locationManager.getLastKnownLocation(provider);
+		
+		GpsLocation gpsLocation;
+		
+
 
 		// Initialize the location fields
 		if (location != null) {
 			latitude = location.getLatitude();
 			longitude = location.getLongitude();
 			
-			GpsLocation = new GpsLocation(latitude, longitude);
+			gpsLocation = new GpsLocation(latitude, longitude);
 			
-			return GpsLocation;
+			
+			return gpsLocation;
 			
 		} else {
-			return GpsLocation = null;
+			
+			return gpsLocation = new GpsLocation(0.0,0.0);
 		}
 	}
 	

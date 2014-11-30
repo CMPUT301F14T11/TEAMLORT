@@ -10,10 +10,10 @@ implements Serializable
 	private double longitude;
 
 	public GpsLocation (double latitude, double longitude) {
-		this.latitude = 0;
-		this.longitude = 0; 
+		this.latitude = latitude;
+		this.longitude = longitude; 
 	}
-	public double getLongtitude()
+	public double getLongitude()
 	{
 		return longitude;
 	}
@@ -21,7 +21,7 @@ implements Serializable
 	{
 		return latitude;
 	}
-	public void setLongtitude(int provided)
+	public void setLongitude(int provided)
 	{
 		longitude = provided;
 	}

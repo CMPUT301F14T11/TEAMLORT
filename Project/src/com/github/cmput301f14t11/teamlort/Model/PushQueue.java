@@ -38,7 +38,7 @@ public class PushQueue {
 		if(NetworkListener.checkConnection(c))
 		{
 			new PushQuestions().execute(question);
-			AppCache.getInstance().getProfile().myQuestionList.add(question);
+			//AppCache.getInstance().getProfile().myQuestionList.add(question);
 		}
 		else{
 			questionList.add(question);

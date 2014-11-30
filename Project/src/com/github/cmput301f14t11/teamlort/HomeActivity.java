@@ -96,11 +96,10 @@ public class HomeActivity extends AppBaseActivity implements Observer
        
        Intent intent = getIntent();
        searchstring = intent.getStringExtra("searchstring");
-       if (searchstring!=null)
-       {
-    	   SearchThread search = new SearchThread(searchstring,0);
-    	   search.start();
-       }
+      
+       SearchThread search = new SearchThread(searchstring,0);
+       search.start();
+  
 	   
 	  
 	   View view = getLayoutInflater().inflate(R.layout.footer_view,questionlistview , false);

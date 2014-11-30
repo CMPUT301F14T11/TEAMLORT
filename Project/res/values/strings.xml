@@ -26,6 +26,8 @@
     <string name="set_location_man">Set Location Manually</string>
     <string name="attach_location">Attach Location</string>
     <string name="set_byGPS">Set By GPS</string>
+    <string name="yourLocation">Your Location Is Set To:</string>
+    <string name="location_string">No Location Specified</string>
 	
 
 </resources>

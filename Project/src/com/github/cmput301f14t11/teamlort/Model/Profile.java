@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import com.github.cmput301f14t11.teamlort.Controller.LocationController;
-
 import android.location.LocationManager;
 import android.util.Log;
+
+import com.github.cmput301f14t11.teamlort.Controller.LocationController;
 
 /** 
  *  Profile class implements attributes and methods for an author to 
@@ -70,11 +70,12 @@ implements Serializable
 			this.gpsLocation = new GpsLocation(latitude, longitude);
 		}
 		else {
-			this.gpsLocation = null;
+			this.gpsLocation = new GpsLocation(0,0);
 		}
 	}
 	
 	public GpsLocation getLocation(LocationManager locationManager) {
+
 		if (getLocationService()) {
 			if(getManuallySetStatus() == true) {
 				Log.i("returngps","manually set gps sent");
@@ -86,12 +87,12 @@ implements Serializable
 					Log.i("returngps","actual gps sent");
 					return gpsLocation;
 				} else {
-					Log.i("returngps","blank gps sent");
+					Log.i("returngps","blank gps sent - gps null");
 					return new GpsLocation(0,0);
 				}
 			}
 		} else {
-			Log.i("returngps","blank gps sent");
+			Log.i("returngps","location services off");
 			return new GpsLocation(0,0);
 		}
 	}

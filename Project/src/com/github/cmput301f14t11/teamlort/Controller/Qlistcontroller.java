@@ -251,7 +251,7 @@ public class Qlistcontroller implements Observer{
 		GpsLocation l = null;
 		double direct_dist(Question c)//calculate manhatten distance between two coordinates
 		{
-			double x = l.getLongtitude() - c.getLocation().getLongtitude();
+			double x = l.getLongitude() - c.getLocation().getLongitude();
 			double y = l.getLatitude() - c.getLocation().getLatitude();
 			double dist = Math.pow(x,2) +Math.pow(y,2);
 			return Math.pow(dist, 0.5);

@@ -189,7 +189,7 @@ public class AppBaseActivity extends Activity
 		
 		//alert.setMessage("Please type your username: ");
 		
-		helpimage = (ImageView) this.findViewById(R.id.compose_img_preview);
+		helpimage = new ImageView(getApplicationContext());
 		helpimage.setImageDrawable(provided);
 		alert.setView(helpimage);
 		alert.setPositiveButton("Got it", new DialogInterface.OnClickListener() 
@@ -218,6 +218,14 @@ public class AppBaseActivity extends Activity
 			{
 				String username = input.getText().toString();
 				Profile p = LocalManager.getManager().loadProfile(username);
+				
+				if (p == null) 
+				{
+					p = new Profile();
+					p.setUsername(username);
+					LocalManager.getManager().saveProfile(p);
+				}
+				
 				AppCache.getInstance().setProfile(p);
 				usernameTV = (TextView) findViewById(R.id.UsernameTitleTextView);
 				if (usernameTV != null){

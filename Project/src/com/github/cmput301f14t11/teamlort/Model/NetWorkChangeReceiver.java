@@ -20,8 +20,6 @@ extends BroadcastReceiver
 		else
 		{
 			Toast.makeText(context, "Network is off", Toast.LENGTH_LONG).show();
-		}
-		
+		}		
 	}
-
 }

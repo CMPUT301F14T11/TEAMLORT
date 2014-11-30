@@ -2,6 +2,7 @@ package com.github.cmput301f14t11.teamlort;
 
 
 import java.io.File;
+import java.io.IOException;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,7 +47,6 @@ extends AppBaseActivity
 	
 	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
-	private static final String TAGS_BUNDLE_KEY = "COMPOSE_TAGS";
 	
 	private String title, detail;
 	private Drawable pic = null;
@@ -57,7 +58,6 @@ extends AppBaseActivity
 	
 	private EditText titleEntry;
 	private EditText detailEntry;
-	private EditText tagEntry;
 	
 	private ImageButton addImageButton;
 	private ImageButton acceptButton;
@@ -75,6 +75,7 @@ extends AppBaseActivity
 		GetProfile();
 		GetControllers();
 		GetLayoutElements();
+		GetTmpFileDir();
 		AttachListeners();
 	}
 	
@@ -85,7 +86,6 @@ extends AppBaseActivity
 		
 		outState.putString(TITLE_BUNDLE_KEY, titleEntry.getText().toString());
 		outState.putString(DETAIL_BUNDLE_KEY, detailEntry.getText().toString());
-		outState.putString(TAGS_BUNDLE_KEY, tagEntry.getText().toString());
 	}
 	
 	@Override
@@ -95,11 +95,9 @@ extends AppBaseActivity
 		
 		String title = inState.getString(TITLE_BUNDLE_KEY);
 		String detail = inState.getString(DETAIL_BUNDLE_KEY);
-		String tags = inState.getString(TAGS_BUNDLE_KEY);
 		
 		if (title != null) titleEntry.setText(title);
 		if (detail != null) detailEntry.setText(detail);
-		if (tags != null) tagEntry.setText(tags);
 	}
 	
 	@Override
@@ -125,6 +123,7 @@ extends AppBaseActivity
 			if (resultCode == RESULT_OK)
 			{
 				imgView = (ImageView) this.findViewById(R.id.compose_img_preview);
+				pic = Drawable.createFromPath(imageFileUri.getPath());
 				imgView.setImageDrawable(Drawable.createFromPath(imageFileUri.getPath()));
 			}
 			break;
@@ -162,7 +161,6 @@ extends AppBaseActivity
 	{
 		titleEntry  = (EditText) this.findViewById(R.id.compose_title_entry);
 		detailEntry = (EditText) this.findViewById(R.id.compose_desc_entry);
-		tagEntry    = (EditText) this.findViewById(R.id.compose_tags_entry);
 		
 		addImageButton = (ImageButton) this.findViewById(R.id.compose_add_img_button);
 		acceptButton   = (ImageButton) this.findViewById(R.id.compose_accept_button);
@@ -197,7 +195,6 @@ extends AppBaseActivity
 			{
 				if (arg1 == EditorInfo.IME_ACTION_NEXT)
 				{
-					ComposeQuestionActivity.this.tagEntry.requestFocus();
 					return true;
 				}
 				return false;
@@ -239,9 +236,23 @@ extends AppBaseActivity
 	 * Auxiliary method.
 	 * When the user clicks Accept, put everything together and send it to the controller.
 	 */
-	protected void onAcceptButtonClicked()
+	private void onAcceptButtonClicked()
 	{
 		getInputFields();
+		
+		String msg = "Constructing a new question with params:"
+				+ " Title:" + title
+				+ " Body:" + detail
+				+ " Author:" + usrProfile.getUsername()
+				+ " Pic:"
+				;
+		if (pic == null)
+			msg += "NULL";
+		else
+			msg += "NOT_NULL";
+		
+		Log.d("com.github.cmput301f14t11.teamlort.ComposeQuestionActivity.onAcceptButtonClicked()", msg);
+		
 		Question question;
 		
 		if(!isInputValid()) return;
@@ -252,29 +263,17 @@ extends AppBaseActivity
 				title,
 				detail,
 				usrProfile.getUsername(),
-				location
+				location,
+				pic
 				);
 		} else {
 			question = ObjectFactory.initQuestion(
 					title,
 					detail,
-					usrProfile.getUsername()
+					usrProfile.getUsername(),
+					pic
 					);
 		}
-		
-		
-//		if (pic != null)
-//		{
-//			question = ObjectFactory.initQuestion(
-//					title,
-//					detail,
-//					usrProfile.getUsername(),
-//					usrProfile.getLocation(),
-//					pic
-//					);
-//			
-//		}
-		
 		
 		new SubmitNewQuestion().execute(question);
 		
@@ -323,19 +322,6 @@ extends AppBaseActivity
 	{
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-		String folder = Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + "/tmp";
-		File folderF = new File(folder);
-		if (!folderF.exists())
-		{
-			folderF.mkdir();
-		}
-
-		String imageFilePath = folder + "/"
-				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
-		File imageFile = new File(imageFilePath);
-		imageFileUri = Uri.fromFile(imageFile);
-
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
 		
 		startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
@@ -358,10 +344,49 @@ extends AppBaseActivity
 		@Override
 		protected Void doInBackground(Question... args)
 		{
+			String msg = "Submitting a new question with params:"
+					+ " Title:" + args[0].getTitle()
+					+ " Body:" + args[0].getBody()
+					+ " Author:" + args[0].getAuthor()
+					+ " Pic:"
+					;
+			if (args[0].getPicture() == null)
+				msg += "NULL";
+			else
+				msg += "NOT_NULL";
+			
+			Log.d("com.github.cmput301f14t11.teamlort.ComposeQuestionActivity.SubmitNewQuestion.doInBackground(Question...)",
+					msg);
 			PushQueue.getInstance().pushQuestion(args[0], getApplicationContext());
 			//qController.addQuestion(args[0]);
 			return null;
 		}
 	}
 	
+	private void GetTmpFileDir()
+	{
+		String folder = Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/tmp";
+		File folderF = new File(folder);
+		if (!folderF.exists())
+		{
+			folderF.mkdir();
+		}
+
+		String imageFilePath = folder + "/"
+				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
+		File imageFile = new File(imageFilePath);
+		
+		if (!imageFile.exists())
+			try
+			{
+				imageFile.createNewFile();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		
+		imageFileUri = Uri.fromFile(imageFile);
+	}
 }

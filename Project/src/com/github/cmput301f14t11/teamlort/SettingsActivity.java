@@ -3,8 +3,12 @@ package com.github.cmput301f14t11.teamlort;
 import java.util.Observable;
 import java.util.Observer;
 
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,13 +17,13 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.cmput301f14t11.teamlort.Controller.LocationController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 
-public class SettingsActivity extends AppBaseActivity implements Observer {
+public class SettingsActivity extends AppBaseActivity implements Observer, LocationListener {
 
 	private double latitude, longitude;
 
@@ -32,16 +36,44 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 	private Button setByGPSBtn;
 
 	private Switch locationSwitch;
+	
+	private TextView locationString;
+	
+	private LocationManager locationManager;
+	
+	private String provider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
+		
+		locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		Criteria criteria = new Criteria();
+		provider = locationManager.getBestProvider(criteria, true);
+		Location location = locationManager.getLastKnownLocation(provider);
 
+		// Initialize the location fields
+		if (location != null) {
+			System.out.println("Provider " + provider + " has been selected.");
+
+		}
 		GetProfile();
 		GetLayoutElements();
 		AttachListeners();
+		
+		updateLocationString();
 
+
+
+
+
+	}
+
+	private void updateLocationString() {
+		latitude = usrProfile.getLocation(locationManager).getLatitude();
+		longitude = usrProfile.getLocation(locationManager).getLongitude();
+		locationString.setText(latitude + "¡, " + longitude + "¡");
 	}
 
 	@Override
@@ -71,6 +103,7 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 
 	private void GetProfile() {
 		usrProfile = AppCache.getInstance().getProfile();
+		usrProfile.setLocationServices(true);
 	}
 
 	/**
@@ -84,6 +117,8 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 		setByGPSBtn = (Button) this.findViewById(R.id.setByGPS_btn);
 
 		locationSwitch = (Switch) this.findViewById(R.id.locationSwitch);
+		
+		locationString = (TextView) this.findViewById(R.id.location_string);
 
 	}
 
@@ -129,8 +164,11 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 	protected void onSwitchChanged(boolean isChecked) {
 		if (isChecked) {
 			usrProfile.setLocationServices(true);
+			updateLocationString();
+			locationString.setText(latitude + "¡, " + longitude + "¡");
 		} else {
 			usrProfile.setLocationServices(false);
+			locationString.setText("Location Services Off");
 		}
 	}
 
@@ -144,16 +182,21 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 		if (!isInputValid()) {
 			return;
 		} else {
+			latitude = Double.parseDouble(edit_latitude.getText().toString());
+			longitude = Double.parseDouble(edit_longitude.getText().toString());
+			
 			usrProfile.setLocation(latitude, longitude);
 			usrProfile.locationSetManually(true);
+			updateLocationString();
 			this.setResult(RESULT_OK);
-			this.finish();
+
 		}
 	}
 	
 	protected void onSetByGPSButtonClicked() {
-		getInputFields();
 		usrProfile.locationSetManually(false);
+		updateLocationString();
+		this.setResult(RESULT_OK);
 	}
 
 	private void getInputFields() {
@@ -162,13 +205,12 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 		longitude = Double
 				.parseDouble(((EditText) findViewById(R.id.longitude))
 						.getText().toString());
-		GetProfile();
 
 	}
 
 	private boolean isInputValid() {
 		// Make sure the user has a valid latitude (i.e. between -180 and 180)
-		if (latitude < -180 || latitude > 180) {
+		if (latitude < -90 || latitude > 90) {
 			Toast.makeText(getApplicationContext(),
 					"You must enter a valid latitude", Toast.LENGTH_SHORT)
 					.show();
@@ -176,7 +218,7 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 		}
 
 		// Make sure the user has a valid longitude (i.e. between -90 and 90)
-		if (longitude > 90 || longitude < -90) {
+		if (longitude > 180 || longitude < -180) {
 			Toast.makeText(getApplicationContext(),
 					"You must enter a valid longitude", Toast.LENGTH_SHORT)
 					.show();
@@ -184,5 +226,30 @@ public class SettingsActivity extends AppBaseActivity implements Observer {
 		}
 
 		return true;
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Toast.makeText(this, "Enabled new provider " + provider,
+				Toast.LENGTH_SHORT).show();
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		Toast.makeText(this, "Disabled provider " + provider,
+				Toast.LENGTH_SHORT).show();
 	}
 }

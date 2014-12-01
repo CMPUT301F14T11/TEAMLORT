@@ -1,16 +1,9 @@
 package com.github.cmput301f14t11.teamlort.test;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import junit.framework.TestCase;
-import android.location.Location;
 import android.location.LocationManager;
 
-import com.github.cmput301f14t11.teamlort.HomeActivity;
-import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Model.GpsLocation;
-import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 

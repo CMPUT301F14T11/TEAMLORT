@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -95,6 +96,7 @@ extends AppBaseActivity
 		final Button upVoteButton = (Button) header.findViewById(R.id.questionUpvoteButton);
 		final ImageButton saveButton = (ImageButton) header.findViewById(R.id.save_button);
 		final ImageButton favoriteButton = (ImageButton) header.findViewById(R.id.favorite_button);
+		ImageButton viewImageButton = (ImageButton) header.findViewById(R.id.viewImageButton);
 		
 		Collections.sort(answerList, new AnswerComparator());
 		
@@ -120,6 +122,11 @@ extends AppBaseActivity
 		//By default the reply listview for question should be collapsed
 		QuestionReplyListView.setVisibility(View.GONE);
 		setListViewHeightBasedOnChildren(QuestionReplyListView);
+		
+		//Only show button for showing images if image exists.
+		if(!question.hasPicture()){
+			viewImageButton.setVisibility(View.GONE);
+		}
 		
 		//Add the header top top of listview
 		answerListView.addHeaderView(header, null, false);
@@ -178,6 +185,19 @@ extends AppBaseActivity
 				
 			}
 		}  );
+		viewImageButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder alertDialogueBuilder = new AlertDialog.Builder(getApplicationContext());
+				ImageView imageView = new ImageView(getApplicationContext());
+				imageView.setImageDrawable(question.getPicture());
+				alertDialogueBuilder.setView(imageView);
+				alertDialogueBuilder.setNeutralButton("Close", null);
+				alertDialogueBuilder.show();
+			}
+			
+		});
 		/*
 		 * Listens to the post answer button
 		 * When the user clicks the reply button this method

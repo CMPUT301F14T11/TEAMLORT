@@ -118,7 +118,7 @@ public class AppBaseActivity extends Activity
 			startActivity(favoriteQuestionintent);
 			return true;
 		case (R.id.action_new_question):
-			Intent intent = new Intent(this,ComposeQuestionActivity.class);
+			Intent intent = new Intent(this, ComposeQuestionActivity.class);
 			startActivity(intent);
 			return true;
 		case (R.id.action_help):

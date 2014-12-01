@@ -131,6 +131,10 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		int id = item.getItemId();
+		if ((id == R.id.action_profile) || (id == R.id.action_favorites)){
+			//Do nothing - Avoids starting another profile.
+			return true;
+		}
 		if (id == R.id.action_help) {
         	helpscreen = getResources().getDrawable(R.drawable.helpscreen_profile);
         	AlertDialog.Builder alert = buildhelp(helpscreen);

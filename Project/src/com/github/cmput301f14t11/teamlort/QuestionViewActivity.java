@@ -15,6 +15,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -391,7 +392,19 @@ extends AppBaseActivity implements LocationListener
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+        if (id == R.id.action_help) {
+        	helpscreen = getResources().getDrawable(R.drawable.helpscreen_question);
+        	AlertDialog.Builder alert = buildhelp(helpscreen);
+			alertDialog = alert.show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub

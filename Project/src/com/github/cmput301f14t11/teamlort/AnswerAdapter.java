@@ -264,7 +264,6 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 					//Text view for user to enter reply into
 					final EditText body = new EditText(context);
 					alertDialogueBuilder.setView(body);
-					final QuestionViewActivity parentActivity = (QuestionViewActivity) context;
 					
 					alertDialogueBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
 						@Override

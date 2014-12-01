@@ -103,6 +103,8 @@
             android:layout_alignLeft="@+id/answer_stats_1"
             android:layout_alignRight="@+id/location_text_view_answer"
             android:layout_below="@+id/upvoteButton"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:text="@string/action_view_image" />
 
     </RelativeLayout>

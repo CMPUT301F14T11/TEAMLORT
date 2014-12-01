@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -96,7 +97,7 @@ extends AppBaseActivity
 		final Button upVoteButton = (Button) header.findViewById(R.id.questionUpvoteButton);
 		final ImageButton saveButton = (ImageButton) header.findViewById(R.id.save_button);
 		final ImageButton favoriteButton = (ImageButton) header.findViewById(R.id.favorite_button);
-		ImageButton viewImageButton = (ImageButton) header.findViewById(R.id.viewImageButton);
+		Button viewImageButton = (Button) header.findViewById(R.id.viewImageButton);
 		
 		Collections.sort(answerList, new AnswerComparator());
 		
@@ -189,12 +190,8 @@ extends AppBaseActivity
 
 			@Override
 			public void onClick(View v) {
-				AlertDialog.Builder alertDialogueBuilder = new AlertDialog.Builder(getApplicationContext());
-				ImageView imageView = new ImageView(getApplicationContext());
-				imageView.setImageDrawable(question.getPicture());
-				alertDialogueBuilder.setView(imageView);
-				alertDialogueBuilder.setNeutralButton("Close", null);
-				alertDialogueBuilder.show();
+				AlertDialog.Builder alert = buildPicture();
+				alertDialog = alert.show();
 			}
 			
 		});
@@ -315,7 +312,26 @@ extends AppBaseActivity
 	public AnswerAdapter getAnswerAdapter(){
 		return answerAdapter;
 	}
-	
+	protected AlertDialog.Builder buildPicture() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		
+		
+		
+		alert.setTitle("Picture");
+		ImageView imageView = new ImageView(getApplicationContext());
+		imageView.setImageDrawable(question.getPicture());
+		alert.setView(imageView);	
+		alert.setPositiveButton("Got it", new DialogInterface.OnClickListener() 
+		{
+		
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				
+			}
+		});
+		return alert;
+	}
 	/**
 	 * Used for getting a listview that is inside of another scrolling view to be the correct height after changes.
 	 * 

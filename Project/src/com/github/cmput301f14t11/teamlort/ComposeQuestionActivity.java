@@ -87,7 +87,6 @@ extends AppBaseActivity implements LocationListener
 		GetProfile();
 		GetControllers();
 		GetLayoutElements();
-		GetTmpFileDir();
 		AttachListeners();
 	}
 	
@@ -402,38 +401,6 @@ extends AppBaseActivity implements LocationListener
 		else {
 			return true;
 		}
-	}
-
-	/**
-	 * Auxiliary method.
-	 * Locates and creates (if necessary) a directory that external apps can
-	 * use to transfer data to this one.
-	 */
-	private void GetTmpFileDir()
-	{
-		String folder = Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + "/tmp";
-		File folderF = new File(folder);
-		if (!folderF.exists())
-		{
-			folderF.mkdir();
-		}
-
-		String imageFilePath = folder + "/"
-				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
-		File imageFile = new File(imageFilePath);
-		
-		if (!imageFile.exists())
-			try
-			{
-				imageFile.createNewFile();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		
-		imageFileUri = Uri.fromFile(imageFile);
 	}
 	
 	private class SubmitNewQuestion

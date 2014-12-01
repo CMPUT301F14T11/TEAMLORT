@@ -1,6 +1,7 @@
 package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -73,8 +74,8 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		TextView userstats = (TextView)findViewById(R.id.QuestionBodyTextView);
-		userstats.setText("User since "+AppCache.getInstance().getProfile().getDate().toString()+" with "+AppCache.getInstance().getProfile().getuserscore()+" points.");
+		//TextView userstats = (TextView)findViewById(R.id.QuestionBodyTextView);
+		//userstats.setText("User since "+" with "+AppCache.getInstance().getProfile().getuserscore()+" points.");
 		adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getFavedQuestionList());
 		lv = (ListView) findViewById(R.id.ProfileQuestionListView);
 		lv.setOnItemClickListener(new OnItemClickListener()

@@ -1,6 +1,9 @@
 package com.github.cmput301f14t11.teamlort.Controller;
 
+import java.util.Date;
 import java.util.Observable;
+
+import android.util.Log;
 
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.LocalManager;
@@ -157,6 +160,16 @@ public class ProfileController extends Observable{
 	 */
 	private void save(){
 		LocalManager.getManager().saveProfile(AppCache.getInstance().getProfile());
+	}
+	public static String returnDate() {
+		// TODO Auto-generated method stub
+		if (p.getDate() == null) {
+			Log.i("date","we don't have dates?");
+			return new Date().toString();
+		} else {
+			Log.i("date","we have actual dates?");
+			return p.getDate().toString();
+		}
 	}
 
 }

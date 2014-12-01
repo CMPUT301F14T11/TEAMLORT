@@ -168,8 +168,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_stats_1.setText(answer.getTime().toString());
 			answerViewHolder.answer_comment_count.setText(String.valueOf(answer.getReplyList().size()) + " comments");
 			answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
-			if (attachLocation()) {
-				findLocation();
+			if (answer.getLocation() != null) {
 				answerViewHolder.geolocation.setText(answer.printCoordinates());
 			}
 			
@@ -275,8 +274,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			replyViewHolder.reply1.setText(reply.getBody());
 			replyViewHolder.reply_author.setText(reply.getAuthor());
 			replyViewHolder.reply_time.setText(reply.getTime().toString());
-			if (attachLocation()) {
-				findLocation();
+			if (reply.getLocation() != null) {
 				replyViewHolder.geolocation.setText(reply.printCoordinates());
 			}
 		}

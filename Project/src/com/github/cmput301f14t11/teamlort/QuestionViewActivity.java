@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -97,6 +96,10 @@ extends AppBaseActivity implements LocationListener
 		questionBodyTextView.setText(question.getBody());
 		TextView questionTimeTextView = (TextView) header.findViewById(R.id.QuestionTimeTextView);
 		questionTimeTextView.setText(question.getTime().toString());
+		if (question.getLocation() != null) {
+			TextView questionLocationTextView = (TextView) header.findViewById(R.id.location_text_view_answer);
+			questionLocationTextView.setText(question.getLocation().toString());
+		}
 		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
 		Button postAnswerButton = (Button) header.findViewById(R.id.post_answer_button);
 		final Button upVoteButton = (Button) header.findViewById(R.id.questionUpvoteButton);
@@ -236,6 +239,7 @@ extends AppBaseActivity implements LocationListener
 			
 			@Override
 			public void onClick(View v) {
+				
 				//Build a dialogue for entering a new reply.
 				AlertDialog.Builder alertDialogueBuilder = new AlertDialog.Builder(QuestionViewActivity.this);
 				alertDialogueBuilder.setCancelable(true);
@@ -248,7 +252,13 @@ extends AppBaseActivity implements LocationListener
 				alertDialogueBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
-						Reply reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername());
+						Profile prof = appCache.getProfile();
+						Reply reply;
+						if (prof.getLocationService()) {
+							reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername(), prof.getLocation(locationManager));
+						} else {
+							reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername());
+						}
 						questionController.addQuestionReply(reply);
 						//Refresh the comment counter.
 						if (QuestionReplyListView.getVisibility() == View.GONE){

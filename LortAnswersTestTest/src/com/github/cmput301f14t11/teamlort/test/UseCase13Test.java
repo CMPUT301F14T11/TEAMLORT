@@ -2,7 +2,10 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import java.util.ArrayList;
 
+import android.content.Context;
+import android.location.LocationManager;
 import android.test.ActivityInstrumentationTestCase2;
+
 import com.github.cmput301f14t11.teamlort.HomeActivity;
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
@@ -42,8 +45,9 @@ public class UseCase13Test extends  ActivityInstrumentationTestCase2<HomeActivit
 		question1.upVote("A1");
 		answer2.upVote("A2");
 		
+		LocationManager lm = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 		// After users press "Sort By Score" button.
-		ql.sortQuestions("upVote");
+		ql.sortQuestions("upVote", lm);
 		for (int i = 0; i < ql.returnsize(); i++)
 		{
 			ql.sortAnswers(ql.returnquestion(i).getAnswerList(),"upVote");

@@ -199,6 +199,17 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			
 			final View finalConvertView = convertView;
 			final QuestionViewActivity parentActivity = (QuestionViewActivity) context;
+			/**
+			 * Listens to upvote button and upvotes and unvotes answers according to the
+			 * user's username. 
+			 * 
+			 * Checks if the user has voted the question already, and unvotes it if so
+			 * else, upvotes it.
+			 * 
+			 * For example: if someone has upvoted an answer already, and clicks upvote again
+			 * the upvote is removed. If they have not upvoted it, then the upvote is added
+			 * and they are saved as a voter of the answer
+			 */
 			answerViewHolder.upvoteButton.setOnClickListener( new View.OnClickListener() {
 				
 				@Override

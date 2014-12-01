@@ -31,13 +31,4 @@ public class NetworkListener
 		return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
 	}
 	
-	/**
-	 * This method will notify the elastic manager that there is a network connection
-	 * and pushing operation may proceed.
-	 * @issue not implemented
-	 */
-	public void onInternetConnected()
-	{
-		return;
-	}
 }

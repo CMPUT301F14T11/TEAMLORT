@@ -197,15 +197,9 @@ extends AppBaseActivity
 				}
 				
 				Answer answer = ObjectFactory.initAnswer(answerText.getText().toString(), appCache.getProfile().getUsername());
-				//answer.setBody(answerText.getText().toString());
-				//answer.setAuthor(appCache.getProfile().getUsername());
+
 				questionController.addAnswer(answer); 
 				answerText.setText("");
-
-				//Toast.makeText(getBaseContext(), "Added Question", Toast.LENGTH_SHORT).show();
-				//Thread thread = new AddThread(question);
-				//thread.start();
-				//ElasticManager.getInstance().addItem(question);
 				
 			}
 		});
@@ -303,7 +297,7 @@ extends AppBaseActivity
 	}
 	
 	/**
-	 * Used for getting listviews that are inside of another scrolling view to be the correct height after changes.
+	 * Used for getting a listview that is inside of another scrolling view to be the correct height after changes.
 	 * 
 	 * @Credit to DougW at:
 	 * http://stackoverflow.com/questions/3495890/how-can-i-put-a-listview-into-a-scrollview-without-it-collapsing
@@ -339,30 +333,3 @@ extends AppBaseActivity
 	}
 	
 }
-
-// already move the thread into the pushqueue.class
-
-//class AddThread extends Thread {
-//	private Question question;
-//	QuestionController qc = new QuestionController();
-//
-//	public AddThread(Question question) {
-//		this.question = question;
-//	}
-//
-//	@Override
-//	public void run() {
-//		//Log.i("LORTANSWERS",usrProfile.getUsername());
-//		
-//		//PushQueue.getInstance().addQuestionToQueue(question, getApplicationContext());
-//
-//		qc.addQuestion(question);
-//		// Give some time to get updated info
-//		try {
-//			Thread.sleep(500);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
-//}

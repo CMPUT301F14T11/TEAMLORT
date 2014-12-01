@@ -5,11 +5,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -59,6 +60,7 @@ public class HomeActivity extends AppBaseActivity implements Observer, LocationL
 	ObjectFactory dt = new ObjectFactory();
 	ProfileController pc = new ProfileController();
 	AppCache appCache = new AppCache();
+	LocationManager locationManager;
 	
 	boolean loadingMore = false;
 	boolean clicked = false;
@@ -80,6 +82,7 @@ public class HomeActivity extends AppBaseActivity implements Observer, LocationL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home); 
         
+        locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         
         questionlistview = (ListView)findViewById(R.id.expandableListView1);
         
@@ -301,7 +304,7 @@ public class HomeActivity extends AppBaseActivity implements Observer, LocationL
 		case (R.id.action_sort_by_date):
 			if(clicked == false)
 			{
-				qlc.sortQuestions("date");
+				qlc.sortQuestions("date", null);
 				clicked = true;
 			}
 			else if (clicked == true)
@@ -315,7 +318,7 @@ public class HomeActivity extends AppBaseActivity implements Observer, LocationL
 		case (R.id.action_sort_by_score):
 			if(clicked == false)
 			{
-				qlc.sortQuestions("upvote");
+				qlc.sortQuestions("upvote", null);
 				clicked = true;
 			}
 			else if (clicked == true)
@@ -329,7 +332,7 @@ public class HomeActivity extends AppBaseActivity implements Observer, LocationL
 		case (R.id.action_sort_by_pictures):
 			if(clicked == false)
 			{
-				qlc.sortQuestions("image");
+				qlc.sortQuestions("image", null);
 				clicked = true;
 			}
 			else if (clicked == true)
@@ -344,7 +347,7 @@ public class HomeActivity extends AppBaseActivity implements Observer, LocationL
 			qlc.setprofile(AppCache.getInstance().getProfile(), null);
 			if(clicked == false)
 			{
-				qlc.sortQuestions("location");
+				qlc.sortQuestions("location", locationManager);
 				clicked = true;
 			}
 			else if (clicked == true)
@@ -358,7 +361,7 @@ public class HomeActivity extends AppBaseActivity implements Observer, LocationL
 		{
 			if(clicked == false)
 			{
-				qlc.sortQuestions("replies");
+				qlc.sortQuestions("replies", null);
 				clicked = true;
 			}
 			else if (clicked == true)

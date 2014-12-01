@@ -33,6 +33,8 @@ public class Qlistcontroller implements Observer {
 	private QuestionList questionlist = new QuestionList();
 	private Profile p = new Profile();
 	private Context context;
+	
+	//private LocationManager locationManager = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 
 	public void setprofile(Profile provided, Context context) {
 		p = provided;
@@ -80,7 +82,9 @@ public class Qlistcontroller implements Observer {
 	 * 
 	 * @param command
 	 */
-	public void sortQuestions(String command) {
+	public void sortQuestions(String command, LocationManager locationManager) {
+		
+		
 		// TODO Auto-generated method stub
 		if (command == "date") {
 			Collections.sort(getQuestionlist().getModellist(),
@@ -93,12 +97,10 @@ public class Qlistcontroller implements Observer {
 					new ImageComparator());
 		} else if (command == "location") {
 			Locationcomparator lc = new Locationcomparator();
-			if (p.getLocation((LocationManager) context
-					.getSystemService(Context.LOCATION_SERVICE)) == null) {
+			if (p.getLocation(locationManager) == new GpsLocation(0.0, 0.0)) {
 				Log.i("LOCATION", "PROFILE HAS NULL LOCATION");
 			} else {
-				lc.setlocation(p.getLocation((LocationManager) context
-						.getSystemService(Context.LOCATION_SERVICE)));
+				lc.setlocation(locationManager);
 				Collections.sort(getQuestionlist().getModellist(), lc);
 			}
 		} else if (command == "replies") {
@@ -254,8 +256,8 @@ public class Qlistcontroller implements Observer {
 
 		}
 
-		public void setlocation(GpsLocation provided) {
-			l = provided;
+		public void setlocation(LocationManager locationManager) {
+			l = p.getLocation(locationManager);
 		}
 
 		@Override

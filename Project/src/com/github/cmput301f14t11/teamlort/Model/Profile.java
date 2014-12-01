@@ -2,6 +2,7 @@ package com.github.cmput301f14t11.teamlort.Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 
 import android.location.LocationManager;
@@ -22,6 +23,8 @@ implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	private String username = "";
+	private int score = 0;
+	private Date Registration_date;
 	private transient GpsLocation gpsLocation = null;
 	//private transient LocalManager localManager = LocalManager.getManager();
 	private transient boolean locationService = true;
@@ -50,6 +53,22 @@ implements Serializable
 	 */
 	public String getUsername(){
 		return username;
+	}
+	/**
+	 * return user registration date,displayed in profile
+	 * @return
+	 */
+	public Date getDate()
+	{
+		return Registration_date;
+	}
+	/**
+	 * return userscore - earned by asking/answering question
+	 * @return
+	 */
+	public int getuserscore()
+	{
+		return score;
 	}
 	
 	/**
@@ -114,7 +133,18 @@ implements Serializable
 	public void setLocationServices(boolean status) {
 		this.locationService = status;
 	}
-	
+	/**
+	 * sets user registration date on user login
+	 */
+	public void setdate(Date provided)
+	{
+		Log.i("setdate", "setdate called");
+		this.Registration_date = provided;
+	}
+	public void setscore(int provided)
+	{
+		this.score = provided;
+	}
 	/**
 	 * return the flag of requesting location service
 	 * @return

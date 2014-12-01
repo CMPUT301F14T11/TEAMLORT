@@ -75,6 +75,7 @@ public class AppCache {
 			p = new Profile();
 			p.setUsername("Guest" + (new Date()).hashCode());
 			p.setLocation(0, 0);
+			p.setdate(new Date());
 			Log.i("LOCATION","location set");
 			LocalManager.getManager().saveProfileToDefault(p);
 		} else {

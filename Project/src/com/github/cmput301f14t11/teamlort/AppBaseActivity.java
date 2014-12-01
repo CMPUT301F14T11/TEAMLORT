@@ -1,5 +1,7 @@
 package com.github.cmput301f14t11.teamlort;
 
+import java.util.Date;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -224,9 +226,10 @@ public class AppBaseActivity extends Activity
 				{
 					p = new Profile();
 					p.setUsername(username);
+					p.setdate(new Date());
 					LocalManager.getManager().saveProfile(p);
 				}
-				
+				p.setdate(new Date());
 				AppCache.getInstance().setProfile(p);
 				usernameTV = (TextView) findViewById(R.id.UsernameTitleTextView);
 				if (usernameTV != null){

@@ -33,6 +33,11 @@ public class PushQueue {
 		return pushQueue;
 	}
 	
+	/**
+	 * check the connection and push a single question to the server if network is available 
+	 * @param question the question need to push 
+	 * @param c context from the current activity
+	 */
 	public void pushQuestion(Question question, Context c)
 	{
 		if(NetworkListener.checkConnection(c))
@@ -48,6 +53,13 @@ public class PushQueue {
 		
 	}
 	
+	/**
+	 * check the connection and push an answer of a question to the server 
+	 * if network is available 
+	 * @param questionID id of the question
+	 * @param answer the answer added to the given question 
+	 * @param c context from the current activity
+	 */
 	public void pushAnswer(int questionID, Answer answer, Context c)
 	{
 		if(NetworkListener.checkConnection(c))
@@ -61,6 +73,13 @@ public class PushQueue {
 		}
 	}
 	
+	/**
+	 * check the connection and push a reply of a question to the server 
+	 * if network is available 
+	 * @param questionID id of the question
+	 * @param reply the reply added to the given question 
+	 * @param c context from the current activity
+	 */
 	public void pushQuestionReply(int questionID, Reply reply, Context c){
 		if(NetworkListener.checkConnection(c))
 		{
@@ -72,6 +91,14 @@ public class PushQueue {
 		}
 	}
 	
+	/**
+	 * check the connection and push a reply of an answer to the server 
+	 * if network is available 
+	 * @param questionID id of the question
+	 * @param answerID id of that answer
+	 * @param reply the reply added to the given answer 
+	 * @param c context from the current activity
+	 */
 	public void pushAnswerReply(int questionID, int answerID, Reply reply, Context c){
 		if(NetworkListener.checkConnection(c))
 		{
@@ -83,6 +110,9 @@ public class PushQueue {
 		}
 	}
 
+	/**
+	 * push all items in the queue into the server
+	 */
 	public void pushAll()
 	{
 		new PushQuestions().execute(questionList.toArray(new Question[questionList.size()]));
@@ -91,6 +121,12 @@ public class PushQueue {
 		new PushAnswerReplies().execute(answerReplyList.toArray(new PushItemReply[answerReplyList.size()]));
 	}
 	
+	/**
+	 * This class used UI thread to push questions from the question list in 
+	 * push queue class to the server
+	 * @author Branden_Yue
+	 *
+	 */
 	private class PushQuestions
 	extends AsyncTask<Question, Void, Void>
 	{	
@@ -112,6 +148,12 @@ public class PushQueue {
 			return null;
 		}
 	}
+	/**
+	 * This class used UI thread to push answers from the answer list in 
+	 * push queue class to the server
+	 * @author Branden_Yue
+	 *
+	 */
 	private class PushAnswers
 	extends AsyncTask<PushItemAnswer, Void, Void>
 	{
@@ -134,6 +176,11 @@ public class PushQueue {
 			return null;
 		}
 	}
+	/**
+	 * This class used UI thread to push Question replies from the PushItemReply list in 
+	 * push queue class to the server
+	 * @author Branden_Yue
+	 */
 	private class PushQuestionReplies
 	extends AsyncTask<PushItemReply, Void, Void>
 	{
@@ -156,6 +203,11 @@ public class PushQueue {
 			return null;
 		}
 	}
+	/**
+	 * This class used UI thread to push answer replies from the PushItemReply list in 
+	 * push queue class to the server
+	 * @author Branden_Yue
+	 */
 	private class PushAnswerReplies
 	extends AsyncTask<PushItemReply, Void, Void>
 	{

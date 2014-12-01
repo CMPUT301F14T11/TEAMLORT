@@ -3,16 +3,10 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,7 +15,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,8 +44,6 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
 public class ComposeQuestionActivity
 extends AppBaseActivity implements LocationListener
 {
-	private static final int IMAGE_REQUEST_CODE = 1;
-	
 	private LocationManager locationManager;
 	
 	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
@@ -149,7 +140,7 @@ extends AppBaseActivity implements LocationListener
 	{
 		switch (requestCode)
 		{
-		case (ComposeQuestionActivity.IMAGE_REQUEST_CODE):
+		case (ImageBuilder.IMAGE_REQUEST_CODE):
 			if (resultCode == RESULT_OK)
 			{
 				pic = iBuilder.RetrieveImageFromStorage(this);

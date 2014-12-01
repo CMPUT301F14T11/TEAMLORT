@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.github.cmput301f14t11.teamlort.AppBaseActivity;
-import com.github.cmput301f14t11.teamlort.Controller.AnswerController;
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
@@ -38,7 +37,7 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 	{
 		Activity activity = getActivity();
 		QuestionController qController = new QuestionController(activity.getApplicationContext());
-		AnswerController   aController = new AnswerController();
+		
 		
 		// The user creates a question. Here the views (EditTexts) should have
 		// the strings, but since that's not done we'll just make them up.
@@ -74,8 +73,8 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		Answer a2 = ObjectFactory.initAnswer(answer2, author3);
 		
 		// Get the data controller to add the answers.
-		aController.addAnswer(a1, q1.getID());
-		aController.addAnswer(a2, q1.getID());
+		qController.addAnswer(a1);
+		qController.addAnswer(a2);
 		
 		// Make sure they're there.
 		int i = 0;
@@ -106,7 +105,6 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 	{
 		Activity activity = getActivity();
 		QuestionController qController = new QuestionController(activity.getApplicationContext());
-		AnswerController   aController = new AnswerController();
 		
 		// This part is just like test case 5.
 		// Create a question with some answers
@@ -123,8 +121,8 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		qController.addQuestion(q1);
 		Answer a1 = ObjectFactory.initAnswer(answer1, author2);
 		Answer a2 = ObjectFactory.initAnswer(answer2, author3);
-		aController.addAnswer(a1, q1.getID());
-		aController.addAnswer(a2, q1.getID());
+		qController.addAnswer(a1);
+		qController.addAnswer(a2);
 		
 		// Now add a response to each.
 		Reply r1 = ObjectFactory.initReply("Sorry. I meant where's the washroom in here?", author1);
@@ -132,9 +130,9 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		Reply r3 = ObjectFactory.initReply("lol", author2);
 		
 		//TODO Add this back after Elvis finishes with the qController
-		//qController.addQuestionReply(r1, q1.getID());
-		aController.addReply(r2, q1.getID(), a1.getID());
-		aController.addReply(r3, q1.getID(), a2.getID());
+		qController.addQuestionReply(r1);
+		qController.addAnswer(a1);
+		qController.addAnswer(a2);
 		
 		// Make sure they're there.
 		int i = 0;
@@ -194,7 +192,6 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 	{
 		Activity activity = getActivity();
 		QuestionController qController = new QuestionController(activity.getApplicationContext());
-		AnswerController   aController = new AnswerController();
 		
 		// This part is just like test case 5.
 		// Create a question with some answers
@@ -212,8 +209,8 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		qController.addQuestion(q1);
 		Answer a1 = ObjectFactory.initAnswer(answer1, author2);
 		Answer a2 = ObjectFactory.initAnswer(answer2, author3);
-		aController.addAnswer(a1, q1.getID());
-		aController.addAnswer(a2, q1.getID());
+		qController.addAnswer(a1);
+		qController.addAnswer(a2);
 		
 		// Make sure they're there.
 		int i = 0;
@@ -241,7 +238,6 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 	{
 		Activity activity = getActivity();
 		QuestionController qController = new QuestionController(activity.getApplicationContext());
-		AnswerController   aController = new AnswerController();
 		
 		// This part is just like test case 5.
 		// Create a question with some answers
@@ -260,8 +256,8 @@ extends ActivityInstrumentationTestCase2<AppBaseActivity>
 		qController.addQuestion(q1);
 		Answer a1 = ObjectFactory.initAnswer(answer1, author2);
 		Answer a2 = ObjectFactory.initAnswer(answer2, author3);
-		aController.addAnswer(a1, q1.getID());
-		aController.addAnswer(a2, q1.getID());
+		qController.addAnswer(a1);
+		qController.addAnswer(a2);
 		
 		// Make sure they're there.
 		int i = 0;

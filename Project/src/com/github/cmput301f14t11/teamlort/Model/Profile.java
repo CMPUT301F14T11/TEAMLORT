@@ -93,6 +93,7 @@ implements Serializable
 	
 	/**
 	 * record the user's current location into the profile
+	 * Used when the user wants to manually set their location
 	 * @param latitude 
 	 * @param longitude
 	 */
@@ -107,8 +108,16 @@ implements Serializable
 	
 	/**
 	 * get user's current location in the profile
-	 * @param locationManager android routine service 
-	 * @return location point
+	 * Used whenever the location is needed to attach to post
+	 * It checks whether the user wanted to attach their location to posts
+	 * If they didn't then a null location is sent
+	 * It checks whether the user wanted to set manually or not
+	 * If they wanted to set manually, then no GPS location is found.
+	 * If the user wanted locaiton from GPS then the location is found.
+	 * If not null the new location is returned.
+	 * If null then null location is sent
+	 * @param locationManager from Activity calling getLocation
+	 * @return GpsLocation based on choices
 	 */
 	public GpsLocation getLocation(LocationManager locationManager) {
 
@@ -134,7 +143,9 @@ implements Serializable
 	}
 	
 	/**
-	 * set flag of requesting the location service
+	 * A boolean to determine whether the user wants to attach their location to posts.
+	 * If true, location will be attached to post if valid location is provided
+	 * If false, no location will be attached.
 	 * @param status
 	 */
 	public void setLocationServices(boolean status) {
@@ -153,7 +164,9 @@ implements Serializable
 		this.score = provided;
 	}
 	/**
-	 * return the flag of requesting location service
+	 * Gets the boolean to determine if user wants to attach location to posts they create
+	 * If true, location will be attached to post if valid location is provided
+	 * If false, no location will be attached.
 	 * @return
 	 */
 	public boolean getLocationService() {
@@ -161,7 +174,10 @@ implements Serializable
 	}
 	
 	/**
-	 * set the flag of setting location manually
+	 * Sets locationSetManuallyStatus
+	 * A boolean that is true if the user indicated they wanted to set their location manually.
+	 * To do this they entered valid inputs in GeoLocationSettings and pressed the "Set Manually Button"
+	 * If they want to attach their location by GPS this boolean is false
 	 * @param status
 	 */
 	public void locationSetManually(boolean status) {
@@ -169,7 +185,10 @@ implements Serializable
 	}
 	
 	/**
-	 * get the flag of setting location manually
+	 * Gets locationSetManuallyStatus
+	 * A boolean that is true if the user indicated they wanted to set their location manually.
+	 * To do this they entered valid inputs in GeoLocationSettings and pressed the "Set Manually Button"
+	 * If they want to attach their location by GPS this boolean is false
 	 * @return
 	 */
 	public boolean getManuallySetStatus() {

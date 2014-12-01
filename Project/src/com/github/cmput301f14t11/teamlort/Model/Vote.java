@@ -9,6 +9,6 @@ public class Vote {
 		if(NetworkListener.checkConnection(context)) {
 			ElasticManager.getInstance().addItem(question);
 		}
-		Toast.makeText(context, "No connection vote won't be saved", Toast.LENGTH_SHORT).show();
+		Toast.makeText(context, "No connection vote won't be savede", Toast.LENGTH_SHORT).show();
 	}
 }

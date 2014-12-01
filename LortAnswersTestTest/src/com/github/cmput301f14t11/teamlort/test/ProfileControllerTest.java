@@ -3,6 +3,7 @@ package com.github.cmput301f14t11.teamlort.test;
 import java.util.ArrayList;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.Question;
@@ -68,7 +69,10 @@ public class ProfileControllerTest extends TestCase {
 	}
 	
 	public void testCreatedQuestion() {
-		assertTrue("nothing should be in the list now", p.getMyQuestionList()== new ArrayList<Question>());
+		Profile p = new Profile();
+		p.setUsername("C");
+;		AppCache.getInstance().setProfile(p);
+		assertTrue("nothing should be in the list now", p.getMyQuestionList()==new ArrayList<Question>());
 		Question q1 = ObjectFactory.initQuestion("A", "B", "C");
 		Question q2 = ObjectFactory.initQuestion("D", "E", "C");
 		pc.addCreatedQuestion(q1);

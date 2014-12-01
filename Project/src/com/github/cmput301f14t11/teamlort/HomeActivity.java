@@ -76,6 +76,9 @@ public class HomeActivity extends AppBaseActivity implements Observer, LocationL
 			}
 		}
 	};
+	public HomeAdapter getAdapter(){
+		return adapter;
+	}
 
 	@Override
     protected void onCreate(Bundle savedInstanceState)

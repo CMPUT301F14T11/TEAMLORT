@@ -41,13 +41,13 @@ class Single_Home_Question
 }
 //this adapter was inspired by the extended baseadapter example on android developer website
 //http://developer.android.com/guide/topics/ui/layout/gridview.html
-class HomeAdapter extends BaseAdapter// the adapter used for displaying items in the two gridviews from current task and archived task
+public class HomeAdapter extends BaseAdapter// the adapter used for displaying items in the two gridviews from current task and archived task
 {
 	ArrayList<Question> da_list;//the archived/current task currently loaded in this gridview, i could of just referenced those lists since they are global
 								// but i think this makes my adapter more portable
 	Context context;
 	
-	HomeAdapter(Context context,ArrayList<Question> provided)
+	public HomeAdapter(Context context,ArrayList<Question> provided)
 	{
 		this.context = context; //initializing methode providing the context and the list of todoitems we will work with
 		da_list = provided;

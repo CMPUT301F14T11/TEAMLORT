@@ -170,7 +170,7 @@ extends AppBaseActivity implements LocationListener
 	
 	/**
 	 * Auxiliary method.
-	 * Get some new controllers for the activity.
+	 * Get the controller that we'll use to put up the new question.
 	 */
 	private void GetControllers()
 	{
@@ -179,7 +179,8 @@ extends AppBaseActivity implements LocationListener
 	
 	/**
 	 * Auxiliary method.
-	 * Gets references to the view's layout elements.
+	 * Gets references to the view's layout elements. Make sure this is called
+	 * before AttachListeners() (usually within onCreate).
 	 */
 	private void GetLayoutElements()
 	{		
@@ -199,6 +200,7 @@ extends AppBaseActivity implements LocationListener
 	/**
 	 * Auxiliary method.
 	 * Attaches onClick and onEditorAction listeners to the appropriate views.
+	 * Call only after GetLayoutElements().
 	 */
 	private void AttachListeners()
 	{

@@ -41,6 +41,9 @@ public class ElasticManager {
 	private static final String TAG = "LORTANSWERS";
 	private static final String serverAddress = "http://cmput301.softwareprocess.es:8080/cmput301f14t11/question/";
 	private static Gson gson;
+	private static final String geolocation_address = "http://nominatim.openstreetmap.org/reverse?format=json&lat=";
+	private static final String geolocation_address_second = "&lon=";
+	private static final String geolocation_address_third =	"&zoom=18&addressdetails=1";
 
 	protected ElasticManager() {
 		gson = new Gson();
@@ -82,6 +85,24 @@ public class ElasticManager {
 		} 
 		
 		return null;
+	}
+	public String getaddress(GpsLocation provided)
+	{
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(geolocation_address+provided.getLatitude()+geolocation_address_second+provided.getLongitude()+geolocation_address_third);
+		HttpResponse response;
+		try {
+			Log.i("LORTANSWERS","in try");
+			response = httpClient.execute(httpGet);
+			Elasticitem<String> sr = parselocation(response);
+			return sr.getSource();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null; 
+		
+		
 	}
 
 	/**
@@ -287,6 +308,29 @@ public class ElasticManager {
 			Type searchHitType = new TypeToken<Elasticitem<Question>>() {}.getType();
 			
 			Elasticitem<Question> sr = gson.fromJson(json, searchHitType);
+			if(sr == null)
+			{
+				Log.i("LORTANSWERS","sr is null");
+			
+			}
+			return sr;
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	private Elasticitem<String> parselocation(HttpResponse response) {
+		
+		Log.i("LORTANSWERS"," TRY PARSEITEM");
+		try {
+			Log.i("LORTANSWERS","IN TRY PARSEITEM");
+			String json = getEntityContent(response);
+			Type searchHitType = new TypeToken<Elasticitem<Question>>() {}.getType();
+			
+			Elasticitem<String> sr = gson.fromJson(json, searchHitType);
 			if(sr == null)
 			{
 				Log.i("LORTANSWERS","sr is null");

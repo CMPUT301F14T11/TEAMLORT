@@ -91,8 +91,7 @@
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:visibility="gone" />
+                android:layout_weight="0" />
 
             <ImageButton
                 android:id="@+id/compose_add_img_button"

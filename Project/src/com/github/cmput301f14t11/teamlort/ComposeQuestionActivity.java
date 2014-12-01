@@ -3,11 +3,16 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
+import android.R.raw;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
@@ -16,7 +21,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -133,10 +137,12 @@ extends AppBaseActivity
 		case (ComposeQuestionActivity.IMAGE_REQUEST_CODE):
 			if (resultCode == RESULT_OK)
 			{
-				imgView = (ImageView) this.findViewById(R.id.compose_img_preview);
-				Drawable compressMe = Drawable.createFromPath(imageFileUri.getPath());
-				if (compressMe != null)
+				Bitmap rawImg = BitmapFactory.decodeFile(imageFileUri.getPath());
+				if (rawImg != null)
+				{
+					Drawable compressMe = (Drawable) new BitmapDrawable(rawImg);
 					new CompressImageTask().execute(compressMe);
+				}
 				else 
 					Toast.makeText(getApplicationContext(), "Oops! Something went wrong with the camera.", Toast.LENGTH_LONG).show();
 			}
@@ -147,7 +153,6 @@ extends AppBaseActivity
 			break;
 			
 		default:
-			super.onActivityResult(requestCode, resultCode, data);
 			break;
 		}		
 	}
@@ -185,6 +190,7 @@ extends AppBaseActivity
 		cancelButton   = (ImageButton) this.findViewById(R.id.compose_cancel_button);
 		
 		progressBar = (ProgressBar) this.findViewById(R.id.compose_progress_bar);
+		progressBar.setVisibility(View.GONE);
 	}
 	
 	/**
@@ -259,24 +265,9 @@ extends AppBaseActivity
 	private void onAcceptButtonClicked()
 	{
 		getInputFields();
-		
-		String msg = "Constructing a new question with params:"
-				+ " Title:" + title
-				+ " Body:" + detail
-				+ " Author:" + usrProfile.getUsername()
-				+ " Pic:"
-				;
-		if (pic == null)
-			msg += "NULL";
-		else
-			msg += "NOT_NULL";
-		
-		Log.d("com.github.cmput301f14t11.teamlort.ComposeQuestionActivity.onAcceptButtonClicked()", msg);
-		
-		Question question;
-		
 		if(!isInputValid()) return;
-		
+
+		Question question;
 		
 		if (getLocation()) {
 			question = ObjectFactory.initQuestion(
@@ -286,13 +277,15 @@ extends AppBaseActivity
 				location,
 				pic
 				);
-		} else {
+		}
+		else
+		{
 			question = ObjectFactory.initQuestion(
-					title,
-					detail,
-					usrProfile.getUsername(),
-					pic
-					);
+				title,
+				detail,
+				usrProfile.getUsername(),
+				pic
+				);
 		}
 		
 		new SubmitNewQuestion().execute(question);
@@ -301,6 +294,10 @@ extends AppBaseActivity
 		this.finish();
 	}
 	
+	/**
+	 * Auxiliary method.
+	 * Retrieves relavent input fields' data and saves them to local variables.
+	 */
 	private void getInputFields()
 	{
 		title = ((EditText) findViewById(R.id.compose_title_entry))
@@ -311,6 +308,11 @@ extends AppBaseActivity
 				.getDrawable();
 	}
 	
+	/**
+	 * Auxiliary method.
+	 * Checks if the local variables representing the question are valid. Should
+	 * be called after getInputFields()
+	 */
 	private boolean isInputValid()
 	{
 		// Make sure the user has at least entered a title.
@@ -338,15 +340,49 @@ extends AppBaseActivity
 		return true;
 	}
 	
+	/**
+	 * Auxiliary method.
+	 * Starts an intent for a camera application, in order to retrieve data.
+	 */
 	private void getPhoto()
-	{
+	{	
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
-		
-		startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
+		if (intent.resolveActivity(getPackageManager()) != null)
+		{
+			File photoFile = null;
+			try
+			{
+				photoFile = createImgTempFile();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			
+			if (photoFile != null)
+			{
+				imageFileUri = Uri.fromFile(photoFile);
+				intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+				startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
+			}
+		}
 	}
 	
+	private File createImgTempFile()
+	throws IOException
+	{
+		String fileName =
+				"IMG_" + 
+				new SimpleDateFormat("yyyy_MM_dd_-_HHmmss", Locale.getDefault()).format(new Date());
+		
+		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		
+		File imageFile = File.createTempFile(fileName, ".jpg", dir);
+		
+		return imageFile;
+	}
+
 	private boolean getLocation() {
 		
 		location = usrProfile.getLocation(locationManager);
@@ -364,25 +400,17 @@ extends AppBaseActivity
 		@Override
 		protected Void doInBackground(Question... args)
 		{
-			String msg = "Submitting a new question with params:"
-					+ " Title:" + args[0].getTitle()
-					+ " Body:" + args[0].getBody()
-					+ " Author:" + args[0].getAuthor()
-					+ " Pic:"
-					;
-			if (args[0].getPicture() == null)
-				msg += "NULL";
-			else
-				msg += "NOT_NULL";
-			
-			Log.d("com.github.cmput301f14t11.teamlort.ComposeQuestionActivity.SubmitNewQuestion.doInBackground(Question...)",
-					msg);
 			PushQueue.getInstance().pushQuestion(args[0], getApplicationContext());
 			//qController.addQuestion(args[0]);
 			return null;
 		}
 	}
-	
+
+	/**
+	 * Auxiliary method.
+	 * Locates and creates (if necessary) a directory that external apps can
+	 * use to transfer data to this one.
+	 */
 	private void GetTmpFileDir()
 	{
 		String folder = Environment.getExternalStorageDirectory()
@@ -410,6 +438,10 @@ extends AppBaseActivity
 		imageFileUri = Uri.fromFile(imageFile);
 	}
 	
+	/**
+	 * Auxiliary class.
+	 * Used to compress an image into its required size in the background.
+	 */
 	private class CompressImageTask
 	extends AsyncTask<Drawable, Void, Drawable>
 	{
@@ -418,7 +450,6 @@ extends AppBaseActivity
 		
 		public CompressImageTask()
 		{
-			super();
 			progressBar = (ProgressBar) ComposeQuestionActivity.this.findViewById(R.id.compose_progress_bar);
 			imageView   = (ImageView)   ComposeQuestionActivity.this.findViewById(R.id.compose_img_preview);
 		}
@@ -465,7 +496,7 @@ extends AppBaseActivity
 			//progressBar.setVisibility(View.GONE);
 			//imageView.setVisibility(View.VISIBLE);
 			
-			ComposeQuestionActivity.this.imgView.setImageDrawable(result);
+			imageView.setImageDrawable(result);
 			ComposeQuestionActivity.this.pic = result;
 			
 			super.onPostExecute(result);

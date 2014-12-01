@@ -87,7 +87,7 @@
         <receiver
             android:name=".NetWorkChangeReceiver"
             android:enabled="true"
-            android:label="NetworkChangeReceiver" >
+            android:label="NetWorkChangeReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>

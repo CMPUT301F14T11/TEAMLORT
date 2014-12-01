@@ -98,7 +98,7 @@ extends AppBaseActivity implements LocationListener
 		questionTimeTextView.setText(question.getTime().toString());
 		if (question.getLocation() != null) {
 			TextView questionLocationTextView = (TextView) header.findViewById(R.id.location_text_view_answer);
-			questionLocationTextView.setText(question.getLocation().toString());
+			questionLocationTextView.setText(question.printCoordinates());
 		}
 		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
 		Button postAnswerButton = (Button) header.findViewById(R.id.post_answer_button);

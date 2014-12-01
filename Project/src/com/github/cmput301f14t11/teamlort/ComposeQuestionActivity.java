@@ -7,10 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.R.raw;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -36,7 +38,6 @@ import android.widget.Toast;
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.GpsLocation;
-import com.github.cmput301f14t11.teamlort.Model.ImageBuilder;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
@@ -86,6 +87,7 @@ extends AppBaseActivity implements LocationListener
 		GetProfile();
 		GetControllers();
 		GetLayoutElements();
+		GetTmpFileDir();
 		AttachListeners();
 	}
 	
@@ -141,7 +143,14 @@ extends AppBaseActivity implements LocationListener
 		case (ComposeQuestionActivity.IMAGE_REQUEST_CODE):
 			if (resultCode == RESULT_OK)
 			{
-				ImageBuilder.BuildImage(imageFileUri, imgView);
+				Bitmap rawImg = BitmapFactory.decodeFile(imageFileUri.getPath());
+				if (rawImg != null)
+				{
+					Drawable compressMe = (Drawable) new BitmapDrawable(rawImg);
+					new CompressImageTask().execute(compressMe);
+				}
+				else 
+					Toast.makeText(getApplicationContext(), "Oops! Something went wrong with the camera.", Toast.LENGTH_LONG).show();
 			}
 			else
 			{
@@ -351,7 +360,7 @@ extends AppBaseActivity implements LocationListener
 			
 			try
 			{
-				photoFile = ImageBuilder.CreateTempFile();
+				photoFile = createImgTempFile();
 			}
 			catch (IOException e)
 			{
@@ -365,6 +374,24 @@ extends AppBaseActivity implements LocationListener
 			}
 		}
 	}
+	
+	private File createImgTempFile()
+	throws IOException
+	{
+		String fileName =
+				"IMG_" + 
+				new SimpleDateFormat("yyyy_MM_dd_-_HHmmss", Locale.getDefault()).format(new Date());
+		
+		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		
+		File imageFile = File.createTempFile(fileName, ".jpg", dir);
+		if (imageFile != null)
+		{
+			imageFileUri = Uri.fromFile(imageFile);
+		}
+		
+		return imageFile;
+	}
 
 	private boolean getLocation() {
 		
@@ -375,6 +402,38 @@ extends AppBaseActivity implements LocationListener
 		else {
 			return true;
 		}
+	}
+
+	/**
+	 * Auxiliary method.
+	 * Locates and creates (if necessary) a directory that external apps can
+	 * use to transfer data to this one.
+	 */
+	private void GetTmpFileDir()
+	{
+		String folder = Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/tmp";
+		File folderF = new File(folder);
+		if (!folderF.exists())
+		{
+			folderF.mkdir();
+		}
+
+		String imageFilePath = folder + "/"
+				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
+		File imageFile = new File(imageFilePath);
+		
+		if (!imageFile.exists())
+			try
+			{
+				imageFile.createNewFile();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		
+		imageFileUri = Uri.fromFile(imageFile);
 	}
 	
 	private class SubmitNewQuestion

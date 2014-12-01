@@ -5,10 +5,12 @@ import android.widget.Toast;
 
 public class Vote {
 	
-	public static void sendVote(Question question, Context context) {
+	public static void sendVote(Context context, Question question) {
 		if(NetworkListener.checkConnection(context)) {
-			ElasticManager.getInstance().addItem(question);
+			PushQueue.getInstance().pushQuestion(question, context);
 		}
-		Toast.makeText(context, "No connection vote won't be savede", Toast.LENGTH_SHORT).show();
+		else {
+			Toast.makeText(context, "No connection vote won't be saved", Toast.LENGTH_SHORT).show();
+		}
 	}
 }

@@ -208,13 +208,14 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 					//Button currentUpvoteButton = (Button) finalConvertView.findViewById(R.id.upvoteButton);
 					if(answer.getVoterSet().contains(username)){
 						questionController.unVoteAnswer(username, finalGroupPosition);
-						//Vote.sendVote(parentActivity.question, context);
-						PushQueue.getInstance().pushQuestion(parentActivity.question,parentActivity.getApplicationContext());
+						Vote.sendVote(parentActivity.getApplicationContext(), parentActivity.question);
+						//PushQueue.getInstance().pushQuestion(parentActivity.question,parentActivity.getApplicationContext());
 
 					}
 					else {
 						questionController.upVoteAnswer(username, finalGroupPosition);
-						PushQueue.getInstance().pushQuestion(parentActivity.question,parentActivity.getApplicationContext());
+						//PushQueue.getInstance().pushQuestion(parentActivity.question,parentActivity.getApplicationContext());
+						Vote.sendVote(parentActivity.getApplicationContext(), parentActivity.question);
 
 					}
 					

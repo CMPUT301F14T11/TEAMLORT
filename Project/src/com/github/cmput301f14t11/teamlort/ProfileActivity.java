@@ -66,7 +66,10 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 		
 		
 	}
-	
+	/**
+	 * When onStart method called, the profile adapter need to load the current question list
+	 * on the question view and make sure the username is up-to-date
+	 */
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -196,7 +199,10 @@ public class ProfileActivity extends AppBaseActivity implements Observer {
 	public void update(Observable observable, Object data) {
 		setNewAdapter();
 	}
-
+	
+	/**
+	 * Set new adapter when profile data changes
+	 */
 	private void setNewAdapter() {
 		if(currentView == SAVE_QUESTION_VIEW){
 			adapter = new ProfileAdatper(getApplicationContext(),ProfileController.getP().getSavedQuestionList());

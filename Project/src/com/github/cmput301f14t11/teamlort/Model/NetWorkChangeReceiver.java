@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-//http://viralpatel.net/blogs/android-internet-connection
-//-status-network-change/
+/**
+ * This class will get notified when network status changed.
+ * @author Hang_Peng
+ *
+ */
 public class NetWorkChangeReceiver
 extends BroadcastReceiver
 {

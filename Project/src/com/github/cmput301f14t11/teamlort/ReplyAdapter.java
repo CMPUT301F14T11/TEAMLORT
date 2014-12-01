@@ -2,20 +2,19 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
-import com.github.cmput301f14t11.teamlort.AnswerAdapter.ReplyViewHolder;
-import com.github.cmput301f14t11.teamlort.Model.Reply;
-
 import android.app.Activity;
 import android.content.Context;
+import android.location.LocationManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 /**
  * Custom {@link Adapter} for an {@link ListView} containing {@link Reply} objects.
@@ -28,6 +27,8 @@ public class ReplyAdapter extends BaseAdapter {
 	
 	private ArrayList<Reply> replyList;
 	private Context context;
+	
+	private AppCache ac = new AppCache();
 	
 	/**
 	 * ViewHolder for {@link Reply} view elements.
@@ -97,11 +98,25 @@ public class ReplyAdapter extends BaseAdapter {
 		if (reply != null){
 			replyViewHolder.reply1.setText(reply.getBody());
 			replyViewHolder.reply_author.setText(reply.getAuthor());
-			//replyViewHolder.geolocation.setText(reply.getLocation().getLatitude() + "¡, "+ reply.getLocation().getLongitude() + "¡");
+			if (attachLocation()) {
+				findLocation();
+				replyViewHolder.geolocation.setText(reply.printCoordinates());
+			}
+
+			
 
 		}
 		
 		return convertView;
 	}
+	
+		private boolean attachLocation() {
+			return ac.getProfile().getLocationService();
+		}
+		
+		private void findLocation() {
+			LocationManager lm = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+			AppCache.getInstance().getProfile().getLocation(lm);
+		}
 
 }

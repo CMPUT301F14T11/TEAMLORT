@@ -80,4 +80,12 @@ implements java.io.Serializable {
 	public GpsLocation getLocation() {
 		return GpsLocation;
 	}
+	
+	public String printCoordinates() {
+		// TODO Auto-generated method stub
+		double lat = GpsLocation.getLatitude();
+		double lng = GpsLocation.getLongitude();
+		
+		return lat + "¡, " + lng + "¡";
+	}
 }

@@ -2,6 +2,24 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.location.LocationManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.github.cmput301f14t11.teamlort.Controller.LocationController;
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
@@ -10,25 +28,6 @@ import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 import com.github.cmput301f14t11.teamlort.Model.Vote;
-import com.github.cmput301f14t11.teamlort.R.color;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
-import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.EditText;
 
 /**
  * Custom {@link Adapter} for an {@link ExpandableListView} containing {@link Answer} groups each with 
@@ -45,6 +44,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Answer> answerList;
 	private Context context;
 	private QuestionController questionController;
+	private AppCache ac = new AppCache();
 	
 	/**
 	 * ViewHolder for {@link Answer} view elements.
@@ -61,6 +61,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 		TextView answer_comment_count;
 		Button upvoteButton;
 		TextView geolocation;
+		
 	}
 	
 	/**
@@ -167,6 +168,10 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.answer_stats_1.setText(answer.getTime().toString());
 			answerViewHolder.answer_comment_count.setText(String.valueOf(answer.getReplyList().size()) + " comments");
 			answerViewHolder.upvoteButton.setText(String.valueOf(answer.getScore()));
+			if (attachLocation()) {
+				findLocation();
+				answerViewHolder.geolocation.setText(answer.printCoordinates());
+			}
 			
 			if(answer.getVoterSet().contains(username)){
 				answerViewHolder.upvoteButton.setBackgroundColor(Color.GREEN);
@@ -270,6 +275,10 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			replyViewHolder.reply1.setText(reply.getBody());
 			replyViewHolder.reply_author.setText(reply.getAuthor());
 			replyViewHolder.reply_time.setText(reply.getTime().toString());
+			if (attachLocation()) {
+				findLocation();
+				replyViewHolder.geolocation.setText(reply.printCoordinates());
+			}
 		}
 		
 		return convertView;
@@ -278,6 +287,15 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
+	}
+	
+	private boolean attachLocation() {
+		return ac.getProfile().getLocationService();
+	}
+	
+	private void findLocation() {
+		LocationManager lm = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		AppCache.getInstance().getProfile().getLocation(lm);
 	}
 
 }

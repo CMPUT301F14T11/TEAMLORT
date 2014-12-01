@@ -22,8 +22,6 @@ public class LocationController {
 		
 		GpsLocation gpsLocation;
 		
-
-
 		// Initialize the location fields
 		if (location != null) {
 			latitude = location.getLatitude();
@@ -40,6 +38,7 @@ public class LocationController {
 		}
 	}
 	
+
 	public boolean hasLocation(RepliableText field) {
 		if (field.getLocation() != new GpsLocation(0,0)) {
 			return true;

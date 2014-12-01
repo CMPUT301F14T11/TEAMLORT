@@ -57,6 +57,7 @@ extends AppBaseActivity implements LocationListener
 	
 	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
+	private static final String URI_BUNDLE_KEY = "COMPOSE_URI";
 	
 	private String title, detail;
 	private Drawable pic = null;
@@ -97,6 +98,7 @@ extends AppBaseActivity implements LocationListener
 		
 		outState.putString(TITLE_BUNDLE_KEY, titleEntry.getText().toString());
 		outState.putString(DETAIL_BUNDLE_KEY, detailEntry.getText().toString());
+		outState.putString(URI_BUNDLE_KEY, imageFileUri.toString());
 	}
 	
 	@Override
@@ -106,9 +108,11 @@ extends AppBaseActivity implements LocationListener
 		
 		String title = inState.getString(TITLE_BUNDLE_KEY);
 		String detail = inState.getString(DETAIL_BUNDLE_KEY);
+		String uri = inState.getString(URI_BUNDLE_KEY);
 		
 		if (title != null) titleEntry.setText(title);
 		if (detail != null) detailEntry.setText(detail);
+		if (uri != null) imageFileUri = Uri.parse(uri);
 	}
 
 	@Override
@@ -353,6 +357,7 @@ extends AppBaseActivity implements LocationListener
 		if (intent.resolveActivity(getPackageManager()) != null)
 		{
 			File photoFile = null;
+			
 			try
 			{
 				photoFile = createImgTempFile();
@@ -364,7 +369,6 @@ extends AppBaseActivity implements LocationListener
 			
 			if (photoFile != null)
 			{
-				imageFileUri = Uri.fromFile(photoFile);
 				intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
 				startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
 			}
@@ -381,6 +385,10 @@ extends AppBaseActivity implements LocationListener
 		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 		
 		File imageFile = File.createTempFile(fileName, ".jpg", dir);
+		if (imageFile != null)
+		{
+			imageFileUri = Uri.fromFile(imageFile);
+		}
 		
 		return imageFile;
 	}
@@ -393,18 +401,6 @@ extends AppBaseActivity implements LocationListener
 		}
 		else {
 			return true;
-		}
-	}
-	
-	private class SubmitNewQuestion
-	extends AsyncTask<Question, Void, Void>
-	{
-		@Override
-		protected Void doInBackground(Question... args)
-		{
-			PushQueue.getInstance().pushQuestion(args[0], getApplicationContext());
-			//qController.addQuestion(args[0]);
-			return null;
 		}
 	}
 
@@ -438,6 +434,18 @@ extends AppBaseActivity implements LocationListener
 			}
 		
 		imageFileUri = Uri.fromFile(imageFile);
+	}
+	
+	private class SubmitNewQuestion
+	extends AsyncTask<Question, Void, Void>
+	{
+		@Override
+		protected Void doInBackground(Question... args)
+		{
+			PushQueue.getInstance().pushQuestion(args[0], getApplicationContext());
+			//qController.addQuestion(args[0]);
+			return null;
+		}
 	}
 	
 	/**

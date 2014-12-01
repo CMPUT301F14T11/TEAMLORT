@@ -83,7 +83,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.cmput301f14t11.teamlort.HomeActivity" />
         </activity>
-
+		<!--  
         <receiver
             android:name=".NetWorkChangeReceiver"
             android:enabled="true"
@@ -92,7 +92,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-
+		-->
         <activity
             android:name=".SettingsActivity"
             android:parentActivityName=".HomeActivity"

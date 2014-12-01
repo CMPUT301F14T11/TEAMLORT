@@ -11,10 +11,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -30,6 +28,14 @@ public class LocationController {
 	private static final AndroidHttpClient ANDROID_HTTP_CLIENT = AndroidHttpClient
 			.newInstance(LocationController.class.getName());
 
+	
+	/**
+	 * This method is used to get the user's location and set it to a GpsLocation type.
+	 * This method is used whenever an activity needs to get the current GPS location.
+	 * For example, in Sort By Location or Geolocation Settings
+	 * @param locationManager from activity
+	 * @return GpsLocation of the user 
+	 */
 	public GpsLocation getGPSLocation(LocationManager locationManager) {
 
 		double latitude, longitude;
@@ -58,6 +64,12 @@ public class LocationController {
 		}
 	}
 
+	/**
+	 * This method is used to see when a post has a location.
+	 * This is useful for initalizing objects in object factory with or without location depending
+	 * @param RepliableText - The post
+	 * @return true if has a valid location, else false
+	 */
 	public boolean hasLocation(RepliableText field) {
 		if (field.getLocation() != new GpsLocation(0, 0)) {
 			return true;

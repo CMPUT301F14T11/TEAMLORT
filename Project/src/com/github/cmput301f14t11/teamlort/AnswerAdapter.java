@@ -264,7 +264,6 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 					//Text view for user to enter reply into
 					final EditText body = new EditText(context);
 					alertDialogueBuilder.setView(body);
-					final QuestionViewActivity parentActivity = (QuestionViewActivity) context;
 					
 					alertDialogueBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
 						@Override
@@ -293,7 +292,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 				@Override
 				public void onClick(View v) {
 					if (answer.hasPicture()){
-						ImagePopup.showPopup(answer.getPicture(), context);
+						ImagePopup.showPopup(answer.getPicture(), context).show();
 					} 
 				}
 			});

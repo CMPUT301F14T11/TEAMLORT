@@ -3,16 +3,10 @@ package com.github.cmput301f14t11.teamlort;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,7 +15,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,8 +44,6 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
 public class ComposeQuestionActivity
 extends AppBaseActivity implements LocationListener
 {
-	private static final int IMAGE_REQUEST_CODE = 1;
-	
 	private LocationManager locationManager;
 	
 	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
@@ -149,7 +140,7 @@ extends AppBaseActivity implements LocationListener
 	{
 		switch (requestCode)
 		{
-		case (ComposeQuestionActivity.IMAGE_REQUEST_CODE):
+		case (ImageBuilder.IMAGE_REQUEST_CODE):
 			if (resultCode == RESULT_OK)
 			{
 				pic = iBuilder.RetrieveImageFromStorage(this);
@@ -233,14 +224,15 @@ extends AppBaseActivity implements LocationListener
 			}
 		});
 		
-		/*
+		//*
 		detailEntry.setOnEditorActionListener(new TextView.OnEditorActionListener()
 		{			
 			@Override
 			public boolean onEditorAction(TextView arg0, int arg1, KeyEvent arg2)
 			{
-				if (arg1 == EditorInfo.IME_ACTION_NEXT)
+				if (arg1 == EditorInfo.IME_ACTION_DONE)
 				{
+					
 					return true;
 				}
 				return false;
@@ -368,49 +360,7 @@ extends AppBaseActivity implements LocationListener
 	private void getPhoto()
 	{	
 		iBuilder.SendImageIntent(this);
-		
-		/*
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-		if (intent.resolveActivity(getPackageManager()) != null)
-		{
-			File photoFile = null;
-			
-			try
-			{
-				photoFile = createImgTempFile();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-			
-			if (photoFile != null)
-			{
-				intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
-				startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
-			}
-		}*/
 	}
-	
-	/*
-	private File createImgTempFile()
-	throws IOException
-	{
-		String fileName =
-				"IMG_" + 
-				new SimpleDateFormat("yyyy_MM_dd_-_HHmmss", Locale.getDefault()).format(new Date());
-		
-		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		
-		File imageFile = File.createTempFile(fileName, ".jpg", dir);
-		if (imageFile != null)
-		{
-			imageFileUri = Uri.fromFile(imageFile);
-		}
-		
-		return imageFile;
-	}//*/
 
 	private boolean getLocation() {
 		
@@ -466,71 +416,6 @@ extends AppBaseActivity implements LocationListener
 			return null;
 		}
 	}
-	
-	/**
-	 * Auxiliary class.
-	 * Used to compress an image into its required size in the background.
-	 *//*
-	private class CompressImageTask
-	extends AsyncTask<Drawable, Void, Drawable>
-	{
-		ProgressBar proressBar;
-		ImageView imageView;
-		
-		public CompressImageTask()
-		{
-			progressBar = (ProgressBar) ComposeQuestionActivity.this.findViewById(R.id.compose_progress_bar);
-			imageView   = (ImageView)   ComposeQuestionActivity.this.findViewById(R.id.compose_img_preview);
-		}
-		
-		@Override
-		protected void onPreExecute()
-		{
-			//proressBar.setVisibility(View.VISIBLE);
-			//imageView.setVisibility(View.GONE);
-			super.onPreExecute();
-		}
-		
-		@Override
-		protected Drawable doInBackground(Drawable... params)
-		{
-			Drawable result = params[0];
-			if (result == null) return null;
-			
-			Bitmap bitmap = ((BitmapDrawable) result).getBitmap();
-			
-			while (bitmap.getByteCount() > 64000)
-			{
-				long resizeHeight = Math.round(bitmap.getHeight() * 0.9);
-				long resizeWidth  = Math.round(bitmap.getWidth()  * 0.9);
-				
-				bitmap = Bitmap.createScaledBitmap(bitmap, (int) resizeWidth, (int) resizeHeight, false);
-			}
-			
-			return (Drawable) new BitmapDrawable(bitmap);
-		}
-		
-		@Override
-		protected void onCancelled(Drawable result)
-		{
-			//progressBar.setVisibility(View.GONE);
-			//imageView.setVisibility(View.VISIBLE);
-			
-			super.onCancelled(result);
-		}
-		
-		@Override
-		protected void onPostExecute(Drawable result)
-		{
-			//progressBar.setVisibility(View.GONE);
-			//imageView.setVisibility(View.VISIBLE);
-			
-			imageView.setImageDrawable(result);
-			ComposeQuestionActivity.this.pic = result;
-			
-			super.onPostExecute(result);
-		}
-	}//*/
 
 	@Override
 	public void onLocationChanged(Location location) {

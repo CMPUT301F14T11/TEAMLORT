@@ -68,9 +68,10 @@ extends AppBaseActivity implements LocationListener
 	ReplyAdapter replyAdapter;
 	AnswerAdapter answerAdapter;
 	LocationManager locationManager;
-	Drawable answerImage = null;
+	private Drawable answerImage;
 	private Uri imageFileUri;
 	private static final int IMAGE_REQUEST_CODE = 1;
+	ImageBuilder imageBuilder = new ImageBuilder();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -222,7 +223,7 @@ extends AppBaseActivity implements LocationListener
 
 			@Override
 			public void onClick(View v) {
-				
+				imageBuilder.SendImageIntent(QuestionViewActivity.this);
 			}
 			
 		});
@@ -231,7 +232,7 @@ extends AppBaseActivity implements LocationListener
 			@Override
 			public void onClick(View v) {
 				if (answerImage != null){
-					AlertDialog.Builder alert = ImagePopup.showPopup(answerImage, getApplicationContext());
+					AlertDialog.Builder alert = ImagePopup.showPopup(answerImage, QuestionViewActivity.this);
 					alertDialog = alert.show();
 				} else {
 					Toast.makeText(getApplicationContext(), "No image set.", Toast.LENGTH_SHORT).show();
@@ -264,6 +265,10 @@ extends AppBaseActivity implements LocationListener
 					answer = ObjectFactory.initAnswer(answerText.getText().toString(), prof.getUsername(), prof.getLocation(locationManager));
 				} else {
 					answer = ObjectFactory.initAnswer(answerText.getText().toString(), appCache.getProfile().getUsername());
+				}
+				
+				if (answerImage != null){
+					answer.addPicture(answerImage);
 				}
 
 				questionController.addAnswer(answer); 
@@ -442,7 +447,21 @@ extends AppBaseActivity implements LocationListener
 				Toast.LENGTH_SHORT).show();
 	}
 
-	/**
-	 * Start an image grab, onActivityResult should process afterwards.
-	 */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		switch (requestCode)
+		{
+		case (ImageBuilder.IMAGE_REQUEST_CODE):
+			if (resultCode == RESULT_OK){
+				answerImage = imageBuilder.RetrieveImageFromStorage(QuestionViewActivity.this);
+			}
+			else{	
+			}
+			break;
+			
+		default:
+			break;
+		}		
+	}
 }

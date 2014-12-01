@@ -2,6 +2,7 @@ package com.github.cmput301f14t11.teamlort.test;
 
 import com.github.cmput301f14t11.teamlort.HomeActivity;
 import com.github.cmput301f14t11.teamlort.ProfileActivity;
+import com.github.cmput301f14t11.teamlort.ReplyAdapter;
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
@@ -18,14 +19,13 @@ public class HomeAcitvitytest extends ActivityInstrumentationTestCase2<HomeActiv
 		
 		// TODO Auto-generated constructor stub
 	}
-	public void testdisplayquestion()
+	public void testdisplayquestion() throws Throwable
 	{
 		
 		HomeActivity activity = (HomeActivity) getActivity();
 		ObjectFactory dt = new ObjectFactory();
 		Qlistcontroller qlc = new Qlistcontroller();
-		HomeAdapter adapter; 
-		adapter = new HomeAdapter(activity, qlc.getQuestionlist().getModellist());
+		HomeAdapter adapter = activity.getAdapter(); 
         for(int i = 0; i<=19; i++)
         {
         	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");
@@ -38,6 +38,15 @@ public class HomeAcitvitytest extends ActivityInstrumentationTestCase2<HomeActiv
         	qlc.add(t);
         	//dt.addQuestions(listofquestions);
         }
+        runTestOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() 
+			{
+				
+			}
+        }
+        );
 		
 	}
 	public void testfavorite()

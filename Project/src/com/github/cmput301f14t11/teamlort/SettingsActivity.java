@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.github.cmput301f14t11.teamlort.Controller.LocationController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
+import com.google.android.gms.internal.lc;
 
 public class SettingsActivity extends AppBaseActivity implements Observer, LocationListener {
 
@@ -76,8 +77,10 @@ public class SettingsActivity extends AppBaseActivity implements Observer, Locat
 		latitude = usrProfile.getLocation(locationManager).getLatitude();
 		longitude = usrProfile.getLocation(locationManager).getLongitude();
 		
+		String cityName = "No Location Found";
+		
 		LocationController lc = new LocationController();
-		String cityName = lc.fetchCityNameUsingGoogleMap(latitude, longitude);
+		cityName = lc.getLocationInfo(latitude, longitude);
 		
 		locationString.setText(cityName);
 		
@@ -267,6 +270,8 @@ public class SettingsActivity extends AppBaseActivity implements Observer, Locat
 		Toast.makeText(this, "Disabled provider " + provider,
 				Toast.LENGTH_SHORT).show();
 	}
+	
+	
 	
 	
 	

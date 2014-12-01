@@ -16,7 +16,7 @@ public class SimpleSearchCommand {
 
 	public String getJsonCommand() {
 		StringBuffer command = new StringBuffer(
-				"{\"query\" : {\"query_string\" : {\"query\" : \"" + query
+				"{\"query\" : {\"query_string\" : {\"query\" : \"" + "*"+query+"*"
 						+ "\"");
 
 		if (fields != null) {

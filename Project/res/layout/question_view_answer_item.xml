@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/answer1"
-            android:layout_below="@+id/listitem_question_button_bar"
+            android:layout_below="@+id/viewAnswerItemImageButton"
             android:text="@string/listitem_question_stats"
             android:textColor="@color/light_text"
             android:textStyle="italic" />
@@ -94,6 +94,16 @@
             android:paddingRight="20dp"
             android:text="@string/listitem_answer_author"
             android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Button
+            android:id="@+id/viewAnswerItemImageButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/answer_stats_1"
+            android:layout_alignRight="@+id/location_text_view_answer"
+            android:layout_below="@+id/upvoteButton"
+            android:text="@string/action_view_image" />
 
     </RelativeLayout>
 

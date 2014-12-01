@@ -6,64 +6,77 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Environment;
-import android.widget.ImageView;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.widget.Toast;
+
 
 public class ImageBuilder
 {
-	public static File CreateTempFile() 
-	throws IOException
+	public static final int IMAGE_REQUEST_CODE = 1;
+	
+	private Uri tempFileURI = null;
+	
+	public ImageBuilder()
 	{
-		String fileName =
-				"IMG_" + 
-				new SimpleDateFormat("yyyy_MM_dd_-_HHmmss", Locale.getDefault()).format(new Date());
 		
-		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		
-		File imageFile = File.createTempFile(fileName, ".jpg", dir);
-		
-		return imageFile;
 	}
 	
-	public static void BuildImage(Uri imageURI, ImageView target)
+	public void SendImageIntent(Activity callingActivity)
 	{
-		Bitmap rawImg = BitmapFactory.decodeFile(imageURI.getPath());
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		
+		if (intent.resolveActivity(callingActivity.getPackageManager()) != null)
+		{
+			File photoFile = null;
+			
+			try
+			{
+				photoFile = createImgTempFile();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			
+			if (photoFile != null)
+			{
+				intent.putExtra(MediaStore.EXTRA_OUTPUT, tempFileURI);
+				callingActivity.startActivityForResult(intent, IMAGE_REQUEST_CODE);
+			}
+		}
+		else
+		{
+			Toast.makeText(callingActivity, 
+					"You don't have any apps that can take a photo =(", Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	public Drawable RetrieveImageFromStorage(Activity callingActivity)
+	{
+		if (tempFileURI == null)
+		{
+			Toast.makeText(callingActivity.getApplicationContext(),
+					"Oops! Something went wrong with the camera.", Toast.LENGTH_LONG).show();
+			Log.e("com.github.cmput301f14t11.teamlort.Model.ImageBuilder.RetrieveImageFromStorage()",
+					"RetrieveImageFromStorage called but no URI was set (SendImageIntent never called?)");
+			tempFileURI = null;
+			return null;
+		}
+		
+		Bitmap rawImg = BitmapFactory.decodeFile(tempFileURI.getPath());
 		if (rawImg != null)
 		{
 			Drawable compressMe = (Drawable) new BitmapDrawable(rawImg);
-			new CompressImageTask(target).execute(compressMe);
-		}
-	}
-	
-	private static class CompressImageTask
-	extends AsyncTask<Drawable, Void, Drawable>
-	{
-		ImageView imageView;
-		
-		public CompressImageTask(ImageView destination)
-		{
-			this.imageView = destination;
-		}
-		
-		@Override
-		protected void onPreExecute()
-		{
-			super.onPreExecute();
-		}
-		
-		@Override
-		protected Drawable doInBackground(Drawable... params)
-		{
-			Drawable result = params[0];
-			if (result == null) return null;
-			
-			Bitmap bitmap = ((BitmapDrawable) result).getBitmap();
+			Bitmap bitmap = ((BitmapDrawable) compressMe).getBitmap();
 			
 			while (bitmap.getByteCount() > 64000)
 			{
@@ -73,21 +86,33 @@ public class ImageBuilder
 				bitmap = Bitmap.createScaledBitmap(bitmap, (int) resizeWidth, (int) resizeHeight, false);
 			}
 			
+			tempFileURI = null;
 			return (Drawable) new BitmapDrawable(bitmap);
 		}
-		
-		@Override
-		protected void onCancelled(Drawable result)
+		else 
 		{
-			super.onCancelled(result);
+			Toast.makeText(callingActivity.getApplicationContext(),
+					"Oops! Something went wrong with the camera.", Toast.LENGTH_LONG).show();
+			tempFileURI = null;
+			return null;
+		}
+	}
+	
+	private File createImgTempFile()
+	throws IOException
+	{
+		String fileName =
+				"IMG_" + 
+				new SimpleDateFormat("yyyy_MM_dd_-_HHmmss", Locale.getDefault()).format(new Date());
+		
+		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		
+		File imageFile = File.createTempFile(fileName, ".jpg", dir);
+		if (imageFile != null)
+		{
+			tempFileURI = Uri.fromFile(imageFile);
 		}
 		
-		@Override
-		protected void onPostExecute(Drawable result)
-		{			
-			imageView.setImageDrawable(result);
-			
-			super.onPostExecute(result);
-		}
+		return imageFile;
 	}
 }

@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import android.R.raw;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +37,7 @@ import android.widget.Toast;
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.GpsLocation;
+import com.github.cmput301f14t11.teamlort.Model.ImageBuilder;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
@@ -66,6 +66,7 @@ extends AppBaseActivity implements LocationListener
 	private Profile usrProfile;
 	private QuestionController qController;
 	private GpsLocation location;
+	private ImageBuilder iBuilder = new ImageBuilder();
 	
 	private EditText titleEntry;
 	private EditText detailEntry;
@@ -89,6 +90,14 @@ extends AppBaseActivity implements LocationListener
 		GetLayoutElements();
 		GetTmpFileDir();
 		AttachListeners();
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		if (pic != null)
+			imgView.setImageDrawable(pic);
+		super.onResume();
 	}
 	
 	@Override
@@ -143,6 +152,8 @@ extends AppBaseActivity implements LocationListener
 		case (ComposeQuestionActivity.IMAGE_REQUEST_CODE):
 			if (resultCode == RESULT_OK)
 			{
+				pic = iBuilder.RetrieveImageFromStorage(this);
+				/*
 				Bitmap rawImg = BitmapFactory.decodeFile(imageFileUri.getPath());
 				if (rawImg != null)
 				{
@@ -151,6 +162,7 @@ extends AppBaseActivity implements LocationListener
 				}
 				else 
 					Toast.makeText(getApplicationContext(), "Oops! Something went wrong with the camera.", Toast.LENGTH_LONG).show();
+					*/
 			}
 			else
 			{
@@ -187,13 +199,15 @@ extends AppBaseActivity implements LocationListener
 	 * Gets references to the view's layout elements.
 	 */
 	private void GetLayoutElements()
-	{
+	{		
 		titleEntry  = (EditText) this.findViewById(R.id.compose_title_entry);
 		detailEntry = (EditText) this.findViewById(R.id.compose_desc_entry);
 		
 		addImageButton = (ImageButton) this.findViewById(R.id.compose_add_img_button);
 		acceptButton   = (ImageButton) this.findViewById(R.id.compose_accept_button);
 		cancelButton   = (ImageButton) this.findViewById(R.id.compose_cancel_button);
+		
+		imgView = (ImageView) this.findViewById(R.id.compose_img_preview);
 		
 		progressBar = (ProgressBar) this.findViewById(R.id.compose_progress_bar);
 		progressBar.setVisibility(View.GONE);
@@ -352,6 +366,9 @@ extends AppBaseActivity implements LocationListener
 	 */
 	private void getPhoto()
 	{	
+		iBuilder.SendImageIntent(this);
+		
+		/*
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 		if (intent.resolveActivity(getPackageManager()) != null)
@@ -372,9 +389,10 @@ extends AppBaseActivity implements LocationListener
 				intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
 				startActivityForResult(intent, ComposeQuestionActivity.IMAGE_REQUEST_CODE);
 			}
-		}
+		}*/
 	}
 	
+	/*
 	private File createImgTempFile()
 	throws IOException
 	{
@@ -391,7 +409,7 @@ extends AppBaseActivity implements LocationListener
 		}
 		
 		return imageFile;
-	}
+	}//*/
 
 	private boolean getLocation() {
 		
@@ -451,7 +469,7 @@ extends AppBaseActivity implements LocationListener
 	/**
 	 * Auxiliary class.
 	 * Used to compress an image into its required size in the background.
-	 */
+	 *//*
 	private class CompressImageTask
 	extends AsyncTask<Drawable, Void, Drawable>
 	{
@@ -511,7 +529,7 @@ extends AppBaseActivity implements LocationListener
 			
 			super.onPostExecute(result);
 		}
-	}
+	}//*/
 
 	@Override
 	public void onLocationChanged(Location location) {

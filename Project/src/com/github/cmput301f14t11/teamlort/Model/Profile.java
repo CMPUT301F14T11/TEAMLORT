@@ -65,6 +65,11 @@ implements Serializable
 		}
 	}
 	
+	/**
+	 * record the user's current location into the profile
+	 * @param latitude 
+	 * @param longitude
+	 */
 	public void setLocation(double latitude, double longitude) {
 		if(getLocationService()) {
 			this.gpsLocation = new GpsLocation(latitude, longitude);
@@ -74,6 +79,11 @@ implements Serializable
 		}
 	}
 	
+	/**
+	 * get user's current location in the profile
+	 * @param locationManager android routine service 
+	 * @return location point
+	 */
 	public GpsLocation getLocation(LocationManager locationManager) {
 
 		if (getLocationService()) {
@@ -97,18 +107,34 @@ implements Serializable
 		}
 	}
 	
+	/**
+	 * set flag of requesting the location service
+	 * @param status
+	 */
 	public void setLocationServices(boolean status) {
 		this.locationService = status;
 	}
 	
+	/**
+	 * return the flag of requesting location service
+	 * @return
+	 */
 	public boolean getLocationService() {
 		return locationService;
 	}
 	
+	/**
+	 * set the flag of setting location manually
+	 * @param status
+	 */
 	public void locationSetManually(boolean status) {
 		this.manuallySetStatus = status;
 	}
 	
+	/**
+	 * get the flag of setting location manually
+	 * @return
+	 */
 	public boolean getManuallySetStatus() {
 		return manuallySetStatus;
 	}
@@ -160,6 +186,10 @@ implements Serializable
 		}
 	}
 	
+	/**
+	 * Used to return unsynchronized question list from the local manager
+	 * @return a question list that is composed by current user.
+	 */
 	public ArrayList<Question> getTempQuestionList(){
 		if(AppCache.getInstance().getProfile().tempQuestionList == null){
 			AppCache.getInstance().getProfile().tempQuestionList = new ArrayList<Question>();
@@ -183,6 +213,11 @@ implements Serializable
 		return testQuestionList;
 	}
 	
+	/**
+	 * used to check if the given question is already in the faved question list
+	 * @param questionID the given question id
+	 * @return boolean indicated whether the question is in the list or not
+	 */
 	public boolean containsFavedQuestion(int questionID){
 		ArrayList<Question> favedQuestions = getFavedQuestionList();
 		for (Question question : favedQuestions){
@@ -193,6 +228,11 @@ implements Serializable
 		return false;
 	}
 	
+	/**
+	 * used to check if the given question is already in the saved question list
+	 * @param questionID the given question id
+	 * @return boolean indicated whether the question is in the list or not
+	 */
 	public boolean containsSavedQuestion(int questionID){
 		ArrayList<Question> savedQuestions = getSavedQuestionList();
 		for (Question question : savedQuestions){
@@ -203,6 +243,10 @@ implements Serializable
 		return false;
 	}
 	
+	/**
+	 * used to remove the given question from the faved question list
+	 * @param questionID the given question id
+	 */
 	public void removeFavedQuestion(int questionID){
 		ArrayList<Question> favedQuestions = getFavedQuestionList();
 		for (Question question : favedQuestions){
@@ -213,6 +257,10 @@ implements Serializable
 		}
 	}
 	
+	/**
+	 * used to remove the given question from the faved question list
+	 * @param questionID the given question id
+	 */
 	public void removeSavedQuestion(int questionID){
 		ArrayList<Question> savedQuestions = getSavedQuestionList();
 		for (Question question : savedQuestions){

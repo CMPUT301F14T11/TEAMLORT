@@ -11,6 +11,13 @@ import android.widget.TextView;
 
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
+
+/**
+ * Profile Adapter is used to adapt question list in List view, this adapter is similar to the home
+ * adapter while the save and fave button is removed.
+ * @author Hang_Peng
+ *
+ */
 class Single_Profile_Question
 {
 	public TextView title;
@@ -27,38 +34,33 @@ class Single_Profile_Question
 
 public class ProfileAdatper extends BaseAdapter{
 	
-	ArrayList<Question> list;//the archived/current task currently loaded in this gridview, i could of just referenced those lists since they are global
-	// but i think this makes my adapter more portable
+	ArrayList<Question> list;
 	Context context;
 
 	ProfileAdatper(Context context,ArrayList<Question> provided)
 	{
-		this.context = context; //initializing methode providing the context and the list of todoitems we will work with
+		this.context = context; 
 		list = provided;
 
 	}
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return list.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public View getView(final int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+	public View getView(final int position, View convertView, ViewGroup parent){
 		View row = convertView;
 	    Single_Home_Question holder = null;
 		if(row == null)

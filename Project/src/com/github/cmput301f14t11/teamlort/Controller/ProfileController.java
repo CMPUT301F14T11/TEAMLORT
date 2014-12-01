@@ -34,7 +34,6 @@ public class ProfileController extends Observable{
 	/**
 	 * add favorite question into the favorite question list in the profile
 	 * @param q1 question that will be added
-	 * @return boolean indicated whether the operation it is success or not
 	 */
 	 public void addFavedQuestion(Question q1) {
 		
@@ -61,7 +60,6 @@ public class ProfileController extends Observable{
 	/**
 	 * add a question into the local file (saved question list) in the profile
 	 * @param q1 question that will be added
-	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public void addSavedQuestion(Question q1) {
 		if(!AppCache.getInstance().getProfile().getSavedQuestionList().contains(q1)){
@@ -87,7 +85,6 @@ public class ProfileController extends Observable{
 	/**
 	 * add the authors' questions into the local question list saved in the profile
 	 * @param q1 question that will be added
-	 * @return boolean indicated whether the operation it is success or not
 	 */
 	public void addCreatedQuestion(Question q1) {
 
@@ -112,7 +109,11 @@ public class ProfileController extends Observable{
 		triggleObservers();
 	}
 	
-	
+	/**
+	 * add the authors' questions into the local question list when user compose question
+	 * or modify questions off line
+	 * @param q1 question that will be added
+	 */
 	public void addTempQuestion(Question q1) {
 
 		if(!AppCache.getInstance().getProfile().getTempQuestionList().contains(q1)){
@@ -124,6 +125,10 @@ public class ProfileController extends Observable{
 		
 	}
 
+	/**
+	 * remove the push questions from the local file (my question list) in the profile
+	 * @param q1 question that will be removed
+	 */
 	public void removeTempQuestion(Question q1) {
 
 		AppCache.getInstance().getProfile().getTempQuestionList().remove(q1);
@@ -131,7 +136,6 @@ public class ProfileController extends Observable{
 		triggleObservers();
 	}
 	
-
 	public static Profile getP() {
 		return p;
 	}
@@ -140,11 +144,17 @@ public class ProfileController extends Observable{
 		ProfileController.p = p;
 	}
 	
+	/**
+	 * notify observer that data has changed.
+	 */
 	private void triggleObservers(){
 		setChanged();
 		notifyObservers();
 	}
 	
+	/**
+	 * save the profile to the local manager
+	 */
 	private void save(){
 		LocalManager.getManager().saveProfile(AppCache.getInstance().getProfile());
 	}

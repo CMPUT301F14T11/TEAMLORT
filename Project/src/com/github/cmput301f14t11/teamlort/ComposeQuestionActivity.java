@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.GpsLocation;
@@ -45,6 +46,7 @@ public class ComposeQuestionActivity
 extends AppBaseActivity implements LocationListener
 {
 	private LocationManager locationManager;
+	private ProfileController pc = new ProfileController();
 	
 	private static final String TITLE_BUNDLE_KEY = "COMPOSE_TITLE";
 	private static final String DETAIL_BUNDLE_KEY = "COMPOSE_DETAIL";
@@ -299,8 +301,10 @@ extends AppBaseActivity implements LocationListener
 				pic
 				);
 		}
-		
+		pc.addCreatedQuestion(question);
 		PushQueue.getInstance().pushQuestion(question, getApplicationContext());
+		
+		
 		//new SubmitNewQuestion().execute(question);
 		
 		this.setResult(RESULT_OK);

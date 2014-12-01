@@ -44,12 +44,10 @@ public class PushQueue {
 		if(NetworkListener.checkConnection(c))
 		{
 			new PushQuestions().execute(question);
-			AppCache.getInstance().getProfile().getMyQuestionList().add(question);
 		}
 		else{
 			questionList.add(question);
 			pc.addTempQuestion(question);
-			pc.addCreatedQuestion(question);
 			pc.getProfile().setPushRequest(true);
 			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
 		}
@@ -72,6 +70,7 @@ public class PushQueue {
 			new PushAnswers().execute(new PushItemAnswer(answer, questionID));
 		}
 		else{
+			pc.getProfile().setPushRequest(true);
 			answerList.add(new PushItemAnswer(answer,questionID));
 			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
 		}
@@ -90,6 +89,7 @@ public class PushQueue {
 			new PushQuestionReplies().execute(new PushItemReply(reply, questionID));
 		}
 		else{
+			pc.getProfile().setPushRequest(true);
 			questionReplyList.add(new PushItemReply(reply, questionID));
 			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
 		}
@@ -109,6 +109,7 @@ public class PushQueue {
 			new PushAnswerReplies().execute(new PushItemReply(reply, questionID, answerID));
 		}
 		else{
+			pc.getProfile().setPushRequest(true);
 			answerReplyList.add(new PushItemReply(reply, questionID, answerID));
 			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
 		}
@@ -123,7 +124,7 @@ public class PushQueue {
 		new PushAnswers().execute(answerList.toArray(new PushItemAnswer[answerList.size()]));
 		new PushQuestionReplies().execute(questionReplyList.toArray(new PushItemReply[questionReplyList.size()]));
 		new PushAnswerReplies().execute(answerReplyList.toArray(new PushItemReply[answerReplyList.size()]));
-		pc.getProfile().getTempQuestionList().clear();
+		AppCache.getInstance().getProfile().getTempQuestionList().clear();
 	}
 	
 	/**

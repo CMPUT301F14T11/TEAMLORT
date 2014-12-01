@@ -24,7 +24,6 @@ public class QuestionViewActivityTest extends ActivityInstrumentationTestCase2<Q
 	public void testTextDisplay() throws Throwable{
 		//TODO Still have yet to get single tests to run by themselves, so this probably doesn't work. - Elvis
 		//TODO possibly split this test into multiple tests.
-		//TODO This is missing testing for author text.
 		
 		Question question = new Question();
 		Reply reply = new Reply();
@@ -62,6 +61,9 @@ public class QuestionViewActivityTest extends ActivityInstrumentationTestCase2<Q
 				TextView questionTimeTextView = (TextView) activity.findViewById(R.id.QuestionTimeTextView);
 				questionTimeTextView.setText("testing time");
 				
+				TextView questionAuthorTextView = (TextView) activity.findViewById(R.id.question_author);
+				questionAuthorTextView.setText("testing author");
+				
 				ReplyAdapter replyAdapter = activity.getReplyAdapter();
 				
 				assertTrue("First item in replyAdapter not a Reply", replyAdapter.getItem(0) instanceof Reply);
@@ -91,22 +93,54 @@ public class QuestionViewActivityTest extends ActivityInstrumentationTestCase2<Q
 		TextView questionTimeTextView = (TextView) activity.findViewById(R.id.QuestionTimeTextView);
 		assertEquals("testing time", questionTimeTextView.getText());
 		
+		TextView questionAuthorTextView = (TextView) activity.findViewById(R.id.question_author);
+		assertEquals("testing author", questionAuthorTextView.getText());
+		
 	}
 	
 	public void testTextOnScreen(){
-		//TODO this is missing test for author text.
 		
 		QuestionViewActivity activity = (QuestionViewActivity) getActivity();
 		View screen = (View) activity.getWindow().getDecorView();
+		
 		View widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.UsernameTitleTextView);
 		ViewAsserts.assertOnScreen(screen, widget);
 		
-		screen = (View) activity.getWindow().getDecorView();
 		widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.QuestionBodyTextView);
 		ViewAsserts.assertOnScreen(screen, widget);
 		
-		screen = (View) activity.getWindow().getDecorView();
 		widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.QuestionTimeTextView);
+		ViewAsserts.assertOnScreen(screen, widget);
+		
+		widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.question_author);
+		ViewAsserts.assertOnScreen(screen, widget);
+		
+	}
+	
+	public void testButtonsOnScreen(){
+		
+		QuestionViewActivity activity = (QuestionViewActivity) getActivity();
+		View screen = (View) activity.getWindow().getDecorView();
+		
+		View widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.questionUpvoteButton);
+		ViewAsserts.assertOnScreen(screen, widget);
+		
+		widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.favorite_button);
+		ViewAsserts.assertOnScreen(screen, widget);
+		
+		widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.save_button);
+		ViewAsserts.assertOnScreen(screen, widget);
+		
+		widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.reply_button);
+		ViewAsserts.assertOnScreen(screen, widget);
+		
+		widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.reply_button);
+		ViewAsserts.assertOnScreen(screen, widget);
+		
+		widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.reply_button);
+		ViewAsserts.assertOnScreen(screen, widget);
+		
+		widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.reply_button);
 		ViewAsserts.assertOnScreen(screen, widget);
 		
 	}

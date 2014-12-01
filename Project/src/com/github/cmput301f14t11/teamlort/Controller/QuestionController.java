@@ -5,6 +5,7 @@ import com.github.cmput301f14t11.teamlort.Model.ElasticManager;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
+import com.github.cmput301f14t11.teamlort.Model.Vote;
 
 import android.content.Context;
 import android.util.Log;
@@ -24,6 +25,7 @@ public class QuestionController {
 	Context context;
 	Question question;
 	PushQueue pushQueue = PushQueue.getInstance();
+	Vote vote = new Vote();
 	
 	/**
 	 * Constructor for {@link QuestionController}.
@@ -110,6 +112,7 @@ public class QuestionController {
 	 */
 	public void upVoteQuestion(String username){
 		question.upVote(username);
+		vote.voteQuestion(question.getID(), username, context);
 	}
 	
 	/**
@@ -120,6 +123,7 @@ public class QuestionController {
 	 */
 	public void unVoteQuestion(String username){
 		question.unVote(username);
+		vote.voteQuestion(question.getID(), username, context);
 	}
 	
 	/**
@@ -130,6 +134,7 @@ public class QuestionController {
 	 */
 	public void upVoteAnswer(String username, int answerPosition){
 		question.getAnswer(answerPosition).upVote(username);
+		vote.voteAnswer(question.getID(), question.getAnswerList().get(answerPosition), username, context);
 	}
 	
 	/**
@@ -140,6 +145,7 @@ public class QuestionController {
 	 */
 	public void unVoteAnswer(String username, int answerPosition){
 		question.getAnswer(answerPosition).unVote(username);
+		vote.voteAnswer(question.getID(), question.getAnswerList().get(answerPosition), username, context);
 	}
 	/**
 	 * returns question the controller is handling right now

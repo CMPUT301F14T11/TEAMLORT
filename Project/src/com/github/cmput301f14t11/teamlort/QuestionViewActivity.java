@@ -46,6 +46,7 @@ import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
+import com.github.cmput301f14t11.teamlort.Model.Vote;
 
 /**
  * {@link Activity} for viewing a {@link Question} and it's {@link Answer}s and {@link Reply}s, 
@@ -331,8 +332,6 @@ extends AppBaseActivity implements LocationListener
 				else {
 					questionController.upVoteQuestion(username);
 				}
-				PushQueue.getInstance().pushQuestion(question,getApplicationContext());
-
 			}
 		});
 		saveButton.setOnClickListener(new OnClickListener() {

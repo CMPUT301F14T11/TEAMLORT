@@ -3,6 +3,7 @@ package com.github.cmput301f14t11.teamlort;
 import java.util.Observable;
 import java.util.Observer;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
@@ -79,7 +80,7 @@ public class SettingsActivity extends AppBaseActivity implements Observer, Locat
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.settings, menu);
+		getMenuInflater().inflate(R.menu.app_base, menu);
 		return true;
 	}
 
@@ -89,9 +90,13 @@ public class SettingsActivity extends AppBaseActivity implements Observer, Locat
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+		if (id == R.id.action_help) 
+		{
+	        helpscreen = getResources().getDrawable(R.drawable.helpscreen_geolocation);
+	        AlertDialog.Builder alert = buildhelp(helpscreen);
+			alertDialog = alert.show();
+	           return true;
+	    }
 		return super.onOptionsItemSelected(item);
 	}
 

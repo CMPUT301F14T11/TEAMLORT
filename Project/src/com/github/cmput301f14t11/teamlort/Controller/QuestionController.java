@@ -10,8 +10,11 @@ import android.content.Context;
 import android.util.Log;
 
 /**
- * Controller for modifying a {@link Question} and it's contents ({@link Answer} and {@link Reply} objects) and related 
- * details.
+ * Controller for modifying a {@link Question} and it's contents ({@link Answer} and {@link Reply} objects), modifications
+ * include: <br>
+ * - adding {@link Answer}s or {@link Reply}s to the {@link Question}
+ * <br>
+ * - adding {@link Reply} objects to {@link Answer}s.
  * 
  * @author Elvis Lo
  */

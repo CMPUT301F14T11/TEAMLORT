@@ -31,7 +31,11 @@ public class ReplyAdapter extends BaseAdapter {
 	private AppCache ac = new AppCache();
 	
 	/**
-	 * ViewHolder for {@link Reply} view elements.
+	 * ViewHolder for {@link Reply} view elements, one way of utilizing is by using 
+	 * {@link android.view.View#setTag(Object tag) setTag(ReplyViewHolder)} on
+	 * a convertView then retrieving the tag by {@link android.view.View#getTag(Object tag) getTag(ReplyViewHolder)}. 
+	 * <br><br>
+	 * Used to prevent unnecessary calls of {@link android.view.View#findViewById(int id)} and allow for smooth scrolling.
 	 * 
 	 * @author Elvis Lo
 	 * 

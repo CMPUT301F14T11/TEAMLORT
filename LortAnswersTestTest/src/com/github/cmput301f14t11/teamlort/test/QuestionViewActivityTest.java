@@ -3,6 +3,7 @@ package com.github.cmput301f14t11.teamlort.test;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -143,6 +144,8 @@ public class QuestionViewActivityTest extends ActivityInstrumentationTestCase2<Q
 		widget = (View) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.reply_button);
 		ViewAsserts.assertOnScreen(screen, widget);
 		
+		Button upvote = (Button) activity.findViewById(com.github.cmput301f14t11.teamlort.R.id.upvoteButton);
+		assertTrue(upvote.getText().equals("0"));
 	}
 
 }

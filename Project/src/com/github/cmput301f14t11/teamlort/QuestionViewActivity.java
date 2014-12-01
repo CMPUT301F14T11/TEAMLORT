@@ -6,9 +6,13 @@ import java.util.Comparator;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +33,7 @@ import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
@@ -44,7 +49,7 @@ import com.github.cmput301f14t11.teamlort.Model.Reply;
  * 
  */
 public class QuestionViewActivity
-extends AppBaseActivity
+extends AppBaseActivity implements LocationListener
 {
 	
 	Question question;
@@ -53,6 +58,7 @@ extends AppBaseActivity
 	ObjectFactory dt = new ObjectFactory();
 	ReplyAdapter replyAdapter;
 	AnswerAdapter answerAdapter;
+	LocationManager locationManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -69,6 +75,9 @@ extends AppBaseActivity
 		
 		final QuestionController questionController = new QuestionController(getApplicationContext());
 		questionController.setQuestion(question);
+		
+		locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		
 		
 		final ProfileController profileController = new ProfileController();
 				
@@ -204,12 +213,19 @@ extends AppBaseActivity
 			@Override
 			public void onClick(View v) {
 				TextView answerText = (TextView) findViewById(R.id.answerEditText);
+				Answer answer;
+				Profile prof = appCache.getProfile();
+				
 				if (answerText.getText().length() == 0) {
 					Toast.makeText(getBaseContext(), "No empty questions", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				
-				Answer answer = ObjectFactory.initAnswer(answerText.getText().toString(), appCache.getProfile().getUsername());
+				if (prof.getLocationService()) {
+					answer = ObjectFactory.initAnswer(answerText.getText().toString(), prof.getUsername(), prof.getLocation(locationManager));
+				} else {
+					answer = ObjectFactory.initAnswer(answerText.getText().toString(), appCache.getProfile().getUsername());
+				}
 
 				questionController.addAnswer(answer); 
 				answerText.setText("");
@@ -362,6 +378,30 @@ extends AppBaseActivity
 			// TODO Auto-generated method stub
 			return a.getScore() - b.getScore();
 		}
+	}
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Toast.makeText(this, "Enabled new provider " + provider,
+				Toast.LENGTH_SHORT).show();
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		Toast.makeText(this, "Disabled provider " + provider,
+				Toast.LENGTH_SHORT).show();
 	}
 	
 }

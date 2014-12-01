@@ -124,7 +124,7 @@ public class PushQueue {
 		new PushAnswers().execute(answerList.toArray(new PushItemAnswer[answerList.size()]));
 		new PushQuestionReplies().execute(questionReplyList.toArray(new PushItemReply[questionReplyList.size()]));
 		new PushAnswerReplies().execute(answerReplyList.toArray(new PushItemReply[answerReplyList.size()]));
-		AppCache.getInstance().getProfile().getTempQuestionList().clear();
+		pc.clearTempList();
 	}
 	
 	/**

@@ -171,5 +171,13 @@ public class ProfileController extends Observable{
 			return p.getDate().toString();
 		}
 	}
+	
+	/**
+	 * This method will clear the tempQuestion List
+	 */
+	public void clearTempList(){
+		p.getTempQuestionList().clear();
+		save();
+	}
 
 }

@@ -146,16 +146,6 @@ extends AppBaseActivity implements LocationListener
 			if (resultCode == RESULT_OK)
 			{
 				pic = iBuilder.RetrieveImageFromStorage(this);
-				/*
-				Bitmap rawImg = BitmapFactory.decodeFile(imageFileUri.getPath());
-				if (rawImg != null)
-				{
-					Drawable compressMe = (Drawable) new BitmapDrawable(rawImg);
-					new CompressImageTask().execute(compressMe);
-				}
-				else 
-					Toast.makeText(getApplicationContext(), "Oops! Something went wrong with the camera.", Toast.LENGTH_LONG).show();
-					*/
 			}
 			else
 			{

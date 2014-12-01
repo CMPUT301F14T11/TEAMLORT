@@ -21,8 +21,28 @@ import android.widget.Toast;
 /**
  * ImageBuilder: A class used to send intents to other apps for the purposes
  * of getting an image.
+ * <br> <br>
+ * Example (Inside SomeActivity.java): <br>
+ * <code>
+ * public class SomeActivity extends Activity {<br>
+ * 	ImageBuilder iBuilder = new ImageBuilder();<br>
+ * 	Drawable pic = null; <br>
+ * 	...<br>
+ * private void getPhoto() {<br>
+ * 	iBuilder.SendImageIntent(this) // Starts an activity for a photo <br>
+ * 	...<br>
+ * }<br>
+ * ...<br>
+ * protected void onActivityResult(int requestCode, int resultCode, Intent data) { <br>
+ * if (requestCode == ImageBuilder.IMAGE_REQUEST_CODE && resultCode == RESULT_OK) { <br>
+ * pic = iBuilder.RetrieveImageFromStorage(this); <br>
+ * } <br>
+ * } <br>
+ * ... <br>
+ * } <br>
+ * </code>
+ * 
  * @author Yuey
- *
  */
 public class ImageBuilder
 {

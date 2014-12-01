@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.LocationController;
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
@@ -61,6 +62,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 		TextView answer_comment_count;
 		Button upvoteButton;
 		TextView geolocation;
+		Button viewAnswerItemImageButton;
 		
 	}
 	
@@ -150,6 +152,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			answerViewHolder.upvoteButton = (Button) convertView.findViewById(R.id.upvoteButton);
 			answerViewHolder.upvoteButton.setBackgroundColor(Color.GRAY);
 			answerViewHolder.geolocation = (TextView) convertView.findViewById(R.id.location_text_view_answer);
+			answerViewHolder.viewAnswerItemImageButton = (Button) convertView.findViewById(R.id.viewAnswerItemImageButton);
 			
 			convertView.setTag(answerViewHolder);
 			
@@ -177,8 +180,20 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			}
 			else {
 				answerViewHolder.upvoteButton.setBackgroundColor(Color.GRAY);
-
 			}
+			
+			if (!answer.hasPicture()){
+				answerViewHolder.viewAnswerItemImageButton.setVisibility(View.GONE);
+			}
+			
+			answer.setListener(new Listener(){
+
+				@Override
+				public void update() {
+					notifyDataSetChanged();
+				}
+				
+			});
 			
 			final View finalConvertView = convertView;
 			final QuestionViewActivity parentActivity = (QuestionViewActivity) context;
@@ -201,8 +216,6 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 
 					}
 					
-
-					notifyDataSetChanged();
 				}
 			});
 				
@@ -228,8 +241,6 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 							AppCache appCache = AppCache.getInstance();
 							Reply reply = ObjectFactory.initReply(body.getText().toString(), appCache.getProfile().getUsername());
 							questionController.addAnswerReply(reply, finalGroupPosition);
-							
-							PushQueue.getInstance().pushAnswerReply(question.getID(), answer.getID(), reply, context);
 						}
 					});
 					alertDialogueBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -245,6 +256,16 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 				}
 				
 			});	
+			
+			answerViewHolder.viewAnswerItemImageButton.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if (answer.hasPicture()){
+						
+					} 
+				}
+			});
 		
 		return convertView;
 	}

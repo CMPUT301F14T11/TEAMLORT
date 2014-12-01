@@ -35,6 +35,7 @@ import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
+import com.github.cmput301f14t11.teamlort.Model.RepliableText;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 /**
@@ -58,6 +59,7 @@ extends AppBaseActivity implements LocationListener
 	ReplyAdapter replyAdapter;
 	AnswerAdapter answerAdapter;
 	LocationManager locationManager;
+	Drawable answerImage = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -106,6 +108,8 @@ extends AppBaseActivity implements LocationListener
 		final ImageButton saveButton = (ImageButton) header.findViewById(R.id.save_button);
 		final ImageButton favoriteButton = (ImageButton) header.findViewById(R.id.favorite_button);
 		Button viewImageButton = (Button) header.findViewById(R.id.viewImageButton);
+		Button setAnswerImageButton = (Button) header.findViewById(R.id.setAnswerImageButton);
+		Button viewAnswerImageButton = (Button) header.findViewById(R.id.viewAnswerImageButton);
 		
 		Collections.sort(answerList, new AnswerComparator());
 		
@@ -198,8 +202,21 @@ extends AppBaseActivity implements LocationListener
 
 			@Override
 			public void onClick(View v) {
-				AlertDialog.Builder alert = buildPicture();
+				AlertDialog.Builder alert = buildPicture(question.getPicture());
 				alertDialog = alert.show();
+			}
+			
+		});
+		viewAnswerImageButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				if (answerImage != null){
+					AlertDialog.Builder alert = buildPicture(answerImage);
+					alertDialog = alert.show();
+				} else {
+					Toast.makeText(getApplicationContext(), "No image set.", Toast.LENGTH_SHORT).show();
+				}
 			}
 			
 		});
@@ -334,12 +351,12 @@ extends AppBaseActivity implements LocationListener
 	public AnswerAdapter getAnswerAdapter(){
 		return answerAdapter;
 	}
-	protected AlertDialog.Builder buildPicture() {
+	protected AlertDialog.Builder buildPicture(Drawable drawable) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		
 		alert.setTitle("Picture");
 		ImageView imageView = new ImageView(getApplicationContext());
-		imageView.setImageDrawable(question.getPicture());
+		imageView.setImageDrawable(drawable);
 		alert.setView(imageView);	
 		alert.setPositiveButton("Close", new DialogInterface.OnClickListener() 
 		{

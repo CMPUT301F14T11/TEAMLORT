@@ -47,6 +47,7 @@ public class QuestionController {
 	
 	public void addAnswerReply(Reply reply, int answerPosition){
 		question.getAnswer(answerPosition).addReplyToStart(reply);
+		PushQueue.getInstance().pushAnswerReply(question.getID(), question.getAnswer(answerPosition).getID(), reply, context);
 	}
 	
 	public void upVoteQuestion(String username){

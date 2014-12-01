@@ -64,7 +64,6 @@ public class HomeActivity extends AppBaseActivity implements Observer, LocationL
 	
 	boolean loadingMore = false;
 	boolean clicked = false;
-	ArrayList<Question> getmoar = new ArrayList<Question>();
 	   //Runnable to load the items
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {

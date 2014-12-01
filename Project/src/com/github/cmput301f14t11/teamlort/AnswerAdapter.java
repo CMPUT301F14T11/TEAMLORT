@@ -292,7 +292,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 				@Override
 				public void onClick(View v) {
 					if (answer.hasPicture()){
-						ImagePopup.showPopup(answer.getPicture(), context);
+						ImagePopup.showPopup(answer.getPicture(), context).show();
 					} 
 				}
 			});

@@ -6,9 +6,7 @@ import java.util.Date;
 import com.github.cmput301f14t11.teamlort.HomeActivity;
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
-import com.github.cmput301f14t11.teamlort.Controller.ScoreController;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
-import com.github.cmput301f14t11.teamlort.Model.PersistentDataManager;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -30,7 +28,6 @@ public class UseCase10Test extends ActivityInstrumentationTestCase2<HomeActivity
 	{
 		Qlistcontroller qc = new Qlistcontroller();
 		ObjectFactory obj = new ObjectFactory();
-		QuestionController qsc = new QuestionController();
 		final int CONSTANT_UPVOTE = 2;
 		final int CONSTANT_DATE = 3;
 		ArrayList<Question> questionlist;
@@ -48,7 +45,7 @@ public class UseCase10Test extends ActivityInstrumentationTestCase2<HomeActivity
 			qc.add(singlequestion);
 		}
 
-		qc.sortQuestions("upvote");//it makes no sense to me why user would want to see question with the least amount of upvotes(0) first, so we are sorting this one way
+		qc.sortQuestions("upvote",null);//it makes no sense to me why user would want to see question with the least amount of upvotes(0) first, so we are sorting this one way
 		// modified up to here - oct.28
 		
 		for(int i=1;i<qc.returnsize();i++)
@@ -59,7 +56,7 @@ public class UseCase10Test extends ActivityInstrumentationTestCase2<HomeActivity
 			}
 			
 		}; 
-		qc.sortQuestions("date");
+		qc.sortQuestions("date",null);
 		for(int i=1;i<qc.returnsize();i++)
 		{
 			if(qc.returnquestion(i-1).getTime().compareTo(qc.returnquestion(i).getTime())>1 )//needs to work on date, sorting it by oldest/newest

@@ -20,19 +20,19 @@ public class UseCase12Test extends ActivityInstrumentationTestCase2
 
 	//yo elvis thanks buddy!
 	//Oct.18 added controller to tests
+	//Dec.1 final cleanup
 	public void testUpvote()
 	{
 		ObjectFactory obj = new ObjectFactory();
-		QuestionController qsc = new QuestionController();
+		QuestionController qsc = new QuestionController(null);
 		
 		Question question = obj.initQuestion("test title", "body", "author");
-		Answer answer = null;
-		answer.setAuthor("sdfsdfsd");
-		answer.setBody("asdsadfsdds");
-		question.getAnswerList().add(answer);
+		Answer answer = obj.initAnswer("testing body", "author");
+		qsc.setQuestion(question);
+		qsc.addAnswer(answer);
 		
 		assertTrue("question initialized with more than 0 upvotes", question.getAnswerList().get(0).getVoterSet().size() == 0);
-		question.getAnswerList().get(0).getVoterSet().add("sdfsdfds");
+		qsc.upVoteAnswer("tester", 0);
 		if(question.getAnswerList().get(0).getVoterSet().size() == 0)
 		{
 			fail("Upvote did not change score");

@@ -11,6 +11,7 @@ import android.R.drawable;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.TestCase;
 
@@ -40,10 +41,10 @@ public class UseCase9Test extends ActivityInstrumentationTestCase2<HomeActivity>
  				Question singlequestion = obj.initQuestion("testing", "body", "author", drawable);
  				qc.add(singlequestion);
 			}
-			;//persistent data manager
+			;
 		}
 
-  	qc.sortQuestions("image");
+  	qc.sortQuestions("image", null);
   	
 
 		for(int i=1;i<qc.returnsize()-1;i++)

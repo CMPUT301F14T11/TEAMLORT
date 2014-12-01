@@ -141,5 +141,14 @@ public class QuestionController {
 	public void unVoteAnswer(String username, int answerPosition){
 		question.getAnswer(answerPosition).unVote(username);
 	}
+	/**
+	 * returns question the controller is handling right now
+	 * {@link #setQuestion} must be called before this method or an error will be thrown.
+	 * @return question
+	 */
+	public Question getquestion()
+	{
+		return this.question;
+	}
 
 }

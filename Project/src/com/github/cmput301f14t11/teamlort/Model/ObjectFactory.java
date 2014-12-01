@@ -14,6 +14,15 @@ public class ObjectFactory {
 		
 	}
 	
+	/**
+	 * Usage: eg. Question question = initQuestion("A Title", "A text body", "Author", {@link GpsLocation});
+	 * 
+	 * @param title
+	 * @param body
+	 * @param author
+	 * @param GpsLocation
+	 * @return
+	 */
 	public static Question initQuestion(String title, String body, String author, GpsLocation GpsLocation){
 		Question question = new Question();
 		
@@ -26,6 +35,15 @@ public class ObjectFactory {
 		return question;
 	}
 	
+	/**
+	 * Usage: eg. Question question = initQuestion("A Title", "A text body", "Author", {@link GpsLocation}, {@link Drawable});
+	 * 
+	 * @param title
+	 * @param body
+	 * @param author
+	 * @param GpsLocation
+	 * @return
+	 */
 	public static Question initQuestion(String title, String body, String author, GpsLocation GpsLocation, Drawable image){
 		//An overload that takes in an image
 		Question question = new Question();
@@ -40,6 +58,15 @@ public class ObjectFactory {
 		return question;
 	}
 	
+	/**
+	 * Usage: eg. Question question = initQuestion("A Title", "A text body", "Author");
+	 * 
+	 * @param title
+	 * @param body
+	 * @param author
+	 * @param GpsLocation
+	 * @return
+	 */
 	public static Question initQuestion(String title, String body, String author){
 		Question question = new Question();
 		
@@ -51,6 +78,15 @@ public class ObjectFactory {
 		return question;
 	}
 	
+	/**
+	 * Usage: eg. Question question = initQuestion("A Title", "A text body", "Author", {@link GpsLocation});
+	 * 
+	 * @param title
+	 * @param body
+	 * @param author
+	 * @param GpsLocation
+	 * @return
+	 */
 	public static Question initQuestion(String title, String body, String author, Drawable image){
 		//An overload that takes in an image
 		Question question = new Question();
@@ -64,6 +100,15 @@ public class ObjectFactory {
 		return question;
 	}
 	
+	/**
+	 * Usage: eg. Answer answer = initAnswer("A text body", "Author", {@link GpsLocation});
+	 * 
+	 * @param title
+	 * @param body
+	 * @param author
+	 * @param GpsLocation
+	 * @return
+	 */
 	public static Answer initAnswer(String body, String author, GpsLocation GpsLocation){
 		Answer answer = new Answer();
 		
@@ -75,6 +120,15 @@ public class ObjectFactory {
 		return answer;
 	}
 	
+	/**
+	 * Usage: eg. Answer answer = initAnswer("A text body", "Author");
+	 * 
+	 * @param title
+	 * @param body
+	 * @param author
+	 * @param GpsLocation
+	 * @return
+	 */
 	public static Answer initAnswer(String body, String author){
 		Answer answer = new Answer();
 		
@@ -85,6 +139,15 @@ public class ObjectFactory {
 		return answer;
 	}
 	
+	/**
+	 * Usage: eg. Reply reply = initReply("A text body", "Author", {@link GpsLocation});
+	 * 
+	 * @param title
+	 * @param body
+	 * @param author
+	 * @param GpsLocation
+	 * @return
+	 */
 	public static Reply initReply(String body, String author, GpsLocation GpsLocation)
 	{
 		Reply reply = new Reply();
@@ -97,6 +160,15 @@ public class ObjectFactory {
 		return reply;
 	}
 	
+	/**
+	 * Usage: eg. Reply reply = initReply("A text body", "Author");
+	 * 
+	 * @param title
+	 * @param body
+	 * @param author
+	 * @param GpsLocation
+	 * @return
+	 */
 	public static Reply initReply(String body, String author)
 	{
 		Reply reply = new Reply();

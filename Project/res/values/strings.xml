@@ -28,6 +28,9 @@
     <string name="set_byGPS">Set By GPS</string>
     <string name="yourLocation">Your Location Is Set To:</string>
     <string name="location_string">No Location Specified</string>
+    
+    <string name="address_output_string">%1$s %2$s %3$s</string>
+    <string name="no_address_found">No address found for location</string>
 	
 
 </resources>

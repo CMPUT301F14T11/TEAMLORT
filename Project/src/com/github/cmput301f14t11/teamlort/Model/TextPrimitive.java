@@ -92,7 +92,7 @@ public class TextPrimitive implements java.io.Serializable {
 			double lat = GpsLocation.getLatitude();
 			double lng = GpsLocation.getLongitude();
 
-			return lat + "¡, " + lng + "¡";
+			return lat + "Â°, " + lng + "Â°";
 		}
 	}
 }

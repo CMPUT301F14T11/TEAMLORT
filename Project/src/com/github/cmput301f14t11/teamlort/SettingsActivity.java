@@ -21,6 +21,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.cmput301f14t11.teamlort.Controller.LocationController;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 
@@ -74,7 +75,16 @@ public class SettingsActivity extends AppBaseActivity implements Observer, Locat
 	private void updateLocationString() {
 		latitude = usrProfile.getLocation(locationManager).getLatitude();
 		longitude = usrProfile.getLocation(locationManager).getLongitude();
-		locationString.setText(latitude + "� " + longitude + "�");
+		
+		LocationController lc = new LocationController();
+		String cityName = lc.fetchCityNameUsingGoogleMap(latitude, longitude);
+		
+		locationString.setText(cityName);
+		
+		
+	
+       
+		//locationString.setText(latitude + "° " + longitude + "°");
 	}
 
 	@Override
@@ -170,7 +180,7 @@ public class SettingsActivity extends AppBaseActivity implements Observer, Locat
 		if (isChecked) {
 			usrProfile.setLocationServices(true);
 			updateLocationString();
-			locationString.setText(latitude + "� " + longitude + "�");
+			locationString.setText(latitude + "° " + longitude + "°");
 		} else {
 			usrProfile.setLocationServices(false);
 			locationString.setText("Location Services Off");
@@ -257,4 +267,10 @@ public class SettingsActivity extends AppBaseActivity implements Observer, Locat
 		Toast.makeText(this, "Disabled provider " + provider,
 				Toast.LENGTH_SHORT).show();
 	}
+	
+	
+	
+	
+	
+	
 }

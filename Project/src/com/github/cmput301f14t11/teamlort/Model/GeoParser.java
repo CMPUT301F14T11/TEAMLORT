@@ -9,10 +9,10 @@ public class GeoParser
 		String[] tokens = s.split(",");
 		for (String token : tokens)
 		{
-			if(token.contains("display_name"))
+			if(token.contains("city"))
 			{
 				String[] kvPair = token.split(":");
-				return kvPair[1];
+				return "city"+kvPair[2];
 			}
 			
 			Log.i("parser",token);

@@ -15,6 +15,7 @@ public class AppCache {
 	private static AppCache appCache = null;
 	private Question question = null;
 	private Profile profile = null;
+	private String cityname = "";
 	
 	/**
 	 * @return The {@link AppCache} singleton instance.
@@ -60,6 +61,14 @@ public class AppCache {
 			profile = new Profile();
 		}
 		return profile;
+	}
+	public void setname(String provided)
+	{
+		this.cityname = provided;
+	}
+	public String returnname()
+	{
+		return this.cityname;
 	}
 	
 	/**

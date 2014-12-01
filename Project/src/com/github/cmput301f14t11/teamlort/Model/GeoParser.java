@@ -1,5 +1,7 @@
 package com.github.cmput301f14t11.teamlort.Model;
 
+import android.util.Log;
+
 public class GeoParser
 {
 	public static String parseGeoString(String s)
@@ -7,13 +9,21 @@ public class GeoParser
 		String[] tokens = s.split(",");
 		for (String token : tokens)
 		{
-			String[] kvPair = token.split(":");
-			String key = kvPair[0].replaceAll("[^a-zA-Z ]", "");
-			if (key == "city")
+			if(token.contains("display_name"))
 			{
-				return kvPair[1].replaceAll("[^a-zA-Z ]", "");
+				String[] kvPair = token.split(":");
+				return kvPair[1];
 			}
+			
+			Log.i("parser",token);
+			
+			
 		}
-		return null;
+		return "not a legit location";
 	}
 }
+//String key = kvPair[0].replaceAll("[^a-zA-Z ]", "");
+//if (key == "city")
+//{
+//	return kvPair[1].replaceAll("[^a-zA-Z ]", "");
+//}

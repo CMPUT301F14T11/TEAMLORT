@@ -20,8 +20,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,8 +40,12 @@ import android.widget.Toast;
 
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
+import com.github.cmput301f14t11.teamlort.HomeActivity.DeleteThread;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.ElasticManager;
+import com.github.cmput301f14t11.teamlort.Model.GeoParser;
+import com.github.cmput301f14t11.teamlort.Model.GpsLocation;
 import com.github.cmput301f14t11.teamlort.Model.ImageBuilder;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
@@ -72,6 +78,7 @@ extends AppBaseActivity implements LocationListener
 	private Drawable answerImage;
 	private Uri imageFileUri;
 	private static final int IMAGE_REQUEST_CODE = 1;
+	
 	ImageBuilder imageBuilder = new ImageBuilder();
 	
 	@Override
@@ -112,8 +119,13 @@ extends AppBaseActivity implements LocationListener
 		TextView questionTimeTextView = (TextView) header.findViewById(R.id.QuestionTimeTextView);
 		questionTimeTextView.setText(question.getTime().toString());
 		if (question.getLocation() != null) {
+			//thread
+			new GetLocTask(question.getLocation()).execute();
 			TextView questionLocationTextView = (TextView) header.findViewById(R.id.location_text_view);
-			questionLocationTextView.setText(question.printCoordinates());
+			String result = GeoParser.parseGeoString(AppCache.getInstance().returnname());
+			questionLocationTextView.setText(result);
+			//Log.i("location thread", " asdad "+location_string);
+			
 		}
 		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
 		Button postAnswerButton = (Button) header.findViewById(R.id.post_answer_button);
@@ -462,5 +474,25 @@ extends AppBaseActivity implements LocationListener
 		default:
 			break;
 		}		
+	}
+	
+	class GetLocTask
+	extends AsyncTask<GpsLocation, Void, String>
+	{
+		GpsLocation location;
+		ElasticManager em= new ElasticManager();
+		public GetLocTask(GpsLocation provided)
+		{
+			this.location = provided;
+		}
+
+		@Override
+		protected String doInBackground(GpsLocation... params) {
+			// TODO Auto-generated method stub
+			
+			AppCache.getInstance().setname(em.getaddress(location));
+			return null;
+		}
+		
 	}
 }

@@ -2,6 +2,7 @@ package com.github.cmput301f14t11.teamlort.Model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -9,6 +10,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -24,7 +26,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-
+import com.github.cmput301f14t11.teamlort.Model.GeoParser;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -45,7 +47,7 @@ public class ElasticManager {
 	private static final String geolocation_address_second = "&lon=";
 	private static final String geolocation_address_third =	"&zoom=18&addressdetails=1";
 
-	protected ElasticManager() {
+	public ElasticManager() {
 		gson = new Gson();
 	}
 	Context context;
@@ -89,18 +91,30 @@ public class ElasticManager {
 	public String getaddress(GpsLocation provided)
 	{
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(geolocation_address+provided.getLatitude()+geolocation_address_second+provided.getLongitude()+geolocation_address_third);
+		HttpGet httpGet = new HttpGet("http://nominatim.openstreetmap.org/reverse?format=json&lat="+provided.getLatitude()+"&lon="+provided.getLatitude()+"&zoom=18&addressdetails=1");
 		HttpResponse response;
 		try {
-			Log.i("LORTANSWERS","in try");
-			response = httpClient.execute(httpGet);
-			Elasticitem<String> sr = parselocation(response);
-			return sr.getSource();
+            response = httpClient.execute(httpGet); // Executeit
+            HttpEntity entity = response.getEntity(); 
+            InputStream is = entity.getContent(); // Create an InputStream with the response
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) // Read line by line
+                sb.append(line + "\n");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null; 
+            String resString = sb.toString(); // Result is here
+            Log.i("string letta", resString);
+
+            is.close(); // Close the stream
+            return resString;
+        } 
+        catch (Exception e) {
+            Log.i("Risultato eccezione","nn va");
+              //e.printStackTrace();
+        }
+		return null;
+
 		
 		
 	}
@@ -322,28 +336,7 @@ public class ElasticManager {
 		return null;
 	}
 	
-	private Elasticitem<String> parselocation(HttpResponse response) {
-		
-		Log.i("LORTANSWERS"," TRY PARSEITEM");
-		try {
-			Log.i("LORTANSWERS","IN TRY PARSEITEM");
-			String json = getEntityContent(response);
-			Type searchHitType = new TypeToken<Elasticitem<Question>>() {}.getType();
-			
-			Elasticitem<String> sr = gson.fromJson(json, searchHitType);
-			if(sr == null)
-			{
-				Log.i("LORTANSWERS","sr is null");
-			
-			}
-			return sr;
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
+	
 	
 	/**
 	 * Returns true if the HttpResponse indicates a success and false otherwise.

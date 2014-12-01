@@ -36,7 +36,6 @@ import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Profile;
 import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
-import com.github.cmput301f14t11.teamlort.Model.RepliableText;
 import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 /**
@@ -100,7 +99,7 @@ extends AppBaseActivity implements LocationListener
 		TextView questionTimeTextView = (TextView) header.findViewById(R.id.QuestionTimeTextView);
 		questionTimeTextView.setText(question.getTime().toString());
 		if (question.getLocation() != null) {
-			TextView questionLocationTextView = (TextView) header.findViewById(R.id.location_text_view_answer);
+			TextView questionLocationTextView = (TextView) header.findViewById(R.id.location_text_view);
 			questionLocationTextView.setText(question.printCoordinates());
 		}
 		ImageButton replyButton = (ImageButton) header.findViewById(R.id.reply_button);
@@ -203,7 +202,7 @@ extends AppBaseActivity implements LocationListener
 
 			@Override
 			public void onClick(View v) {
-				AlertDialog.Builder alert = buildPicture(question.getPicture());
+				AlertDialog.Builder alert = ImagePopup.showPopup(question.getPicture(), QuestionViewActivity.this);
 				alertDialog = alert.show();
 			}
 			
@@ -213,7 +212,7 @@ extends AppBaseActivity implements LocationListener
 			@Override
 			public void onClick(View v) {
 				if (answerImage != null){
-					AlertDialog.Builder alert = buildPicture(answerImage);
+					AlertDialog.Builder alert = ImagePopup.showPopup(answerImage, getApplicationContext());
 					alertDialog = alert.show();
 				} else {
 					Toast.makeText(getApplicationContext(), "No image set.", Toast.LENGTH_SHORT).show();
@@ -351,24 +350,6 @@ extends AppBaseActivity implements LocationListener
 	
 	public AnswerAdapter getAnswerAdapter(){
 		return answerAdapter;
-	}
-	protected AlertDialog.Builder buildPicture(Drawable drawable) {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		
-		alert.setTitle("Picture");
-		ImageView imageView = new ImageView(getApplicationContext());
-		imageView.setImageDrawable(drawable);
-		alert.setView(imageView);	
-		alert.setPositiveButton("Close", new DialogInterface.OnClickListener() 
-		{
-		
-			@Override
-			public void onClick(DialogInterface dialog, int which) 
-			{
-				
-			}
-		});
-		return alert;
 	}
 	/**
 	 * Used for getting a listview that is inside of another scrolling view to be the correct height after changes.

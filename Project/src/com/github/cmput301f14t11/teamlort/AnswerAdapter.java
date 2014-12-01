@@ -184,6 +184,8 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 			
 			if (!answer.hasPicture()){
 				answerViewHolder.viewAnswerItemImageButton.setVisibility(View.GONE);
+			} else {
+				answerViewHolder.viewAnswerItemImageButton.setVisibility(View.VISIBLE);
 			}
 			
 			answer.setListener(new Listener(){
@@ -262,7 +264,7 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 				@Override
 				public void onClick(View v) {
 					if (answer.hasPicture()){
-						
+						ImagePopup.showPopup(answer.getPicture(), context);
 					} 
 				}
 			});

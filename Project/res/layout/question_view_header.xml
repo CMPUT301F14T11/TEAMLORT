@@ -61,12 +61,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin" >
 
-        <ImageButton
+        <Button
             android:id="@+id/questionUpvoteButton"
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground" />
+            android:layout_weight="0.17" />
 
         <View
             android:layout_width="1dp"

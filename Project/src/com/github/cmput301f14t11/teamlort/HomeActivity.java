@@ -28,7 +28,9 @@ import android.widget.Toast;
 import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.NetworkListener;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.PushQueue;
 import com.github.cmput301f14t11.teamlort.Model.Question;
 
 /**
@@ -205,6 +207,13 @@ public class HomeActivity extends AppBaseActivity implements Observer, LocationL
 	protected void onResume(){
 		super.onResume();
 		adapter.notifyDataSetChanged();
+		if (NetworkListener.checkConnection(getApplicationContext()) && 
+				pc.getProfile().getPushRequest()){
+			Toast.makeText(this, "Pushing unsynchronized question", Toast.LENGTH_SHORT).show();
+			PushQueue.getInstance().pushAll();
+			pc.getProfile().setPushRequest(false);
+			Toast.makeText(this, "Pushing Complete", Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	/**

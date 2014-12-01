@@ -34,9 +34,16 @@ implements Serializable
 	protected ArrayList<Question> favedQuestionList = null;
 	protected ArrayList<Question> myQuestionList = null;
 	protected ArrayList<Question> tempQuestionList = null;
+	
+	private boolean pushRequest = false;
 	//protected LocalManager = new LocalManager();
 
-	
+	public void setPushRequest(boolean t){
+		pushRequest = t;
+	}
+	public boolean getPushRequest(){
+		return pushRequest;
+	}
 	
 	/**
 	 * setUsername will set the given username

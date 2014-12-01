@@ -18,7 +18,9 @@ extends BroadcastReceiver
 	{
 		if (NetworkListener.checkConnection(context))
 		{
-			Toast.makeText(context, "Network is on", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Pushing Questions", Toast.LENGTH_LONG).show();
+			PushQueue.getInstance().pushAll();
+			Toast.makeText(context, "Pushing Complete!", Toast.LENGTH_LONG).show();
 		}
 		else
 		{

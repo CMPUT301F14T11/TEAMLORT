@@ -20,7 +20,8 @@ public class PushQueue {
 	private ArrayList<PushItemAnswer> answerList = new ArrayList<PushItemAnswer>();
 	private ArrayList<PushItemReply> answerReplyList = new ArrayList<PushItemReply>();
 	private ArrayList<PushItemReply> questionReplyList = new ArrayList<PushItemReply>();
-//	private static ProfileController pc = new ProfileController();
+	private ProfileController pc = new ProfileController();
+	public static boolean PUSH_REQUEST = false;
 //	private ElasticManager em = ElasticManager.getInstance();
 
 	/**
@@ -47,6 +48,9 @@ public class PushQueue {
 		}
 		else{
 			questionList.add(question);
+			pc.addTempQuestion(question);
+			pc.addCreatedQuestion(question);
+			pc.getProfile().setPushRequest(true);
 			Toast.makeText(c, "Sorry, no network connection! Change saved Locally.", Toast.LENGTH_SHORT).show();
 		}
 	
@@ -119,6 +123,7 @@ public class PushQueue {
 		new PushAnswers().execute(answerList.toArray(new PushItemAnswer[answerList.size()]));
 		new PushQuestionReplies().execute(questionReplyList.toArray(new PushItemReply[questionReplyList.size()]));
 		new PushAnswerReplies().execute(answerReplyList.toArray(new PushItemReply[answerReplyList.size()]));
+		pc.getProfile().getTempQuestionList().clear();
 	}
 	
 	/**

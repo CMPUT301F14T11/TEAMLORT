@@ -129,7 +129,8 @@ public class SettingsActivity extends AppBaseActivity implements Observer,
 	}
 
 	/**
-	 * 
+	 * Gets the user profile.
+	 * Used to get the users current location
 	 */
 	private void GetProfile() {
 		usrProfile = AppCache.getInstance().getProfile();
@@ -157,6 +158,12 @@ public class SettingsActivity extends AppBaseActivity implements Observer,
 	 * appropriate views.
 	 */
 	private void AttachListeners() {
+		
+		/**
+		 * This method is used to set the location manually. 
+		 * The user must have valid inputs in the latitude and longitude
+		 * "Set Manually Button"
+		 */
 		setLocationBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -164,6 +171,10 @@ public class SettingsActivity extends AppBaseActivity implements Observer,
 			}
 		});
 
+		/**
+		 * Used to set the location by GPS and not manually
+		 * "Set By GPS Button"
+		 */
 		setByGPSBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -171,6 +182,10 @@ public class SettingsActivity extends AppBaseActivity implements Observer,
 			}
 		});
 
+		/**
+		 * Switches if the user wants to attach their location to posts
+		 * "Attach Location"
+		 */
 		// set the switch to ON
 		locationSwitch.setChecked(true);
 		// attach a listener to check for changes in state
@@ -189,8 +204,11 @@ public class SettingsActivity extends AppBaseActivity implements Observer,
 	}
 
 	/**
-	 * Auxiliary method. When the user clicks Accept, put everything together
-	 * and send it to the controller.
+	 * This method controls the Attach location switch
+	 * If the user wants to have their locations attached to their post they want the switch "on"
+	 * This sets the setLocationServices boolean to true indicating that
+	 * If the user does not want to have their location attached to their posts they want the swith "off"
+	 * This sets the setLocaitonServices boolean to false indicating that 
 	 */
 	protected void onSwitchChanged(boolean isChecked) {
 		if (isChecked) {
@@ -204,8 +222,11 @@ public class SettingsActivity extends AppBaseActivity implements Observer,
 	}
 
 	/**
-	 * Auxiliary method. When the user clicks Accept, put everything together
-	 * and send it to the controller.
+	 * When the user clicks the "Set Manually" button, they are indicating that they do not want to use GPS to get their location 
+	 * and that they want to set it manually.
+	 * The user needs to enter valid latitude and longitude inputs.
+	 * This sets the locationSetManually boolean to true indicating not to use GPS
+	 * This sets their location and updates it
 	 */
 	protected void onSetLocationButtonClicked() {
 		getInputFields();
@@ -224,6 +245,12 @@ public class SettingsActivity extends AppBaseActivity implements Observer,
 		}
 	}
 
+	/**
+	 * This method is called when the user clicks on the set by GPS button. 
+	 * This suggests that they no longer want to set their location manually
+	 * It changes the locationSetManually to false saying that location is not being set manually anymore
+	 * The location of the user is found then printed
+	 */
 	protected void onSetByGPSButtonClicked() {
 		usrProfile.locationSetManually(false);
 		updateLocationString();
@@ -239,6 +266,12 @@ public class SettingsActivity extends AppBaseActivity implements Observer,
 
 	}
 
+	/**
+	 * Checks that the input of the latitude and longitude is valid.
+	 * A valid latitude input is > -90 and < 90 
+	 * A valid longitude is > -180 and < 180
+	 * @return true if input is valid, else false
+	 */
 	private boolean isInputValid() {
 		// Make sure the user has a valid latitude (i.e. between -180 and 180)
 		if (latitude < -90 || latitude > 90) {

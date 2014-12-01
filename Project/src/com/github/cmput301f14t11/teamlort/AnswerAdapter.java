@@ -33,6 +33,12 @@ import com.github.cmput301f14t11.teamlort.Model.Vote;
 /**
  * Custom {@link Adapter} for an {@link ExpandableListView} containing {@link Answer} groups each with 
  * an expandable list of {@link Reply} objects. Extends {@link BaseExpandableListAdapter}.
+ * <br><br>
+ * After initializing, this adapter should be set to an {@link ExpandableListView}. <br>
+ * <br>
+ * eg. <br>
+ * AnswerAdapter answerAdapter = new AnswerAdapter(answerList, context, question) <br>
+ * ExpandableListView listview.setAdapter(answerAdapter)
  * 
  * @author Elvis Lo
  */
@@ -48,9 +54,16 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	private AppCache ac = new AppCache();
 	
 	/**
-	 * ViewHolder for {@link Answer} view elements.
+	 * ViewHolder for {@link Answer} view elements, one way of utilizing is by using 
+	 * {@link android.view.View#setTag(Object tag) setTag(AnswerViewHolder)} on
+	 * a convertView then retrieving the tag by {@link android.view.View#getTag(Object tag) getTag(AnswerViewHolder)}. 
+	 * <br><br>
+	 * Used to prevent unnecessary calls of {@link android.view.View#findViewById(int id)} and allow for smooth scrolling.
 	 * 
 	 * @author Elvis Lo
+	 * 
+	 * @Credit ViewHolder pattern from:
+	 *  http://developer.android.com/training/improving-layouts/smooth-scrolling.html
 	 */
 	static class AnswerViewHolder{
 		//Stores views for an answer
@@ -67,7 +80,11 @@ public class AnswerAdapter extends BaseExpandableListAdapter {
 	}
 	
 	/**
-	 * ViewHolder for {@link Reply} view elements.
+	 * ViewHolder for {@link Reply} view elements, one way of utilizing is by using 
+	 * {@link android.view.View#setTag(Object tag) setTag(ReplyViewHolder)} on
+	 * a convertView then retrieving the tag by {@link android.view.View#getTag(Object tag) getTag(ReplyViewHolder)}. 
+	 * <br><br>
+	 * Used to prevent unnecessary calls of {@link android.view.View#findViewById(int id)} and allow for smooth scrolling.
 	 * 
 	 * @author Elvis Lo
 	 * 

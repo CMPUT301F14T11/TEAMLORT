@@ -5,7 +5,8 @@ import java.util.Date;
 import android.util.Log;
 
 /**
- * Singleton for passing around one {@link Question} and one {@link Profile}.
+ * Singleton for passing around one {@link Question} and one {@link Profile}. 
+ * Get it by calling {@link #getInstance()}.
  * 
  * @author Elvis Lo
  */

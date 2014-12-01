@@ -28,6 +28,10 @@ public class AppCacheTest extends ActivityInstrumentationTestCase2<QuestionViewA
 		assertTrue("appCache did not set question properly", appCache.getQuestion() == question);
 		appCache.setQuestion(question2);
 		assertTrue("appCache did not set question2 properly", appCache.getQuestion() == question2);
+		
+		AppCache appCache2 = AppCache.getInstance();
+		assertTrue("appCache is not a singleton", appCache2.getQuestion() == question2);
+		
 	}
 	
 	public void testGetQuestion(){
@@ -49,6 +53,10 @@ public class AppCacheTest extends ActivityInstrumentationTestCase2<QuestionViewA
 		assertTrue("appCache did not set profile properly", appCache.getProfile() == profile);
 		appCache.setProfile(profile2);
 		assertTrue("appCache did not set profile2 properly", appCache.getProfile() == profile2);
+		
+		AppCache appCache2 = AppCache.getInstance();
+		assertTrue("appCache did not set profile2 properly", appCache2.getProfile() == profile2);
+		
 	}
 	
 	public void testGetProfile(){

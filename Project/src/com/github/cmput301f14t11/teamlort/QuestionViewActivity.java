@@ -4,25 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
-import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
-import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
-import com.github.cmput301f14t11.teamlort.Model.Answer;
-import com.github.cmput301f14t11.teamlort.Model.AppCache;
-import com.github.cmput301f14t11.teamlort.Model.ElasticManager;
-import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
-import com.github.cmput301f14t11.teamlort.Model.Profile;
-import com.github.cmput301f14t11.teamlort.Model.PushQueue;
-import com.github.cmput301f14t11.teamlort.Model.Question;
-import com.github.cmput301f14t11.teamlort.Model.Reply;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +23,15 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.cmput301f14t11.teamlort.Controller.ProfileController;
+import com.github.cmput301f14t11.teamlort.Controller.QuestionController;
+import com.github.cmput301f14t11.teamlort.Model.Answer;
+import com.github.cmput301f14t11.teamlort.Model.AppCache;
+import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
+import com.github.cmput301f14t11.teamlort.Model.PushQueue;
+import com.github.cmput301f14t11.teamlort.Model.Question;
+import com.github.cmput301f14t11.teamlort.Model.Reply;
 
 /**
  * {@link Activity} for viewing a {@link Question} and it's {@link Answer}s and {@link Reply}s, 

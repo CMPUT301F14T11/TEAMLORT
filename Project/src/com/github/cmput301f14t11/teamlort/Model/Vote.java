@@ -8,7 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 /**
  * 
- * @author emmett
+ * @author emmett, Elvis Lo
  * Vote class that pushes vote changes of an answer to
  * cloud. Ex. When a user upvotes a question, that information
  * is sent to elasticSearch. 
@@ -20,6 +20,15 @@ public class Vote {
 	public Vote() {	
 	}
 	
+	/**
+	 * This method checks for if there is connection, and if there is, 
+	 * make a thread ({@link AsyncTask}) to push an upvote or downvote 
+	 * for a question up to server through {@link ElasticManager}.
+	 * 
+	 * @param questionID The ID of the question the answer belongs to
+	 * @param userName
+	 * @param context Usually 'this' is originally passed in from an activity.
+	 */
 	public void voteQuestion(int questionID, String userName, Context context){
 		if(NetworkListener.checkConnection(context)) {
 			username = userName;
@@ -30,6 +39,15 @@ public class Vote {
 		}
 	}
 	
+	/**
+	 * This method checks for if there is connection, and if there is, 
+	 * make a thread ({@link AsyncTask}) to push an upvote or downvote 
+	 * for a answer up to server through {@link ElasticManager}.
+	 * 
+	 * @param questionID The ID of the question the answer belongs to
+	 * @param userName
+	 * @param context Usually 'this' is originally passed in from an activity.
+	 */
 	public void voteAnswer(int questionID, Answer answer, String userName, Context context){
 		if(NetworkListener.checkConnection(context)) {
 			username = userName;
@@ -41,6 +59,13 @@ public class Vote {
 		}
 	}
 	
+	/**
+	 * A thread to upvote or unvote a question.
+	 * <br><br>
+	 * Usage example: new PushQuestionVote().execute(questionID);
+	 * 
+	 * @author Elvis Lo
+	 */
 	private class PushQuestionVote
 	extends AsyncTask<Integer, Void, Void>
 	{	
@@ -62,6 +87,13 @@ public class Vote {
 		}
 	}
 	
+	/**
+	 * A thread to upvote or unvote an answer.
+	 * <br><br>
+	 * Usage example: new PushAnswerVote().execute({@link PushItemAnswer});
+	 * 
+	 * @author Elvis Lo
+	 */
 	private class PushAnswerVote
 	extends AsyncTask<PushItemAnswer, Void, Void>
 	{	

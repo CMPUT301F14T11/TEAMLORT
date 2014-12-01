@@ -86,6 +86,14 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder" />
 
+            <ProgressBar
+                android:id="@+id/compose_progress_bar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:visibility="gone" />
+
             <ImageButton
                 android:id="@+id/compose_add_img_button"
                 android:layout_width="wrap_content"
@@ -131,8 +139,6 @@
         </LinearLayout>
         
     </LinearLayout>
-
-
 
 </RelativeLayout>
 

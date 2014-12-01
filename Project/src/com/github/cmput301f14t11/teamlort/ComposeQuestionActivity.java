@@ -7,6 +7,8 @@ import java.io.IOException;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -22,6 +24,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -60,6 +63,7 @@ extends AppBaseActivity
 	private EditText titleEntry;
 	private EditText detailEntry;
 	
+	private ProgressBar progressBar;
 	private ImageButton addImageButton;
 	private ImageButton acceptButton;
 	private ImageButton cancelButton;
@@ -130,8 +134,15 @@ extends AppBaseActivity
 			if (resultCode == RESULT_OK)
 			{
 				imgView = (ImageView) this.findViewById(R.id.compose_img_preview);
-				pic = Drawable.createFromPath(imageFileUri.getPath());
-				imgView.setImageDrawable(Drawable.createFromPath(imageFileUri.getPath()));
+				Drawable compressMe = Drawable.createFromPath(imageFileUri.getPath());
+				if (compressMe != null)
+					new CompressImageTask().execute(compressMe);
+				else 
+					Toast.makeText(getApplicationContext(), "Oops! Something went wrong with the camera.", Toast.LENGTH_LONG).show();
+			}
+			else
+			{
+				
 			}
 			break;
 			
@@ -172,6 +183,8 @@ extends AppBaseActivity
 		addImageButton = (ImageButton) this.findViewById(R.id.compose_add_img_button);
 		acceptButton   = (ImageButton) this.findViewById(R.id.compose_accept_button);
 		cancelButton   = (ImageButton) this.findViewById(R.id.compose_cancel_button);
+		
+		progressBar = (ProgressBar) this.findViewById(R.id.compose_progress_bar);
 	}
 	
 	/**
@@ -395,5 +408,67 @@ extends AppBaseActivity
 			}
 		
 		imageFileUri = Uri.fromFile(imageFile);
+	}
+	
+	private class CompressImageTask
+	extends AsyncTask<Drawable, Void, Drawable>
+	{
+		ProgressBar proressBar;
+		ImageView imageView;
+		
+		public CompressImageTask()
+		{
+			super();
+			progressBar = (ProgressBar) ComposeQuestionActivity.this.findViewById(R.id.compose_progress_bar);
+			imageView   = (ImageView)   ComposeQuestionActivity.this.findViewById(R.id.compose_img_preview);
+		}
+		
+		@Override
+		protected void onPreExecute()
+		{
+			//proressBar.setVisibility(View.VISIBLE);
+			//imageView.setVisibility(View.GONE);
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected Drawable doInBackground(Drawable... params)
+		{
+			Drawable result = params[0];
+			if (result == null) return null;
+			
+			Bitmap bitmap = ((BitmapDrawable) result).getBitmap();
+			
+			while (bitmap.getByteCount() > 64000)
+			{
+				long resizeHeight = Math.round(bitmap.getHeight() * 0.9);
+				long resizeWidth  = Math.round(bitmap.getWidth()  * 0.9);
+				
+				bitmap = Bitmap.createScaledBitmap(bitmap, (int) resizeWidth, (int) resizeHeight, false);
+			}
+			
+			return (Drawable) new BitmapDrawable(bitmap);
+		}
+		
+		@Override
+		protected void onCancelled(Drawable result)
+		{
+			//progressBar.setVisibility(View.GONE);
+			//imageView.setVisibility(View.VISIBLE);
+			
+			super.onCancelled(result);
+		}
+		
+		@Override
+		protected void onPostExecute(Drawable result)
+		{
+			//progressBar.setVisibility(View.GONE);
+			//imageView.setVisibility(View.VISIBLE);
+			
+			ComposeQuestionActivity.this.imgView.setImageDrawable(result);
+			ComposeQuestionActivity.this.pic = result;
+			
+			super.onPostExecute(result);
+		}
 	}
 }

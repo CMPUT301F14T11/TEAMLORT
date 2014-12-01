@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -84,6 +85,8 @@ extends AppBaseActivity
 		TextView author = (TextView)header.findViewById(R.id.question_author);
 		author.setText("Author: "+question.getAuthor());
 		
+		ImageView questionimage = (ImageView)header.findViewById(R.id.question_image);
+		
 		TextView questionTitleTextView = (TextView) header.findViewById(R.id.UsernameTitleTextView);
 		questionTitleTextView.setText(question.getTitle());
 		TextView questionBodyTextView = (TextView) header.findViewById(R.id.QuestionBodyTextView);
@@ -116,6 +119,9 @@ extends AppBaseActivity
 		upVoteButton.setText(String.valueOf(question.getScore()));
 		replyAdapter = new ReplyAdapter(questionReplyList, this);
 		QuestionReplyListView.setAdapter(replyAdapter);
+		
+		questionimage.setImageDrawable(question.getPicture());
+		
 		
 		//By default the reply listview for question should be collapsed
 		QuestionReplyListView.setVisibility(View.GONE);

@@ -327,13 +327,11 @@ extends AppBaseActivity implements LocationListener
 	protected AlertDialog.Builder buildPicture() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		
-		
-		
 		alert.setTitle("Picture");
 		ImageView imageView = new ImageView(getApplicationContext());
 		imageView.setImageDrawable(question.getPicture());
 		alert.setView(imageView);	
-		alert.setPositiveButton("Got it", new DialogInterface.OnClickListener() 
+		alert.setPositiveButton("Close", new DialogInterface.OnClickListener() 
 		{
 		
 			@Override

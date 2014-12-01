@@ -1,7 +1,6 @@
 package com.github.cmput301f14t11.teamlort.test;
 
 import junit.framework.TestCase;
-import android.location.Location;
 import android.location.LocationManager;
 
 import com.github.cmput301f14t11.teamlort.Model.GpsLocation;
@@ -10,6 +9,10 @@ import com.github.cmput301f14t11.teamlort.Model.Question;
 
 public class LocationTest extends TestCase {
 	
+	/**
+	 * Use Case 24
+	 * Tests whether the location has been attached to posts only if the user specified whether they want their location attached
+	 */
 	public void testAttachLocation(){
 		Profile prof = new Profile();
 		double latitude = 53;
@@ -40,8 +43,12 @@ public class LocationTest extends TestCase {
 		
 
 	}
+
 	
-	
+	/** 
+	 * Use Case 26:
+	 * Tests whether the user can set their location manually
+	 */
 	public void testSetManually() {
 		Profile prof = new Profile();
 		double latitude = 53;
@@ -72,6 +79,14 @@ public class LocationTest extends TestCase {
 		// Check that coordinates are the ones that were set by the user
 		assertTrue("latitudes match", location.getLatitude() != latitude);
 		assertTrue("longitudes match", location.getLongitude() != longitude);
+	}
+	
+	/**
+	 * Use Case 27: 
+	 * Tests if city location is displayed on posts
+	 */
+	public void testDisplayPostLocation() {
+		
 	}
 		
 

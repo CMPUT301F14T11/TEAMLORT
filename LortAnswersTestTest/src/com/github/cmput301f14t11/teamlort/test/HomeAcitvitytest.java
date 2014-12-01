@@ -1,15 +1,16 @@
 package com.github.cmput301f14t11.teamlort.test;
 
+import android.test.ActivityInstrumentationTestCase2;
+
 import com.github.cmput301f14t11.teamlort.HomeActivity;
+
 import com.github.cmput301f14t11.teamlort.ProfileActivity;
 import com.github.cmput301f14t11.teamlort.ReplyAdapter;
+
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;
 import com.github.cmput301f14t11.teamlort.Model.Question;
-import com.github.cmput301f14t11.teamlort.HomeAdapter;
-
-import android.test.ActivityInstrumentationTestCase2;
 
 public class HomeAcitvitytest extends ActivityInstrumentationTestCase2<HomeActivity>{
 
@@ -25,7 +26,12 @@ public class HomeAcitvitytest extends ActivityInstrumentationTestCase2<HomeActiv
 		HomeActivity activity = (HomeActivity) getActivity();
 		ObjectFactory dt = new ObjectFactory();
 		Qlistcontroller qlc = new Qlistcontroller();
-		HomeAdapter adapter = activity.getAdapter(); 
+
+		//HomeAdapter adapter; 
+		//adapter = new HomeAdapter(activity, qlc.getQuestionlist().getModellist());
+
+		//HomeAdapter adapter = activity.getAdapter(); 
+
         for(int i = 0; i<=19; i++)
         {
         	Question t = dt.initQuestion("sam'squestion", "test some more", "sam");

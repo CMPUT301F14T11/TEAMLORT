@@ -44,6 +44,9 @@ public class PushQueue {
 		{
 			new PushQuestions().execute(question);
 			AppCache.getInstance().getProfile().getMyQuestionList().add(question);
+			int score = AppCache.getInstance().getProfile().getuserscore();
+			score+=1;
+			AppCache.getInstance().getProfile().setscore(score);
 		}
 		else{
 			questionList.add(question);

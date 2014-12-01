@@ -34,27 +34,14 @@
             android:layout_toRightOf="@+id/imageButton1"
             android:text="Guest"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/QuestionBodyTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/UsernameTitleTextView"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="@string/profile_stats"
-            android:textColor="@color/light_text"
-            android:textStyle="italic" />
         
         <TextView
             android:id="@+id/QuestionTimeTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/QuestionBodyTextView"
-            android:gravity="center"
+            android:layout_below="@+id/UsernameTitleTextView"
             android:layout_marginTop="@dimen/activity_less_vertical_margin"
+            android:gravity="center"
             android:labelFor="@+id/profileButtonBar"
             android:text="SHOW" />
         

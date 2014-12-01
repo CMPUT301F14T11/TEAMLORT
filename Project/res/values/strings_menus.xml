@@ -24,5 +24,7 @@
     <string name="action_sort_by_score">Sort by Score</string>
     <string name="action_sort_by_pictures">Sort by Pictures</string>
     <string name="action_post_answer">Post Answer</string>
+    <string name="action_set_image">Set Image</string>
+    <string name="action_view_image">View Image</string>
     
 </resources>

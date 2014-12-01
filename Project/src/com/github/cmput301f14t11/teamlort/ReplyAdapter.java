@@ -98,8 +98,7 @@ public class ReplyAdapter extends BaseAdapter {
 		if (reply != null){
 			replyViewHolder.reply1.setText(reply.getBody());
 			replyViewHolder.reply_author.setText(reply.getAuthor());
-			if (attachLocation()) {
-				findLocation();
+			if (reply.getLocation() != null) {
 				replyViewHolder.geolocation.setText(reply.printCoordinates());
 			}
 

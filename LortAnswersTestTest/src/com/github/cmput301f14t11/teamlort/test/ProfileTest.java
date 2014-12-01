@@ -20,7 +20,7 @@ public class ProfileTest extends TestCase {
 	
 	public void testSetUsername(){
 		p.setUsername("A");
-		assertTrue("username is not properly set", p.getUsername()!="A");
+		assertTrue("username is not properly set", p.getUsername()=="A");
 	}
 	
 	public void testIslogin(){

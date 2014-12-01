@@ -25,7 +25,7 @@ public class UseCase4Test extends ActivityInstrumentationTestCase2<ComposeQuesti
 		
 		//Test that user can enter description into question
 		String desc = "I have some feathers halp";
-		assertTrue("Desc not empty by default", question.getBody() == "");
+		assertTrue("Desc not null by default", question.getBody() == null);
 		question.setBody(desc);
 		assertTrue("Description doesn't match desc", question.getBody() == desc);
 		

@@ -12,4 +12,5 @@
     <string name="listitem_answer_reply_count">0 comments</string>
     <string name="location_placeholder">&lt;No location set&gt;</string>
     <string name="upvote_placeholder">0</string>
+    <string name="view_image_button">View Image</string>
 </resources>

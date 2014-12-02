@@ -29,4 +29,14 @@ implements Serializable
 	{
 		latitude = provided;
 	}
+	public int compare(GpsLocation location) {
+		// TODO Auto-generated method stub
+		double lat = this.latitude;
+		double lng = this.longitude;
+		
+		GpsLocation gpsLocation1 = new GpsLocation(lat, lng);
+		
+		lat - location.latitude
+				
+	}
 }

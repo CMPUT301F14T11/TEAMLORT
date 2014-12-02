@@ -3,10 +3,6 @@ package com.github.cmput301f14t11.teamlort.test;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.github.cmput301f14t11.teamlort.HomeActivity;
-
-import com.github.cmput301f14t11.teamlort.ProfileActivity;
-import com.github.cmput301f14t11.teamlort.ReplyAdapter;
-
 import com.github.cmput301f14t11.teamlort.Controller.Qlistcontroller;
 import com.github.cmput301f14t11.teamlort.Model.Answer;
 import com.github.cmput301f14t11.teamlort.Model.ObjectFactory;

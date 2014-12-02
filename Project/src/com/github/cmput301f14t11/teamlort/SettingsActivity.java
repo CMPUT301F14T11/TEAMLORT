@@ -236,9 +236,9 @@ public class SettingsActivity extends AppBaseActivity implements Observer,
 		} else {
 			latitude = Double.parseDouble(edit_latitude.getText().toString());
 			longitude = Double.parseDouble(edit_longitude.getText().toString());
-
-			usrProfile.setLocation(latitude, longitude);
 			usrProfile.locationSetManually(true);
+			usrProfile.setLocation(latitude, longitude);
+			
 			updateLocationString();
 			this.setResult(RESULT_OK);
 

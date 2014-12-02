@@ -91,7 +91,8 @@ public class ElasticManager {
 	public String getaddress(GpsLocation provided)
 	{
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet("http://nominatim.openstreetmap.org/reverse?format=json&lat="+provided.getLatitude()+"&lon="+provided.getLatitude()+"&zoom=18&addressdetails=1");
+		HttpGet httpGet = new HttpGet("http://nominatim.openstreetmap.org/reverse?format=json&lat="+provided.getLatitude()+"&lon="+provided.getLongitude()+"&zoom=18&addressdetails=1");
+		Log.i("string lettaa", "message input: "+"http://nominatim.openstreetmap.org/reverse?format=json&lat="+provided.getLatitude()+"&lon="+provided.getLongitude()+"&zoom=18&addressdetails=1");
 		HttpResponse response;
 		try {
             response = httpClient.execute(httpGet); // Executeit

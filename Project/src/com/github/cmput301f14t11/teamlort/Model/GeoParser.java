@@ -6,16 +6,15 @@ public class GeoParser
 {
 	public static String parseGeoString(String s)
 	{
-		String[] tokens = s.split(",");
-		for (String token : tokens)
+		String[] tokens = s.split(":");
+		for (int i = 0; i < tokens.length; i++)
 		{
-			if(token.contains("city"))
+			if(tokens[i].contains("display_name"))
 			{
-				String[] kvPair = token.split(":");
-				return "city"+kvPair[2];
+				return tokens[i+1].replace("address", "");
 			}
 			
-			Log.i("parser",token);
+			Log.i("parser",tokens[i]);
 			
 			
 		}
